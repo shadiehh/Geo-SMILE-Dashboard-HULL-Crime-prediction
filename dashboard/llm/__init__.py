@@ -1,4 +1,5 @@
-from dashboard.llm.base import LLMResponse
-from dashboard.llm.prompt import SYSTEM_PROMPT_VERSION
+"""LLM helpers. Keep this package init empty to avoid import cycles.
 
-__all__ = ["LLMResponse", "SYSTEM_PROMPT_VERSION"]
+Streamlit puts `dashboard/` on sys.path, so `llm` can resolve to this
+folder. Do not import prompt modules here.
+"""

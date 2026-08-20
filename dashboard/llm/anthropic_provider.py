@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 
 from dashboard.llm.base import LLMResponse
 from dashboard.llm.evidence_builder import user_payload
-from dashboard.llm.prompt import SYSTEM_PROMPT_VERSION
+from dashboard.llm.prompt import GEOSMILE_SYSTEM_PROMPT, SYSTEM_PROMPT_VERSION
 
 DEFAULT_ANTHROPIC_MODEL = "claude-sonnet-4-5"
 
@@ -15,7 +15,8 @@ DEFAULT_ANTHROPIC_MODEL = "claude-sonnet-4-5"
 def _secret(name: str) -> str | None:
     value = os.getenv(name)
     if value:
-        return value
+        cleaned = value.strip().strip('"').strip("'")
+        return cleaned or None
     try:
         import streamlit as st
 
@@ -40,6 +41,7 @@ class AnthropicProvider:
         stakeholder: dict,
         user_question: str | None = None,
     ) -> LLMResponse:
+        system_prompt = GEOSMILE_SYSTEM_PROMPT
         key = _secret("ANTHROPIC_API_KEY")
         stamp = datetime.now(timezone.utc).isoformat()
         if not key:

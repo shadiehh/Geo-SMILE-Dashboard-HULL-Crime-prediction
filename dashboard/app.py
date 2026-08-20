@@ -19,7 +19,7 @@ if str(ROOT) not in sys.path:
 try:
     from dotenv import load_dotenv
 
-    load_dotenv(ROOT / ".env")
+    load_dotenv(ROOT / ".env", override=True)
 except ImportError:
     pass
 
@@ -28,7 +28,11 @@ import streamlit as st
 from dashboard.data.loader import load_hull_bundle
 from dashboard.data.schema import LSOA_ID, LSOA_NAME, MAP_VIEWS, PROVIDERS
 from dashboard.views.explanation_panel import render_explanation_panel, stakeholder_selector
-from dashboard.views.feature_panel import render_feature_panel, render_global_features
+from dashboard.views.feature_panel import (
+    render_evaluation,
+    render_feature_panel,
+    render_global_features,
+)
 from dashboard.views.maps import render_map
 
 st.set_page_config(
@@ -132,6 +136,7 @@ LSOA's Feature SMILE explanation. Rank is not the same as strength.
     with evidence:
         render_feature_panel(bundle, st.session_state.selected_lsoa)
         render_global_features(bundle)
+        render_evaluation(bundle)
 
     st.divider()
     render_explanation_panel(

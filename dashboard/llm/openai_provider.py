@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 
 from dashboard.llm.base import LLMResponse
 from dashboard.llm.evidence_builder import user_payload
-from dashboard.llm.prompt import SYSTEM_PROMPT_VERSION
+from dashboard.llm.prompt import GEOSMILE_SYSTEM_PROMPT, SYSTEM_PROMPT_VERSION
 
 DEFAULT_OPENAI_MODEL = "gpt-4.1-mini"
 
@@ -16,7 +16,8 @@ DEFAULT_OPENAI_MODEL = "gpt-4.1-mini"
 def _secret(name: str) -> str | None:
     value = os.getenv(name)
     if value:
-        return value
+        cleaned = value.strip().strip('"').strip("'")
+        return cleaned or None
     try:
         import streamlit as st
 
@@ -41,6 +42,7 @@ class OpenAIProvider:
         stakeholder: dict,
         user_question: str | None = None,
     ) -> LLMResponse:
+        system_prompt = GEOSMILE_SYSTEM_PROMPT
         key = _secret("OPENAI_API_KEY")
         stamp = datetime.now(timezone.utc).isoformat()
         if not key:
@@ -130,6 +132,12 @@ def _public_error(exc: Exception) -> str:
     name = type(exc).__name__
     message = str(exc)
     lowered = message.lower()
+    if "invalid_api_key" in lowered or "incorrect api key" in lowered:
+        return (
+            "OpenAI rejected this API key (401 invalid_api_key). "
+            "Create a new key at https://platform.openai.com/api-keys "
+            "and put it in .env as OPENAI_API_KEY."
+        )
     if "api key" in lowered or "authentication" in lowered or "unauthorized" in lowered:
         return "The OpenAI API key was rejected. Check OPENAI_API_KEY."
     if "rate" in lowered:

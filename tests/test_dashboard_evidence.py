@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import pytest
+
 from dashboard.data.loader import load_hull_bundle
 from dashboard.llm.evidence_builder import build_evidence
 
@@ -56,3 +58,8 @@ def test_overall_scope_has_no_selected_lsoa():
     assert "selected_lsoa" not in evidence
     assert evidence["global_spatial_pattern"]["pattern_scale"] == "not established"
     assert evidence["global_geo"]["n_lsoas"] == 168
+    consist = evidence["evaluation"]["consistency"]
+    assert consist["feature"]["top20pct_jaccard_mean"] == pytest.approx(0.8285714285714286)
+    assert consist["geo"]["rank_spearman_mean"] == pytest.approx(0.7431279452928463)
+    assert "Not controlled-input ATT stability" in consist["definition"]
+    assert "consistency" in evidence["evaluation"]

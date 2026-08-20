@@ -16,11 +16,13 @@ from dashboard.data.schema import (
     ATT_STABILITY_JSON,
     BOUNDARIES_GEOJSON,
     EVAL_V3_JSON,
+    FEATURE_CONSISTENCY_CSV,
     FEATURE_GLOBAL_PUBLISHED_CSV,
     FEATURE_GLOBAL_WITH_LOCATION_CSV,
     FEATURE_LOCAL_PUBLISHED_CSV,
     FEATURE_LOCAL_WITH_LOCATION_CSV,
     GEO_ABS,
+    GEO_CONSISTENCY_CSV,
     GEO_CSV,
     GEO_SIGNED,
     GEO_TERTILE,
@@ -243,6 +245,8 @@ def load_hull_bundle(root: Path | None = None) -> HullBundle:
         "local_top_features": str(FEATURE_LOCAL_WITH_LOCATION_CSV),
         "spatial_clustering": str(LISA_CSV),
         "boundaries": str(BOUNDARIES_GEOJSON),
+        "feature_consistency": str(FEATURE_CONSISTENCY_CSV),
+        "geo_consistency": str(GEO_CONSISTENCY_CSV),
     }
 
     evaluation = {
@@ -255,6 +259,10 @@ def load_hull_bundle(root: Path | None = None) -> HullBundle:
         "twobranch": json.loads((root / TWOBRANCH_SUMMARY_JSON).read_text(encoding="utf-8"))
         if (root / TWOBRANCH_SUMMARY_JSON).exists()
         else {},
+        "consistency": {
+            "feature": _consistency_from_csv(root / FEATURE_CONSISTENCY_CSV),
+            "geo": _consistency_from_csv(root / GEO_CONSISTENCY_CSV),
+        },
     }
 
     feature_names = [
@@ -278,6 +286,30 @@ def load_hull_bundle(root: Path | None = None) -> HullBundle:
     )
 
 
+def _consistency_from_csv(path: Path) -> dict:
+    """Parse the one-row published multi-run consistency table."""
+    if not path.exists():
+        return {}
+    row = pd.read_csv(path).iloc[0].to_dict()
+    keys = {
+        "Rank Spearman Mean": "rank_spearman_mean",
+        "Rank Spearman Std": "rank_spearman_std",
+        "Score Pearson Mean": "score_pearson_mean",
+        "Score Pearson Std": "score_pearson_std",
+        "Top-20% Jaccard Mean": "top20pct_jaccard_mean",
+        "Top-20% Jaccard Std": "top20pct_jaccard_std",
+        "Fidelity R2 Mean": "fidelity_r2_mean",
+        "Fidelity R2 Std": "fidelity_r2_std",
+    }
+    out = {}
+    for raw, name in keys.items():
+        if raw in row and pd.notna(row[raw]):
+            out[name] = _json_safe(row[raw])
+    if "branch" in row and pd.notna(row["branch"]):
+        out["branch"] = str(row["branch"])
+    return out
+
+
 def compact_evaluation(evaluation: dict) -> dict:
     v3 = evaluation.get("v3") or {}
     att = evaluation.get("att_stability") or {}
@@ -293,7 +325,24 @@ def compact_evaluation(evaluation: dict) -> dict:
         "att_stability_feature_jaccard": 1.0 if att.get("status") == "Evaluated" else None,
         "att_stability_geo_jaccard": 1.0 if att.get("status") == "Evaluated" else None,
         "att_stability_status": att.get("status"),
+        "att_stability_note": (
+            "Controlled-input ATT stability. Distinct from multi-run Consistency."
+        ),
     }
+    consist = evaluation.get("consistency") or {}
+    feat_c = consist.get("feature") or {}
+    geo_c = consist.get("geo") or {}
+    if feat_c or geo_c:
+        out["consistency"] = {
+            "definition": (
+                "Multi-run explanation consistency across seeds "
+                "(consistency_seed_base=100). Pairwise Rank Spearman, "
+                "Score Pearson, and Top-20% Jaccard of |coefficients|. "
+                "Not controlled-input ATT stability."
+            ),
+            "feature": feat_c or None,
+            "geo": geo_c or None,
+        }
     faith = v3.get("model_based_attribution_faithfulness") or {}
     if faith.get("feature"):
         out["feature_faithfulness_top_minus_random"] = _json_safe(

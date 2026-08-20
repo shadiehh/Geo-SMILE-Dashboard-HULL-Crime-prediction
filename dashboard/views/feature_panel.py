@@ -6,7 +6,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from dashboard.data.loader import HullBundle, magnitude_class, top_features_for_lsoa
+from dashboard.data.loader import HullBundle, compact_evaluation, magnitude_class, top_features_for_lsoa
 from dashboard.data.schema import LISA_LABELS, LSOA_ID, LSOA_NAME, human_label
 
 
@@ -123,4 +123,38 @@ def render_global_features(bundle: HullBundle) -> None:
             ),
             hide_index=True,
             use_container_width=True,
+        )
+
+
+def render_evaluation(bundle: HullBundle) -> None:
+    ev = compact_evaluation(bundle.evaluation)
+    consist = ev.get("consistency") or {}
+    with st.expander("Explanation evaluation (includes Consistency)"):
+        st.caption(
+            "Published GeoSMILE evaluation. Consistency is multi-run seed "
+            "agreement. ATT stability is a separate controlled-input test. "
+            "Not causal."
+        )
+        feat = consist.get("feature") or {}
+        geo = consist.get("geo") or {}
+        st.markdown("**Consistency** (multi-run, seed base 100)")
+        st.markdown(
+            f"""
+| Branch | Rank Spearman | Score Pearson | Top-20% Jaccard | Fidelity R² |
+|---|---:|---:|---:|---:|
+| Feature | {_fmt(feat.get('rank_spearman_mean'))} ± {_fmt(feat.get('rank_spearman_std'))} | {_fmt(feat.get('score_pearson_mean'))} | {_fmt(feat.get('top20pct_jaccard_mean'))} | {_fmt(feat.get('fidelity_r2_mean'))} |
+| Geo | {_fmt(geo.get('rank_spearman_mean'))} ± {_fmt(geo.get('rank_spearman_std'))} | {_fmt(geo.get('score_pearson_mean'))} | {_fmt(geo.get('top20pct_jaccard_mean'))} | {_fmt(geo.get('fidelity_r2_mean'))} |
+"""
+        )
+        st.markdown("**ATT stability** (controlled input; not Consistency)")
+        st.markdown(
+            f"Feature Jaccard `{_fmt(ev.get('att_stability_feature_jaccard'), 3)}` · "
+            f"Geo Jaccard `{_fmt(ev.get('att_stability_geo_jaccard'), 3)}`"
+        )
+        st.markdown("**Faithfulness** (top minus random)")
+        st.markdown(
+            f"Feature `{_fmt(ev.get('feature_faithfulness_top_minus_random'))}` "
+            f"(p `{_fmt(ev.get('feature_faithfulness_empirical_p'), 3)}`) · "
+            f"Geo `{_fmt(ev.get('geo_faithfulness_top_minus_random'))}` "
+            f"(p `{_fmt(ev.get('geo_faithfulness_empirical_p'), 3)}`)"
         )

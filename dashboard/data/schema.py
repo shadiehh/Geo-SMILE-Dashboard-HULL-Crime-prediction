@@ -48,6 +48,8 @@ AREA_FIELD = "lsoa_area_km2"
 EVAL_V3_JSON = "outputs/geosmile_hull_evaluation_summary_v3.json"
 ATT_STABILITY_JSON = "outputs/geosmile_hull_att_stability.json"
 TWOBRANCH_SUMMARY_JSON = "outputs/run_summary_twobranch.json"
+FEATURE_CONSISTENCY_CSV = "outputs/geosmile_hull_feat_consistency.csv"
+GEO_CONSISTENCY_CSV = "outputs/geosmile_hull_geo_consistency.csv"
 
 LOCATION_TOKENS = (
     "coord",

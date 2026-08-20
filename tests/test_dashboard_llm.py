@@ -5,24 +5,32 @@ from __future__ import annotations
 import os
 from unittest.mock import MagicMock, patch
 
+from dashboard.data.loader import load_hull_bundle
 from dashboard.llm.anthropic_provider import AnthropicProvider
 from dashboard.llm.base import LLMResponse
 from dashboard.llm.evidence_builder import build_evidence, user_payload
 from dashboard.llm.openai_provider import OpenAIProvider
 from dashboard.llm.prompt import GEOSMILE_SYSTEM_PROMPT, SYSTEM_PROMPT_VERSION, assert_prompt_semantics
-from dashboard.data.loader import load_hull_bundle
 
 
 def test_prompt_forbids_semantic_collapses():
     assert_prompt_semantics()
-    text = GEOSMILE_SYSTEM_PROMPT.lower()
-    assert "geosensitivity" in text
-    assert "latitude feature effect" in text
-    assert "longitude feature effect" in text
-    assert "attribution is not causation" in text
-    assert "clustering is not effect magnitude" in text
-    assert "rank is not magnitude" in text
+    text = GEOSMILE_SYSTEM_PROMPT
+    assert text.startswith("# GEOSMILE EXPLAIN — SYSTEM POLICY")
+    assert "## 1. ROLE" in text
+    assert "## 4. INPUT / EVIDENCE CONTRACT" in text
+    assert "## 8. SPATIAL-PATTERN SEMANTICS" in text
+    assert "Global Moran versus Local Moran" in text
     assert SYSTEM_PROMPT_VERSION == "geosmile-hull-v1"
+
+
+def test_openai_and_anthropic_share_identical_master_prompt():
+    from dashboard.llm.openai_provider import GEOSMILE_SYSTEM_PROMPT as openai_prompt
+    from dashboard.llm.anthropic_provider import GEOSMILE_SYSTEM_PROMPT as anthropic_prompt
+
+    assert openai_prompt is GEOSMILE_SYSTEM_PROMPT
+    assert anthropic_prompt is GEOSMILE_SYSTEM_PROMPT
+    assert openai_prompt == anthropic_prompt
 
 
 def test_missing_openai_key_does_not_crash(monkeypatch):
