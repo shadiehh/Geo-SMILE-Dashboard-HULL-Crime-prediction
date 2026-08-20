@@ -1,0 +1,172 @@
+{
+  "design": "two_branch_geosmile",
+  "rows": 4704,
+  "lsoas": 168,
+  "usable_predictor_months": [
+    "2024-01-01",
+    "2026-04-01"
+  ],
+  "test_period": [
+    "2026-01-01",
+    "2026-04-01"
+  ],
+  "target": "target_next_month_crime",
+  "feature_players": [
+    "crime_lag_1",
+    "crime_lag_2",
+    "crime_lag_3",
+    "crime_rolling_mean_3",
+    "crime_rolling_mean_6",
+    "month_sin",
+    "month_cos",
+    "population_density_per_km2",
+    "young_adult_15_34_pct",
+    "older_adult_65_plus_pct",
+    "social_rented_pct",
+    "private_rented_pct",
+    "owner_occupied_pct",
+    "unemployed_pct_age16plus",
+    "economically_inactive_pct",
+    "long_term_sick_disabled_pct",
+    "no_qualifications_pct",
+    "level4_plus_qualification_pct",
+    "lsoa_area_km2",
+    "nightlife_count",
+    "nightlife_per_km2",
+    "retail_count",
+    "retail_per_km2",
+    "transit_stop_count",
+    "transit_stop_per_km2",
+    "road_length_km",
+    "road_length_km_per_km2",
+    "intersection_count",
+    "intersection_per_km2",
+    "green_space_pct"
+  ],
+  "feature_players_exclude_coordinates": true,
+  "spatial_columns": [
+    "centroid_easting",
+    "centroid_northing"
+  ],
+  "covariates_file": "D:\\GEO SMILE CODE\\hull\\data\\hull_static_covariates.csv",
+  "model_metrics": {
+    "feature": {
+      "mae": 4.825808855394523,
+      "rmse": 6.890812256907791,
+      "r2": 0.8956733279339549
+    },
+    "geo": {
+      "mae": 5.510922834986732,
+      "rmse": 7.537649303622581,
+      "r2": 0.875167871949448
+    }
+  },
+  "feature_surrogate": {
+    "best_kernel": "inverse",
+    "validation_r2_by_kernel": {
+      "rbf": 0.9828687291074255,
+      "laplace": 0.9827627323312389,
+      "inverse": 0.9828741686001213
+    },
+    "test_r2": 0.981550313471013,
+    "n_unique_masks": 1024,
+    "response": "wasserstein_1_prediction_distribution",
+    "kernel_distance": "hamming_fraction_features_masked"
+  },
+  "geo_surrogate": {
+    "method": "per_lsoa_location_masking_no_kmeans",
+    "n_spatial_units": 168,
+    "n_perturbations": 2000,
+    "min_lsoas_per_perturbation": 5,
+    "max_lsoas_per_perturbation": 10,
+    "best_kernel": "rbf",
+    "validation_r2_by_kernel": {
+      "rbf": 0.9335751723018563,
+      "laplace": 0.9302593221309154,
+      "inverse": 0.9297018328547269
+    },
+    "test_r2": 0.8958755808474081,
+    "response": "wasserstein_1_on_affected_lsoa_month_predictions",
+    "kernel_distance": "fraction_of_lsoas_masked",
+    "perturbation": "replace easting/northing of selected LSOAs with training median"
+  },
+  "map_manifest": {
+    "geo_signed": [
+      "signed/geo_coefficient_signed.png"
+    ],
+    "geo_abs": [
+      "absolute/geo_coefficient_abs.png"
+    ],
+    "feature_signed": [
+      "signed/feature_crime_lag_1_signed.png",
+      "signed/feature_crime_lag_2_signed.png",
+      "signed/feature_crime_lag_3_signed.png",
+      "signed/feature_crime_rolling_mean_3_signed.png",
+      "signed/feature_crime_rolling_mean_6_signed.png",
+      "signed/feature_month_sin_signed.png",
+      "signed/feature_month_cos_signed.png",
+      "signed/feature_population_density_per_km2_signed.png",
+      "signed/feature_young_adult_15_34_pct_signed.png",
+      "signed/feature_older_adult_65_plus_pct_signed.png",
+      "signed/feature_social_rented_pct_signed.png",
+      "signed/feature_private_rented_pct_signed.png",
+      "signed/feature_owner_occupied_pct_signed.png",
+      "signed/feature_unemployed_pct_age16plus_signed.png",
+      "signed/feature_economically_inactive_pct_signed.png",
+      "signed/feature_long_term_sick_disabled_pct_signed.png",
+      "signed/feature_no_qualifications_pct_signed.png",
+      "signed/feature_level4_plus_qualification_pct_signed.png",
+      "signed/feature_lsoa_area_km2_signed.png",
+      "signed/feature_nightlife_count_signed.png",
+      "signed/feature_nightlife_per_km2_signed.png",
+      "signed/feature_retail_count_signed.png",
+      "signed/feature_retail_per_km2_signed.png",
+      "signed/feature_transit_stop_count_signed.png",
+      "signed/feature_transit_stop_per_km2_signed.png",
+      "signed/feature_road_length_km_signed.png",
+      "signed/feature_road_length_km_per_km2_signed.png",
+      "signed/feature_intersection_count_signed.png",
+      "signed/feature_intersection_per_km2_signed.png",
+      "signed/feature_green_space_pct_signed.png"
+    ],
+    "feature_abs": [
+      "absolute/feature_crime_lag_1_abs.png",
+      "absolute/feature_crime_lag_2_abs.png",
+      "absolute/feature_crime_lag_3_abs.png",
+      "absolute/feature_crime_rolling_mean_3_abs.png",
+      "absolute/feature_crime_rolling_mean_6_abs.png",
+      "absolute/feature_month_sin_abs.png",
+      "absolute/feature_month_cos_abs.png",
+      "absolute/feature_population_density_per_km2_abs.png",
+      "absolute/feature_young_adult_15_34_pct_abs.png",
+      "absolute/feature_older_adult_65_plus_pct_abs.png",
+      "absolute/feature_social_rented_pct_abs.png",
+      "absolute/feature_private_rented_pct_abs.png",
+      "absolute/feature_owner_occupied_pct_abs.png",
+      "absolute/feature_unemployed_pct_age16plus_abs.png",
+      "absolute/feature_economically_inactive_pct_abs.png",
+      "absolute/feature_long_term_sick_disabled_pct_abs.png",
+      "absolute/feature_no_qualifications_pct_abs.png",
+      "absolute/feature_level4_plus_qualification_pct_abs.png",
+      "absolute/feature_lsoa_area_km2_abs.png",
+      "absolute/feature_nightlife_count_abs.png",
+      "absolute/feature_nightlife_per_km2_abs.png",
+      "absolute/feature_retail_count_abs.png",
+      "absolute/feature_retail_per_km2_abs.png",
+      "absolute/feature_transit_stop_count_abs.png",
+      "absolute/feature_transit_stop_per_km2_abs.png",
+      "absolute/feature_road_length_km_abs.png",
+      "absolute/feature_road_length_km_per_km2_abs.png",
+      "absolute/feature_intersection_count_abs.png",
+      "absolute/feature_intersection_per_km2_abs.png",
+      "absolute/feature_green_space_pct_abs.png"
+    ]
+  },
+  "boundary_source": "cached_official",
+  "notes": [
+    "Feature branch contains no coordinates/location variables.",
+    "Feature maps show local SMILE Ridge coefficients averaged to LSOA.",
+    "Geo maps show per-LSOA SMILE coefficients from location masking.",
+    "Wasserstein-1 is the surrogate response; kernel distance is Hamming/mask fraction."
+  ]
+}

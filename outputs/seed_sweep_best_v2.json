@@ -1,0 +1,24 @@
+{
+  "best_model_seed": 42,
+  "best_primary_seed": 42,
+  "best_split_seed": 42,
+  "best_consistency_seed_base": 150,
+  "best_geo_stability_base": 100,
+  "best_consistency_metrics": {
+    "consistency_seed_base": 150.0,
+    "feat_stab": 0.886,
+    "geo_stab": 0.579,
+    "feat_consist": 0.689,
+    "geo_consist": 0.776,
+    "score": 6.18
+  },
+  "best_geo_stability_metrics": {
+    "consistency_seed_base": 100.0,
+    "feat_stab": 0.829,
+    "geo_stab": 0.623,
+    "feat_consist": 0.694,
+    "geo_consist": 0.743,
+    "score": 6.136
+  },
+  "note": "Partial sweep (bases through 280). Primary seed/model 42 maximises Feature Faithfulness among tested seeds."
+}

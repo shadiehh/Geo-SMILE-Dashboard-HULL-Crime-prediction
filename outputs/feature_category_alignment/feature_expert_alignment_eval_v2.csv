@@ -1,0 +1,7 @@
+branch,level,metric,value,notes
+Feature (location excluded),feature,Top-10 overlap,7.0,"both=['crime_lag_1', 'crime_lag_2', 'crime_rolling_mean_3', 'crime_rolling_mean_6', 'owner_occupied_pct', 'social_rented_pct', 'unemployed_pct_age16plus']"
+Feature (location excluded),feature,Top-10 overlap ratio,0.7,overlap/10
+Feature (location excluded),feature,Spearman rho (ranks),0.45850945494994433,p=0.01083
+Feature (location excluded),feature,Kendall tau-b,0.3195402298850575,p=0.0129
+Feature (location excluded),category,Spearman rho (ranks),0.9642857142857145,p=0.0004541
+Feature (location excluded),category,Top-3 category overlap,3.0,"both=['Built environment / activity', 'Crime / temporal', 'Economic / labour & tenure']"

@@ -1,0 +1,8 @@
+feature_group,expert_category_rank,geosmile_category_rank,n_features,geosmile_mass_share,geosmile_abs_mass,expert_mean_feature_rank,expert_median_feature_rank,n_expert_top10,n_geosmile_top10,features
+Economic / labour & tenure,1,2,6,0.1361284632333209,1.2784248089773165,9.5,8.5,4,4,"unemployed_pct_age16plus, economically_inactive_pct, social_rented_pct, owner_occupied_pct, private_rented_pct, long_term_sick_disabled_pct"
+Crime / temporal,2,1,7,0.7399862842483479,6.949441737725179,10.571428571428571,8.0,4,4,"crime_lag_1, crime_rolling_mean_3, crime_lag_2, crime_rolling_mean_6, crime_lag_3, month_sin, month_cos"
+Built environment / activity,3,3,8,0.0539757635551834,0.5069032116682981,16.875,17.5,2,0,"nightlife_per_km2, retail_per_km2, nightlife_count, intersection_per_km2, retail_count, road_length_km_per_km2, intersection_count, road_length_km"
+Social / demographic,4,4,5,0.0399201362571581,0.3749024366890356,18.4,17.0,0,1,"young_adult_15_34_pct, population_density_per_km2, no_qualifications_pct, older_adult_65_plus_pct, level4_plus_qualification_pct"
+Transport / accessibility,5,5,2,0.0186320528485936,0.1749794131076928,24.0,24.0,0,1,"transit_stop_per_km2, transit_stop_count"
+Environmental,6,6,1,0.0077707442598421,0.0729774803155834,29.0,29.0,0,0,green_space_pct
+Structural/control,7,7,1,0.0035865555975536,0.0336824610061908,30.0,30.0,0,0,lsoa_area_km2

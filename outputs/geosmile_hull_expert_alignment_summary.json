@@ -1,0 +1,1960 @@
+{
+  "schema_version": "3.0.0",
+  "annotation_filename": "hull_expert_top20.xlsx",
+  "annotation_status": "expert_reference",
+  "expert_display_note": "Expert reference.",
+  "active_branches": [
+    "Feature (location excluded)",
+    "Geo"
+  ],
+  "expert_topk_definition": {
+    "rule": "fixed_expert_important_sets",
+    "feature_n": 30,
+    "feature_k": 10,
+    "geo_n": 168,
+    "geo_k": 20,
+    "map_geo_k": 20,
+    "geo_selection": "expert_top20_reference",
+    "primary_binary": "expert_top10_reference",
+    "not_used_as_primary": "rating >= 4",
+    "note": "Expert top sets: Feature top-10 of 30, Geo top-20 of 168."
+  },
+  "generation_timestamp": "2026-08-06T20:22:10.296361+00:00",
+  "random_seed": 42,
+  "bootstrap_repetitions": 500,
+  "permutation_repetitions": 500,
+  "limitations": [
+    "The expert reference is a provisional AI-assisted, evidence-based annotation and does not represent formal multi-expert consensus.",
+    "Labels are not objective ground truth and do not establish causality.",
+    "Absolute attribution magnitudes are used; coefficient sign is not interpreted as crime increase/decrease.",
+    "Expert-reference attribution accuracy is not model faithfulness.",
+    "Feature multicollinearity (lags/rolling means) can inflate or dilute individual feature attributions.",
+    "Geo spatial dependence means ordinary LSOA bootstrap intervals are exploratory."
+  ],
+  "warnings": [],
+  "branches": [
+    {
+      "branch": "Feature (location excluded)",
+      "evaluation_scope": "complete_30_feature",
+      "attribution_source": "feature_global_importance.csv",
+      "coverage": {
+        "id_name": "feature",
+        "n_attribution_rows": 30,
+        "n_annotation_rows": 30,
+        "n_matched": 30,
+        "n_unmatched_attribution": 0,
+        "n_unmatched_annotation": 0,
+        "unmatched_attribution_ids": [],
+        "unmatched_annotation_ids": [],
+        "duplicate_attribution_ids": [],
+        "duplicate_annotation_ids": [],
+        "coverage_pct": 100.0
+      },
+      "primary_metrics": {
+        "primary_att": {
+          "att": {
+            "ATT accuracy": 0.8,
+            "ATT precision": 0.5,
+            "ATT recall": 0.5,
+            "ATT F1": 0.5,
+            "ATT AUROC": 0.7986111111111112,
+            "ATT AUPRC": 0.611111111111111,
+            "balanced accuracy": 0.6875,
+            "MCC": 0.375,
+            "tp": 3,
+            "tn": 21,
+            "fp": 3,
+            "fn": 3,
+            "null_reason": null,
+            "mcc_note": null,
+            "n": 30,
+            "k_true": 6,
+            "k_pred": 6
+          },
+          "overlap": {
+            "intersection": 3,
+            "Precision@k": 0.5,
+            "Recall@k": 0.5,
+            "F1@k": 0.5,
+            "Jaccard@k": 0.3333333333333333,
+            "Precision@10%": 0.5,
+            "Recall@10%": 0.5,
+            "F1@10%": 0.5,
+            "Jaccard@10%": 0.3333333333333333,
+            "overlap coefficient": 0.5,
+            "lift": 2.5,
+            "k_expert": 6,
+            "k_geosmile": 6,
+            "n": 30,
+            "equal_size": 1
+          },
+          "expert_ids": [
+            "crime_lag_1",
+            "crime_lag_2",
+            "crime_rolling_mean_3",
+            "crime_rolling_mean_6",
+            "nightlife_count",
+            "nightlife_per_km2"
+          ],
+          "model_ids": [
+            "crime_lag_2",
+            "crime_rolling_mean_3",
+            "crime_rolling_mean_6",
+            "long_term_sick_disabled_pct",
+            "owner_occupied_pct",
+            "unemployed_pct_age16plus"
+          ]
+        },
+        "ordinal_rank_alignment": {
+          "spearman": {
+            "rho": 0.4527675882926464,
+            "p_value": 0.011992068620597993,
+            "ci95_low": 0.08676287146136165,
+            "ci95_high": 0.6892835933336081,
+            "n": 30,
+            "n_valid_bootstrap": 500,
+            "primary_uncertainty": "ordinary_unit_bootstrap"
+          },
+          "kendall_tau_b": {
+            "tau_b": 0.3494559029274404,
+            "p_value": 0.013862209308968046,
+            "ci95_low": 0.10224754009660218,
+            "ci95_high": 0.5877194555537653,
+            "n": 30,
+            "n_valid_bootstrap": 500
+          }
+        },
+        "graded_ranking_quality": {
+          "ndcg_at_10pct": 0.8748590063939317,
+          "ndcg_at_20pct": 0.7213969358283157,
+          "ndcg_at_k_positive": 0.8196520808625665,
+          "ndcg_full": 0.91090535591208,
+          "k_10pct": 3,
+          "k_20pct": 6,
+          "k_positive": 16,
+          "ndcg_at_20pct_bootstrap": {
+            "ndcg_at_20pct": 0.7213969358283157,
+            "ci95_low": 0.4109512714418129,
+            "ci95_high": 0.9546308291549227,
+            "k_20pct": 6,
+            "n_valid_bootstrap": 500
+          }
+        },
+        "binary_discrimination": {
+          "auroc": 0.7986111111111112,
+          "auprc": 0.611111111111111,
+          "prevalence_expert_positive": 0.2,
+          "null_reason": null,
+          "auroc_ci95_low": 0.5910527777777778,
+          "auroc_ci95_high": 0.9642857142857143,
+          "auprc_ci95_low": 0.2128092903828198,
+          "auprc_ci95_high": 0.8827083333333333,
+          "n_valid_bootstrap": 499
+        },
+        "top_ranking_agreement": {
+          "top_10pct": {
+            "k": 3,
+            "precision_at_k": 0.6666666666666666,
+            "recall_at_k": 0.3333333333333333,
+            "f1_at_k": 0.4444444444444444,
+            "jaccard_top_vs_expert_positive": 0.2857142857142857,
+            "lift_over_prevalence": 3.333333333333333,
+            "tie_handling": "magnitude_desc_then_id_asc"
+          },
+          "top_20pct": {
+            "k": 6,
+            "precision_at_k": 0.5,
+            "recall_at_k": 0.5,
+            "f1_at_k": 0.5,
+            "jaccard_top_vs_expert_positive": 0.3333333333333333,
+            "lift_over_prevalence": 2.5,
+            "tie_handling": "magnitude_desc_then_id_asc"
+          }
+        },
+        "attribution_distribution_by_expert_rating": {
+          "by_rating": [
+            {
+              "rating": 1,
+              "count": 0,
+              "mean_magnitude": null,
+              "median_magnitude": null,
+              "iqr": null
+            },
+            {
+              "rating": 2,
+              "count": 4,
+              "mean_magnitude": 0.035563087961185444,
+              "median_magnitude": 0.0281114153684233,
+              "iqr": 0.023337928337469154
+            },
+            {
+              "rating": 3,
+              "count": 10,
+              "mean_magnitude": 0.11187429709602245,
+              "median_magnitude": 0.08388526179510555,
+              "iqr": 0.03721081121886957
+            },
+            {
+              "rating": 4,
+              "count": 8,
+              "mean_magnitude": 0.11799778594210704,
+              "median_magnitude": 0.0874897065538464,
+              "iqr": 0.09276163240593667
+            },
+            {
+              "rating": 5,
+              "count": 8,
+              "mean_magnitude": 0.8982917423934341,
+              "median_magnitude": 0.10621151785735175,
+              "iqr": 0.40088885685777315
+            }
+          ],
+          "kruskal_wallis": {
+            "statistic": 8.063225806451612,
+            "p_value": 0.04472293234205379,
+            "n_groups": 4
+          },
+          "label": "distributional_diagnostic_not_ranking_metric"
+        },
+        "permutation_null": {
+          "observed_spearman": 0.4527675882926464,
+          "observed_kendall_tau_b": 0.3494559029274404,
+          "spearman_null_mean": -0.04297218106390595,
+          "kendall_null_mean": -0.03296534017615521,
+          "spearman_permutation_p": 0.01996007984031936,
+          "kendall_permutation_p": 0.021956087824351298,
+          "n_permutations": 500,
+          "n_valid_spearman": 500,
+          "n_valid_kendall": 500
+        },
+        "spatial_uncertainty": null,
+        "n": 30,
+        "tie_handling": "magnitude_desc_then_id_asc",
+        "primary_binary_definition": "expert_top10_reference"
+      },
+      "sensitivity_analyses": [
+        {
+          "confidence_subset": "all",
+          "n": 30,
+          "reference_variant": "external_crime_informed_reference",
+          "skipped": 0,
+          "metrics": {
+            "primary_att": {
+              "att": {
+                "ATT accuracy": 0.8,
+                "ATT precision": 0.5,
+                "ATT recall": 0.5,
+                "ATT F1": 0.5,
+                "ATT AUROC": 0.7986111111111112,
+                "ATT AUPRC": 0.611111111111111,
+                "balanced accuracy": 0.6875,
+                "MCC": 0.375,
+                "tp": 3,
+                "tn": 21,
+                "fp": 3,
+                "fn": 3,
+                "null_reason": null,
+                "mcc_note": null,
+                "n": 30,
+                "k_true": 6,
+                "k_pred": 6
+              },
+              "overlap": {
+                "intersection": 3,
+                "Precision@k": 0.5,
+                "Recall@k": 0.5,
+                "F1@k": 0.5,
+                "Jaccard@k": 0.3333333333333333,
+                "Precision@10%": 0.5,
+                "Recall@10%": 0.5,
+                "F1@10%": 0.5,
+                "Jaccard@10%": 0.3333333333333333,
+                "overlap coefficient": 0.5,
+                "lift": 2.5,
+                "k_expert": 6,
+                "k_geosmile": 6,
+                "n": 30,
+                "equal_size": 1
+              },
+              "expert_ids": [
+                "crime_lag_1",
+                "crime_lag_2",
+                "crime_rolling_mean_3",
+                "crime_rolling_mean_6",
+                "nightlife_count",
+                "nightlife_per_km2"
+              ],
+              "model_ids": [
+                "crime_lag_2",
+                "crime_rolling_mean_3",
+                "crime_rolling_mean_6",
+                "long_term_sick_disabled_pct",
+                "owner_occupied_pct",
+                "unemployed_pct_age16plus"
+              ]
+            },
+            "ordinal_rank_alignment": {
+              "spearman": {
+                "rho": 0.4527675882926464,
+                "p_value": 0.011992068620597993,
+                "ci95_low": 0.08676287146136165,
+                "ci95_high": 0.6892835933336081,
+                "n": 30,
+                "n_valid_bootstrap": 500,
+                "primary_uncertainty": "ordinary_unit_bootstrap"
+              },
+              "kendall_tau_b": {
+                "tau_b": 0.3494559029274404,
+                "p_value": 0.013862209308968046,
+                "ci95_low": 0.10224754009660218,
+                "ci95_high": 0.5877194555537653,
+                "n": 30,
+                "n_valid_bootstrap": 500
+              }
+            },
+            "graded_ranking_quality": {
+              "ndcg_at_10pct": 0.8748590063939317,
+              "ndcg_at_20pct": 0.7213969358283157,
+              "ndcg_at_k_positive": 0.8196520808625665,
+              "ndcg_full": 0.91090535591208,
+              "k_10pct": 3,
+              "k_20pct": 6,
+              "k_positive": 16,
+              "ndcg_at_20pct_bootstrap": {
+                "ndcg_at_20pct": 0.7213969358283157,
+                "ci95_low": 0.4109512714418129,
+                "ci95_high": 0.9546308291549227,
+                "k_20pct": 6,
+                "n_valid_bootstrap": 500
+              }
+            },
+            "binary_discrimination": {
+              "auroc": 0.7986111111111112,
+              "auprc": 0.611111111111111,
+              "prevalence_expert_positive": 0.2,
+              "null_reason": null,
+              "auroc_ci95_low": 0.5910527777777778,
+              "auroc_ci95_high": 0.9642857142857143,
+              "auprc_ci95_low": 0.2128092903828198,
+              "auprc_ci95_high": 0.8827083333333333,
+              "n_valid_bootstrap": 499
+            },
+            "top_ranking_agreement": {
+              "top_10pct": {
+                "k": 3,
+                "precision_at_k": 0.6666666666666666,
+                "recall_at_k": 0.3333333333333333,
+                "f1_at_k": 0.4444444444444444,
+                "jaccard_top_vs_expert_positive": 0.2857142857142857,
+                "lift_over_prevalence": 3.333333333333333,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              },
+              "top_20pct": {
+                "k": 6,
+                "precision_at_k": 0.5,
+                "recall_at_k": 0.5,
+                "f1_at_k": 0.5,
+                "jaccard_top_vs_expert_positive": 0.3333333333333333,
+                "lift_over_prevalence": 2.5,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              }
+            },
+            "attribution_distribution_by_expert_rating": {
+              "by_rating": [
+                {
+                  "rating": 1,
+                  "count": 0,
+                  "mean_magnitude": null,
+                  "median_magnitude": null,
+                  "iqr": null
+                },
+                {
+                  "rating": 2,
+                  "count": 4,
+                  "mean_magnitude": 0.035563087961185444,
+                  "median_magnitude": 0.0281114153684233,
+                  "iqr": 0.023337928337469154
+                },
+                {
+                  "rating": 3,
+                  "count": 10,
+                  "mean_magnitude": 0.11187429709602245,
+                  "median_magnitude": 0.08388526179510555,
+                  "iqr": 0.03721081121886957
+                },
+                {
+                  "rating": 4,
+                  "count": 8,
+                  "mean_magnitude": 0.11799778594210704,
+                  "median_magnitude": 0.0874897065538464,
+                  "iqr": 0.09276163240593667
+                },
+                {
+                  "rating": 5,
+                  "count": 8,
+                  "mean_magnitude": 0.8982917423934341,
+                  "median_magnitude": 0.10621151785735175,
+                  "iqr": 0.40088885685777315
+                }
+              ],
+              "kruskal_wallis": {
+                "statistic": 8.063225806451612,
+                "p_value": 0.04472293234205379,
+                "n_groups": 4
+              },
+              "label": "distributional_diagnostic_not_ranking_metric"
+            },
+            "permutation_null": {
+              "observed_spearman": 0.4527675882926464,
+              "observed_kendall_tau_b": 0.3494559029274404,
+              "spearman_null_mean": -0.04297218106390595,
+              "kendall_null_mean": -0.03296534017615521,
+              "spearman_permutation_p": 0.01996007984031936,
+              "kendall_permutation_p": 0.021956087824351298,
+              "n_permutations": 500,
+              "n_valid_spearman": 500,
+              "n_valid_kendall": 500
+            },
+            "spatial_uncertainty": null,
+            "n": 30,
+            "tie_handling": "magnitude_desc_then_id_asc",
+            "primary_binary_definition": "expert_top10_reference"
+          }
+        },
+        {
+          "confidence_subset": "high_medium",
+          "n": 26,
+          "reference_variant": "external_crime_informed_reference",
+          "skipped": 0,
+          "metrics": {
+            "primary_att": {
+              "att": {
+                "ATT accuracy": 0.8076923076923077,
+                "ATT precision": 0.6,
+                "ATT recall": 0.5,
+                "ATT F1": 0.5454545454545454,
+                "ATT AUROC": 0.7916666666666667,
+                "ATT AUPRC": 0.6469187675070027,
+                "balanced accuracy": 0.7,
+                "MCC": 0.42761798705987897,
+                "tp": 3,
+                "tn": 18,
+                "fp": 2,
+                "fn": 3,
+                "null_reason": null,
+                "mcc_note": null,
+                "n": 26,
+                "k_true": 6,
+                "k_pred": 5
+              },
+              "overlap": {
+                "intersection": 3,
+                "Precision@k": 0.6,
+                "Recall@k": 0.5,
+                "F1@k": 0.5454545454545454,
+                "Jaccard@k": 0.375,
+                "Precision@10%": 0.6,
+                "Recall@10%": 0.5,
+                "F1@10%": 0.5454545454545454,
+                "Jaccard@10%": 0.375,
+                "overlap coefficient": 0.6,
+                "lift": 2.6,
+                "k_expert": 6,
+                "k_geosmile": 5,
+                "n": 26,
+                "equal_size": 0
+              },
+              "expert_ids": [
+                "crime_lag_1",
+                "crime_lag_2",
+                "crime_rolling_mean_3",
+                "crime_rolling_mean_6",
+                "nightlife_count",
+                "nightlife_per_km2"
+              ],
+              "model_ids": [
+                "crime_lag_2",
+                "crime_rolling_mean_3",
+                "crime_rolling_mean_6",
+                "owner_occupied_pct",
+                "unemployed_pct_age16plus"
+              ]
+            },
+            "ordinal_rank_alignment": {
+              "spearman": {
+                "rho": 0.4183965819510844,
+                "p_value": 0.03340523626498645,
+                "ci95_low": 0.04342651872953995,
+                "ci95_high": 0.6914572038569776,
+                "n": 26,
+                "n_valid_bootstrap": 500,
+                "primary_uncertainty": "ordinary_unit_bootstrap"
+              },
+              "kendall_tau_b": {
+                "tau_b": 0.32342260115357263,
+                "p_value": 0.03777658159275447,
+                "ci95_low": 0.05019505748489327,
+                "ci95_high": 0.5615237867862836,
+                "n": 26,
+                "n_valid_bootstrap": 500
+              }
+            },
+            "graded_ranking_quality": {
+              "ndcg_at_10pct": 0.8748590063939317,
+              "ndcg_at_20pct": 0.7575594612589475,
+              "ndcg_at_k_positive": 0.8335759822619874,
+              "ndcg_full": 0.9253690553820464,
+              "k_10pct": 3,
+              "k_20pct": 6,
+              "k_positive": 16,
+              "ndcg_at_20pct_bootstrap": {
+                "ndcg_at_20pct": 0.7575594612589475,
+                "ci95_low": 0.47326888759550334,
+                "ci95_high": 0.9425124509202609,
+                "k_20pct": 6,
+                "n_valid_bootstrap": 500
+              }
+            },
+            "binary_discrimination": {
+              "auroc": 0.7916666666666667,
+              "auprc": 0.6469187675070027,
+              "prevalence_expert_positive": 0.23076923076923078,
+              "null_reason": null,
+              "auroc_ci95_low": 0.5681818181818181,
+              "auroc_ci95_high": 0.9886363636363636,
+              "auprc_ci95_low": 0.21101190476190476,
+              "auprc_ci95_high": 0.9666666666666667,
+              "n_valid_bootstrap": 499
+            },
+            "top_ranking_agreement": {
+              "top_10pct": {
+                "k": 3,
+                "precision_at_k": 0.6666666666666666,
+                "recall_at_k": 0.3333333333333333,
+                "f1_at_k": 0.4444444444444444,
+                "jaccard_top_vs_expert_positive": 0.2857142857142857,
+                "lift_over_prevalence": 2.8888888888888884,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              },
+              "top_20pct": {
+                "k": 6,
+                "precision_at_k": 0.5,
+                "recall_at_k": 0.5,
+                "f1_at_k": 0.5,
+                "jaccard_top_vs_expert_positive": 0.3333333333333333,
+                "lift_over_prevalence": 2.1666666666666665,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              }
+            },
+            "attribution_distribution_by_expert_rating": {
+              "by_rating": [
+                {
+                  "rating": 1,
+                  "count": 0,
+                  "mean_magnitude": null,
+                  "median_magnitude": null,
+                  "iqr": null
+                },
+                {
+                  "rating": 2,
+                  "count": 1,
+                  "mean_magnitude": 0.0225403697306558,
+                  "median_magnitude": 0.0225403697306558,
+                  "iqr": 0.0
+                },
+                {
+                  "rating": 3,
+                  "count": 9,
+                  "mean_magnitude": 0.09242108344917903,
+                  "median_magnitude": 0.0827786841923099,
+                  "iqr": 0.030787023706620703
+                },
+                {
+                  "rating": 4,
+                  "count": 8,
+                  "mean_magnitude": 0.11799778594210704,
+                  "median_magnitude": 0.0874897065538464,
+                  "iqr": 0.09276163240593667
+                },
+                {
+                  "rating": 5,
+                  "count": 8,
+                  "mean_magnitude": 0.8982917423934341,
+                  "median_magnitude": 0.10621151785735175,
+                  "iqr": 0.40088885685777315
+                }
+              ],
+              "kruskal_wallis": {
+                "statistic": 5.468423551756885,
+                "p_value": 0.14053948430084326,
+                "n_groups": 4
+              },
+              "label": "distributional_diagnostic_not_ranking_metric"
+            },
+            "permutation_null": {
+              "observed_spearman": 0.4183965819510844,
+              "observed_kendall_tau_b": 0.32342260115357263,
+              "spearman_null_mean": -0.02529030905600711,
+              "kendall_null_mean": -0.019914110722714356,
+              "spearman_permutation_p": 0.03792415169660679,
+              "kendall_permutation_p": 0.041916167664670656,
+              "n_permutations": 500,
+              "n_valid_spearman": 500,
+              "n_valid_kendall": 500
+            },
+            "spatial_uncertainty": null,
+            "n": 26,
+            "tie_handling": "magnitude_desc_then_id_asc",
+            "primary_binary_definition": "expert_top10_reference"
+          }
+        },
+        {
+          "confidence_subset": "high",
+          "n": 9,
+          "reference_variant": "external_crime_informed_reference",
+          "skipped": 0,
+          "metrics": {
+            "primary_att": {
+              "att": {
+                "ATT accuracy": 0.6666666666666666,
+                "ATT precision": 1.0,
+                "ATT recall": 0.5,
+                "ATT F1": 0.6666666666666666,
+                "ATT AUROC": 0.7777777777777778,
+                "ATT AUPRC": 0.9107142857142857,
+                "balanced accuracy": 0.75,
+                "MCC": 0.5,
+                "tp": 3,
+                "tn": 3,
+                "fp": 0,
+                "fn": 3,
+                "null_reason": null,
+                "mcc_note": null,
+                "n": 9,
+                "k_true": 6,
+                "k_pred": 3
+              },
+              "overlap": {
+                "intersection": 3,
+                "Precision@k": 1.0,
+                "Recall@k": 0.5,
+                "F1@k": 0.6666666666666666,
+                "Jaccard@k": 0.5,
+                "Precision@10%": 1.0,
+                "Recall@10%": 0.5,
+                "F1@10%": 0.6666666666666666,
+                "Jaccard@10%": 0.5,
+                "overlap coefficient": 1.0,
+                "lift": 1.5,
+                "k_expert": 6,
+                "k_geosmile": 3,
+                "n": 9,
+                "equal_size": 0
+              },
+              "expert_ids": [
+                "crime_lag_1",
+                "crime_lag_2",
+                "crime_rolling_mean_3",
+                "crime_rolling_mean_6",
+                "nightlife_count",
+                "nightlife_per_km2"
+              ],
+              "model_ids": [
+                "crime_lag_2",
+                "crime_rolling_mean_3",
+                "crime_rolling_mean_6"
+              ]
+            },
+            "ordinal_rank_alignment": {
+              "spearman": {
+                "rho": 0.5477225575051661,
+                "p_value": 0.12687036692367104,
+                "ci95_low": 0.5504260909082886,
+                "ci95_high": 0.8504200642707612,
+                "n": 9,
+                "n_valid_bootstrap": 328,
+                "primary_uncertainty": "ordinary_unit_bootstrap"
+              },
+              "kendall_tau_b": {
+                "tau_b": 0.4714045207910316,
+                "p_value": 0.12133525035848211,
+                "ci95_low": 0.4780914437337574,
+                "ci95_high": 0.820335090770386,
+                "n": 9,
+                "n_valid_bootstrap": 310
+              }
+            },
+            "graded_ranking_quality": {
+              "ndcg_at_10pct": 1.0,
+              "ndcg_at_20pct": 1.0,
+              "ndcg_at_k_positive": 1.0,
+              "ndcg_full": 1.0,
+              "k_10pct": 1,
+              "k_20pct": 2,
+              "k_positive": 9,
+              "ndcg_at_20pct_bootstrap": {
+                "ndcg_at_20pct": 1.0,
+                "ci95_low": 1.0,
+                "ci95_high": 1.0,
+                "k_20pct": 2,
+                "n_valid_bootstrap": 500
+              }
+            },
+            "binary_discrimination": {
+              "auroc": 0.7777777777777778,
+              "auprc": 0.9107142857142857,
+              "prevalence_expert_positive": 0.6666666666666666,
+              "null_reason": null,
+              "auroc_ci95_low": 0.4,
+              "auroc_ci95_high": 1.0,
+              "auprc_ci95_low": 0.6666666666666666,
+              "auprc_ci95_high": 1.0,
+              "n_valid_bootstrap": 485
+            },
+            "top_ranking_agreement": {
+              "top_10pct": {
+                "k": 1,
+                "precision_at_k": 1.0,
+                "recall_at_k": 0.16666666666666666,
+                "f1_at_k": 0.2857142857142857,
+                "jaccard_top_vs_expert_positive": 0.16666666666666666,
+                "lift_over_prevalence": 1.5,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              },
+              "top_20pct": {
+                "k": 2,
+                "precision_at_k": 1.0,
+                "recall_at_k": 0.3333333333333333,
+                "f1_at_k": 0.5,
+                "jaccard_top_vs_expert_positive": 0.3333333333333333,
+                "lift_over_prevalence": 1.5,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              }
+            },
+            "attribution_distribution_by_expert_rating": {
+              "by_rating": [
+                {
+                  "rating": 1,
+                  "count": 0,
+                  "mean_magnitude": null,
+                  "median_magnitude": null,
+                  "iqr": null
+                },
+                {
+                  "rating": 2,
+                  "count": 0,
+                  "mean_magnitude": null,
+                  "median_magnitude": null,
+                  "iqr": null
+                },
+                {
+                  "rating": 3,
+                  "count": 0,
+                  "mean_magnitude": null,
+                  "median_magnitude": null,
+                  "iqr": null
+                },
+                {
+                  "rating": 4,
+                  "count": 1,
+                  "mean_magnitude": 0.0219111133284289,
+                  "median_magnitude": 0.0219111133284289,
+                  "iqr": 0.0
+                },
+                {
+                  "rating": 5,
+                  "count": 8,
+                  "mean_magnitude": 0.8982917423934341,
+                  "median_magnitude": 0.10621151785735175,
+                  "iqr": 0.40088885685777315
+                }
+              ],
+              "kruskal_wallis": {
+                "statistic": 2.3999999999999986,
+                "p_value": 0.12133525035848365,
+                "n_groups": 2
+              },
+              "label": "distributional_diagnostic_not_ranking_metric"
+            },
+            "permutation_null": {
+              "observed_spearman": 0.5477225575051661,
+              "observed_kendall_tau_b": 0.4714045207910316,
+              "spearman_null_mean": 0.007941977083824906,
+              "kendall_null_mean": 0.006835365551469959,
+              "spearman_permutation_p": 0.21956087824351297,
+              "kendall_permutation_p": 0.21956087824351297,
+              "n_permutations": 500,
+              "n_valid_spearman": 500,
+              "n_valid_kendall": 500
+            },
+            "spatial_uncertainty": null,
+            "n": 9,
+            "tie_handling": "magnitude_desc_then_id_asc",
+            "primary_binary_definition": "expert_top10_reference"
+          }
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "branch": "Geo",
+      "evaluation_scope": "complete_168_lsoa",
+      "attribution_source": "geo_coefficients.csv",
+      "coverage": {
+        "id_name": "lsoa21cd",
+        "n_attribution_rows": 168,
+        "n_annotation_rows": 168,
+        "n_matched": 168,
+        "n_unmatched_attribution": 0,
+        "n_unmatched_annotation": 0,
+        "unmatched_attribution_ids": [],
+        "unmatched_annotation_ids": [],
+        "duplicate_attribution_ids": [],
+        "duplicate_annotation_ids": [],
+        "coverage_pct": 100.0
+      },
+      "primary_metrics": {
+        "primary_att": {
+          "att": {
+            "ATT accuracy": 0.8809523809523809,
+            "ATT precision": 0.5,
+            "ATT recall": 0.5,
+            "ATT F1": 0.5,
+            "ATT AUROC": 0.7820945945945946,
+            "ATT AUPRC": 0.569760150368727,
+            "balanced accuracy": 0.7162162162162162,
+            "MCC": 0.43243243243243246,
+            "tp": 10,
+            "tn": 138,
+            "fp": 10,
+            "fn": 10,
+            "null_reason": null,
+            "mcc_note": null,
+            "n": 168,
+            "k_true": 20,
+            "k_pred": 20
+          },
+          "overlap": {
+            "intersection": 10,
+            "Precision@k": 0.5,
+            "Recall@k": 0.5,
+            "F1@k": 0.5,
+            "Jaccard@k": 0.3333333333333333,
+            "Precision@10%": 0.5,
+            "Recall@10%": 0.5,
+            "F1@10%": 0.5,
+            "Jaccard@10%": 0.3333333333333333,
+            "overlap coefficient": 0.5,
+            "lift": 4.2,
+            "k_expert": 20,
+            "k_geosmile": 20,
+            "n": 168,
+            "equal_size": 1
+          },
+          "expert_ids": [
+            "E01012757",
+            "E01012761",
+            "E01012763",
+            "E01012850",
+            "E01012852",
+            "E01012854",
+            "E01012855",
+            "E01012857",
+            "E01012867",
+            "E01012869",
+            "E01012871",
+            "E01012872",
+            "E01012875",
+            "E01012889",
+            "E01012891",
+            "E01012892",
+            "E01033104",
+            "E01035464",
+            "E01035465",
+            "E01035466"
+          ],
+          "model_ids": [
+            "E01012757",
+            "E01012761",
+            "E01012763",
+            "E01012801",
+            "E01012805",
+            "E01012846",
+            "E01012847",
+            "E01012852",
+            "E01012854",
+            "E01012856",
+            "E01012867",
+            "E01012868",
+            "E01012871",
+            "E01012889",
+            "E01012891",
+            "E01012893",
+            "E01012894",
+            "E01012900",
+            "E01033104",
+            "E01033105"
+          ]
+        },
+        "ordinal_rank_alignment": {
+          "spearman": {
+            "rho": 0.3497094295631188,
+            "p_value": 3.376553002135449e-06,
+            "ci95_low": 0.22245394445734434,
+            "ci95_high": 0.4697283495392227,
+            "n": 168,
+            "n_valid_bootstrap": 500,
+            "primary_uncertainty": "spatial_block_bootstrap",
+            "spatial_block_ci95_low": 0.21089488175758583,
+            "spatial_block_ci95_high": 0.4776580662149732,
+            "ordinary_bootstrap_exploratory": {
+              "method": "ordinary_lsoa_bootstrap_exploratory",
+              "ci95_low": 0.2133388053227233,
+              "ci95_high": 0.4823714112858491,
+              "n_valid_bootstrap": 500,
+              "note": "Exploratory only: ordinary unit bootstrap does not account for spatial dependence."
+            }
+          },
+          "kendall_tau_b": {
+            "tau_b": 0.25767484400578344,
+            "p_value": 6.887020832012307e-06,
+            "ci95_low": 0.1506001915806146,
+            "ci95_high": 0.35334391612934934,
+            "n": 168,
+            "n_valid_bootstrap": 500
+          }
+        },
+        "graded_ranking_quality": {
+          "ndcg_at_10pct": 0.779423729380532,
+          "ndcg_at_20pct": 0.7447369958577262,
+          "ndcg_at_k_positive": 0.7576932037213542,
+          "ndcg_full": 0.9080604251017513,
+          "k_10pct": 17,
+          "k_20pct": 34,
+          "k_positive": 100,
+          "ndcg_at_20pct_bootstrap": {
+            "ndcg_at_20pct": 0.7447369958577262,
+            "ci95_low": 0.6162388694556975,
+            "ci95_high": 0.8562723816993356,
+            "k_20pct": 34,
+            "n_valid_bootstrap": 500
+          }
+        },
+        "binary_discrimination": {
+          "auroc": 0.7820945945945946,
+          "auprc": 0.569760150368727,
+          "prevalence_expert_positive": 0.11904761904761904,
+          "null_reason": null,
+          "auroc_ci95_low": 0.637200542307563,
+          "auroc_ci95_high": 0.9082501738225678,
+          "auprc_ci95_low": 0.35209669524807713,
+          "auprc_ci95_high": 0.7592609374277235,
+          "n_valid_bootstrap": 500
+        },
+        "top_ranking_agreement": {
+          "top_10pct": {
+            "k": 17,
+            "precision_at_k": 0.5294117647058824,
+            "recall_at_k": 0.45,
+            "f1_at_k": 0.48648648648648646,
+            "jaccard_top_vs_expert_positive": 0.32142857142857145,
+            "lift_over_prevalence": 4.447058823529412,
+            "tie_handling": "magnitude_desc_then_id_asc"
+          },
+          "top_20pct": {
+            "k": 34,
+            "precision_at_k": 0.38235294117647056,
+            "recall_at_k": 0.65,
+            "f1_at_k": 0.48148148148148157,
+            "jaccard_top_vs_expert_positive": 0.3170731707317073,
+            "lift_over_prevalence": 3.211764705882353,
+            "tie_handling": "magnitude_desc_then_id_asc"
+          }
+        },
+        "attribution_distribution_by_expert_rating": {
+          "by_rating": [
+            {
+              "rating": 1,
+              "count": 21,
+              "mean_magnitude": 0.4801148794233429,
+              "median_magnitude": 0.4845549250423346,
+              "iqr": 0.5371070968807132
+            },
+            {
+              "rating": 2,
+              "count": 20,
+              "mean_magnitude": 0.5791319296913313,
+              "median_magnitude": 0.5285344355416357,
+              "iqr": 0.5956141344031665
+            },
+            {
+              "rating": 3,
+              "count": 27,
+              "mean_magnitude": 0.47329046146097226,
+              "median_magnitude": 0.4889545476894649,
+              "iqr": 0.5794545552707422
+            },
+            {
+              "rating": 4,
+              "count": 52,
+              "mean_magnitude": 0.7812386488495145,
+              "median_magnitude": 0.5898228122033444,
+              "iqr": 0.6240009743888163
+            },
+            {
+              "rating": 5,
+              "count": 48,
+              "mean_magnitude": 1.440824901682445,
+              "median_magnitude": 0.8929015420273633,
+              "iqr": 0.7552858087722888
+            }
+          ],
+          "kruskal_wallis": {
+            "statistic": 23.611612232512584,
+            "p_value": 9.554555148026859e-05,
+            "n_groups": 5
+          },
+          "label": "distributional_diagnostic_not_ranking_metric"
+        },
+        "permutation_null": {
+          "observed_spearman": 0.3497094295631188,
+          "observed_kendall_tau_b": 0.25767484400578344,
+          "spearman_null_mean": -0.0008364864876314871,
+          "kendall_null_mean": -0.0008008615309130938,
+          "spearman_permutation_p": 0.001996007984031936,
+          "kendall_permutation_p": 0.001996007984031936,
+          "n_permutations": 500,
+          "n_valid_spearman": 500,
+          "n_valid_kendall": 500
+        },
+        "spatial_uncertainty": {
+          "method": "msoa_block_bootstrap_from_lsoa_name",
+          "n_blocks": 33,
+          "ci95_low": 0.21089488175758583,
+          "ci95_high": 0.4776580662149732,
+          "n_valid_bootstrap": 500,
+          "note": "Primary geographic uncertainty: resample MSOA tokens embedded in ONS LSOA names. This is not a ward adjacency graph."
+        },
+        "n": 168,
+        "tie_handling": "magnitude_desc_then_id_asc",
+        "primary_binary_definition": "expert_top10_reference"
+      },
+      "sensitivity_analyses": [
+        {
+          "confidence_subset": "all",
+          "n": 168,
+          "reference_variant": "external_crime_informed_reference",
+          "skipped": 0,
+          "metrics": {
+            "primary_att": {
+              "att": {
+                "ATT accuracy": 0.8809523809523809,
+                "ATT precision": 0.5,
+                "ATT recall": 0.5,
+                "ATT F1": 0.5,
+                "ATT AUROC": 0.7820945945945946,
+                "ATT AUPRC": 0.569760150368727,
+                "balanced accuracy": 0.7162162162162162,
+                "MCC": 0.43243243243243246,
+                "tp": 10,
+                "tn": 138,
+                "fp": 10,
+                "fn": 10,
+                "null_reason": null,
+                "mcc_note": null,
+                "n": 168,
+                "k_true": 20,
+                "k_pred": 20
+              },
+              "overlap": {
+                "intersection": 10,
+                "Precision@k": 0.5,
+                "Recall@k": 0.5,
+                "F1@k": 0.5,
+                "Jaccard@k": 0.3333333333333333,
+                "Precision@10%": 0.5,
+                "Recall@10%": 0.5,
+                "F1@10%": 0.5,
+                "Jaccard@10%": 0.3333333333333333,
+                "overlap coefficient": 0.5,
+                "lift": 4.2,
+                "k_expert": 20,
+                "k_geosmile": 20,
+                "n": 168,
+                "equal_size": 1
+              },
+              "expert_ids": [
+                "E01012757",
+                "E01012761",
+                "E01012763",
+                "E01012850",
+                "E01012852",
+                "E01012854",
+                "E01012855",
+                "E01012857",
+                "E01012867",
+                "E01012869",
+                "E01012871",
+                "E01012872",
+                "E01012875",
+                "E01012889",
+                "E01012891",
+                "E01012892",
+                "E01033104",
+                "E01035464",
+                "E01035465",
+                "E01035466"
+              ],
+              "model_ids": [
+                "E01012757",
+                "E01012761",
+                "E01012763",
+                "E01012801",
+                "E01012805",
+                "E01012846",
+                "E01012847",
+                "E01012852",
+                "E01012854",
+                "E01012856",
+                "E01012867",
+                "E01012868",
+                "E01012871",
+                "E01012889",
+                "E01012891",
+                "E01012893",
+                "E01012894",
+                "E01012900",
+                "E01033104",
+                "E01033105"
+              ]
+            },
+            "ordinal_rank_alignment": {
+              "spearman": {
+                "rho": 0.3497094295631188,
+                "p_value": 3.376553002135449e-06,
+                "ci95_low": 0.22245394445734434,
+                "ci95_high": 0.4697283495392227,
+                "n": 168,
+                "n_valid_bootstrap": 500,
+                "primary_uncertainty": "spatial_block_bootstrap",
+                "spatial_block_ci95_low": 0.21089488175758583,
+                "spatial_block_ci95_high": 0.4776580662149732,
+                "ordinary_bootstrap_exploratory": {
+                  "method": "ordinary_lsoa_bootstrap_exploratory",
+                  "ci95_low": 0.2133388053227233,
+                  "ci95_high": 0.4823714112858491,
+                  "n_valid_bootstrap": 500,
+                  "note": "Exploratory only: ordinary unit bootstrap does not account for spatial dependence."
+                }
+              },
+              "kendall_tau_b": {
+                "tau_b": 0.25767484400578344,
+                "p_value": 6.887020832012307e-06,
+                "ci95_low": 0.1506001915806146,
+                "ci95_high": 0.35334391612934934,
+                "n": 168,
+                "n_valid_bootstrap": 500
+              }
+            },
+            "graded_ranking_quality": {
+              "ndcg_at_10pct": 0.779423729380532,
+              "ndcg_at_20pct": 0.7447369958577262,
+              "ndcg_at_k_positive": 0.7576932037213542,
+              "ndcg_full": 0.9080604251017513,
+              "k_10pct": 17,
+              "k_20pct": 34,
+              "k_positive": 100,
+              "ndcg_at_20pct_bootstrap": {
+                "ndcg_at_20pct": 0.7447369958577262,
+                "ci95_low": 0.6162388694556975,
+                "ci95_high": 0.8562723816993356,
+                "k_20pct": 34,
+                "n_valid_bootstrap": 500
+              }
+            },
+            "binary_discrimination": {
+              "auroc": 0.7820945945945946,
+              "auprc": 0.569760150368727,
+              "prevalence_expert_positive": 0.11904761904761904,
+              "null_reason": null,
+              "auroc_ci95_low": 0.637200542307563,
+              "auroc_ci95_high": 0.9082501738225678,
+              "auprc_ci95_low": 0.35209669524807713,
+              "auprc_ci95_high": 0.7592609374277235,
+              "n_valid_bootstrap": 500
+            },
+            "top_ranking_agreement": {
+              "top_10pct": {
+                "k": 17,
+                "precision_at_k": 0.5294117647058824,
+                "recall_at_k": 0.45,
+                "f1_at_k": 0.48648648648648646,
+                "jaccard_top_vs_expert_positive": 0.32142857142857145,
+                "lift_over_prevalence": 4.447058823529412,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              },
+              "top_20pct": {
+                "k": 34,
+                "precision_at_k": 0.38235294117647056,
+                "recall_at_k": 0.65,
+                "f1_at_k": 0.48148148148148157,
+                "jaccard_top_vs_expert_positive": 0.3170731707317073,
+                "lift_over_prevalence": 3.211764705882353,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              }
+            },
+            "attribution_distribution_by_expert_rating": {
+              "by_rating": [
+                {
+                  "rating": 1,
+                  "count": 21,
+                  "mean_magnitude": 0.4801148794233429,
+                  "median_magnitude": 0.4845549250423346,
+                  "iqr": 0.5371070968807132
+                },
+                {
+                  "rating": 2,
+                  "count": 20,
+                  "mean_magnitude": 0.5791319296913313,
+                  "median_magnitude": 0.5285344355416357,
+                  "iqr": 0.5956141344031665
+                },
+                {
+                  "rating": 3,
+                  "count": 27,
+                  "mean_magnitude": 0.47329046146097226,
+                  "median_magnitude": 0.4889545476894649,
+                  "iqr": 0.5794545552707422
+                },
+                {
+                  "rating": 4,
+                  "count": 52,
+                  "mean_magnitude": 0.7812386488495145,
+                  "median_magnitude": 0.5898228122033444,
+                  "iqr": 0.6240009743888163
+                },
+                {
+                  "rating": 5,
+                  "count": 48,
+                  "mean_magnitude": 1.440824901682445,
+                  "median_magnitude": 0.8929015420273633,
+                  "iqr": 0.7552858087722888
+                }
+              ],
+              "kruskal_wallis": {
+                "statistic": 23.611612232512584,
+                "p_value": 9.554555148026859e-05,
+                "n_groups": 5
+              },
+              "label": "distributional_diagnostic_not_ranking_metric"
+            },
+            "permutation_null": {
+              "observed_spearman": 0.3497094295631188,
+              "observed_kendall_tau_b": 0.25767484400578344,
+              "spearman_null_mean": -0.0008364864876314871,
+              "kendall_null_mean": -0.0008008615309130938,
+              "spearman_permutation_p": 0.001996007984031936,
+              "kendall_permutation_p": 0.001996007984031936,
+              "n_permutations": 500,
+              "n_valid_spearman": 500,
+              "n_valid_kendall": 500
+            },
+            "spatial_uncertainty": {
+              "method": "msoa_block_bootstrap_from_lsoa_name",
+              "n_blocks": 33,
+              "ci95_low": 0.21089488175758583,
+              "ci95_high": 0.4776580662149732,
+              "n_valid_bootstrap": 500,
+              "note": "Primary geographic uncertainty: resample MSOA tokens embedded in ONS LSOA names. This is not a ward adjacency graph."
+            },
+            "n": 168,
+            "tie_handling": "magnitude_desc_then_id_asc",
+            "primary_binary_definition": "expert_top10_reference"
+          }
+        },
+        {
+          "confidence_subset": "high_medium",
+          "n": 132,
+          "reference_variant": "external_crime_informed_reference",
+          "skipped": 0,
+          "metrics": {
+            "primary_att": {
+              "att": {
+                "ATT accuracy": 0.8636363636363636,
+                "ATT precision": 0.5555555555555556,
+                "ATT recall": 0.5,
+                "ATT F1": 0.5263157894736842,
+                "ATT AUROC": 0.7678571428571429,
+                "ATT AUPRC": 0.5951420884991395,
+                "balanced accuracy": 0.7142857142857143,
+                "MCC": 0.447773662839645,
+                "tp": 10,
+                "tn": 104,
+                "fp": 8,
+                "fn": 10,
+                "null_reason": null,
+                "mcc_note": null,
+                "n": 132,
+                "k_true": 20,
+                "k_pred": 18
+              },
+              "overlap": {
+                "intersection": 10,
+                "Precision@k": 0.5555555555555556,
+                "Recall@k": 0.5,
+                "F1@k": 0.5263157894736842,
+                "Jaccard@k": 0.35714285714285715,
+                "Precision@10%": 0.5555555555555556,
+                "Recall@10%": 0.5,
+                "F1@10%": 0.5263157894736842,
+                "Jaccard@10%": 0.35714285714285715,
+                "overlap coefficient": 0.5555555555555556,
+                "lift": 3.666666666666667,
+                "k_expert": 20,
+                "k_geosmile": 18,
+                "n": 132,
+                "equal_size": 0
+              },
+              "expert_ids": [
+                "E01012757",
+                "E01012761",
+                "E01012763",
+                "E01012850",
+                "E01012852",
+                "E01012854",
+                "E01012855",
+                "E01012857",
+                "E01012867",
+                "E01012869",
+                "E01012871",
+                "E01012872",
+                "E01012875",
+                "E01012889",
+                "E01012891",
+                "E01012892",
+                "E01033104",
+                "E01035464",
+                "E01035465",
+                "E01035466"
+              ],
+              "model_ids": [
+                "E01012757",
+                "E01012761",
+                "E01012763",
+                "E01012805",
+                "E01012846",
+                "E01012847",
+                "E01012852",
+                "E01012854",
+                "E01012856",
+                "E01012867",
+                "E01012868",
+                "E01012871",
+                "E01012889",
+                "E01012891",
+                "E01012893",
+                "E01012894",
+                "E01012900",
+                "E01033104"
+              ]
+            },
+            "ordinal_rank_alignment": {
+              "spearman": {
+                "rho": 0.37835100879223516,
+                "p_value": 7.71256214131612e-06,
+                "ci95_low": 0.23692365956386743,
+                "ci95_high": 0.5305809975565757,
+                "n": 132,
+                "n_valid_bootstrap": 500,
+                "primary_uncertainty": "spatial_block_bootstrap",
+                "spatial_block_ci95_low": 0.23714304576579978,
+                "spatial_block_ci95_high": 0.5052669943112869,
+                "ordinary_bootstrap_exploratory": {
+                  "method": "ordinary_lsoa_bootstrap_exploratory",
+                  "ci95_low": 0.2276385935172558,
+                  "ci95_high": 0.5046855492611836,
+                  "n_valid_bootstrap": 500,
+                  "note": "Exploratory only: ordinary unit bootstrap does not account for spatial dependence."
+                }
+              },
+              "kendall_tau_b": {
+                "tau_b": 0.2866931865346458,
+                "p_value": 1.7769808976051504e-05,
+                "ci95_low": 0.18192023968714277,
+                "ci95_high": 0.39633590308393,
+                "n": 132,
+                "n_valid_bootstrap": 500
+              }
+            },
+            "graded_ranking_quality": {
+              "ndcg_at_10pct": 0.8218857217122788,
+              "ndcg_at_20pct": 0.8009600364075875,
+              "ndcg_at_k_positive": 0.849420860806504,
+              "ndcg_full": 0.929690106797677,
+              "k_10pct": 14,
+              "k_20pct": 27,
+              "k_positive": 99,
+              "ndcg_at_20pct_bootstrap": {
+                "ndcg_at_20pct": 0.8009600364075875,
+                "ci95_low": 0.6777879042782227,
+                "ci95_high": 0.9035375146396794,
+                "k_20pct": 27,
+                "n_valid_bootstrap": 500
+              }
+            },
+            "binary_discrimination": {
+              "auroc": 0.7678571428571429,
+              "auprc": 0.5951420884991395,
+              "prevalence_expert_positive": 0.15151515151515152,
+              "null_reason": null,
+              "auroc_ci95_low": 0.6090444378041492,
+              "auroc_ci95_high": 0.891195599861566,
+              "auprc_ci95_low": 0.3453254455744634,
+              "auprc_ci95_high": 0.7659519375514316,
+              "n_valid_bootstrap": 500
+            },
+            "top_ranking_agreement": {
+              "top_10pct": {
+                "k": 14,
+                "precision_at_k": 0.6428571428571429,
+                "recall_at_k": 0.45,
+                "f1_at_k": 0.5294117647058824,
+                "jaccard_top_vs_expert_positive": 0.36,
+                "lift_over_prevalence": 4.242857142857143,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              },
+              "top_20pct": {
+                "k": 27,
+                "precision_at_k": 0.4444444444444444,
+                "recall_at_k": 0.6,
+                "f1_at_k": 0.5106382978723405,
+                "jaccard_top_vs_expert_positive": 0.34285714285714286,
+                "lift_over_prevalence": 2.933333333333333,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              }
+            },
+            "attribution_distribution_by_expert_rating": {
+              "by_rating": [
+                {
+                  "rating": 1,
+                  "count": 0,
+                  "mean_magnitude": null,
+                  "median_magnitude": null,
+                  "iqr": null
+                },
+                {
+                  "rating": 2,
+                  "count": 9,
+                  "mean_magnitude": 0.4903764733433994,
+                  "median_magnitude": 0.4823066896074942,
+                  "iqr": 0.422812182725851
+                },
+                {
+                  "rating": 3,
+                  "count": 24,
+                  "mean_magnitude": 0.47800146381047953,
+                  "median_magnitude": 0.5187410181784788,
+                  "iqr": 0.5518821503715963
+                },
+                {
+                  "rating": 4,
+                  "count": 51,
+                  "mean_magnitude": 0.7923298177344026,
+                  "median_magnitude": 0.5978041631509244,
+                  "iqr": 0.6261459082166052
+                },
+                {
+                  "rating": 5,
+                  "count": 48,
+                  "mean_magnitude": 1.440824901682445,
+                  "median_magnitude": 0.8929015420273633,
+                  "iqr": 0.7552858087722888
+                }
+              ],
+              "kruskal_wallis": {
+                "statistic": 18.999679177891323,
+                "p_value": 0.00027344064999930954,
+                "n_groups": 4
+              },
+              "label": "distributional_diagnostic_not_ranking_metric"
+            },
+            "permutation_null": {
+              "observed_spearman": 0.37835100879223516,
+              "observed_kendall_tau_b": 0.2866931865346458,
+              "spearman_null_mean": -0.003630236110000987,
+              "kendall_null_mean": -0.0027700175587439036,
+              "spearman_permutation_p": 0.001996007984031936,
+              "kendall_permutation_p": 0.001996007984031936,
+              "n_permutations": 500,
+              "n_valid_spearman": 500,
+              "n_valid_kendall": 500
+            },
+            "spatial_uncertainty": {
+              "method": "msoa_block_bootstrap_from_lsoa_name",
+              "n_blocks": 33,
+              "ci95_low": 0.23714304576579978,
+              "ci95_high": 0.5052669943112869,
+              "n_valid_bootstrap": 500,
+              "note": "Primary geographic uncertainty: resample MSOA tokens embedded in ONS LSOA names. This is not a ward adjacency graph."
+            },
+            "n": 132,
+            "tie_handling": "magnitude_desc_then_id_asc",
+            "primary_binary_definition": "expert_top10_reference"
+          }
+        },
+        {
+          "confidence_subset": "high",
+          "n": 74,
+          "reference_variant": "external_crime_informed_reference",
+          "skipped": 0,
+          "metrics": {
+            "primary_att": {
+              "att": {
+                "ATT accuracy": 0.7972972972972973,
+                "ATT precision": 0.5,
+                "ATT recall": 0.4,
+                "ATT F1": 0.4444444444444445,
+                "ATT AUROC": 0.6666666666666666,
+                "ATT AUPRC": 0.5171411359034039,
+                "balanced accuracy": 0.6491525423728814,
+                "MCC": 0.32534626378890485,
+                "tp": 6,
+                "tn": 53,
+                "fp": 6,
+                "fn": 9,
+                "null_reason": null,
+                "mcc_note": null,
+                "n": 74,
+                "k_true": 15,
+                "k_pred": 12
+              },
+              "overlap": {
+                "intersection": 6,
+                "Precision@k": 0.5,
+                "Recall@k": 0.4,
+                "F1@k": 0.4444444444444445,
+                "Jaccard@k": 0.2857142857142857,
+                "Precision@10%": 0.5,
+                "Recall@10%": 0.4,
+                "F1@10%": 0.4444444444444445,
+                "Jaccard@10%": 0.2857142857142857,
+                "overlap coefficient": 0.5,
+                "lift": 2.466666666666667,
+                "k_expert": 15,
+                "k_geosmile": 12,
+                "n": 74,
+                "equal_size": 0
+              },
+              "expert_ids": [
+                "E01012761",
+                "E01012850",
+                "E01012854",
+                "E01012855",
+                "E01012857",
+                "E01012867",
+                "E01012869",
+                "E01012871",
+                "E01012872",
+                "E01012889",
+                "E01012891",
+                "E01012892",
+                "E01035464",
+                "E01035465",
+                "E01035466"
+              ],
+              "model_ids": [
+                "E01012761",
+                "E01012805",
+                "E01012847",
+                "E01012854",
+                "E01012856",
+                "E01012867",
+                "E01012868",
+                "E01012871",
+                "E01012889",
+                "E01012891",
+                "E01012893",
+                "E01012900"
+              ]
+            },
+            "ordinal_rank_alignment": {
+              "spearman": {
+                "rho": 0.2700216265451524,
+                "p_value": 0.019982968655155017,
+                "ci95_low": 0.006298000464831206,
+                "ci95_high": 0.4755297023031992,
+                "n": 74,
+                "n_valid_bootstrap": 500,
+                "primary_uncertainty": "spatial_block_bootstrap",
+                "spatial_block_ci95_low": 0.01855938283171369,
+                "spatial_block_ci95_high": 0.4759590734030805,
+                "ordinary_bootstrap_exploratory": {
+                  "method": "ordinary_lsoa_bootstrap_exploratory",
+                  "ci95_low": 0.05508785422128687,
+                  "ci95_high": 0.47655511841382625,
+                  "n_valid_bootstrap": 500,
+                  "note": "Exploratory only: ordinary unit bootstrap does not account for spatial dependence."
+                }
+              },
+              "kendall_tau_b": {
+                "tau_b": 0.22107668872940864,
+                "p_value": 0.020018373633962996,
+                "ci95_low": 0.03801458029473314,
+                "ci95_high": 0.4112257976698503,
+                "n": 74,
+                "n_valid_bootstrap": 500
+              }
+            },
+            "graded_ranking_quality": {
+              "ndcg_at_10pct": 0.7976458377858743,
+              "ndcg_at_20pct": 0.7635510464334431,
+              "ndcg_at_k_positive": 0.9227065182017111,
+              "ndcg_full": 0.9263037718887405,
+              "k_10pct": 8,
+              "k_20pct": 15,
+              "k_positive": 72,
+              "ndcg_at_20pct_bootstrap": {
+                "ndcg_at_20pct": 0.7635510464334431,
+                "ci95_low": 0.6373295666185319,
+                "ci95_high": 0.9253165376936688,
+                "k_20pct": 15,
+                "n_valid_bootstrap": 500
+              }
+            },
+            "binary_discrimination": {
+              "auroc": 0.6666666666666666,
+              "auprc": 0.5171411359034039,
+              "prevalence_expert_positive": 0.20270270270270271,
+              "null_reason": null,
+              "auroc_ci95_low": 0.46473296853419804,
+              "auroc_ci95_high": 0.8163834485407065,
+              "auprc_ci95_low": 0.24280328434647977,
+              "auprc_ci95_high": 0.7259595074163798,
+              "n_valid_bootstrap": 500
+            },
+            "top_ranking_agreement": {
+              "top_10pct": {
+                "k": 8,
+                "precision_at_k": 0.625,
+                "recall_at_k": 0.3333333333333333,
+                "f1_at_k": 0.43478260869565216,
+                "jaccard_top_vs_expert_positive": 0.2777777777777778,
+                "lift_over_prevalence": 3.083333333333333,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              },
+              "top_20pct": {
+                "k": 15,
+                "precision_at_k": 0.4,
+                "recall_at_k": 0.4,
+                "f1_at_k": 0.4000000000000001,
+                "jaccard_top_vs_expert_positive": 0.25,
+                "lift_over_prevalence": 1.9733333333333334,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              }
+            },
+            "attribution_distribution_by_expert_rating": {
+              "by_rating": [
+                {
+                  "rating": 1,
+                  "count": 0,
+                  "mean_magnitude": null,
+                  "median_magnitude": null,
+                  "iqr": null
+                },
+                {
+                  "rating": 2,
+                  "count": 0,
+                  "mean_magnitude": null,
+                  "median_magnitude": null,
+                  "iqr": null
+                },
+                {
+                  "rating": 3,
+                  "count": 2,
+                  "mean_magnitude": 0.4943606665091785,
+                  "median_magnitude": 0.4943606665091785,
+                  "iqr": 0.4862383464762886
+                },
+                {
+                  "rating": 4,
+                  "count": 36,
+                  "mean_magnitude": 0.8154002927486136,
+                  "median_magnitude": 0.5919555138084629,
+                  "iqr": 0.663650604151947
+                },
+                {
+                  "rating": 5,
+                  "count": 36,
+                  "mean_magnitude": 0.9439204854815153,
+                  "median_magnitude": 0.8826793518665549,
+                  "iqr": 0.7493283085590927
+                }
+              ],
+              "kruskal_wallis": {
+                "statistic": 5.332552552552556,
+                "p_value": 0.06951058218993979,
+                "n_groups": 3
+              },
+              "label": "distributional_diagnostic_not_ranking_metric"
+            },
+            "permutation_null": {
+              "observed_spearman": 0.2700216265451524,
+              "observed_kendall_tau_b": 0.22107668872940864,
+              "spearman_null_mean": 0.004791997751949451,
+              "kendall_null_mean": 0.0038374045419820287,
+              "spearman_permutation_p": 0.015968063872255488,
+              "kendall_permutation_p": 0.013972055888223553,
+              "n_permutations": 500,
+              "n_valid_spearman": 500,
+              "n_valid_kendall": 500
+            },
+            "spatial_uncertainty": {
+              "method": "msoa_block_bootstrap_from_lsoa_name",
+              "n_blocks": 28,
+              "ci95_low": 0.01855938283171369,
+              "ci95_high": 0.4759590734030805,
+              "n_valid_bootstrap": 500,
+              "note": "Primary geographic uncertainty: resample MSOA tokens embedded in ONS LSOA names. This is not a ward adjacency graph."
+            },
+            "n": 74,
+            "tie_handling": "magnitude_desc_then_id_asc",
+            "primary_binary_definition": "expert_top10_reference"
+          }
+        },
+        {
+          "confidence_subset": "all",
+          "n": 168,
+          "reference_variant": "no_crime_domain_reference",
+          "skipped": 0,
+          "metrics": {
+            "primary_att": {
+              "att": {
+                "ATT accuracy": 0.8809523809523809,
+                "ATT precision": 0.5,
+                "ATT recall": 0.5,
+                "ATT F1": 0.5,
+                "ATT AUROC": 0.7820945945945946,
+                "ATT AUPRC": 0.569760150368727,
+                "balanced accuracy": 0.7162162162162162,
+                "MCC": 0.43243243243243246,
+                "tp": 10,
+                "tn": 138,
+                "fp": 10,
+                "fn": 10,
+                "null_reason": null,
+                "mcc_note": null,
+                "n": 168,
+                "k_true": 20,
+                "k_pred": 20
+              },
+              "overlap": {
+                "intersection": 10,
+                "Precision@k": 0.5,
+                "Recall@k": 0.5,
+                "F1@k": 0.5,
+                "Jaccard@k": 0.3333333333333333,
+                "Precision@10%": 0.5,
+                "Recall@10%": 0.5,
+                "F1@10%": 0.5,
+                "Jaccard@10%": 0.3333333333333333,
+                "overlap coefficient": 0.5,
+                "lift": 4.2,
+                "k_expert": 20,
+                "k_geosmile": 20,
+                "n": 168,
+                "equal_size": 1
+              },
+              "expert_ids": [
+                "E01012757",
+                "E01012761",
+                "E01012763",
+                "E01012850",
+                "E01012852",
+                "E01012854",
+                "E01012855",
+                "E01012857",
+                "E01012867",
+                "E01012869",
+                "E01012871",
+                "E01012872",
+                "E01012875",
+                "E01012889",
+                "E01012891",
+                "E01012892",
+                "E01033104",
+                "E01035464",
+                "E01035465",
+                "E01035466"
+              ],
+              "model_ids": [
+                "E01012757",
+                "E01012761",
+                "E01012763",
+                "E01012801",
+                "E01012805",
+                "E01012846",
+                "E01012847",
+                "E01012852",
+                "E01012854",
+                "E01012856",
+                "E01012867",
+                "E01012868",
+                "E01012871",
+                "E01012889",
+                "E01012891",
+                "E01012893",
+                "E01012894",
+                "E01012900",
+                "E01033104",
+                "E01033105"
+              ]
+            },
+            "ordinal_rank_alignment": {
+              "spearman": {
+                "rho": 0.35003717378776805,
+                "p_value": 3.3012615475356365e-06,
+                "ci95_low": 0.21767396105787373,
+                "ci95_high": 0.47134096750805926,
+                "n": 168,
+                "n_valid_bootstrap": 500,
+                "primary_uncertainty": "spatial_block_bootstrap",
+                "spatial_block_ci95_low": 0.17350405128039542,
+                "spatial_block_ci95_high": 0.5112226524321035,
+                "ordinary_bootstrap_exploratory": {
+                  "method": "ordinary_lsoa_bootstrap_exploratory",
+                  "ci95_low": 0.2132615503222906,
+                  "ci95_high": 0.46166589007105163,
+                  "n_valid_bootstrap": 500,
+                  "note": "Exploratory only: ordinary unit bootstrap does not account for spatial dependence."
+                }
+              },
+              "kendall_tau_b": {
+                "tau_b": 0.2589224780732209,
+                "p_value": 6.540717341801704e-06,
+                "ci95_low": 0.15145372549277786,
+                "ci95_high": 0.3643453233395448,
+                "n": 168,
+                "n_valid_bootstrap": 500
+              }
+            },
+            "graded_ranking_quality": {
+              "ndcg_at_10pct": 0.6554154687298431,
+              "ndcg_at_20pct": 0.7152226338111864,
+              "ndcg_at_k_positive": 0.7200229364317647,
+              "ndcg_full": 0.8825494064073397,
+              "k_10pct": 17,
+              "k_20pct": 34,
+              "k_positive": 83,
+              "ndcg_at_20pct_bootstrap": {
+                "ndcg_at_20pct": 0.7152226338111864,
+                "ci95_low": 0.591939718037395,
+                "ci95_high": 0.8160640675284778,
+                "k_20pct": 34,
+                "n_valid_bootstrap": 500
+              }
+            },
+            "binary_discrimination": {
+              "auroc": 0.7820945945945946,
+              "auprc": 0.569760150368727,
+              "prevalence_expert_positive": 0.11904761904761904,
+              "null_reason": null,
+              "auroc_ci95_low": 0.637200542307563,
+              "auroc_ci95_high": 0.9082501738225678,
+              "auprc_ci95_low": 0.35209669524807713,
+              "auprc_ci95_high": 0.7592609374277235,
+              "n_valid_bootstrap": 500
+            },
+            "top_ranking_agreement": {
+              "top_10pct": {
+                "k": 17,
+                "precision_at_k": 0.5294117647058824,
+                "recall_at_k": 0.45,
+                "f1_at_k": 0.48648648648648646,
+                "jaccard_top_vs_expert_positive": 0.32142857142857145,
+                "lift_over_prevalence": 4.447058823529412,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              },
+              "top_20pct": {
+                "k": 34,
+                "precision_at_k": 0.38235294117647056,
+                "recall_at_k": 0.65,
+                "f1_at_k": 0.48148148148148157,
+                "jaccard_top_vs_expert_positive": 0.3170731707317073,
+                "lift_over_prevalence": 3.211764705882353,
+                "tie_handling": "magnitude_desc_then_id_asc"
+              }
+            },
+            "attribution_distribution_by_expert_rating": {
+              "by_rating": [
+                {
+                  "rating": 1,
+                  "count": 17,
+                  "mean_magnitude": 0.4781556321139971,
+                  "median_magnitude": 0.4845549250423346,
+                  "iqr": 0.5019504186066812
+                },
+                {
+                  "rating": 2,
+                  "count": 32,
+                  "mean_magnitude": 0.4586915485488002,
+                  "median_magnitude": 0.36283160013368965,
+                  "iqr": 0.4484867965200562
+                },
+                {
+                  "rating": 3,
+                  "count": 36,
+                  "mean_magnitude": 0.6521361015217996,
+                  "median_magnitude": 0.6061945438210119,
+                  "iqr": 0.6316013613197258
+                },
+                {
+                  "rating": 4,
+                  "count": 62,
+                  "mean_magnitude": 1.1035908712860782,
+                  "median_magnitude": 0.6932395860633882,
+                  "iqr": 0.7697394080470198
+                },
+                {
+                  "rating": 5,
+                  "count": 21,
+                  "mean_magnitude": 1.4057899794320958,
+                  "median_magnitude": 1.2203130576667405,
+                  "iqr": 0.7002717006684555
+                }
+              ],
+              "kruskal_wallis": {
+                "statistic": 23.94795309483459,
+                "p_value": 8.181655096490051e-05,
+                "n_groups": 5
+              },
+              "label": "distributional_diagnostic_not_ranking_metric"
+            },
+            "permutation_null": {
+              "observed_spearman": 0.35003717378776805,
+              "observed_kendall_tau_b": 0.2589224780732209,
+              "spearman_null_mean": -0.0014058671333220527,
+              "kendall_null_mean": -0.0010190116093162693,
+              "spearman_permutation_p": 0.001996007984031936,
+              "kendall_permutation_p": 0.001996007984031936,
+              "n_permutations": 500,
+              "n_valid_spearman": 500,
+              "n_valid_kendall": 500
+            },
+            "spatial_uncertainty": {
+              "method": "msoa_block_bootstrap_from_lsoa_name",
+              "n_blocks": 33,
+              "ci95_low": 0.17350405128039542,
+              "ci95_high": 0.5112226524321035,
+              "n_valid_bootstrap": 500,
+              "note": "Primary geographic uncertainty: resample MSOA tokens embedded in ONS LSOA names. This is not a ward adjacency graph."
+            },
+            "n": 168,
+            "tie_handling": "magnitude_desc_then_id_asc",
+            "primary_binary_definition": "expert_top10_reference"
+          }
+        }
+      ],
+      "warnings": []
+    }
+  ]
+}

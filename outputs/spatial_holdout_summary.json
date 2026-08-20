@@ -1,0 +1,89 @@
+{
+  "held_out_lsoas": [
+    "E01012756",
+    "E01012759",
+    "E01012770",
+    "E01012771",
+    "E01012772",
+    "E01012773",
+    "E01012774",
+    "E01012775",
+    "E01012776",
+    "E01012777",
+    "E01012796",
+    "E01012798",
+    "E01012799",
+    "E01012800",
+    "E01012801",
+    "E01012802",
+    "E01012803",
+    "E01012858",
+    "E01012859",
+    "E01012860",
+    "E01012862",
+    "E01012863",
+    "E01012864",
+    "E01012865",
+    "E01012882",
+    "E01012883",
+    "E01012884",
+    "E01012886",
+    "E01012887",
+    "E01012888",
+    "E01012889",
+    "E01012892",
+    "E01012893",
+    "E01032595",
+    "E01035467",
+    "E01035468"
+  ],
+  "n_held_out_lsoas": 36,
+  "n_train_lsoas": 132,
+  "n_test_rows": 1008,
+  "model_metrics": {
+    "feature_a": {
+      "mae": 4.81484112900401,
+      "rmse": 8.03270303521129,
+      "r2": 0.7200069472194066
+    },
+    "feature_b": {
+      "mae": 5.621324438424337,
+      "rmse": 9.353534706307567,
+      "r2": 0.620357035028132
+    },
+    "geo": {
+      "mae": 13.047309912386394,
+      "rmse": 17.898458629839965,
+      "r2": -0.39012897933112134
+    }
+  },
+  "benchmark_metrics": {
+    "current_month_crime": {
+      "mae": 5.537698412698413,
+      "rmse": 8.320823944244411,
+      "r2": 0.6995608679340746
+    },
+    "one_month_lag": {
+      "mae": 5.7351190476190474,
+      "rmse": 8.70863237126116,
+      "r2": 0.6709031332706148
+    },
+    "three_month_rolling_mean": {
+      "mae": 5.020502645502646,
+      "rmse": 7.778826459915045,
+      "r2": 0.7374258319891012
+    },
+    "six_month_rolling_mean": {
+      "mae": 4.725694444444445,
+      "rmse": 7.286445598649669,
+      "r2": 0.7696144236093484
+    },
+    "lsoa_training_mean": {
+      "mae": 10.59476461038961,
+      "rmse": 15.582925527292515,
+      "r2": -0.05371174951260671
+    }
+  },
+  "lsoa_training_mean_note": "For spatially held-out LSOAs, lsoa_training_mean falls back to the overall training-period mean because those LSOAs never appear in training.",
+  "note": "Harder spatial-transfer test: held-out LSOAs never appear in training. Same LSOAs can contribute multiple test months."
+}

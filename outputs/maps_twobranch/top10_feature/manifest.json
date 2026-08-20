@@ -1,0 +1,121 @@
+{
+  "top_k": 10,
+  "universe_n": 30,
+  "ranking_source": "D:\\GEO SMILE CODE\\hull\\outputs\\feature_global_importance.csv",
+  "local_source": "D:\\GEO SMILE CODE\\hull\\outputs\\feature_local_coefficients.csv",
+  "features": [
+    {
+      "feature": "crime_rolling_mean_6",
+      "coefficient": -5.22091330180124,
+      "abs_coefficient": 5.22091330180124
+    },
+    {
+      "feature": "crime_rolling_mean_3",
+      "coefficient": -1.2718102982838038,
+      "abs_coefficient": 1.2718102982838038
+    },
+    {
+      "feature": "unemployed_pct_age16plus",
+      "coefficient": -0.4943571954198375,
+      "abs_coefficient": 0.4943571954198375
+    },
+    {
+      "feature": "long_term_sick_disabled_pct",
+      "coefficient": -0.2869532199176136,
+      "abs_coefficient": 0.2869532199176136
+    },
+    {
+      "feature": "owner_occupied_pct",
+      "coefficient": -0.2745568877274837,
+      "abs_coefficient": 0.2745568877274837
+    },
+    {
+      "feature": "crime_lag_2",
+      "coefficient": -0.225945762844815,
+      "abs_coefficient": 0.225945762844815
+    },
+    {
+      "feature": "social_rented_pct",
+      "coefficient": -0.1245136257221687,
+      "abs_coefficient": 0.1245136257221687
+    },
+    {
+      "feature": "crime_lag_1",
+      "coefficient": -0.1101488560665197,
+      "abs_coefficient": 0.1101488560665197
+    },
+    {
+      "feature": "population_density_per_km2",
+      "coefficient": -0.109286621117566,
+      "abs_coefficient": 0.109286621117566
+    },
+    {
+      "feature": "transit_stop_per_km2",
+      "coefficient": -0.1047808261840023,
+      "abs_coefficient": 0.1047808261840023
+    }
+  ],
+  "maps": [
+    {
+      "rank": 1,
+      "feature": "crime_rolling_mean_6",
+      "signed": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\signed\\rank01_crime_rolling_mean_6_signed.png",
+      "absolute": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\absolute\\rank01_crime_rolling_mean_6_abs.png"
+    },
+    {
+      "rank": 2,
+      "feature": "crime_rolling_mean_3",
+      "signed": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\signed\\rank02_crime_rolling_mean_3_signed.png",
+      "absolute": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\absolute\\rank02_crime_rolling_mean_3_abs.png"
+    },
+    {
+      "rank": 3,
+      "feature": "unemployed_pct_age16plus",
+      "signed": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\signed\\rank03_unemployed_pct_age16plus_signed.png",
+      "absolute": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\absolute\\rank03_unemployed_pct_age16plus_abs.png"
+    },
+    {
+      "rank": 4,
+      "feature": "long_term_sick_disabled_pct",
+      "signed": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\signed\\rank04_long_term_sick_disabled_pct_signed.png",
+      "absolute": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\absolute\\rank04_long_term_sick_disabled_pct_abs.png"
+    },
+    {
+      "rank": 5,
+      "feature": "owner_occupied_pct",
+      "signed": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\signed\\rank05_owner_occupied_pct_signed.png",
+      "absolute": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\absolute\\rank05_owner_occupied_pct_abs.png"
+    },
+    {
+      "rank": 6,
+      "feature": "crime_lag_2",
+      "signed": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\signed\\rank06_crime_lag_2_signed.png",
+      "absolute": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\absolute\\rank06_crime_lag_2_abs.png"
+    },
+    {
+      "rank": 7,
+      "feature": "social_rented_pct",
+      "signed": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\signed\\rank07_social_rented_pct_signed.png",
+      "absolute": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\absolute\\rank07_social_rented_pct_abs.png"
+    },
+    {
+      "rank": 8,
+      "feature": "crime_lag_1",
+      "signed": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\signed\\rank08_crime_lag_1_signed.png",
+      "absolute": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\absolute\\rank08_crime_lag_1_abs.png"
+    },
+    {
+      "rank": 9,
+      "feature": "population_density_per_km2",
+      "signed": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\signed\\rank09_population_density_per_km2_signed.png",
+      "absolute": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\absolute\\rank09_population_density_per_km2_abs.png"
+    },
+    {
+      "rank": 10,
+      "feature": "transit_stop_per_km2",
+      "signed": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\signed\\rank10_transit_stop_per_km2_signed.png",
+      "absolute": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\absolute\\rank10_transit_stop_per_km2_abs.png"
+    }
+  ],
+  "panel": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\top10_feature\\top10_feature_local_signed_panel.png"
+}

@@ -1,0 +1,9 @@
+category,n_features,geosmile_abs_mass,geosmile_mass_share,geosmile_mean_abs,expert_mean_rating,expert_median_rating,expert_rating_sum,n_expert_top6,n_geosmile_top6,features,geosmile_category_rank,expert_category_rank,expert_rank_source
+Temporal history,5,6.850729332324808,0.7294752491410376,1.3701458664649615,4.8,5.0,24.0,4,3,"crime_rolling_mean_6, crime_rolling_mean_3, crime_lag_2, crime_lag_1, crime_lag_3",1,2,mean_feature_rating
+Tenure and deprivation context,8,1.4550712877219634,0.15493802756454084,0.18188391096524542,3.125,3.0,25.0,0,3,"unemployed_pct_age16plus, long_term_sick_disabled_pct, owner_occupied_pct, social_rented_pct, level4_plus_qualification_pct, private_rented_pct, no_qualifications_pct, economically_inactive_pct",2,4,mean_feature_rating
+Activity nodes,4,0.3575157201510935,0.038068774341804834,0.08937893003777338,5.0,5.0,20.0,2,0,"retail_count, retail_per_km2, nightlife_per_km2, nightlife_count",3,1,mean_feature_rating
+Transport and accessibility,6,0.3243669046248973,0.03453904206197232,0.05406115077081622,3.6666666666666665,4.0,22.0,0,0,"transit_stop_per_km2, road_length_km, transit_stop_count, road_length_km_per_km2, intersection_count, intersection_per_km2",4,3,mean_feature_rating
+Population and exposure,3,0.1982559579443887,0.021110571925938282,0.06608531931479623,3.0,3.0,9.0,0,0,"population_density_per_km2, young_adult_15_34_pct, older_adult_65_plus_pct",5,5,mean_feature_rating
+Seasonality,2,0.09871240540037049,0.010511035107310279,0.049356202700185245,3.0,3.0,6.0,0,0,"month_sin, month_cos",6,6,mean_feature_rating
+Green environment,1,0.0729774803155834,0.007770744259842167,0.0729774803155834,2.0,2.0,2.0,0,0,green_space_pct,7,7,mean_feature_rating
+Spatial morphology,1,0.0336824610061908,0.0035865555975536203,0.0336824610061908,2.0,2.0,2.0,0,0,lsoa_area_km2,8,8,mean_feature_rating

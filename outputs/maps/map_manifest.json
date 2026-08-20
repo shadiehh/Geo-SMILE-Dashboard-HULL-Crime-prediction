@@ -1,0 +1,32 @@
+{
+  "geo": [
+    "geo_location_sensitivity.png"
+  ],
+  "feature_a": [
+    "feature_a_crime_lag_1.png",
+    "feature_a_crime_lag_2.png",
+    "feature_a_crime_lag_3.png",
+    "feature_a_crime_rolling_mean_3.png",
+    "feature_a_crime_rolling_mean_6.png",
+    "feature_a_month_sin.png",
+    "feature_a_month_cos.png"
+  ],
+  "feature_b": [
+    "feature_b_crime_lag_1.png",
+    "feature_b_crime_lag_2.png",
+    "feature_b_crime_lag_3.png",
+    "feature_b_crime_rolling_mean_3.png",
+    "feature_b_crime_rolling_mean_6.png",
+    "feature_b_month_sin.png",
+    "feature_b_month_cos.png"
+  ],
+  "differences": [
+    "differences/difference_crime_lag_1.png",
+    "differences/difference_crime_lag_2.png",
+    "differences/difference_crime_lag_3.png",
+    "differences/difference_crime_rolling_mean_3.png",
+    "differences/difference_crime_rolling_mean_6.png",
+    "differences/difference_month_sin.png",
+    "differences/difference_month_cos.png"
+  ]
+}

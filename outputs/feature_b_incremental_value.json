@@ -1,0 +1,28 @@
+{
+  "mae_difference_a_minus_b": 0.06675967361245849,
+  "rmse_difference_a_minus_b": 0.0582912204379884,
+  "r2_difference_b_minus_a": 0.0017952653999420143,
+  "pct_observations_b_lower_abs_error": 50.148809523809526,
+  "prediction_correlation": 0.9974922701147255,
+  "feature_a_mae": 4.954930621953237,
+  "feature_b_mae": 4.888170948340779,
+  "feature_a_rmse": 7.03790253303128,
+  "feature_b_rmse": 6.979611312593292,
+  "feature_a_r2": 0.8911719080207636,
+  "feature_b_r2": 0.8929671734207056,
+  "bootstrap": {
+    "n_repetitions": 5000,
+    "cluster_unit": "lsoa21cd",
+    "mae_improvement_a_minus_b_ci95": [
+      -0.04154382720589608,
+      0.17265253787239376
+    ],
+    "rmse_improvement_a_minus_b_ci95": [
+      -0.20681918535244628,
+      0.26768162802120776
+    ],
+    "mae_improvement_significant_at_95": false,
+    "rmse_improvement_significant_at_95": false
+  },
+  "interpretation_note": "Positive MAE/RMSE difference (A minus B) means Feature-B has lower error. Do not claim coordinate improvement unless the 95% CI excludes zero."
+}

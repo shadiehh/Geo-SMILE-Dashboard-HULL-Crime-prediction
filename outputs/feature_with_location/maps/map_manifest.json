@@ -1,0 +1,10 @@
+{
+  "feature_signed": [
+    "signed/feature_centroid_longitude_signed.png",
+    "signed/feature_centroid_latitude_signed.png"
+  ],
+  "feature_abs": [
+    "absolute/feature_centroid_longitude_abs.png",
+    "absolute/feature_centroid_latitude_abs.png"
+  ]
+}

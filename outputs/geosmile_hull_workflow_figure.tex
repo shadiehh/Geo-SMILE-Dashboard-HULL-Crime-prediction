@@ -1,0 +1,49 @@
+% Requires in the preamble:
+%   \usepackage{tikz}
+%   \usetikzlibrary{arrows.meta,positioning,fit,calc}
+%
+% Paste inside a figure environment.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  font=\small\sffamily,
+  >=Stealth,
+  box/.style={
+    draw=black!70,
+    rounded corners=1.5pt,
+    align=center,
+    inner sep=6pt,
+    minimum height=8.2mm,
+    minimum width=32mm,
+  },
+  stage/.style={box, fill=black!6, font=\small\sffamily\bfseries},
+  branch/.style={box, fill=white, minimum width=38mm},
+  leaf/.style={box, fill=white, minimum width=24mm},
+  arr/.style={->, thick, black!70},
+]
+  \node[stage] (model) {Model};
+  \node[stage, below=8mm of model] (geosmile) {GeoSMILE};
+  \node[branch, below left=14mm and 8mm of geosmile] (feat) {Feature explanation};
+  \node[branch, below right=14mm and 8mm of geosmile] (geo) {Geographic sensitivity};
+  \node[stage, below=12mm of geo] (spa) {Spatial pattern analysis};
+  \node[leaf, below left=12mm and 2mm of spa] (glob) {Global\\pattern};
+  \node[leaf, below=12mm of spa] (loc) {Local\\pattern};
+  \node[leaf, below right=12mm and 2mm of spa] (scale) {Scale\\pattern};
+
+  \draw[arr] (model) -- (geosmile);
+  \draw[arr] (geosmile.south) -- ++(0,-3mm) -| (feat.north);
+  \draw[arr] (geosmile.south) -- ++(0,-3mm) -| (geo.north);
+  \draw[arr] (geo) -- (spa);
+  \draw[arr] (spa.south) -- ++(0,-3mm) -| (glob.north);
+  \draw[arr] (spa) -- (loc);
+  \draw[arr] (spa.south) -- ++(0,-3mm) -| (scale.north);
+\end{tikzpicture}
+\caption{Two-branch GeoSMILE workflow.
+The fitted model is explained by a Feature branch (non-spatial predictors) and a
+geographic-sensitivity branch (per-LSOA location masking).
+Spatial pattern analysis of the Geo attributions is then summarised at global,
+local, and scale levels.
+Not a causal pathway.}
+\label{fig:hull_geosmile_workflow}
+\end{figure}

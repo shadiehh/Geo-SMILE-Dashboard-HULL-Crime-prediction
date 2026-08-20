@@ -1,0 +1,19 @@
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{{results/stability runs addition version}.pdf}
+\caption{Geo SMILE top-$20$ LSOA importance maps after each one-at-a-time
+cardinal-neighbour addition (north, east, south, west), using the published
+SMILE design ($2000$ Geo perturbations; seed $42$).
+Predictive models remain Hull-trained; only the explanation reference is expanded
+by one real LSOA just outside Hull.
+Coloured units are the $20$ largest absolute Geo SMILE coefficients; numeric labels
+are importance ranks ($1$~=~largest).
+The added neighbour is outlined and does not enter the top-$20$ in any direction.
+The same twenty Hull LSOAs remain in the top set in all four panels
+(Geo top-$20$ Jaccard vs.\ the published Hull-only baseline $=1.000$);
+numeric labels may differ because nearby ranks can swap when
+$\lvert\mathrm{coef}\rvert$ values are close.
+Hull-row prediction Spearman $=1.000$.
+These are association diagnostics for the fitted explanation, not causal effects.}
+\label{fig:hull_att_stability_geo_additions}
+\end{figure}

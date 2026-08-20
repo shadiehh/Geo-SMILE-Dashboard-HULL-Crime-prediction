@@ -1,0 +1,430 @@
+Branch,Category,Metric,Value
+Feature,Fidelity,R2,0.9853258990364979
+Feature,Fidelity,Weighted R2,0.9851034980432535
+Feature,Fidelity,MAE,0.28562375291855235
+Feature,Fidelity,WMAE,0.28677810571216644
+Feature,Fidelity,RMSE,0.3356910257463809
+Feature,Fidelity,WRMSE,0.3377797920385787
+Geo,Fidelity,R2,0.9307547925394969
+Geo,Fidelity,Weighted R2,0.9282632145290007
+Geo,Fidelity,MAE,0.7072195593454844
+Geo,Fidelity,WMAE,0.738472409154546
+Geo,Fidelity,RMSE,1.3599534508213336
+Geo,Fidelity,WRMSE,1.4802143961721106
+Both,Perturbation response monotonicity,Feature Spearman: perturbation cardinality vs WD,0.4624799677336309
+Both,Perturbation response monotonicity,Feature Pearson: perturbation cardinality vs WD,0.36962663975375554
+Both,Perturbation response monotonicity,Geo Spearman: perturbation cardinality vs WD,0.048279277323114815
+Both,Perturbation response monotonicity,Geo Pearson: perturbation cardinality vs WD,0.01134086886688547
+Feature,Consistency (multi-run),Rank Spearman Mean,0.6935706340378198
+Feature,Consistency (multi-run),Rank Spearman Std,0.09603467199336015
+Feature,Consistency (multi-run),Score Pearson Mean,0.9989340894046788
+Feature,Consistency (multi-run),Score Pearson Std,0.00027094661486494855
+Feature,Consistency (multi-run),Top-20% Jaccard Mean,0.8285714285714286
+Feature,Consistency (multi-run),Top-20% Jaccard Std,0.13997084244475302
+Feature,Consistency (multi-run),Fidelity R2 Mean,0.9830120451629032
+Feature,Consistency (multi-run),Fidelity R2 Std,0.002351120045507138
+Geo,Consistency (multi-run),Rank Spearman Mean,0.7431279452928463
+Geo,Consistency (multi-run),Rank Spearman Std,0.0286287373279127
+Geo,Consistency (multi-run),Score Pearson Mean,0.9830946685420713
+Geo,Consistency (multi-run),Score Pearson Std,0.0025550485659364642
+Geo,Consistency (multi-run),Top-20% Jaccard Mean,0.6233203175869684
+Geo,Consistency (multi-run),Top-20% Jaccard Std,0.08380222010619189
+Geo,Consistency (multi-run),Fidelity R2 Mean,0.9204238898435324
+Geo,Consistency (multi-run),Fidelity R2 Std,0.01539246339938522
+Feature,Sparsity/Entropy,hoyer,0.8480077601810354
+Feature,Sparsity/Entropy,gini,0.7901996531386815
+Feature,Sparsity/Entropy,entropy,1.7909106758652684
+Feature,Sparsity/Entropy,nonzero,30
+Feature,Sparsity/Entropy,n,30
+Geo,Sparsity/Entropy,hoyer,0.6311573069220637
+Geo,Sparsity/Entropy,gini,0.5065422710139682
+Geo,Sparsity/Entropy,entropy,4.459222675080568
+Geo,Sparsity/Entropy,nonzero,168
+Geo,Sparsity/Entropy,n,168
+Feature,Setup,Best kernel,inverse
+Geo,Setup,Best kernel,laplace
+Feature,Setup,Players,30
+Geo,Setup,Spatial units,168
+Feature,Expert-reference attribution accuracy,Spearman rho [complete_30_feature|external_crime_informed_reference|all],0.4527675882926464
+Feature,Expert-reference attribution accuracy,Kendall tau-b [complete_30_feature|external_crime_informed_reference|all],0.3494559029274404
+Feature,Expert-reference attribution accuracy,nDCG@10% [complete_30_feature|external_crime_informed_reference|all],0.8748590063939317
+Feature,Expert-reference attribution accuracy,nDCG@20% [complete_30_feature|external_crime_informed_reference|all],0.7213969358283157
+Feature,Expert-reference attribution accuracy,nDCG@K_positive [complete_30_feature|external_crime_informed_reference|all],0.8196520808625665
+Feature,Expert-reference attribution accuracy,nDCG full [complete_30_feature|external_crime_informed_reference|all],0.91090535591208
+Feature,Expert-reference attribution accuracy,AUROC [complete_30_feature|external_crime_informed_reference|all],0.6696428571428572
+Feature,Expert-reference attribution accuracy,AUPRC [complete_30_feature|external_crime_informed_reference|all],0.7381613756613756
+Feature,Expert-reference attribution accuracy,Expert-positive prevalence [complete_30_feature|external_crime_informed_reference|all],0.5333333333333333
+Feature,Expert-reference attribution accuracy,Precision@top_10pct [complete_30_feature|external_crime_informed_reference|all],1.0
+Feature,Expert-reference attribution accuracy,Recall@top_10pct [complete_30_feature|external_crime_informed_reference|all],0.1875
+Feature,Expert-reference attribution accuracy,F1@top_10pct [complete_30_feature|external_crime_informed_reference|all],0.3157894736842105
+Feature,Expert-reference attribution accuracy,Jaccard@top_10pct [complete_30_feature|external_crime_informed_reference|all],0.1875
+Feature,Expert-reference attribution accuracy,Lift@top_10pct [complete_30_feature|external_crime_informed_reference|all],1.875
+Feature,Expert-reference attribution accuracy,Precision@top_20pct [complete_30_feature|external_crime_informed_reference|all],0.6666666666666666
+Feature,Expert-reference attribution accuracy,Recall@top_20pct [complete_30_feature|external_crime_informed_reference|all],0.25
+Feature,Expert-reference attribution accuracy,F1@top_20pct [complete_30_feature|external_crime_informed_reference|all],0.36363636363636365
+Feature,Expert-reference attribution accuracy,Jaccard@top_20pct [complete_30_feature|external_crime_informed_reference|all],0.2222222222222222
+Feature,Expert-reference attribution accuracy,Lift@top_20pct [complete_30_feature|external_crime_informed_reference|all],1.25
+Feature,Expert-reference attribution accuracy,Precision@k_positive [complete_30_feature|external_crime_informed_reference|all],0.6875
+Feature,Expert-reference attribution accuracy,Recall@k_positive [complete_30_feature|external_crime_informed_reference|all],0.6875
+Feature,Expert-reference attribution accuracy,F1@k_positive [complete_30_feature|external_crime_informed_reference|all],0.6875
+Feature,Expert-reference attribution accuracy,Jaccard@k_positive [complete_30_feature|external_crime_informed_reference|all],0.5238095238095238
+Feature,Expert-reference attribution accuracy,Lift@k_positive [complete_30_feature|external_crime_informed_reference|all],1.2890625
+Feature,Expert-reference attribution accuracy,Spearman permutation p [complete_30_feature|external_crime_informed_reference|all],0.01219756048790242
+Feature,Expert-reference attribution accuracy,Kendall permutation p [complete_30_feature|external_crime_informed_reference|all],0.01219756048790242
+Feature,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [complete_30_feature|external_crime_informed_reference|all],0.04472293234205379
+Feature,Expert-reference attribution accuracy,Spearman rho [complete_30_feature|external_crime_informed_reference|high_medium],0.4183965819510844
+Feature,Expert-reference attribution accuracy,Kendall tau-b [complete_30_feature|external_crime_informed_reference|high_medium],0.32342260115357263
+Feature,Expert-reference attribution accuracy,nDCG@10% [complete_30_feature|external_crime_informed_reference|high_medium],0.8748590063939317
+Feature,Expert-reference attribution accuracy,nDCG@20% [complete_30_feature|external_crime_informed_reference|high_medium],0.7575594612589475
+Feature,Expert-reference attribution accuracy,nDCG@K_positive [complete_30_feature|external_crime_informed_reference|high_medium],0.8335759822619874
+Feature,Expert-reference attribution accuracy,nDCG full [complete_30_feature|external_crime_informed_reference|high_medium],0.9253690553820464
+Feature,Expert-reference attribution accuracy,AUROC [complete_30_feature|external_crime_informed_reference|high_medium],0.66875
+Feature,Expert-reference attribution accuracy,AUPRC [complete_30_feature|external_crime_informed_reference|high_medium],0.8033946547733313
+Feature,Expert-reference attribution accuracy,Expert-positive prevalence [complete_30_feature|external_crime_informed_reference|high_medium],0.6153846153846154
+Feature,Expert-reference attribution accuracy,Precision@top_10pct [complete_30_feature|external_crime_informed_reference|high_medium],1.0
+Feature,Expert-reference attribution accuracy,Recall@top_10pct [complete_30_feature|external_crime_informed_reference|high_medium],0.1875
+Feature,Expert-reference attribution accuracy,F1@top_10pct [complete_30_feature|external_crime_informed_reference|high_medium],0.3157894736842105
+Feature,Expert-reference attribution accuracy,Jaccard@top_10pct [complete_30_feature|external_crime_informed_reference|high_medium],0.1875
+Feature,Expert-reference attribution accuracy,Lift@top_10pct [complete_30_feature|external_crime_informed_reference|high_medium],1.625
+Feature,Expert-reference attribution accuracy,Precision@top_20pct [complete_30_feature|external_crime_informed_reference|high_medium],0.8333333333333334
+Feature,Expert-reference attribution accuracy,Recall@top_20pct [complete_30_feature|external_crime_informed_reference|high_medium],0.3125
+Feature,Expert-reference attribution accuracy,F1@top_20pct [complete_30_feature|external_crime_informed_reference|high_medium],0.45454545454545453
+Feature,Expert-reference attribution accuracy,Jaccard@top_20pct [complete_30_feature|external_crime_informed_reference|high_medium],0.29411764705882354
+Feature,Expert-reference attribution accuracy,Lift@top_20pct [complete_30_feature|external_crime_informed_reference|high_medium],1.3541666666666667
+Feature,Expert-reference attribution accuracy,Precision@k_positive [complete_30_feature|external_crime_informed_reference|high_medium],0.6875
+Feature,Expert-reference attribution accuracy,Recall@k_positive [complete_30_feature|external_crime_informed_reference|high_medium],0.6875
+Feature,Expert-reference attribution accuracy,F1@k_positive [complete_30_feature|external_crime_informed_reference|high_medium],0.6875
+Feature,Expert-reference attribution accuracy,Jaccard@k_positive [complete_30_feature|external_crime_informed_reference|high_medium],0.5238095238095238
+Feature,Expert-reference attribution accuracy,Lift@k_positive [complete_30_feature|external_crime_informed_reference|high_medium],1.1171875
+Feature,Expert-reference attribution accuracy,Spearman permutation p [complete_30_feature|external_crime_informed_reference|high_medium],0.03479304139172166
+Feature,Expert-reference attribution accuracy,Kendall permutation p [complete_30_feature|external_crime_informed_reference|high_medium],0.041591681663667265
+Feature,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [complete_30_feature|external_crime_informed_reference|high_medium],0.14053948430084326
+Feature,Expert-reference attribution accuracy,Spearman rho [complete_30_feature|external_crime_informed_reference|high],0.5477225575051661
+Feature,Expert-reference attribution accuracy,Kendall tau-b [complete_30_feature|external_crime_informed_reference|high],0.4714045207910316
+Feature,Expert-reference attribution accuracy,nDCG@10% [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,nDCG@20% [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,nDCG@K_positive [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,nDCG full [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,AUROC [complete_30_feature|external_crime_informed_reference|high],
+Feature,Expert-reference attribution accuracy,AUPRC [complete_30_feature|external_crime_informed_reference|high],
+Feature,Expert-reference attribution accuracy,Expert-positive prevalence [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,Precision@top_10pct [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,Recall@top_10pct [complete_30_feature|external_crime_informed_reference|high],0.1111111111111111
+Feature,Expert-reference attribution accuracy,F1@top_10pct [complete_30_feature|external_crime_informed_reference|high],0.19999999999999998
+Feature,Expert-reference attribution accuracy,Jaccard@top_10pct [complete_30_feature|external_crime_informed_reference|high],0.1111111111111111
+Feature,Expert-reference attribution accuracy,Lift@top_10pct [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,Precision@top_20pct [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,Recall@top_20pct [complete_30_feature|external_crime_informed_reference|high],0.2222222222222222
+Feature,Expert-reference attribution accuracy,F1@top_20pct [complete_30_feature|external_crime_informed_reference|high],0.3636363636363636
+Feature,Expert-reference attribution accuracy,Jaccard@top_20pct [complete_30_feature|external_crime_informed_reference|high],0.2222222222222222
+Feature,Expert-reference attribution accuracy,Lift@top_20pct [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,Precision@k_positive [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,Recall@k_positive [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,F1@k_positive [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,Jaccard@k_positive [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,Lift@k_positive [complete_30_feature|external_crime_informed_reference|high],1.0
+Feature,Expert-reference attribution accuracy,Spearman permutation p [complete_30_feature|external_crime_informed_reference|high],0.22975404919016196
+Feature,Expert-reference attribution accuracy,Kendall permutation p [complete_30_feature|external_crime_informed_reference|high],0.22975404919016196
+Feature,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [complete_30_feature|external_crime_informed_reference|high],0.12133525035848365
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Spearman rho [restricted_7_feature_subset|external_crime_informed_reference|all],0.6972166887783964
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Kendall tau-b [restricted_7_feature_subset|external_crime_informed_reference|all],0.5832118435198044
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@10% [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@20% [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@K_positive [restricted_7_feature_subset|external_crime_informed_reference|all],0.9779933840673642
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG full [restricted_7_feature_subset|external_crime_informed_reference|all],0.9790471488230786
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,AUROC [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,AUPRC [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Expert-positive prevalence [restricted_7_feature_subset|external_crime_informed_reference|all],0.7142857142857143
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|all],0.2
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,F1@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|all],0.33333333333333337
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|all],0.2
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|all],1.4
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|all],0.4
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,F1@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|all],0.5714285714285715
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|all],0.4
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|all],1.4
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@k_positive [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@k_positive [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,F1@k_positive [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@k_positive [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@k_positive [restricted_7_feature_subset|external_crime_informed_reference|all],1.4
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Spearman permutation p [restricted_7_feature_subset|external_crime_informed_reference|all],0.09758048390321936
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Kendall permutation p [restricted_7_feature_subset|external_crime_informed_reference|all],0.13917216556688664
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [restricted_7_feature_subset|external_crime_informed_reference|all],0.15335496684492844
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Spearman rho [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.6972166887783964
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Kendall tau-b [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.5832118435198044
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@10% [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@20% [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@K_positive [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.9779933840673642
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG full [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.9790471488230786
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,AUROC [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,AUPRC [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Expert-positive prevalence [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.7142857142857143
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.2
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,F1@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.33333333333333337
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.2
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.4
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.4
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,F1@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.5714285714285715
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.4
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.4
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,F1@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.4
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Spearman permutation p [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.09758048390321936
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Kendall permutation p [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.13917216556688664
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.15335496684492844
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Spearman rho [restricted_7_feature_subset|external_crime_informed_reference|high],0.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Kendall tau-b [restricted_7_feature_subset|external_crime_informed_reference|high],0.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@10% [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@20% [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@K_positive [restricted_7_feature_subset|external_crime_informed_reference|high],0.9779933840673642
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG full [restricted_7_feature_subset|external_crime_informed_reference|high],0.9779933840673642
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,AUROC [restricted_7_feature_subset|external_crime_informed_reference|high],
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,AUPRC [restricted_7_feature_subset|external_crime_informed_reference|high],
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Expert-positive prevalence [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high],0.2
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,F1@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high],0.33333333333333337
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high],0.2
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high],0.2
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,F1@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high],0.33333333333333337
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high],0.2
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,F1@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Spearman permutation p [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Kendall permutation p [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-A — restricted 7-feature subset,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Spearman rho [restricted_7_feature_subset|external_crime_informed_reference|all],0.6972166887783964
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Kendall tau-b [restricted_7_feature_subset|external_crime_informed_reference|all],0.5832118435198044
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@10% [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@20% [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@K_positive [restricted_7_feature_subset|external_crime_informed_reference|all],0.9779933840673642
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG full [restricted_7_feature_subset|external_crime_informed_reference|all],0.9790471488230786
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,AUROC [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,AUPRC [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Expert-positive prevalence [restricted_7_feature_subset|external_crime_informed_reference|all],0.7142857142857143
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|all],0.2
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,F1@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|all],0.33333333333333337
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|all],0.2
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|all],1.4
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|all],0.4
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,F1@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|all],0.5714285714285715
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|all],0.4
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|all],1.4
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@k_positive [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@k_positive [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,F1@k_positive [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@k_positive [restricted_7_feature_subset|external_crime_informed_reference|all],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@k_positive [restricted_7_feature_subset|external_crime_informed_reference|all],1.4
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Spearman permutation p [restricted_7_feature_subset|external_crime_informed_reference|all],0.09758048390321936
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Kendall permutation p [restricted_7_feature_subset|external_crime_informed_reference|all],0.13917216556688664
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [restricted_7_feature_subset|external_crime_informed_reference|all],0.15335496684492844
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Spearman rho [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.6972166887783964
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Kendall tau-b [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.5832118435198044
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@10% [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@20% [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@K_positive [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.9779933840673642
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG full [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.9790471488230786
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,AUROC [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,AUPRC [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Expert-positive prevalence [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.7142857142857143
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.2
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,F1@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.33333333333333337
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.2
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.4
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.4
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,F1@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.5714285714285715
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.4
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.4
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,F1@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high_medium],1.4
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Spearman permutation p [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.09758048390321936
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Kendall permutation p [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.13917216556688664
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [restricted_7_feature_subset|external_crime_informed_reference|high_medium],0.15335496684492844
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Spearman rho [restricted_7_feature_subset|external_crime_informed_reference|high],0.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Kendall tau-b [restricted_7_feature_subset|external_crime_informed_reference|high],0.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@10% [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@20% [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG@K_positive [restricted_7_feature_subset|external_crime_informed_reference|high],0.9779933840673642
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,nDCG full [restricted_7_feature_subset|external_crime_informed_reference|high],0.9779933840673642
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,AUROC [restricted_7_feature_subset|external_crime_informed_reference|high],
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,AUPRC [restricted_7_feature_subset|external_crime_informed_reference|high],
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Expert-positive prevalence [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high],0.2
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,F1@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high],0.33333333333333337
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high],0.2
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@top_10pct [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high],0.2
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,F1@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high],0.33333333333333337
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high],0.2
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@top_20pct [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Precision@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Recall@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,F1@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Jaccard@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Lift@k_positive [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Spearman permutation p [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Kendall permutation p [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Feature-B — restricted 7-feature subset,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [restricted_7_feature_subset|external_crime_informed_reference|high],1.0
+Geo,Expert-reference attribution accuracy,Spearman rho [complete_168_lsoa|external_crime_informed_reference|all],0.3497094295631188
+Geo,Expert-reference attribution accuracy,Spearman rho spatial-block CI [complete_168_lsoa|external_crime_informed_reference|all],0.3497094295631188
+Geo,Expert-reference attribution accuracy,Kendall tau-b [complete_168_lsoa|external_crime_informed_reference|all],0.25767484400578344
+Geo,Expert-reference attribution accuracy,nDCG@10% [complete_168_lsoa|external_crime_informed_reference|all],0.779423729380532
+Geo,Expert-reference attribution accuracy,nDCG@20% [complete_168_lsoa|external_crime_informed_reference|all],0.7447369958577262
+Geo,Expert-reference attribution accuracy,nDCG@K_positive [complete_168_lsoa|external_crime_informed_reference|all],0.7576932037213542
+Geo,Expert-reference attribution accuracy,nDCG full [complete_168_lsoa|external_crime_informed_reference|all],0.9080604251017513
+Geo,Expert-reference attribution accuracy,AUROC [complete_168_lsoa|external_crime_informed_reference|all],0.6735294117647058
+Geo,Expert-reference attribution accuracy,AUPRC [complete_168_lsoa|external_crime_informed_reference|all],0.7750960622550631
+Geo,Expert-reference attribution accuracy,Expert-positive prevalence [complete_168_lsoa|external_crime_informed_reference|all],0.5952380952380952
+Geo,Expert-reference attribution accuracy,Precision@top_10pct [complete_168_lsoa|external_crime_informed_reference|all],0.9411764705882353
+Geo,Expert-reference attribution accuracy,Recall@top_10pct [complete_168_lsoa|external_crime_informed_reference|all],0.16
+Geo,Expert-reference attribution accuracy,F1@top_10pct [complete_168_lsoa|external_crime_informed_reference|all],0.27350427350427353
+Geo,Expert-reference attribution accuracy,Jaccard@top_10pct [complete_168_lsoa|external_crime_informed_reference|all],0.15841584158415842
+Geo,Expert-reference attribution accuracy,Lift@top_10pct [complete_168_lsoa|external_crime_informed_reference|all],1.5811764705882352
+Geo,Expert-reference attribution accuracy,Precision@top_20pct [complete_168_lsoa|external_crime_informed_reference|all],0.8823529411764706
+Geo,Expert-reference attribution accuracy,Recall@top_20pct [complete_168_lsoa|external_crime_informed_reference|all],0.3
+Geo,Expert-reference attribution accuracy,F1@top_20pct [complete_168_lsoa|external_crime_informed_reference|all],0.44776119402985076
+Geo,Expert-reference attribution accuracy,Jaccard@top_20pct [complete_168_lsoa|external_crime_informed_reference|all],0.28846153846153844
+Geo,Expert-reference attribution accuracy,Lift@top_20pct [complete_168_lsoa|external_crime_informed_reference|all],1.4823529411764707
+Geo,Expert-reference attribution accuracy,Precision@k_positive [complete_168_lsoa|external_crime_informed_reference|all],0.67
+Geo,Expert-reference attribution accuracy,Recall@k_positive [complete_168_lsoa|external_crime_informed_reference|all],0.67
+Geo,Expert-reference attribution accuracy,F1@k_positive [complete_168_lsoa|external_crime_informed_reference|all],0.67
+Geo,Expert-reference attribution accuracy,Jaccard@k_positive [complete_168_lsoa|external_crime_informed_reference|all],0.5037593984962406
+Geo,Expert-reference attribution accuracy,Lift@k_positive [complete_168_lsoa|external_crime_informed_reference|all],1.1256000000000002
+Geo,Expert-reference attribution accuracy,Spearman permutation p [complete_168_lsoa|external_crime_informed_reference|all],0.0001999600079984003
+Geo,Expert-reference attribution accuracy,Kendall permutation p [complete_168_lsoa|external_crime_informed_reference|all],0.0001999600079984003
+Geo,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [complete_168_lsoa|external_crime_informed_reference|all],9.554555148026859e-05
+Geo,Expert-reference attribution accuracy,Spearman rho [complete_168_lsoa|external_crime_informed_reference|high_medium],0.37835100879223516
+Geo,Expert-reference attribution accuracy,Spearman rho spatial-block CI [complete_168_lsoa|external_crime_informed_reference|high_medium],0.37835100879223516
+Geo,Expert-reference attribution accuracy,Kendall tau-b [complete_168_lsoa|external_crime_informed_reference|high_medium],0.2866931865346458
+Geo,Expert-reference attribution accuracy,nDCG@10% [complete_168_lsoa|external_crime_informed_reference|high_medium],0.8218857217122788
+Geo,Expert-reference attribution accuracy,nDCG@20% [complete_168_lsoa|external_crime_informed_reference|high_medium],0.8009600364075875
+Geo,Expert-reference attribution accuracy,nDCG@K_positive [complete_168_lsoa|external_crime_informed_reference|high_medium],0.849420860806504
+Geo,Expert-reference attribution accuracy,nDCG full [complete_168_lsoa|external_crime_informed_reference|high_medium],0.929690106797677
+Geo,Expert-reference attribution accuracy,AUROC [complete_168_lsoa|external_crime_informed_reference|high_medium],0.6926844199571471
+Geo,Expert-reference attribution accuracy,AUPRC [complete_168_lsoa|external_crime_informed_reference|high_medium],0.8838459299551217
+Geo,Expert-reference attribution accuracy,Expert-positive prevalence [complete_168_lsoa|external_crime_informed_reference|high_medium],0.75
+Geo,Expert-reference attribution accuracy,Precision@top_10pct [complete_168_lsoa|external_crime_informed_reference|high_medium],1.0
+Geo,Expert-reference attribution accuracy,Recall@top_10pct [complete_168_lsoa|external_crime_informed_reference|high_medium],0.1414141414141414
+Geo,Expert-reference attribution accuracy,F1@top_10pct [complete_168_lsoa|external_crime_informed_reference|high_medium],0.24778761061946902
+Geo,Expert-reference attribution accuracy,Jaccard@top_10pct [complete_168_lsoa|external_crime_informed_reference|high_medium],0.1414141414141414
+Geo,Expert-reference attribution accuracy,Lift@top_10pct [complete_168_lsoa|external_crime_informed_reference|high_medium],1.3333333333333333
+Geo,Expert-reference attribution accuracy,Precision@top_20pct [complete_168_lsoa|external_crime_informed_reference|high_medium],0.9629629629629629
+Geo,Expert-reference attribution accuracy,Recall@top_20pct [complete_168_lsoa|external_crime_informed_reference|high_medium],0.26262626262626265
+Geo,Expert-reference attribution accuracy,F1@top_20pct [complete_168_lsoa|external_crime_informed_reference|high_medium],0.41269841269841273
+Geo,Expert-reference attribution accuracy,Jaccard@top_20pct [complete_168_lsoa|external_crime_informed_reference|high_medium],0.26
+Geo,Expert-reference attribution accuracy,Lift@top_20pct [complete_168_lsoa|external_crime_informed_reference|high_medium],1.2839506172839505
+Geo,Expert-reference attribution accuracy,Precision@k_positive [complete_168_lsoa|external_crime_informed_reference|high_medium],0.797979797979798
+Geo,Expert-reference attribution accuracy,Recall@k_positive [complete_168_lsoa|external_crime_informed_reference|high_medium],0.797979797979798
+Geo,Expert-reference attribution accuracy,F1@k_positive [complete_168_lsoa|external_crime_informed_reference|high_medium],0.7979797979797979
+Geo,Expert-reference attribution accuracy,Jaccard@k_positive [complete_168_lsoa|external_crime_informed_reference|high_medium],0.6638655462184874
+Geo,Expert-reference attribution accuracy,Lift@k_positive [complete_168_lsoa|external_crime_informed_reference|high_medium],1.063973063973064
+Geo,Expert-reference attribution accuracy,Spearman permutation p [complete_168_lsoa|external_crime_informed_reference|high_medium],0.0001999600079984003
+Geo,Expert-reference attribution accuracy,Kendall permutation p [complete_168_lsoa|external_crime_informed_reference|high_medium],0.0001999600079984003
+Geo,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [complete_168_lsoa|external_crime_informed_reference|high_medium],0.00027344064999930954
+Geo,Expert-reference attribution accuracy,Spearman rho [complete_168_lsoa|external_crime_informed_reference|high],0.2700216265451524
+Geo,Expert-reference attribution accuracy,Spearman rho spatial-block CI [complete_168_lsoa|external_crime_informed_reference|high],0.2700216265451524
+Geo,Expert-reference attribution accuracy,Kendall tau-b [complete_168_lsoa|external_crime_informed_reference|high],0.22107668872940864
+Geo,Expert-reference attribution accuracy,nDCG@10% [complete_168_lsoa|external_crime_informed_reference|high],0.7976458377858743
+Geo,Expert-reference attribution accuracy,nDCG@20% [complete_168_lsoa|external_crime_informed_reference|high],0.7635510464334431
+Geo,Expert-reference attribution accuracy,nDCG@K_positive [complete_168_lsoa|external_crime_informed_reference|high],0.9227065182017111
+Geo,Expert-reference attribution accuracy,nDCG full [complete_168_lsoa|external_crime_informed_reference|high],0.9263037718887405
+Geo,Expert-reference attribution accuracy,AUROC [complete_168_lsoa|external_crime_informed_reference|high],0.6736111111111112
+Geo,Expert-reference attribution accuracy,AUPRC [complete_168_lsoa|external_crime_informed_reference|high],0.985832096284845
+Geo,Expert-reference attribution accuracy,Expert-positive prevalence [complete_168_lsoa|external_crime_informed_reference|high],0.972972972972973
+Geo,Expert-reference attribution accuracy,Precision@top_10pct [complete_168_lsoa|external_crime_informed_reference|high],1.0
+Geo,Expert-reference attribution accuracy,Recall@top_10pct [complete_168_lsoa|external_crime_informed_reference|high],0.1111111111111111
+Geo,Expert-reference attribution accuracy,F1@top_10pct [complete_168_lsoa|external_crime_informed_reference|high],0.19999999999999998
+Geo,Expert-reference attribution accuracy,Jaccard@top_10pct [complete_168_lsoa|external_crime_informed_reference|high],0.1111111111111111
+Geo,Expert-reference attribution accuracy,Lift@top_10pct [complete_168_lsoa|external_crime_informed_reference|high],1.0277777777777777
+Geo,Expert-reference attribution accuracy,Precision@top_20pct [complete_168_lsoa|external_crime_informed_reference|high],1.0
+Geo,Expert-reference attribution accuracy,Recall@top_20pct [complete_168_lsoa|external_crime_informed_reference|high],0.20833333333333334
+Geo,Expert-reference attribution accuracy,F1@top_20pct [complete_168_lsoa|external_crime_informed_reference|high],0.3448275862068966
+Geo,Expert-reference attribution accuracy,Jaccard@top_20pct [complete_168_lsoa|external_crime_informed_reference|high],0.20833333333333334
+Geo,Expert-reference attribution accuracy,Lift@top_20pct [complete_168_lsoa|external_crime_informed_reference|high],1.0277777777777777
+Geo,Expert-reference attribution accuracy,Precision@k_positive [complete_168_lsoa|external_crime_informed_reference|high],0.9861111111111112
+Geo,Expert-reference attribution accuracy,Recall@k_positive [complete_168_lsoa|external_crime_informed_reference|high],0.9861111111111112
+Geo,Expert-reference attribution accuracy,F1@k_positive [complete_168_lsoa|external_crime_informed_reference|high],0.9861111111111112
+Geo,Expert-reference attribution accuracy,Jaccard@k_positive [complete_168_lsoa|external_crime_informed_reference|high],0.9726027397260274
+Geo,Expert-reference attribution accuracy,Lift@k_positive [complete_168_lsoa|external_crime_informed_reference|high],1.0135030864197532
+Geo,Expert-reference attribution accuracy,Spearman permutation p [complete_168_lsoa|external_crime_informed_reference|high],0.01859628074385123
+Geo,Expert-reference attribution accuracy,Kendall permutation p [complete_168_lsoa|external_crime_informed_reference|high],0.01739652069586083
+Geo,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [complete_168_lsoa|external_crime_informed_reference|high],0.06951058218993979
+Geo,Expert-reference attribution accuracy,Spearman rho [complete_168_lsoa|no_crime_domain_reference|all],0.35003717378776805
+Geo,Expert-reference attribution accuracy,Spearman rho spatial-block CI [complete_168_lsoa|no_crime_domain_reference|all],0.35003717378776805
+Geo,Expert-reference attribution accuracy,Kendall tau-b [complete_168_lsoa|no_crime_domain_reference|all],0.2589224780732209
+Geo,Expert-reference attribution accuracy,nDCG@10% [complete_168_lsoa|no_crime_domain_reference|all],0.6554154687298431
+Geo,Expert-reference attribution accuracy,nDCG@20% [complete_168_lsoa|no_crime_domain_reference|all],0.7152226338111864
+Geo,Expert-reference attribution accuracy,nDCG@K_positive [complete_168_lsoa|no_crime_domain_reference|all],0.7200229364317647
+Geo,Expert-reference attribution accuracy,nDCG full [complete_168_lsoa|no_crime_domain_reference|all],0.8825494064073397
+Geo,Expert-reference attribution accuracy,AUROC [complete_168_lsoa|no_crime_domain_reference|all],0.66194188518781
+Geo,Expert-reference attribution accuracy,AUPRC [complete_168_lsoa|no_crime_domain_reference|all],0.6881802416880993
+Geo,Expert-reference attribution accuracy,Expert-positive prevalence [complete_168_lsoa|no_crime_domain_reference|all],0.49404761904761907
+Geo,Expert-reference attribution accuracy,Precision@top_10pct [complete_168_lsoa|no_crime_domain_reference|all],0.8823529411764706
+Geo,Expert-reference attribution accuracy,Recall@top_10pct [complete_168_lsoa|no_crime_domain_reference|all],0.18072289156626506
+Geo,Expert-reference attribution accuracy,F1@top_10pct [complete_168_lsoa|no_crime_domain_reference|all],0.3
+Geo,Expert-reference attribution accuracy,Jaccard@top_10pct [complete_168_lsoa|no_crime_domain_reference|all],0.17647058823529413
+Geo,Expert-reference attribution accuracy,Lift@top_10pct [complete_168_lsoa|no_crime_domain_reference|all],1.7859673990077958
+Geo,Expert-reference attribution accuracy,Precision@top_20pct [complete_168_lsoa|no_crime_domain_reference|all],0.7941176470588235
+Geo,Expert-reference attribution accuracy,Recall@top_20pct [complete_168_lsoa|no_crime_domain_reference|all],0.3253012048192771
+Geo,Expert-reference attribution accuracy,F1@top_20pct [complete_168_lsoa|no_crime_domain_reference|all],0.4615384615384615
+Geo,Expert-reference attribution accuracy,Jaccard@top_20pct [complete_168_lsoa|no_crime_domain_reference|all],0.3
+Geo,Expert-reference attribution accuracy,Lift@top_20pct [complete_168_lsoa|no_crime_domain_reference|all],1.607370659107016
+Geo,Expert-reference attribution accuracy,Precision@k_positive [complete_168_lsoa|no_crime_domain_reference|all],0.6144578313253012
+Geo,Expert-reference attribution accuracy,Recall@k_positive [complete_168_lsoa|no_crime_domain_reference|all],0.6144578313253012
+Geo,Expert-reference attribution accuracy,F1@k_positive [complete_168_lsoa|no_crime_domain_reference|all],0.6144578313253012
+Geo,Expert-reference attribution accuracy,Jaccard@k_positive [complete_168_lsoa|no_crime_domain_reference|all],0.4434782608695652
+Geo,Expert-reference attribution accuracy,Lift@k_positive [complete_168_lsoa|no_crime_domain_reference|all],1.2437218754536217
+Geo,Expert-reference attribution accuracy,Spearman permutation p [complete_168_lsoa|no_crime_domain_reference|all],0.0001999600079984003
+Geo,Expert-reference attribution accuracy,Kendall permutation p [complete_168_lsoa|no_crime_domain_reference|all],0.0001999600079984003
+Geo,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [complete_168_lsoa|no_crime_domain_reference|all],8.181655096490051e-05
+Geo,Expert-reference attribution accuracy,Spearman rho [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.34853221521141176
+Geo,Expert-reference attribution accuracy,Spearman rho spatial-block CI [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.34853221521141176
+Geo,Expert-reference attribution accuracy,Kendall tau-b [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.2555839512032304
+Geo,Expert-reference attribution accuracy,nDCG@10% [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.7707606189693541
+Geo,Expert-reference attribution accuracy,nDCG@20% [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.7505976160215991
+Geo,Expert-reference attribution accuracy,nDCG@K_positive [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.7636272241120823
+Geo,Expert-reference attribution accuracy,nDCG full [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.9094710025801335
+Geo,Expert-reference attribution accuracy,AUROC [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.6756089532587228
+Geo,Expert-reference attribution accuracy,AUPRC [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.7878914257832591
+Geo,Expert-reference attribution accuracy,Expert-positive prevalence [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.6125
+Geo,Expert-reference attribution accuracy,Precision@top_10pct [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.9375
+Geo,Expert-reference attribution accuracy,Recall@top_10pct [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.15306122448979592
+Geo,Expert-reference attribution accuracy,F1@top_10pct [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.2631578947368421
+Geo,Expert-reference attribution accuracy,Jaccard@top_10pct [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.15151515151515152
+Geo,Expert-reference attribution accuracy,Lift@top_10pct [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],1.530612244897959
+Geo,Expert-reference attribution accuracy,Precision@top_20pct [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.90625
+Geo,Expert-reference attribution accuracy,Recall@top_20pct [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.29591836734693877
+Geo,Expert-reference attribution accuracy,F1@top_20pct [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.4461538461538461
+Geo,Expert-reference attribution accuracy,Jaccard@top_20pct [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.2871287128712871
+Geo,Expert-reference attribution accuracy,Lift@top_20pct [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],1.4795918367346939
+Geo,Expert-reference attribution accuracy,Precision@k_positive [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.6836734693877551
+Geo,Expert-reference attribution accuracy,Recall@k_positive [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.6836734693877551
+Geo,Expert-reference attribution accuracy,F1@k_positive [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.6836734693877551
+Geo,Expert-reference attribution accuracy,Jaccard@k_positive [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.5193798449612403
+Geo,Expert-reference attribution accuracy,Lift@k_positive [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],1.1162015826738858
+Geo,Expert-reference attribution accuracy,Spearman permutation p [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.0001999600079984003
+Geo,Expert-reference attribution accuracy,Kendall permutation p [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.0001999600079984003
+Geo,Expert-reference attribution accuracy,Kruskal-Wallis p (distributional diagnostic) [complete_168_lsoa|external_crime_informed_reference__crime_dep_not_High|all],0.0002132030566640053

@@ -1,0 +1,47 @@
+Branch,Category,Metric,Value
+Feature,Fidelity,R2,0.9853258990364979
+Feature,Fidelity,Weighted R2,0.9851034980432535
+Feature,Fidelity,MAE,0.28562375291855235
+Feature,Fidelity,WMAE,0.28677810571216644
+Feature,Fidelity,RMSE,0.3356910257463809
+Feature,Fidelity,WRMSE,0.3377797920385787
+Geo,Fidelity,R2,0.9307547925394969
+Geo,Fidelity,Weighted R2,0.9282632145290007
+Geo,Fidelity,MAE,0.7072195593454844
+Geo,Fidelity,WMAE,0.738472409154546
+Geo,Fidelity,RMSE,1.3599534508213336
+Geo,Fidelity,WRMSE,1.4802143961721106
+Both,Faithfulness,Feature Spearman (cardinality vs WD),0.4624799677336309
+Both,Faithfulness,Feature Pearson (cardinality vs WD),0.36962663975375554
+Both,Faithfulness,Geo Spearman (cardinality vs WD),0.048279277323114815
+Both,Faithfulness,Geo Pearson (cardinality vs WD),0.01134086886688547
+Feature,Consistency (multi-run),Rank Spearman Mean,0.6935706340378198
+Feature,Consistency (multi-run),Rank Spearman Std,0.09603467199336015
+Feature,Consistency (multi-run),Score Pearson Mean,0.9989340894046788
+Feature,Consistency (multi-run),Score Pearson Std,0.00027094661486494855
+Feature,Consistency (multi-run),Top-20% Jaccard Mean,0.8285714285714286
+Feature,Consistency (multi-run),Top-20% Jaccard Std,0.13997084244475302
+Feature,Consistency (multi-run),Fidelity R2 Mean,0.9830120451629032
+Feature,Consistency (multi-run),Fidelity R2 Std,0.002351120045507138
+Geo,Consistency (multi-run),Rank Spearman Mean,0.7431279452928463
+Geo,Consistency (multi-run),Rank Spearman Std,0.0286287373279127
+Geo,Consistency (multi-run),Score Pearson Mean,0.9830946685420713
+Geo,Consistency (multi-run),Score Pearson Std,0.0025550485659364642
+Geo,Consistency (multi-run),Top-20% Jaccard Mean,0.6233203175869684
+Geo,Consistency (multi-run),Top-20% Jaccard Std,0.08380222010619189
+Geo,Consistency (multi-run),Fidelity R2 Mean,0.9204238898435324
+Geo,Consistency (multi-run),Fidelity R2 Std,0.01539246339938522
+Feature,Sparsity/Entropy,hoyer,0.8480077601810354
+Feature,Sparsity/Entropy,gini,0.7901996531386815
+Feature,Sparsity/Entropy,entropy,1.7909106758652684
+Feature,Sparsity/Entropy,nonzero,30
+Feature,Sparsity/Entropy,n,30
+Geo,Sparsity/Entropy,hoyer,0.6311573069220637
+Geo,Sparsity/Entropy,gini,0.5065422710139682
+Geo,Sparsity/Entropy,entropy,4.459222675080568
+Geo,Sparsity/Entropy,nonzero,168
+Geo,Sparsity/Entropy,n,168
+Feature,Setup,Best kernel,inverse
+Geo,Setup,Best kernel,laplace
+Feature,Setup,Players,30
+Geo,Setup,Spatial units,168

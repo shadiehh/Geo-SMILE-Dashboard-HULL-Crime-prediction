@@ -1,0 +1,101 @@
+{
+  "design": "feature_smile_with_location_players",
+  "n_players": 32,
+  "players": [
+    "crime_lag_1",
+    "crime_lag_2",
+    "crime_lag_3",
+    "crime_rolling_mean_3",
+    "crime_rolling_mean_6",
+    "month_sin",
+    "month_cos",
+    "population_density_per_km2",
+    "young_adult_15_34_pct",
+    "older_adult_65_plus_pct",
+    "social_rented_pct",
+    "private_rented_pct",
+    "owner_occupied_pct",
+    "unemployed_pct_age16plus",
+    "economically_inactive_pct",
+    "long_term_sick_disabled_pct",
+    "no_qualifications_pct",
+    "level4_plus_qualification_pct",
+    "lsoa_area_km2",
+    "nightlife_count",
+    "nightlife_per_km2",
+    "retail_count",
+    "retail_per_km2",
+    "transit_stop_count",
+    "transit_stop_per_km2",
+    "road_length_km",
+    "road_length_km_per_km2",
+    "intersection_count",
+    "intersection_per_km2",
+    "green_space_pct",
+    "centroid_longitude",
+    "centroid_latitude"
+  ],
+  "location_players": [
+    "centroid_longitude",
+    "centroid_latitude"
+  ],
+  "n_nonspatial_players": 30,
+  "feat_masks": 1024,
+  "smile_seed": 42,
+  "holdout": {
+    "mae": 4.826538517006806,
+    "rmse": 6.91289182560709,
+    "r2": 0.8950036889248726
+  },
+  "surrogate": {
+    "best_kernel": "inverse",
+    "validation_r2_by_kernel": {
+      "rbf": 0.9835746328151256,
+      "laplace": 0.983663903920874,
+      "inverse": 0.9838110193341045
+    },
+    "test_r2": 0.983292865747773,
+    "n_unique_masks": 1024,
+    "response": "wasserstein_1_prediction_distribution",
+    "kernel_distance": "hamming_fraction_features_masked"
+  },
+  "location_attribution": [
+    {
+      "feature": "centroid_longitude",
+      "rank": 20,
+      "coefficient": -0.03960416447310122,
+      "abs_coefficient": 0.03960416447310122
+    },
+    {
+      "feature": "centroid_latitude",
+      "rank": 23,
+      "coefficient": 0.02036158470719906,
+      "abs_coefficient": 0.02036158470719906
+    }
+  ],
+  "notes": [
+    "Location (centroid longitude and latitude) is both a predictor and a SMILE player.",
+    "This is distinct from published Feature (no coordinates) and Feature-B (coordinates in prediction only).",
+    "Does not overwrite outputs/feature_global_importance.csv.",
+    "Not causal.",
+    "Local coefficients are per-observation SMILE Ridge coefficients, averaged to LSOA."
+  ],
+  "n_lsoas_local": 168,
+  "location_attribution_local": {
+    "n_lsoas": 168,
+    "centroid_longitude": {
+      "mean": 0.03831631473988096,
+      "std": 0.20936970121543294,
+      "min": -0.5054102,
+      "max": 0.86157906,
+      "mean_abs": 0.1304446356827381
+    },
+    "centroid_latitude": {
+      "mean": 0.11004747953202382,
+      "std": 0.1387221928903097,
+      "min": -0.2408822,
+      "max": 0.8785498,
+      "mean_abs": 0.12279852149892856
+    }
+  }
+}

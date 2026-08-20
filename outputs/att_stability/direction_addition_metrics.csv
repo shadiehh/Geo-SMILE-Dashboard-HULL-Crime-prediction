@@ -1,0 +1,9 @@
+addition,lsoa21cd,lsoa21nm,branch,top_k_jaccard,abs_coef_spearman,pred_spearman,accepted,k,geo_extra_rank,geo_extra_in_top20
+north,E01012953,East Riding of Yorkshire 023A,Feature,1.0,1.0,1.0,True,10,,
+north,E01012953,East Riding of Yorkshire 023A,Geo,1.0,0.9994811729035592,1.0,True,20,120.0,False
+east,E01013094,East Riding of Yorkshire 029A,Feature,1.0,0.9991101223581758,1.0,True,10,,
+east,E01013094,East Riding of Yorkshire 029A,Geo,1.0,0.9994457408091679,1.0,True,20,110.0,False
+south,E01013009,East Riding of Yorkshire 034B,Feature,1.0,0.9995550611790878,1.0,True,10,,
+south,E01013009,East Riding of Yorkshire 034B,Geo,1.0,0.9995140741340651,1.0,True,20,112.0,False
+west,E01013112,East Riding of Yorkshire 025D,Feature,1.0,0.9991101223581758,1.0,True,10,,
+west,E01013112,East Riding of Yorkshire 025D,Geo,1.0,0.9993419753898797,1.0,True,20,46.0,False

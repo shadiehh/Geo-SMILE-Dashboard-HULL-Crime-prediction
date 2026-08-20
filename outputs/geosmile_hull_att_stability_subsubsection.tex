@@ -1,0 +1,175 @@
+\subsubsection{ATT stability}
+\label{sec:hull_att_stability}
+
+Controlled-input (ATT) stability asks whether SMILE attributions remain similar after a
+minor, meaning-preserving change to the explanation input.
+The perturbation used here expands the explanation reference by one real Lower Super
+Output Area (LSOA) just outside Hull in each cardinal direction, one addition at a time
+(Table~\ref{tab:hull_att_stability_neighbors}).
+Police.uk street counts and the same Census 2021 / OpenStreetMap covariates used for
+Hull LSOAs are collected for each neighbour.
+Predictive models remain trained on Hull only; only the SMILE reference is expanded.
+This quantity is distinct from multi-run \emph{consistency}, which varies explanation
+seeds rather than the input.
+
+\begin{table}[htbp]
+\centering
+\caption{Neighbour LSOAs added one at a time to the SMILE explanation reference.
+Codes are Census 2021 LSOA identifiers.
+South does not share a Hull boundary; it is the Hessle unit immediately beyond the
+LSOA containing Hessle Golf Club.}
+\label{tab:hull_att_stability_neighbors}
+\begin{tabular}{lll}
+\toprule
+Direction & LSOA code & Name \\
+\midrule
+North & \texttt{E01012953} & East Riding of Yorkshire 023A \\
+East  & \texttt{E01013094} & East Riding of Yorkshire 029A \\
+South & \texttt{E01013009} & East Riding of Yorkshire 034B \\
+West  & \texttt{E01013112} & East Riding of Yorkshire 025D \\
+\bottomrule
+\end{tabular}
+\end{table}
+\FloatBarrier
+
+The Hull-only baseline is the published two-branch GeoSMILE ranking
+(Feature $1024$ masks; Geo $2000$ LSOA perturbations; SMILE seed $42$).
+Expansions reuse that design exactly: they do not shrink the mask or perturbation
+budget, and they keep the same seed.
+
+Agreement is summarised by
+(i)~Jaccard overlap of the top-$k$ attribution set
+($k{=}10$ for Feature; $k{=}20$ for Geo) and
+(ii)~Spearman correlation of absolute coefficients over the full attribution vector.
+The added LSOA is treated as a real Geo player with a fitted coefficient, not forced
+to zero.
+Hull LSOAs keep the baseline column order and the same perturbation draws, so any
+change in the Geo top set would be due to the extra unit rather than a reshuffle of
+the random design.
+
+\begin{table}[htbp]
+\centering
+\caption{Controlled-input (ATT) stability after adding one real LSOA just outside Hull
+in each cardinal direction (one-at-a-time; models remain Hull-trained).
+Baseline is the published Hull-only Feature top-$10$ and Geo top-$20$ ranking
+($1024$ Feature masks; $2000$ Geo perturbations; SMILE seed $42$).
+Accepted if Hull-row prediction Spearman $\ge 0.99$.
+Top-$k$ Jaccard compares the expanded top set with that published baseline
+(Feature $k{=}10$; Geo $k{=}20$).
+$|\mathrm{coef}|$ Spearman is the rank correlation of absolute SMILE coefficients
+over the full attribution vector.
+Pred.\ Spearman is agreement of model outputs on the original Hull test rows.}
+\label{tab:hull_att_stability}
+\begin{tabular}{llcccc}
+\toprule
+Addition & Branch & Top-$k$ Jaccard & $|\mathrm{coef}|$ Spearman & Pred.\ Spearman & Accepted \\
+\midrule
+North & Feature & $1.000$ & $1.000$ & $1.000$ & Yes \\
+North & Geo     & $1.000$ & $0.999$ & $1.000$ & Yes \\
+East  & Feature & $1.000$ & $0.999$ & $1.000$ & Yes \\
+East  & Geo     & $1.000$ & $0.999$ & $1.000$ & Yes \\
+South & Feature & $1.000$ & $1.000$ & $1.000$ & Yes \\
+South & Geo     & $1.000$ & $1.000$ & $1.000$ & Yes \\
+West  & Feature & $1.000$ & $0.999$ & $1.000$ & Yes \\
+West  & Geo     & $1.000$ & $0.999$ & $1.000$ & Yes \\
+\midrule
+Mean  & Feature & $1.000$ & $0.999$ & $1.000$ & $4/4$ \\
+Mean  & Geo     & $1.000$ & $0.999$ & $1.000$ & $4/4$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Feature top-$10$ sets are unchanged under this expansion
+(Jaccard $1.000$; $|\mathrm{coef}|$ Spearman $0.999$;
+Table~\ref{tab:hull_att_stability}).
+The same ten predictors remain at the head of the ranking as in the published
+global Feature attribution, led by \texttt{crime\_rolling\_mean\_6}
+(Figure~\ref{fig:hull_att_stability_feature}).
+Geo top-$20$ \emph{membership} is unchanged in every direction (Jaccard $1.000$;
+$20/20$ overlap; Table~\ref{tab:hull_att_stability}).
+What does change is the order of those same twenty LSOAs: adjacent ranks can swap
+when absolute coefficients are close, so map labels $1$--$20$ need not be identical
+to the Hull-only baseline even though no new Hull LSOA enters the set and none of
+the original twenty leave it.
+Figure~\ref{fig:hull_att_stability_geo_base_west} shows this for the west addition,
+the extra unit closest to the cutoff: the highlighted top-$20$ set is the same as
+the published Hull-only map, while several nearby rank labels move.
+The full-vector $|\mathrm{coef}|$ Spearman remains $0.999$, so these are local
+re-orderings rather than a change in which places are attributed as important.
+The added LSOA never enters the Geo top-$20$
+(Table~\ref{tab:hull_att_stability_extra}):
+north rank $120$, east $110$, south $112$, and west $46$ of $169$ units.
+West is the closest extra unit, still well outside the top-$20$ cutoff.
+These are association diagnostics for the fitted explanation, not causal effects.
+Figure~\ref{fig:hull_att_stability_geo} shows the four direction maps from the same
+runs.
+
+\begin{table}[htbp]
+\centering
+\caption{Geo rank of the added LSOA after it is included as a real attribution player
+with a fitted coefficient.
+Rank $1$ is the largest absolute Geo coefficient among $169$ units
+($168$ Hull LSOAs plus the neighbour).
+None of the four additions enter the Geo top-$20$.}
+\label{tab:hull_att_stability_extra}
+\begin{tabular}{llccc}
+\toprule
+Addition & LSOA code & Extra rank & Extra $\lvert\mathrm{coef}\rvert$ & In top-$20$ \\
+\midrule
+North & \texttt{E01012953} & $120$ & $0.317$ & No \\
+East  & \texttt{E01013094} & $110$ & $0.433$ & No \\
+South & \texttt{E01013009} & $112$ & $0.396$ & No \\
+West  & \texttt{E01013112} & $46$  & $0.945$ & No \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{{Chapter4/Figs/stability runs geo base vs west addition version}.pdf}
+\caption{Geo SMILE top-$20$ LSOA importance maps for the published Hull-only
+baseline (left) and after adding the west neighbour \texttt{E01013112} (right).
+The same twenty Hull LSOAs remain in the top set (Jaccard $=1.000$);
+numeric labels $1$--$20$ can differ because nearby ranks swap when
+$\lvert\mathrm{coef}\rvert$ values are close.
+The added west LSOA is outlined and does not enter the top-$20$ (rank $46$ of
+$169$).
+Colour encodes $\lvert\mathrm{geo\ coefficient}\rvert$ on the highlighted top-$20$
+set.
+Published SMILE design ($2000$ Geo perturbations; seed $42$).
+Not causal.}
+\label{fig:hull_att_stability_geo_base_west}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{{Chapter4/Figs/stability runs addition version FEATURE}.pdf}
+\caption{Feature SMILE importance rankings before and after a prediction-preserving
+input expansion, using the published SMILE design ($1024$ masks; seed $42$).
+Left: published Hull-only global Feature ranking (top-$10$ highlighted).
+Right: ranking after adding the west neighbour
+(\texttt{E01013112}; top-$10$ Jaccard vs.\ baseline $=1.000$).
+Bars show absolute SMILE coefficients; higher bars indicate stronger attribution
+magnitude.}
+\label{fig:hull_att_stability_feature}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth, trim=9cm 0cm 5cm 0cm, clip]{{Chapter4/Figs/4 direction addition}.pdf}
+\caption{Geo SMILE top-$20$ LSOA importance maps after each one-at-a-time
+cardinal-neighbour addition (north, east, south, west), using the published
+SMILE design ($2000$ Geo perturbations; seed $42$).
+Predictive models remain Hull-trained; only the explanation reference is expanded
+by one real LSOA just outside Hull.
+Coloured units are the $20$ largest absolute Geo SMILE coefficients; numeric labels
+are importance ranks ($1$~=~largest).
+The added neighbour is outlined and does not enter the top-$20$ in any direction.
+The same twenty Hull LSOAs remain in the top set in all four panels
+(Geo top-$20$ Jaccard vs.\ the published Hull-only baseline $=1.000$);
+numeric labels may differ because nearby ranks can swap when
+$\lvert\mathrm{coef}\rvert$ values are close.
+Hull-row prediction Spearman $=1.000$.
+These are association diagnostics for the fitted explanation, not causal effects.}
+\label{fig:hull_att_stability_geo}
+\end{figure}

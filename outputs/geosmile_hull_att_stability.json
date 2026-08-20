@@ -1,0 +1,163 @@
+{
+  "status": "Evaluated",
+  "definition": "ATT stability: Jaccard overlap of top-k attribution sets and Spearman correlation of |coefficients| before vs after adding one real LSOA from each cardinal direction just outside Hull, with Police.uk and Census/OSM covariates collected on the same schema as Hull LSOAs. Distinct from multi-run Consistency. Models stay Hull-trained; only the explanation reference is expanded. Baseline is the published Hull-only Feature (1024 masks) and Geo (2000 perturbations) ranking; expansions reuse that SMILE design (seed 42).",
+  "n_reps": 4,
+  "feat_masks": 1024,
+  "geo_perturbations": 2000,
+  "feature_k": 10,
+  "geo_k": 20,
+  "perturbation": "cardinal_neighbor_lsoas",
+  "smile_seed": 42,
+  "neighbors": {
+    "north": {
+      "lsoa21cd": "E01012953",
+      "lsoa21nm": "East Riding of Yorkshire 023A",
+      "feature_jaccard": 1.0,
+      "feature_spearman": 1.0,
+      "geo_jaccard": 1.0,
+      "geo_spearman": 0.9994811729035592,
+      "geo_top20_overlap_n": 20.0,
+      "geo_top19_jaccard": 0.9,
+      "geo_top19_overlap_n": 18.0,
+      "geo_extra_rank": 120.0,
+      "geo_extra_abs_coefficient": 0.3165322959309913,
+      "geo_extra_in_top20": 0.0,
+      "feature_pred_spearman": 1.0,
+      "geo_pred_spearman": 1.0
+    },
+    "east": {
+      "lsoa21cd": "E01013094",
+      "lsoa21nm": "East Riding of Yorkshire 029A",
+      "feature_jaccard": 1.0,
+      "feature_spearman": 0.9991101223581758,
+      "geo_jaccard": 1.0,
+      "geo_spearman": 0.9994457408091679,
+      "geo_top20_overlap_n": 20.0,
+      "geo_top19_jaccard": 0.9,
+      "geo_top19_overlap_n": 18.0,
+      "geo_extra_rank": 110.0,
+      "geo_extra_abs_coefficient": 0.43255207254726974,
+      "geo_extra_in_top20": 0.0,
+      "feature_pred_spearman": 1.0,
+      "geo_pred_spearman": 1.0
+    },
+    "south": {
+      "lsoa21cd": "E01013009",
+      "lsoa21nm": "East Riding of Yorkshire 034B",
+      "feature_jaccard": 1.0,
+      "feature_spearman": 0.9995550611790878,
+      "geo_jaccard": 1.0,
+      "geo_spearman": 0.9995140741340651,
+      "geo_top20_overlap_n": 20.0,
+      "geo_top19_jaccard": 0.9,
+      "geo_top19_overlap_n": 18.0,
+      "geo_extra_rank": 112.0,
+      "geo_extra_abs_coefficient": 0.39570289026545813,
+      "geo_extra_in_top20": 0.0,
+      "feature_pred_spearman": 1.0,
+      "geo_pred_spearman": 1.0
+    },
+    "west": {
+      "lsoa21cd": "E01013112",
+      "lsoa21nm": "East Riding of Yorkshire 025D",
+      "feature_jaccard": 1.0,
+      "feature_spearman": 0.9991101223581758,
+      "geo_jaccard": 1.0,
+      "geo_spearman": 0.9993419753898797,
+      "geo_top20_overlap_n": 20.0,
+      "geo_top19_jaccard": 0.9,
+      "geo_top19_overlap_n": 18.0,
+      "geo_extra_rank": 46.0,
+      "geo_extra_abs_coefficient": 0.9452613432552182,
+      "geo_extra_in_top20": 0.0,
+      "feature_pred_spearman": 1.0,
+      "geo_pred_spearman": 1.0
+    }
+  },
+  "feature": {
+    "branch": "Feature (location excluded)",
+    "top_k_jaccard_mean": 1.0,
+    "top_k_jaccard_std": 0.0,
+    "abs_coef_spearman_mean": 0.9994438264738599,
+    "abs_coef_spearman_std": 0.0003689237809071529,
+    "pred_spearman_mean": 1.0,
+    "n_prediction_preserving": 4,
+    "perturbation": "Add one outside-Hull LSOA (N/E/S/W) with real police and covariate data to the Feature SMILE reference"
+  },
+  "geo": {
+    "branch": "Geo",
+    "top_k_jaccard_mean": 1.0,
+    "top_k_jaccard_std": 0.0,
+    "abs_coef_spearman_mean": 0.999445740809168,
+    "abs_coef_spearman_std": 6.459903026463326e-05,
+    "pred_spearman_mean": 1.0,
+    "n_prediction_preserving": 4,
+    "perturbation": "Add one outside-Hull LSOA (N/E/S/W) with real coordinates and crime history to the Geo SMILE reference"
+  },
+  "per_rep": {
+    "direction": [
+      "north",
+      "east",
+      "south",
+      "west"
+    ],
+    "feature_jaccard": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "feature_spearman": [
+      1.0,
+      0.9991101223581758,
+      0.9995550611790878,
+      0.9991101223581758
+    ],
+    "geo_jaccard": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "geo_spearman": [
+      0.9994811729035592,
+      0.9994457408091679,
+      0.9995140741340651,
+      0.9993419753898797
+    ]
+  },
+  "visuals_dir": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability",
+  "visuals": {
+    "baseline": {
+      "feature_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\baseline\\feature_importance.csv",
+      "geo_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\baseline\\geo_coefficients.csv",
+      "feature_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\baseline\\feature_importance_ranking.png",
+      "geo_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\baseline\\geo_top20_map.png"
+    },
+    "neighbors_map": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\cardinal_neighbors_map.png",
+    "north": {
+      "feature_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\north\\feature_importance.csv",
+      "geo_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\north\\geo_coefficients.csv",
+      "feature_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\north\\feature_importance_ranking.png",
+      "geo_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\north\\geo_top20_map.png"
+    },
+    "east": {
+      "feature_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\east\\feature_importance.csv",
+      "geo_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\east\\geo_coefficients.csv",
+      "feature_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\east\\feature_importance_ranking.png",
+      "geo_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\east\\geo_top20_map.png"
+    },
+    "south": {
+      "feature_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\south\\feature_importance.csv",
+      "geo_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\south\\geo_coefficients.csv",
+      "feature_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\south\\feature_importance_ranking.png",
+      "geo_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\south\\geo_top20_map.png"
+    },
+    "west": {
+      "feature_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\west\\feature_importance.csv",
+      "geo_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\west\\geo_coefficients.csv",
+      "feature_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\west\\feature_importance_ranking.png",
+      "geo_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\west\\geo_top20_map.png"
+    }
+  }
+}

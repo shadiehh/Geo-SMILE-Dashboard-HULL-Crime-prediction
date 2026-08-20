@@ -1,0 +1,31 @@
+feature,expert_rank,expert_category
+crime_lag_1,1,Crime / temporal
+crime_rolling_mean_3,2,Crime / temporal
+unemployed_pct_age16plus,3,Economic / labour & tenure
+nightlife_per_km2,4,Built environment / activity
+crime_lag_2,5,Crime / temporal
+economically_inactive_pct,6,Economic / labour & tenure
+social_rented_pct,7,Economic / labour & tenure
+crime_rolling_mean_6,8,Crime / temporal
+retail_per_km2,9,Built environment / activity
+owner_occupied_pct,10,Economic / labour & tenure
+private_rented_pct,11,Economic / labour & tenure
+young_adult_15_34_pct,12,Social / demographic
+nightlife_count,13,Built environment / activity
+crime_lag_3,14,Crime / temporal
+population_density_per_km2,15,Social / demographic
+intersection_per_km2,16,Built environment / activity
+no_qualifications_pct,17,Social / demographic
+month_sin,18,Crime / temporal
+retail_count,19,Built environment / activity
+long_term_sick_disabled_pct,20,Economic / labour & tenure
+transit_stop_per_km2,21,Transport / accessibility
+road_length_km_per_km2,22,Built environment / activity
+older_adult_65_plus_pct,23,Social / demographic
+intersection_count,24,Built environment / activity
+level4_plus_qualification_pct,25,Social / demographic
+month_cos,26,Crime / temporal
+transit_stop_count,27,Transport / accessibility
+road_length_km,28,Built environment / activity
+green_space_pct,29,Environmental
+lsoa_area_km2,30,Structural/control

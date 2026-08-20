@@ -1,0 +1,186 @@
+{
+  "rows": 4704,
+  "lsoas": 168,
+  "usable_predictor_months": [
+    "2024-01-01",
+    "2026-04-01"
+  ],
+  "target": "target_next_month_crime",
+  "feature_players": [
+    "crime_lag_1",
+    "crime_lag_2",
+    "crime_lag_3",
+    "crime_rolling_mean_3",
+    "crime_rolling_mean_6",
+    "month_sin",
+    "month_cos"
+  ],
+  "spatial_columns": [
+    "centroid_easting",
+    "centroid_northing"
+  ],
+  "feature_b_coordinates_attributed": false,
+  "test_period": [
+    "2026-01-01",
+    "2026-04-01"
+  ],
+  "model_metrics": {
+    "feature_a": {
+      "mae": 4.954930621953237,
+      "rmse": 7.03790253303128,
+      "r2": 0.8911719080207636
+    },
+    "feature_b": {
+      "mae": 4.888170948340779,
+      "rmse": 6.979611312593292,
+      "r2": 0.8929671734207056
+    },
+    "geo": {
+      "mae": 5.510922834986732,
+      "rmse": 7.537649303622581,
+      "r2": 0.875167871949448
+    }
+  },
+  "surrogate_diagnostics": {
+    "feature_a": {
+      "best_kernel": "inverse",
+      "validation_r2_by_kernel": {
+        "rbf": 0.9584877507120221,
+        "laplace": 0.9581428760657338,
+        "inverse": 0.9620446340672055
+      },
+      "test_r2": 0.957655473050046,
+      "n_unique_masks": 128
+    },
+    "feature_b": {
+      "best_kernel": "inverse",
+      "validation_r2_by_kernel": {
+        "rbf": 0.9717306961512455,
+        "laplace": 0.971331762200182,
+        "inverse": 0.9753521499572226
+      },
+      "test_r2": 0.9701623885808903,
+      "n_unique_masks": 128
+    }
+  },
+  "geo_mean_absolute_location_effect": 11.775571823120117,
+  "feature_b_incremental_value": {
+    "mae_difference_a_minus_b": 0.06675967361245849,
+    "rmse_difference_a_minus_b": 0.0582912204379884,
+    "r2_difference_b_minus_a": 0.0017952653999420143,
+    "pct_observations_b_lower_abs_error": 50.148809523809526,
+    "prediction_correlation": 0.9974922701147255,
+    "feature_a_mae": 4.954930621953237,
+    "feature_b_mae": 4.888170948340779,
+    "feature_a_rmse": 7.03790253303128,
+    "feature_b_rmse": 6.979611312593292,
+    "feature_a_r2": 0.8911719080207636,
+    "feature_b_r2": 0.8929671734207056,
+    "bootstrap": {
+      "n_repetitions": 5000,
+      "cluster_unit": "lsoa21cd",
+      "mae_improvement_a_minus_b_ci95": [
+        -0.04154382720589608,
+        0.17265253787239376
+      ],
+      "rmse_improvement_a_minus_b_ci95": [
+        -0.20681918535244628,
+        0.26768162802120776
+      ],
+      "mae_improvement_significant_at_95": false,
+      "rmse_improvement_significant_at_95": false
+    },
+    "interpretation_note": "Positive MAE/RMSE difference (A minus B) means Feature-B has lower error. Do not claim coordinate improvement unless the 95% CI excludes zero."
+  },
+  "spatial_holdout": {
+    "held_out_lsoas": [
+      "E01012756",
+      "E01012759",
+      "E01012770",
+      "E01012771",
+      "E01012772",
+      "E01012773",
+      "E01012774",
+      "E01012775",
+      "E01012776",
+      "E01012777",
+      "E01012796",
+      "E01012798",
+      "E01012799",
+      "E01012800",
+      "E01012801",
+      "E01012802",
+      "E01012803",
+      "E01012858",
+      "E01012859",
+      "E01012860",
+      "E01012862",
+      "E01012863",
+      "E01012864",
+      "E01012865",
+      "E01012882",
+      "E01012883",
+      "E01012884",
+      "E01012886",
+      "E01012887",
+      "E01012888",
+      "E01012889",
+      "E01012892",
+      "E01012893",
+      "E01032595",
+      "E01035467",
+      "E01035468"
+    ],
+    "n_held_out_lsoas": 36,
+    "n_train_lsoas": 132,
+    "n_test_rows": 1008,
+    "model_metrics": {
+      "feature_a": {
+        "mae": 4.81484112900401,
+        "rmse": 8.03270303521129,
+        "r2": 0.7200069472194066
+      },
+      "feature_b": {
+        "mae": 5.621324438424337,
+        "rmse": 9.353534706307567,
+        "r2": 0.620357035028132
+      },
+      "geo": {
+        "mae": 13.047309912386394,
+        "rmse": 17.898458629839965,
+        "r2": -0.39012897933112134
+      }
+    },
+    "benchmark_metrics": {
+      "current_month_crime": {
+        "mae": 5.537698412698413,
+        "rmse": 8.320823944244411,
+        "r2": 0.6995608679340746
+      },
+      "one_month_lag": {
+        "mae": 5.7351190476190474,
+        "rmse": 8.70863237126116,
+        "r2": 0.6709031332706148
+      },
+      "three_month_rolling_mean": {
+        "mae": 5.020502645502646,
+        "rmse": 7.778826459915045,
+        "r2": 0.7374258319891012
+      },
+      "six_month_rolling_mean": {
+        "mae": 4.725694444444445,
+        "rmse": 7.286445598649669,
+        "r2": 0.7696144236093484
+      },
+      "lsoa_training_mean": {
+        "mae": 10.59476461038961,
+        "rmse": 15.582925527292515,
+        "r2": -0.05371174951260671
+      }
+    },
+    "lsoa_training_mean_note": "For spatially held-out LSOAs, lsoa_training_mean falls back to the overall training-period mean because those LSOAs never appear in training.",
+    "note": "Harder spatial-transfer test: held-out LSOAs never appear in training. Same LSOAs can contribute multiple test months."
+  },
+  "local_effect_definition": "Signed baseline-ablation effect: original prediction minus prediction with the feature replaced by the training median. Not a causal effect.",
+  "coordinate_note": "Police.uk anonymised incident-median LSOA locations; replace with official population-weighted centroids for final analysis."
+}

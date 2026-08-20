@@ -1,0 +1,35 @@
+\begin{longtable}{p{0.38\textwidth} r r}
+\caption{Expert-reference attribution-accuracy and ranking metrics. Feature uses the top-10 reference over 30 predictors (\texttt{feature\_expert\_ranking\_v2}). Geo uses the top-20 reference over 168 LSOAs (\texttt{expert\_top20}); set-based Geo quantities correspond to $\mathrm{TP}=16$, $\mathrm{FP}=\mathrm{FN}=4$, $\mathrm{TN}=144$. Rank and score diagnostics for Geo are computed against this expert view over all 168 LSOAs.}
+\label{tab:hull_expert_att_final}\\
+\toprule
+Metric & Feature top 10 & Geo top 20 \\
+\midrule
+\endfirsthead
+\toprule
+Metric & Feature top 10 & Geo top 20 \\
+\midrule
+\endhead
+Number of evaluated factors & 30 & 168 \\
+Reference set size $k$ & 10 & 20 \\
+Reference/model intersection & 7 & 16 \\
+Overlap ratio & 0.7000 & 0.8000 \\
+Precision at $k$ & 0.7000 & 0.8000 \\
+Recall at $k$ & 0.7000 & 0.8000 \\
+F1 at $k$ & 0.7000 & 0.8000 \\
+Jaccard at fixed $k$ & 0.5385 & 0.6667 \\
+Overlap coefficient & 0.7000 & 0.8000 \\
+Spearman $\rho$ & 0.4585 & 0.3509 \\
+Spearman $p$-value & 0.01083 & 3.112e-06 \\
+Kendall $\tau_b$ & 0.3195 & 0.2390 \\
+Kendall $p$-value & 0.0129 & 4.27e-06 \\
+Accuracy & 0.8000 & 0.9524 \\
+Balanced accuracy & 0.7750 & 0.8865 \\
+Matthews correlation coefficient & 0.5500 & 0.7730 \\
+Lift over prevalence & 2.1000 & 6.7200 \\
+AUROC & 0.8250 & 0.9081 \\
+AUPRC & 0.7882 & 0.8032 \\
+nDCG over full ranking & 0.6890 & 0.9081 \\
+Factor-group Spearman $\rho$ & 0.9643 & Not applicable \\
+Factor-group top-3 overlap & 3 of 3 & Not applicable \\
+\bottomrule
+\end{longtable}

@@ -1,0 +1,190 @@
+{
+  "expert_ranking_file": "feature_expert_ranking_v2.csv",
+  "annotation_status": "expert_reference",
+  "note": "Expert feature ranks over the exact 30 Hull Feature-branch predictors. Primary feature cut is top-10 of 30.",
+  "top10": {
+    "k": 10,
+    "overlap_count": 7,
+    "precision_at_k": 0.7,
+    "recall_at_k": 0.7,
+    "jaccard": 0.5384615384615384,
+    "geosmile_topk": [
+      "crime_lag_1",
+      "crime_lag_2",
+      "crime_rolling_mean_3",
+      "crime_rolling_mean_6",
+      "long_term_sick_disabled_pct",
+      "owner_occupied_pct",
+      "population_density_per_km2",
+      "social_rented_pct",
+      "transit_stop_per_km2",
+      "unemployed_pct_age16plus"
+    ],
+    "expert_topk": [
+      "crime_lag_1",
+      "crime_lag_2",
+      "crime_rolling_mean_3",
+      "crime_rolling_mean_6",
+      "economically_inactive_pct",
+      "nightlife_per_km2",
+      "owner_occupied_pct",
+      "retail_per_km2",
+      "social_rented_pct",
+      "unemployed_pct_age16plus"
+    ],
+    "both": [
+      "crime_lag_1",
+      "crime_lag_2",
+      "crime_rolling_mean_3",
+      "crime_rolling_mean_6",
+      "owner_occupied_pct",
+      "social_rented_pct",
+      "unemployed_pct_age16plus"
+    ],
+    "geosmile_only": [
+      "long_term_sick_disabled_pct",
+      "population_density_per_km2",
+      "transit_stop_per_km2"
+    ],
+    "expert_only": [
+      "economically_inactive_pct",
+      "nightlife_per_km2",
+      "retail_per_km2"
+    ]
+  },
+  "metrics": {
+    "feature_spearman_rho": 0.45850945494994433,
+    "feature_spearman_p": 0.010825175981410614,
+    "feature_kendall_tau": 0.3195402298850575,
+    "feature_kendall_p": 0.012903514675602273,
+    "category_spearman_rho": 0.9642857142857145,
+    "category_spearman_p": 0.0004541491691941689,
+    "category_kendall_tau": 0.9047619047619049,
+    "category_kendall_p": 0.002777777777777778,
+    "category_mass_vs_neg_mean_expert_rank_spearman": 0.9642857142857145,
+    "category_mass_vs_neg_mean_expert_rank_p": 0.0004541491691941689,
+    "top3_category_overlap": 3,
+    "top3_geosmile": [
+      "Built environment / activity",
+      "Crime / temporal",
+      "Economic / labour & tenure"
+    ],
+    "top3_expert": [
+      "Built environment / activity",
+      "Crime / temporal",
+      "Economic / labour & tenure"
+    ],
+    "top3_both": [
+      "Built environment / activity",
+      "Crime / temporal",
+      "Economic / labour & tenure"
+    ]
+  },
+  "category_table": [
+    {
+      "category": "Crime / temporal",
+      "n_features": 7,
+      "geosmile_abs_mass": 6.949441737725179,
+      "geosmile_mass_share": 0.7399862842483479,
+      "geosmile_mean_abs": 0.992777391103597,
+      "expert_mean_feature_rank": 10.571428571428571,
+      "expert_median_feature_rank": 8.0,
+      "n_expert_top10": 4,
+      "n_geosmile_top10": 4,
+      "features": "crime_lag_1, crime_rolling_mean_3, crime_lag_2, crime_rolling_mean_6, crime_lag_3, month_sin, month_cos",
+      "expert_category_rank": 2,
+      "geosmile_category_rank": 1,
+      "expert_rank_source": "mean_feature_rank_from_feature_expert_ranking_v2"
+    },
+    {
+      "category": "Economic / labour & tenure",
+      "n_features": 6,
+      "geosmile_abs_mass": 1.2784248089773165,
+      "geosmile_mass_share": 0.13612846323332098,
+      "geosmile_mean_abs": 0.2130708014962194,
+      "expert_mean_feature_rank": 9.5,
+      "expert_median_feature_rank": 8.5,
+      "n_expert_top10": 4,
+      "n_geosmile_top10": 4,
+      "features": "unemployed_pct_age16plus, economically_inactive_pct, social_rented_pct, owner_occupied_pct, private_rented_pct, long_term_sick_disabled_pct",
+      "expert_category_rank": 1,
+      "geosmile_category_rank": 2,
+      "expert_rank_source": "mean_feature_rank_from_feature_expert_ranking_v2"
+    },
+    {
+      "category": "Built environment / activity",
+      "n_features": 8,
+      "geosmile_abs_mass": 0.5069032116682981,
+      "geosmile_mass_share": 0.053975763555183486,
+      "geosmile_mean_abs": 0.06336290145853726,
+      "expert_mean_feature_rank": 16.875,
+      "expert_median_feature_rank": 17.5,
+      "n_expert_top10": 2,
+      "n_geosmile_top10": 0,
+      "features": "nightlife_per_km2, retail_per_km2, nightlife_count, intersection_per_km2, retail_count, road_length_km_per_km2, intersection_count, road_length_km",
+      "expert_category_rank": 3,
+      "geosmile_category_rank": 3,
+      "expert_rank_source": "mean_feature_rank_from_feature_expert_ranking_v2"
+    },
+    {
+      "category": "Social / demographic",
+      "n_features": 5,
+      "geosmile_abs_mass": 0.3749024366890356,
+      "geosmile_mass_share": 0.03992013625715814,
+      "geosmile_mean_abs": 0.07498048733780713,
+      "expert_mean_feature_rank": 18.4,
+      "expert_median_feature_rank": 17.0,
+      "n_expert_top10": 0,
+      "n_geosmile_top10": 1,
+      "features": "young_adult_15_34_pct, population_density_per_km2, no_qualifications_pct, older_adult_65_plus_pct, level4_plus_qualification_pct",
+      "expert_category_rank": 4,
+      "geosmile_category_rank": 4,
+      "expert_rank_source": "mean_feature_rank_from_feature_expert_ranking_v2"
+    },
+    {
+      "category": "Transport / accessibility",
+      "n_features": 2,
+      "geosmile_abs_mass": 0.1749794131076928,
+      "geosmile_mass_share": 0.01863205284859368,
+      "geosmile_mean_abs": 0.0874897065538464,
+      "expert_mean_feature_rank": 24.0,
+      "expert_median_feature_rank": 24.0,
+      "n_expert_top10": 0,
+      "n_geosmile_top10": 1,
+      "features": "transit_stop_per_km2, transit_stop_count",
+      "expert_category_rank": 5,
+      "geosmile_category_rank": 5,
+      "expert_rank_source": "mean_feature_rank_from_feature_expert_ranking_v2"
+    },
+    {
+      "category": "Environmental",
+      "n_features": 1,
+      "geosmile_abs_mass": 0.0729774803155834,
+      "geosmile_mass_share": 0.007770744259842167,
+      "geosmile_mean_abs": 0.0729774803155834,
+      "expert_mean_feature_rank": 29.0,
+      "expert_median_feature_rank": 29.0,
+      "n_expert_top10": 0,
+      "n_geosmile_top10": 0,
+      "features": "green_space_pct",
+      "expert_category_rank": 6,
+      "geosmile_category_rank": 6,
+      "expert_rank_source": "mean_feature_rank_from_feature_expert_ranking_v2"
+    },
+    {
+      "category": "Structural/control",
+      "n_features": 1,
+      "geosmile_abs_mass": 0.0336824610061908,
+      "geosmile_mass_share": 0.0035865555975536203,
+      "geosmile_mean_abs": 0.0336824610061908,
+      "expert_mean_feature_rank": 30.0,
+      "expert_median_feature_rank": 30.0,
+      "n_expert_top10": 0,
+      "n_geosmile_top10": 0,
+      "features": "lsoa_area_km2",
+      "expert_category_rank": 7,
+      "geosmile_category_rank": 7,
+      "expert_rank_source": "mean_feature_rank_from_feature_expert_ranking_v2"
+    }
+  ]
+}

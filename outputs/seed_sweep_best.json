@@ -1,0 +1,36 @@
+{
+  "model_seed": 42,
+  "seed": 42,
+  "split_seed": 42,
+  "consistency_seed_base": 10,
+  "metrics": {
+    "seed": 42.0,
+    "split_seed": 42.0,
+    "consistency_seed_base": 10.0,
+    "feat_fid": 0.9853258990364979,
+    "geo_fid": 0.9369983358228973,
+    "feat_faith": 0.4624799677336309,
+    "geo_faith": 0.033583781613942466,
+    "feat_hoyer": 0.8480077601810354,
+    "geo_hoyer": 0.6329991488752023,
+    "best_kernel_feat": "inverse",
+    "best_kernel_geo": "inverse",
+    "feat_consist": 0.698464961067853,
+    "geo_consist": 0.6406940134945665,
+    "feat_stab": 0.8285714285714286,
+    "geo_stab": 0.49197918126687784,
+    "score": 6.101408166014875
+  },
+  "chicago_targets": {
+    "feat_faith": 0.84,
+    "geo_stab": 0.82,
+    "feat_consist": 0.99,
+    "geo_consist": 0.83,
+    "feat_fid": 0.98,
+    "geo_fid": 0.9
+  },
+  "notes": [
+    "Selected by composite score emphasising Feature Faithfulness and Geo Stability.",
+    "Geo Faithfulness near zero is expected under intensive W1; not primary target."
+  ]
+}

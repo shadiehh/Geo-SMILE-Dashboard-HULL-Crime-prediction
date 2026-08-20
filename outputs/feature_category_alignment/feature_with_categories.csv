@@ -1,0 +1,31 @@
+feature,coefficient,abs_coefficient,geosmile_rank,expert_rank,thesis_category
+crime_rolling_mean_6,-5.22091330180124,5.22091330180124,1,8,Crime / temporal
+crime_rolling_mean_3,-1.2718102982838038,1.2718102982838038,2,2,Crime / temporal
+unemployed_pct_age16plus,-0.4943571954198375,0.4943571954198375,3,3,Economic / labour & tenure
+long_term_sick_disabled_pct,-0.2869532199176136,0.2869532199176136,4,20,Economic / labour & tenure
+owner_occupied_pct,-0.2745568877274837,0.2745568877274837,5,10,Economic / labour & tenure
+crime_lag_2,-0.225945762844815,0.225945762844815,6,5,Crime / temporal
+social_rented_pct,-0.1245136257221687,0.1245136257221687,7,7,Economic / labour & tenure
+crime_lag_1,-0.1101488560665197,0.1101488560665197,8,1,Crime / temporal
+population_density_per_km2,-0.109286621117566,0.109286621117566,9,15,Social / demographic
+transit_stop_per_km2,-0.1047808261840023,0.1047808261840023,10,21,Transport / accessibility
+road_length_km,-0.1035489099854857,0.1035489099854857,11,28,Built environment / activity
+retail_count,-0.1022741796481838,0.1022741796481838,12,19,Built environment / activity
+level4_plus_qualification_pct,-0.093867794552337,0.093867794552337,13,25,Social / demographic
+retail_per_km2,-0.0865406084353331,0.0865406084353331,14,9,Built environment / activity
+nightlife_per_km2,-0.0864703340811569,0.0864703340811569,15,4,Built environment / activity
+private_rented_pct,-0.0849918393979012,0.0849918393979012,16,11,Economic / labour & tenure
+no_qualifications_pct,-0.0827786841923099,0.0827786841923099,17,17,Social / demographic
+nightlife_count,-0.0822305979864197,0.0822305979864197,18,13,Built environment / activity
+green_space_pct,-0.0729774803155834,0.0729774803155834,19,29,Environmental
+transit_stop_count,-0.0701985869236905,0.0701985869236905,20,27,Transport / accessibility
+young_adult_15_34_pct,-0.0664289670961669,0.0664289670961669,21,12,Social / demographic
+month_sin,-0.0630807708457163,0.0630807708457163,22,18,Crime / temporal
+month_cos,-0.0356316345546542,0.0356316345546542,23,26,Crime / temporal
+lsoa_area_km2,0.0336824610061908,0.0336824610061908,24,30,Structural/control
+road_length_km_per_km2,-0.0269042626905563,0.0269042626905563,25,22,Built environment / activity
+older_adult_65_plus_pct,-0.0225403697306558,0.0225403697306558,26,23,Social / demographic
+crime_lag_3,-0.0219111133284289,0.0219111133284289,27,14,Crime / temporal
+intersection_count,0.0155936194658333,0.0155936194658333,28,24,Built environment / activity
+economically_inactive_pct,0.0130520407923118,0.0130520407923118,29,6,Economic / labour & tenure
+intersection_per_km2,0.0033406993753292,0.0033406993753292,30,16,Built environment / activity

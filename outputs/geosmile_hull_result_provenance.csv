@@ -1,0 +1,61 @@
+branch,category,metric,value,source_file,result_status,run_seed,perturbation_count,timestamp,notes
+Feature (location excluded),Fidelity,R2,0.985325899036498,geosmile_hull_feat_fidelity.csv,restored,42,1024.0,,dedicated fidelity file
+Feature (location excluded),Fidelity,Weighted R2,0.9851034980432536,geosmile_hull_feat_fidelity.csv,restored,42,1024.0,,dedicated fidelity file
+Feature (location excluded),Fidelity,MAE,0.2856237529185523,geosmile_hull_feat_fidelity.csv,restored,42,1024.0,,dedicated fidelity file
+Feature (location excluded),Fidelity,WMAE,0.2867781057121664,geosmile_hull_feat_fidelity.csv,restored,42,1024.0,,dedicated fidelity file
+Feature (location excluded),Fidelity,RMSE,0.3356910257463809,geosmile_hull_feat_fidelity.csv,restored,42,1024.0,,dedicated fidelity file
+Feature (location excluded),Fidelity,WRMSE,0.3377797920385787,geosmile_hull_feat_fidelity.csv,restored,42,1024.0,,dedicated fidelity file
+Geo,Fidelity,R2,0.9307547925394968,geosmile_hull_geo_fidelity.csv,restored,42,2000.0,,dedicated fidelity file
+Geo,Fidelity,Weighted R2,0.9282632145290008,geosmile_hull_geo_fidelity.csv,restored,42,2000.0,,dedicated fidelity file
+Geo,Fidelity,MAE,0.7072195593454844,geosmile_hull_geo_fidelity.csv,restored,42,2000.0,,dedicated fidelity file
+Geo,Fidelity,WMAE,0.738472409154546,geosmile_hull_geo_fidelity.csv,restored,42,2000.0,,dedicated fidelity file
+Geo,Fidelity,RMSE,1.3599534508213336,geosmile_hull_geo_fidelity.csv,restored,42,2000.0,,dedicated fidelity file
+Geo,Fidelity,WRMSE,1.4802143961721106,geosmile_hull_geo_fidelity.csv,restored,42,2000.0,,dedicated fidelity file
+Feature (location excluded),Consistency,Rank Spearman Mean,0.6935706340378198,geosmile_hull_feat_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Feature (location excluded),Consistency,Rank Spearman Std,0.0960346719933601,geosmile_hull_feat_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Feature (location excluded),Consistency,Score Pearson Mean,0.9989340894046788,geosmile_hull_feat_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Feature (location excluded),Consistency,Score Pearson Std,0.0002709466148649,geosmile_hull_feat_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Feature (location excluded),Consistency,Top-20% Jaccard Mean,0.8285714285714286,geosmile_hull_feat_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Feature (location excluded),Consistency,Top-20% Jaccard Std,0.139970842444753,geosmile_hull_feat_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Feature (location excluded),Consistency,Fidelity R2 Mean,0.9830120451629032,geosmile_hull_feat_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Feature (location excluded),Consistency,Fidelity R2 Std,0.0023511200455071,geosmile_hull_feat_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Geo,Consistency,Rank Spearman Mean,0.7431279452928463,geosmile_hull_geo_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Geo,Consistency,Rank Spearman Std,0.0286287373279127,geosmile_hull_geo_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Geo,Consistency,Score Pearson Mean,0.9830946685420712,geosmile_hull_geo_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Geo,Consistency,Score Pearson Std,0.0025550485659364,geosmile_hull_geo_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Geo,Consistency,Top-20% Jaccard Mean,0.6233203175869684,geosmile_hull_geo_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Geo,Consistency,Top-20% Jaccard Std,0.0838022201061918,geosmile_hull_geo_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Geo,Consistency,Fidelity R2 Mean,0.9204238898435324,geosmile_hull_geo_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Geo,Consistency,Fidelity R2 Std,0.0153924633993852,geosmile_hull_geo_consistency.csv,restored,100,,,dedicated consistency file; not controlled-input stability
+Feature (location excluded),Perturbation response monotonicity,Feature Spearman: perturbation cardinality vs WD,0.4624799677336309,geosmile_hull_faithfulness.csv,restored,42,,,restored from geosmile_hull_faithfulness.csv
+Feature (location excluded),Perturbation response monotonicity,Feature Pearson: perturbation cardinality vs WD,0.3696266397537555,geosmile_hull_faithfulness.csv,restored,42,,,restored from geosmile_hull_faithfulness.csv
+Geo,Perturbation response monotonicity,Geo Spearman: perturbation cardinality vs WD,0.0482792773231148,geosmile_hull_faithfulness.csv,restored,42,,,restored from geosmile_hull_faithfulness.csv
+Geo,Perturbation response monotonicity,Geo Pearson: perturbation cardinality vs WD,0.0113408688668854,geosmile_hull_faithfulness.csv,restored,42,,,restored from geosmile_hull_faithfulness.csv
+Feature (location excluded),Sparsity / concentration,hoyer,0.8480077601810354,geosmile_hull_sparsity.csv,restored,42,,,
+Feature (location excluded),Sparsity / concentration,gini,0.7901996531386815,geosmile_hull_sparsity.csv,restored,42,,,
+Feature (location excluded),Sparsity / concentration,entropy,1.7909106758652684,geosmile_hull_sparsity.csv,restored,42,,,
+Feature (location excluded),Sparsity / concentration,nonzero,30.0,geosmile_hull_sparsity.csv,restored,42,,,
+Feature (location excluded),Sparsity / concentration,n,30.0,geosmile_hull_sparsity.csv,restored,42,,,
+Geo,Sparsity / concentration,hoyer,0.6311573069220637,geosmile_hull_sparsity.csv,restored,42,,,
+Geo,Sparsity / concentration,gini,0.5065422710139682,geosmile_hull_sparsity.csv,restored,42,,,
+Geo,Sparsity / concentration,entropy,4.459222675080568,geosmile_hull_sparsity.csv,restored,42,,,
+Geo,Sparsity / concentration,nonzero,168.0,geosmile_hull_sparsity.csv,restored,42,,,
+Geo,Sparsity / concentration,n,168.0,geosmile_hull_sparsity.csv,restored,42,,,
+Feature (location excluded),Kernel selection,validation_r2[rbf],0.98285180588023,geosmile_hull_kernel_selection_feat.csv,restored,42,,,
+Feature (location excluded),Kernel selection,validation_r2[laplace],0.9830373150065502,geosmile_hull_kernel_selection_feat.csv,restored,42,,,
+Feature (location excluded),Kernel selection,validation_r2[inverse],0.9832292452263276,geosmile_hull_kernel_selection_feat.csv,restored,42,,,
+Geo,Kernel selection,validation_r2[rbf],0.9302389079921014,geosmile_hull_kernel_selection_geo.csv,restored,42,,,
+Geo,Kernel selection,validation_r2[laplace],0.9317189935148128,geosmile_hull_kernel_selection_geo.csv,restored,42,,,
+Geo,Kernel selection,validation_r2[inverse],0.9316700525673044,geosmile_hull_kernel_selection_geo.csv,restored,42,,,
+Feature (location excluded),Convergence,R2 at max #Perturb,0.9832292452263276,geosmile_hull_convergence.csv,restored,42,614.0,,
+Feature (location excluded),Convergence,Weighted R2 at max #Perturb,0.9833997805541906,geosmile_hull_convergence.csv,restored,42,614.0,,
+Feature (location excluded),Convergence,WMAE at max #Perturb,0.3171582381221686,geosmile_hull_convergence.csv,restored,42,614.0,,
+Feature (location excluded),Convergence,WRMSE at max #Perturb,0.3658141117430226,geosmile_hull_convergence.csv,restored,42,614.0,,
+Feature (location excluded),Convergence,MAE at max #Perturb,0.3166896050907203,geosmile_hull_convergence.csv,restored,42,614.0,,
+Feature (location excluded),Convergence,RMSE at max #Perturb,0.3649148070074303,geosmile_hull_convergence.csv,restored,42,614.0,,
+Geo,Convergence,R2 at max #Perturb,0.9317189935148128,geosmile_hull_convergence.csv,restored,42,1200.0,,
+Geo,Convergence,Weighted R2 at max #Perturb,0.9227535617838192,geosmile_hull_convergence.csv,restored,42,1200.0,,
+Geo,Convergence,WMAE at max #Perturb,0.7974072572821381,geosmile_hull_convergence.csv,restored,42,1200.0,,
+Geo,Convergence,WRMSE at max #Perturb,1.4935180689107002,geosmile_hull_convergence.csv,restored,42,1200.0,,
+Geo,Convergence,MAE at max #Perturb,0.7698022700000994,geosmile_hull_convergence.csv,restored,42,1200.0,,
+Geo,Convergence,RMSE at max #Perturb,1.3925796236432637,geosmile_hull_convergence.csv,restored,42,1200.0,,

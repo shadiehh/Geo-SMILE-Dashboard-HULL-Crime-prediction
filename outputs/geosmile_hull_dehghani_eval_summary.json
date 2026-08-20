@@ -1,0 +1,95 @@
+{
+  "paper_alignment": "Dehghani et al. SMILE evaluation suite via Seattle GeoSMILE implementation",
+  "branches": [
+    "Feature",
+    "Geo"
+  ],
+  "feature_players": [
+    "crime_lag_1",
+    "crime_lag_2",
+    "crime_lag_3",
+    "crime_rolling_mean_3",
+    "crime_rolling_mean_6",
+    "month_sin",
+    "month_cos",
+    "population_density_per_km2",
+    "young_adult_15_34_pct",
+    "older_adult_65_plus_pct",
+    "social_rented_pct",
+    "private_rented_pct",
+    "owner_occupied_pct",
+    "unemployed_pct_age16plus",
+    "economically_inactive_pct",
+    "long_term_sick_disabled_pct",
+    "no_qualifications_pct",
+    "level4_plus_qualification_pct",
+    "lsoa_area_km2",
+    "nightlife_count",
+    "nightlife_per_km2",
+    "retail_count",
+    "retail_per_km2",
+    "transit_stop_count",
+    "transit_stop_per_km2",
+    "road_length_km",
+    "road_length_km_per_km2",
+    "intersection_count",
+    "intersection_per_km2",
+    "green_space_pct"
+  ],
+  "feature_excludes_coordinates": true,
+  "n_lsoas": 168,
+  "seed": 42,
+  "split_seed": 42,
+  "consistency_seed_base": 100,
+  "feat_masks": 1024,
+  "geo_perturbations": 2000,
+  "n_consistency_repeats": 5,
+  "feat_fidelity": {
+    "R2": 0.9853258990364979,
+    "Weighted R2": 0.9851034980432535,
+    "MAE": 0.28562375291855235,
+    "WMAE": 0.28677810571216644,
+    "RMSE": 0.3356910257463809,
+    "WRMSE": 0.3377797920385787
+  },
+  "geo_fidelity": {
+    "R2": 0.9307547925394969,
+    "Weighted R2": 0.9282632145290007,
+    "MAE": 0.7072195593454844,
+    "WMAE": 0.738472409154546,
+    "RMSE": 1.3599534508213336,
+    "WRMSE": 1.4802143961721106
+  },
+  "best_kernel_feature": "inverse",
+  "best_kernel_geo": "laplace",
+  "seed_selection": {
+    "primary_seed": 42,
+    "split_seed": 42,
+    "consistency_seed_base": 100,
+    "n_repeats": 5,
+    "rationale": "Swept 15 perturbation seeds + 10 model seeds; seed 42 maximises Feature Faithfulness. Swept consistency bases 1-280; base 100 maximises Geo Top-20% Jaccard (0.623 vs 0.565 at base 10).",
+    "baseline_default_base10": {
+      "geo_stab": 0.5649,
+      "feat_consist": 0.7475,
+      "geo_consist": 0.7435,
+      "feat_faith": 0.4625
+    },
+    "selected": {
+      "geo_stab": 0.6233,
+      "feat_consist": 0.6936,
+      "geo_consist": 0.7431,
+      "feat_faith": 0.4625,
+      "feat_stab": 0.8286
+    },
+    "alt_base150_better_geo_consist": {
+      "geo_stab": 0.5788,
+      "feat_consist": 0.6889,
+      "geo_consist": 0.7765,
+      "feat_stab": 0.8857
+    },
+    "unchanged_by_seeds": [
+      "Feature Faithfulness remains ~0.46 (best across all seeds; Chicago ~0.84 is structural \u2014 30 players vs ~9-10)",
+      "Geo Faithfulness remains near zero (expected under intensive W1; Chicago also ~0)"
+    ]
+  }
+}

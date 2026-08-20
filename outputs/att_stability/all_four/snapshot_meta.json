@@ -1,0 +1,7 @@
+{
+  "kind": "all_four_neighbors",
+  "feature_jaccard": 0.6666666666666666,
+  "feature_spearman": 0.6707452725250278,
+  "geo_jaccard": 0.42857142857142855,
+  "geo_spearman": 0.7871847176315164
+}

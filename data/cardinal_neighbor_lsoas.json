@@ -1,0 +1,33 @@
+{
+  "lsoa21cd": [
+    "E01012953",
+    "E01013094",
+    "E01013009",
+    "E01013112"
+  ],
+  "lsoa21nm": [
+    "East Riding of Yorkshire 023A",
+    "East Riding of Yorkshire 029A",
+    "East Riding of Yorkshire 034B",
+    "East Riding of Yorkshire 025D"
+  ],
+  "direction": [
+    "north",
+    "east",
+    "south",
+    "west"
+  ],
+  "gap_m": [
+    0.0,
+    0.0,
+    569.5789749510038,
+    0.0
+  ],
+  "alignment": [
+    0.6926673814904546,
+    0.9999987967024675,
+    0.6109105457802688,
+    0.9998437783093178
+  ],
+  "buffer_m": 12000.0
+}

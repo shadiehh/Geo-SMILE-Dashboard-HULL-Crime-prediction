@@ -1,0 +1,63 @@
+{
+  "created_utc": "2026-08-06T00:37:37.271579+00:00",
+  "census": {
+    "source": "ONS Census 2021 topic summaries via Nomis bulk downloads",
+    "tables": [
+      "TS006",
+      "TS007A",
+      "TS054",
+      "TS066",
+      "TS067"
+    ],
+    "urls": [
+      "https://www.nomisweb.co.uk/output/census/2021/census2021-ts006.zip",
+      "https://www.nomisweb.co.uk/output/census/2021/census2021-ts007a.zip",
+      "https://www.nomisweb.co.uk/output/census/2021/census2021-ts054.zip",
+      "https://www.nomisweb.co.uk/output/census/2021/census2021-ts066.zip",
+      "https://www.nomisweb.co.uk/output/census/2021/census2021-ts067.zip"
+    ],
+    "license": "Open Government Licence v3.0"
+  },
+  "osm": {
+    "source": "OpenStreetMap contributors via direct Overpass API queries",
+    "license": "ODbL 1.0",
+    "snapshot_retrieved_utc": "2026-08-06T00:37:37.246917+00:00",
+    "feature_cache": "D:\\GEO SMILE CODE\\hull\\data\\hull_osm_features.geojson",
+    "road_cache": "D:\\GEO SMILE CODE\\hull\\data\\hull_osm_drive_edges.geojson",
+    "intersection_cache": "D:\\GEO SMILE CODE\\hull\\data\\hull_osm_intersections.geojson",
+    "query_bbox_wgs84": [
+      -0.42251931120966596,
+      53.719562420567115,
+      -0.2414308639284075,
+      53.81325023953877
+    ],
+    "notes": "OSM is a current, community-maintained snapshot. Counts may be incomplete and should be treated as contextual proxies. Green-space coverage uses tagged OSM ways; relation-only polygons are not counted. Intersections are shared topology nodes used by at least two road ways."
+  },
+  "boundary_validation": {
+    "lad21cd_target": "E06000010",
+    "n_polygons": 168,
+    "expected_lsoas": 168,
+    "matched_lsoas": 168,
+    "missing_lsoa_codes": [],
+    "extra_lsoa_codes": [],
+    "duplicate_lsoa_codes": 0,
+    "crs": "EPSG:27700",
+    "valid": true,
+    "source": "cached_official"
+  },
+  "validation": {
+    "rows": 168,
+    "expected_lsoas": 168,
+    "duplicate_lsoa_codes": 0,
+    "missing_lsoa_codes": [],
+    "extra_lsoa_codes": [],
+    "missing_numeric_values": 0,
+    "forbidden_coordinate_columns": [],
+    "valid": true
+  },
+  "feature_definitions": {
+    "percent_features": "Percent of the stated Census denominator.",
+    "density_features": "Counts or lengths divided by official LSOA area in km\u00b2.",
+    "green_space_pct": "OSM-tagged green polygon intersection area / LSOA area."
+  }
+}

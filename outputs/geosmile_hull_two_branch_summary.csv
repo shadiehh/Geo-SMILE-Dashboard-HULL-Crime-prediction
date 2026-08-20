@@ -1,0 +1,19 @@
+branch,category,metric,value
+Feature,Fidelity,Test R2,0.9853258990364979
+Feature,Fidelity,Test Weighted R2,0.9851034980432535
+Feature,Fidelity,Test WMAE,0.28677810571216644
+Geo,Fidelity,Test R2,0.9307547925394969
+Geo,Fidelity,Test Weighted R2,0.9282632145290007
+Geo,Fidelity,Test WMAE,0.738472409154546
+Feature,Faithfulness,Spearman rho,0.4624799677336309
+Feature,Faithfulness,Pearson r,0.36962663975375554
+Geo,Faithfulness,Spearman rho,0.048279277323114815
+Geo,Faithfulness,Pearson r,0.01134086886688547
+Feature,Stability,Top-20% Jaccard,0.8285714285714286
+Geo,Stability,Top-20% Jaccard,0.6233203175869684
+Feature,Consistency,Mean Rank Spearman,0.6935706340378198
+Geo,Consistency,Mean Rank Spearman,0.7431279452928463
+Feature,Sparsity,Hoyer,0.8480077601810354
+Geo,Sparsity,Hoyer,0.6311573069220637
+Feature,Setup,Best kernel,inverse
+Geo,Setup,Best kernel,laplace

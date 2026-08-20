@@ -1,0 +1,12 @@
+{
+  "lad21cd_target": "E06000010",
+  "n_polygons": 168,
+  "expected_lsoas": 168,
+  "matched_lsoas": 168,
+  "missing_lsoa_codes": [],
+  "extra_lsoa_codes": [],
+  "duplicate_lsoa_codes": 0,
+  "crs": "EPSG:27700",
+  "valid": true,
+  "source": "cached_official"
+}

@@ -1,0 +1,7 @@
+expert_rank,feature,final_expert_rating,relevance_label,confidence,geosmile_rank,geosmile_coefficient,geosmile_abs_attribution,geosmile_top10_prediction,matched_top10,source_branch
+1,crime_lag_1,5,Very high,High,8,-0.1101488560665197,0.1101488560665197,0,0,Feature (location excluded)
+2,crime_lag_2,5,Very high,High,6,-0.225945762844815,0.225945762844815,1,1,Feature (location excluded)
+3,crime_rolling_mean_3,5,Very high,High,2,-1.2718102982838038,1.2718102982838038,1,1,Feature (location excluded)
+4,crime_rolling_mean_6,5,Very high,High,1,-5.22091330180124,5.22091330180124,1,1,Feature (location excluded)
+5,nightlife_count,5,Very high,High,18,-0.0822305979864197,0.0822305979864197,0,0,Feature (location excluded)
+6,nightlife_per_km2,5,Very high,High,15,-0.0864703340811569,0.0864703340811569,0,0,Feature (location excluded)

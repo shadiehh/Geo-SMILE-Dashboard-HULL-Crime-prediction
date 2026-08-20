@@ -1,0 +1,267 @@
+{
+  "schema_version": "3.0.0",
+  "generation_timestamp": "2026-08-06T20:23:40.805425+00:00",
+  "active_branches": [
+    "Feature (location excluded)",
+    "Geo"
+  ],
+  "annotation_status": "expert_reference",
+  "expert_display_note": "Expert reference.",
+  "expert_topk_definition": {
+    "feature_n": 30,
+    "feature_k": 10,
+    "geo_n": 168,
+    "geo_k": 20,
+    "map_expert_top": 20,
+    "note": "Expert top sets: Feature top-10 of 30, Geo top-20 of 168. Model-based faithfulness interventions use the same cardinalities."
+  },
+  "primary_att": {
+    "Feature (location excluded)": {
+      "ATT accuracy": 0.8,
+      "ATT F1": 0.7,
+      "ATT AUROC": 0.825,
+      "Jaccard@k": 0.5384615384615384,
+      "Top-10 overlap": 7
+    },
+    "Geo": {
+      "ATT accuracy": 0.8809523809523809,
+      "ATT F1": 0.5,
+      "ATT AUROC": 0.7820945945945946,
+      "Jaccard@k": 0.3333333333333333,
+      "Top-20 overlap_custom_rewrite": 16
+    }
+  },
+  "dehghani_style_expert_faithfulness": {
+    "status": "Not estimable",
+    "reason": "Insufficient independent predictive-model runs with both test performance and expert-reference attribution metrics.",
+    "detail": "Available seed sweeps (seed_sweep_phase1/2, sweep_eval_seeds*) vary explanation or model seeds but do not archive per-run predictive TEST metrics together with expert top-k ATT accuracy/F1/AUROC. Surrogate fidelity and explanation-seed consistency are not substitutes for Dehghani-style expert faithfulness.",
+    "n_valid_independent_predictive_runs": 0,
+    "minimum_required": 5
+  },
+  "model_based_attribution_faithfulness": {
+    "feature": {
+      "branch": "Feature (location excluded)",
+      "k": 10,
+      "top_response": 8.354685541774542,
+      "bottom_response": 1.1256431635646584,
+      "random_mean": 3.952749866570388,
+      "random_ci95_low": 0.8240733480258352,
+      "random_ci95_high": 8.238444482038416,
+      "top_minus_random": 4.401935675204154,
+      "top_minus_bottom": 7.229042378209883,
+      "empirical_p_top_vs_random": 0.015984015984015984,
+      "n_random": 1000,
+      "deletion_auc": null,
+      "notes": "Fixed-cardinality feature ablation; WD on test predictions.",
+      "design_k": 10,
+      "archive_status": "recomputed_at_k10"
+    },
+    "geo": {
+      "branch": "Geo",
+      "k": 20,
+      "top_response": 19.986473107337954,
+      "bottom_response": 11.809427356719972,
+      "random_mean": 12.014508887052537,
+      "random_ci95_low": 8.324434597492218,
+      "random_ci95_high": 20.46952021300793,
+      "top_minus_random": 7.971964220285416,
+      "top_minus_bottom": 8.177045750617982,
+      "empirical_p_top_vs_random": 0.03596403596403597,
+      "n_random": 1000,
+      "deletion_auc": null,
+      "notes": "Fixed-cardinality LSOA location masking; WD on affected units. Random sets soft-matched on population_mid_2022 + lsoa_area_km2 (no adjacency).",
+      "design_k": 20,
+      "archive_status": "recomputed_at_k20"
+    }
+  },
+  "controlled_input_stability": {
+    "status": "Evaluated",
+    "definition": "ATT stability: Jaccard overlap of top-k attribution sets and Spearman correlation of |coefficients| before vs after adding one real LSOA from each cardinal direction just outside Hull, with Police.uk and Census/OSM covariates collected on the same schema as Hull LSOAs. Distinct from multi-run Consistency. Models stay Hull-trained; only the explanation reference is expanded. Baseline is the published Hull-only Feature (1024 masks) and Geo (2000 perturbations) ranking; expansions reuse that SMILE design (seed 42).",
+    "n_reps": 4,
+    "feat_masks": 1024,
+    "geo_perturbations": 2000,
+    "feature_k": 10,
+    "geo_k": 20,
+    "perturbation": "cardinal_neighbor_lsoas",
+    "smile_seed": 42,
+    "neighbors": {
+      "north": {
+        "lsoa21cd": "E01012953",
+        "lsoa21nm": "East Riding of Yorkshire 023A",
+        "feature_jaccard": 1.0,
+        "feature_spearman": 1.0,
+        "geo_jaccard": 1.0,
+        "geo_spearman": 0.9994811729035592,
+        "geo_top20_overlap_n": 20.0,
+        "geo_top19_jaccard": 0.9,
+        "geo_top19_overlap_n": 18.0,
+        "geo_extra_rank": 120.0,
+        "geo_extra_abs_coefficient": 0.3165322959309913,
+        "geo_extra_in_top20": 0.0,
+        "feature_pred_spearman": 1.0,
+        "geo_pred_spearman": 1.0
+      },
+      "east": {
+        "lsoa21cd": "E01013094",
+        "lsoa21nm": "East Riding of Yorkshire 029A",
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9991101223581758,
+        "geo_jaccard": 1.0,
+        "geo_spearman": 0.9994457408091679,
+        "geo_top20_overlap_n": 20.0,
+        "geo_top19_jaccard": 0.9,
+        "geo_top19_overlap_n": 18.0,
+        "geo_extra_rank": 110.0,
+        "geo_extra_abs_coefficient": 0.43255207254726974,
+        "geo_extra_in_top20": 0.0,
+        "feature_pred_spearman": 1.0,
+        "geo_pred_spearman": 1.0
+      },
+      "south": {
+        "lsoa21cd": "E01013009",
+        "lsoa21nm": "East Riding of Yorkshire 034B",
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9995550611790878,
+        "geo_jaccard": 1.0,
+        "geo_spearman": 0.9995140741340651,
+        "geo_top20_overlap_n": 20.0,
+        "geo_top19_jaccard": 0.9,
+        "geo_top19_overlap_n": 18.0,
+        "geo_extra_rank": 112.0,
+        "geo_extra_abs_coefficient": 0.39570289026545813,
+        "geo_extra_in_top20": 0.0,
+        "feature_pred_spearman": 1.0,
+        "geo_pred_spearman": 1.0
+      },
+      "west": {
+        "lsoa21cd": "E01013112",
+        "lsoa21nm": "East Riding of Yorkshire 025D",
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9991101223581758,
+        "geo_jaccard": 1.0,
+        "geo_spearman": 0.9993419753898797,
+        "geo_top20_overlap_n": 20.0,
+        "geo_top19_jaccard": 0.9,
+        "geo_top19_overlap_n": 18.0,
+        "geo_extra_rank": 46.0,
+        "geo_extra_abs_coefficient": 0.9452613432552182,
+        "geo_extra_in_top20": 0.0,
+        "feature_pred_spearman": 1.0,
+        "geo_pred_spearman": 1.0
+      }
+    },
+    "feature": {
+      "branch": "Feature (location excluded)",
+      "top_k_jaccard_mean": 1.0,
+      "top_k_jaccard_std": 0.0,
+      "abs_coef_spearman_mean": 0.9994438264738599,
+      "abs_coef_spearman_std": 0.0003689237809071529,
+      "pred_spearman_mean": 1.0,
+      "n_prediction_preserving": 4,
+      "perturbation": "Add one outside-Hull LSOA (N/E/S/W) with real police and covariate data to the Feature SMILE reference"
+    },
+    "geo": {
+      "branch": "Geo",
+      "top_k_jaccard_mean": 1.0,
+      "top_k_jaccard_std": 0.0,
+      "abs_coef_spearman_mean": 0.999445740809168,
+      "abs_coef_spearman_std": 6.459903026463326e-05,
+      "pred_spearman_mean": 1.0,
+      "n_prediction_preserving": 4,
+      "perturbation": "Add one outside-Hull LSOA (N/E/S/W) with real coordinates and crime history to the Geo SMILE reference"
+    },
+    "per_rep": {
+      "direction": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "feature_jaccard": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "feature_spearman": [
+        1.0,
+        0.9991101223581758,
+        0.9995550611790878,
+        0.9991101223581758
+      ],
+      "geo_jaccard": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "geo_spearman": [
+        0.9994811729035592,
+        0.9994457408091679,
+        0.9995140741340651,
+        0.9993419753898797
+      ]
+    },
+    "visuals_dir": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability",
+    "visuals": {
+      "baseline": {
+        "feature_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\baseline\\feature_importance.csv",
+        "geo_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\baseline\\geo_coefficients.csv",
+        "feature_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\baseline\\feature_importance_ranking.png",
+        "geo_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\baseline\\geo_top20_map.png"
+      },
+      "neighbors_map": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\cardinal_neighbors_map.png",
+      "north": {
+        "feature_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\north\\feature_importance.csv",
+        "geo_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\north\\geo_coefficients.csv",
+        "feature_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\north\\feature_importance_ranking.png",
+        "geo_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\north\\geo_top20_map.png"
+      },
+      "east": {
+        "feature_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\east\\feature_importance.csv",
+        "geo_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\east\\geo_coefficients.csv",
+        "feature_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\east\\feature_importance_ranking.png",
+        "geo_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\east\\geo_top20_map.png"
+      },
+      "south": {
+        "feature_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\south\\feature_importance.csv",
+        "geo_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\south\\geo_coefficients.csv",
+        "feature_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\south\\feature_importance_ranking.png",
+        "geo_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\south\\geo_top20_map.png"
+      },
+      "west": {
+        "feature_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\west\\feature_importance.csv",
+        "geo_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\west\\geo_coefficients.csv",
+        "feature_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\west\\feature_importance_ranking.png",
+        "geo_png": "D:\\GEO SMILE CODE\\hull\\outputs\\att_stability\\west\\geo_top20_map.png"
+      }
+    }
+  },
+  "restored_metric_count": 62,
+  "recomputed_metric_count": 267,
+  "conflict_count": 0,
+  "map_outputs": {
+    "overview_png": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_expert_top20_lsoa_overview.png",
+    "overview_pdf": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_expert_top20_lsoa_overview.pdf",
+    "interactive_html": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_expert_top20_lsoa_interactive.html",
+    "comparison_png": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_expert_vs_geosmile_top20.png",
+    "comparison_html": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_expert_vs_geosmile_top20.html",
+    "map_data_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_expert_top20_lsoa_map_data.csv",
+    "overlap": "10",
+    "jaccard": "0.3333333333333333"
+  },
+  "coverage": {
+    "Feature (location excluded)": "30/30",
+    "Geo": "168/168"
+  },
+  "limitations": [
+    "The expert reference is a provisional AI-assisted, evidence-based annotation and does not represent formal multi-expert consensus.",
+    "Not causal; not ground truth; coefficient signs not validated as crime direction.",
+    "Insufficient independent predictive-model runs with both test performance and expert-reference attribution metrics.",
+    "ATT/controlled-input stability expands the explanation reference with four real outside-Hull LSOAs (north=E01012953 (East Riding of Yorkshire 023A); east=E01013094 (East Riding of Yorkshire 029A); south=E01013009 (East Riding of Yorkshire 034B); west=E01013112 (East Riding of Yorkshire 025D)); models remain trained on Hull only. Means are over the four cardinal directions."
+  ],
+  "warnings": [],
+  "provenance_file": "geosmile_hull_result_provenance.csv",
+  "conflicts_file": "geosmile_hull_result_conflicts.csv",
+  "known_inconsistencies": []
+}

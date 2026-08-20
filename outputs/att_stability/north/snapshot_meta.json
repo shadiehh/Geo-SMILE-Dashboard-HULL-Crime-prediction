@@ -1,0 +1,18 @@
+{
+  "kind": "cardinal_neighbor",
+  "direction": "north",
+  "added_lsoa": "E01012953",
+  "added_name": "East Riding of Yorkshire 023A",
+  "feature_jaccard": 1.0,
+  "feature_spearman": 1.0,
+  "geo_jaccard": 1.0,
+  "geo_spearman": 0.9994811729035592,
+  "geo_top20_overlap_n": 20.0,
+  "geo_top19_jaccard": 0.9,
+  "geo_top19_overlap_n": 18.0,
+  "geo_extra_rank": 120.0,
+  "geo_extra_abs_coefficient": 0.3165322959309913,
+  "geo_extra_in_top20": 0.0,
+  "feature_pred_spearman": 1.0,
+  "geo_pred_spearman": 1.0
+}

@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+outputs/dashboard_llm_cache/
+Police.uk.zip
+*.egg-info/
+.DS_Store
+
