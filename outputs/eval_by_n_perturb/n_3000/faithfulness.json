@@ -1,0 +1,28 @@
+{
+  "feature": {
+    "branch": "Feature",
+    "k": 10,
+    "top_response": 8.328286150736465,
+    "bottom_response": 0.5714657079605827,
+    "random_mean": 4.065861852196709,
+    "random_ci95_low": 0.8601468085621781,
+    "random_ci95_high": 8.131196587816587,
+    "top_minus_random": 4.262424298539757,
+    "top_minus_bottom": 7.756820442775883,
+    "empirical_p_top_vs_random": 0.00999000999000999,
+    "n_random": 1000
+  },
+  "geo": {
+    "branch": "Geo",
+    "k": 20,
+    "top_response": 20.138723754882818,
+    "bottom_response": 11.412879943847656,
+    "random_mean": 11.893712332415584,
+    "random_ci95_low": 7.705124146938324,
+    "random_ci95_high": 20.96629745125771,
+    "top_minus_random": 8.245011422467234,
+    "top_minus_bottom": 8.725843811035162,
+    "empirical_p_top_vs_random": 0.04995004995004995,
+    "n_random": 1000
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "n_perturb": 5000,
+  "seed": 42,
+  "elapsed_sec": 1427.719657421112,
+  "accuracy": {
+    "feature": {
+      "accuracy": 0.8,
+      "balanced_accuracy": 0.7749999999999999,
+      "precision": 0.7,
+      "recall": 0.7,
+      "f1": 0.7,
+      "auroc": 0.875,
+      "auprc": 0.8193939393939393,
+      "intersection": 7,
+      "overlap_ratio": 0.7,
+      "jaccard_at_k": 0.5384615384615384,
+      "k": 10,
+      "n": 30,
+      "model_ids": [
+        "crime_lag_1",
+        "crime_rolling_mean_3",
+        "crime_rolling_mean_6",
+        "long_term_sick_disabled_pct",
+        "owner_occupied_pct",
+        "private_rented_pct",
+        "retail_per_km2",
+        "road_length_km",
+        "social_rented_pct",
+        "unemployed_pct_age16plus"
+      ]
+    },
+    "geo": {
+      "accuracy": 0.9285714285714286,
+      "balanced_accuracy": 0.8297297297297297,
+      "precision": 0.7,
+      "recall": 0.7,
+      "f1": 0.7,
+      "auroc": 0.8942567567567568,
+      "auprc": 0.7651317805426763,
+      "intersection": 14,
+      "overlap_ratio": 0.7,
+      "jaccard_at_k": 0.5384615384615384,
+      "k": 20,
+      "n": 168,
+      "model_ids": [
+        "E01012757",
+        "E01012761",
+        "E01012763",
+        "E01012805",
+        "E01012837",
+        "E01012847",
+        "E01012852",
+        "E01012854",
+        "E01012856",
+        "E01012859",
+        "E01012862",
+        "E01012868",
+        "E01012871",
+        "E01012889",
+        "E01012893",
+        "E01012894",
+        "E01012900",
+        "E01033104",
+        "E01033105",
+        "E01035466"
+      ]
+    }
+  },
+  "fidelity": {
+    "feature": {
+      "R2": 0.9766428984676454,
+      "Weighted R2": 0.9769874284576663,
+      "MAE": 0.360851224393987,
+      "WMAE": 0.35972249048419164,
+      "RMSE": 0.41265100715091046,
+      "WRMSE": 0.4114941657793886,
+      "best_kernel": "laplace",
+      "validation_r2_by_kernel": {
+        "rbf": 0.9761786710939737,
+        "laplace": 0.9762402930437771,
+        "inverse": 0.9762210304551612
+      },
+      "n_masks": 5000,
+      "n_test": 1000,
+      "smile_diagnostics_test_r2": 0.9753071605216127,
+      "smile_best_kernel": "inverse"
+    },
+    "geo": {
+      "R2": 0.9419800565442125,
+      "Weighted R2": 0.943083078111616,
+      "MAE": 0.64663241107281,
+      "WMAE": 0.6452810858142917,
+      "RMSE": 1.1810372057029923,
+      "WRMSE": 1.182901594760358,
+      "best_kernel": "laplace",
+      "validation_r2_by_kernel": {
+        "rbf": 0.9269144065870036,
+        "laplace": 0.9283009783545864,
+        "inverse": 0.9282407978883854
+      },
+      "n_masks": 5000,
+      "n_test": 1000,
+      "smile_diagnostics_test_r2": 0.9461784758989993,
+      "smile_best_kernel": "inverse"
+    }
+  },
+  "faithfulness": {
+    "feature": {
+      "branch": "Feature",
+      "k": 10,
+      "top_response": 8.341073014551682,
+      "bottom_response": 0.8606002774266968,
+      "random_mean": 4.061674357113027,
+      "random_ci95_low": 0.8140730717795943,
+      "random_ci95_high": 8.207831319918233,
+      "top_minus_random": 4.279398657438655,
+      "top_minus_bottom": 7.480472737124986,
+      "empirical_p_top_vs_random": 0.008991008991008992,
+      "n_random": 1000
+    },
+    "geo": {
+      "branch": "Geo",
+      "k": 20,
+      "top_response": 20.13451957702637,
+      "bottom_response": 11.337085103988649,
+      "random_mean": 11.565090973806385,
+      "random_ci95_low": 7.745898993611337,
+      "random_ci95_high": 20.29126676023007,
+      "top_minus_random": 8.569428603219986,
+      "top_minus_bottom": 8.797434473037722,
+      "empirical_p_top_vs_random": 0.03496503496503497,
+      "n_random": 1000
+    }
+  },
+  "att_stability": {
+    "n_perturb": 5000,
+    "smile_seed": 42,
+    "baseline": "hull_only_smile_at_this_n",
+    "n_reps": 4,
+    "feature_k": 10,
+    "geo_k": 20,
+    "neighbors": {
+      "north": {
+        "lsoa21cd": "E01012953",
+        "lsoa21nm": "East Riding of Yorkshire 023A",
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9982202447163514,
+        "geo_jaccard": 1.0,
+        "geo_spearman": 0.9995393827729158,
+        "geo_top20_overlap_n": 20.0,
+        "geo_top19_jaccard": 0.9,
+        "geo_top19_overlap_n": 18.0,
+        "geo_extra_rank": 126.0,
+        "geo_extra_abs_coefficient": 0.27971325860536855,
+        "geo_extra_in_top20": 0.0,
+        "feature_pred_spearman": 1.0,
+        "geo_pred_spearman": 1.0
+      },
+      "east": {
+        "lsoa21cd": "E01013094",
+        "lsoa21nm": "East Riding of Yorkshire 029A",
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9982202447163514,
+        "geo_jaccard": 1.0,
+        "geo_spearman": 0.9995166049979501,
+        "geo_top20_overlap_n": 20.0,
+        "geo_top19_jaccard": 0.9,
+        "geo_top19_overlap_n": 18.0,
+        "geo_extra_rank": 114.0,
+        "geo_extra_abs_coefficient": 0.3923394555112804,
+        "geo_extra_in_top20": 0.0,
+        "feature_pred_spearman": 1.0,
+        "geo_pred_spearman": 1.0
+      },
+      "south": {
+        "lsoa21cd": "E01013009",
+        "lsoa21nm": "East Riding of Yorkshire 034B",
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9982202447163514,
+        "geo_jaccard": 1.0,
+        "geo_spearman": 0.9995216667257204,
+        "geo_top20_overlap_n": 20.0,
+        "geo_top19_jaccard": 0.9,
+        "geo_top19_overlap_n": 18.0,
+        "geo_extra_rank": 141.0,
+        "geo_extra_abs_coefficient": 0.15934280438105178,
+        "geo_extra_in_top20": 0.0,
+        "feature_pred_spearman": 1.0,
+        "geo_pred_spearman": 1.0
+      },
+      "west": {
+        "lsoa21cd": "E01013112",
+        "lsoa21nm": "East Riding of Yorkshire 025D",
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9968854282536151,
+        "geo_jaccard": 1.0,
+        "geo_spearman": 0.9994887654952143,
+        "geo_top20_overlap_n": 20.0,
+        "geo_top19_jaccard": 0.9,
+        "geo_top19_overlap_n": 18.0,
+        "geo_extra_rank": 73.0,
+        "geo_extra_abs_coefficient": 0.7056298318020121,
+        "geo_extra_in_top20": 0.0,
+        "feature_pred_spearman": 1.0,
+        "geo_pred_spearman": 1.0
+      }
+    },
+    "feature": {
+      "top_k_jaccard_mean": 1.0,
+      "top_k_jaccard_std": 0.0,
+      "spearman_mean": 0.9978865406006673,
+      "spearman_std": 0.0005779924830596405
+    },
+    "geo": {
+      "top_k_jaccard_mean": 1.0,
+      "top_k_jaccard_std": 0.0,
+      "spearman_mean": 0.9995166049979501,
+      "spearman_std": 1.8162365161136873e-05
+    }
+  },
+  "att_consistency": {
+    "n_perturb": 5000,
+    "n_repeats": 5,
+    "seed_base": 100,
+    "seeds": [
+      100,
+      101,
+      102,
+      103,
+      104
+    ],
+    "feature": {
+      "Rank Spearman Mean": 0.8669187986651835,
+      "Rank Spearman Std": 0.028624093935042505,
+      "Score Pearson Mean": 0.9997857789221861,
+      "Score Pearson Std": 4.815393701453553e-05,
+      "Top-20% Jaccard Mean": 1.0,
+      "Top-20% Jaccard Std": 0.0,
+      "Fidelity R2 Mean": 0.9759563791558504,
+      "Fidelity R2 Std": 0.0005923699857835101
+    },
+    "geo": {
+      "Rank Spearman Mean": 0.9542042710858926,
+      "Rank Spearman Std": 0.004133299234816392,
+      "Score Pearson Mean": 0.997510236698729,
+      "Score Pearson Std": 0.0002991864595078867,
+      "Top-20% Jaccard Mean": 0.8154976144449829,
+      "Top-20% Jaccard Std": 0.06322238602591138,
+      "Fidelity R2 Mean": 0.9444136383838204,
+      "Fidelity R2 Std": 0.005026153110467519
+    }
+  },
+  "smile_diagnostics": {
+    "feature": {
+      "best_kernel": "inverse",
+      "validation_r2_by_kernel": {
+        "rbf": 0.9763630692986301,
+        "laplace": 0.9764944757281621,
+        "inverse": 0.9765165421520958
+      },
+      "test_r2": 0.9753071605216127,
+      "n_unique_masks": 5000,
+      "response": "wasserstein_1_prediction_distribution",
+      "kernel_distance": "hamming_fraction_features_masked"
+    },
+    "geo": {
+      "method": "per_lsoa_location_masking_no_kmeans",
+      "n_spatial_units": 168,
+      "n_perturbations": 5000,
+      "n_sampled_lsoas": 168,
+      "n_extra_lsoas": 0,
+      "extra_inclusion_rate": 0.0,
+      "min_lsoas_per_perturbation": 5,
+      "max_lsoas_per_perturbation": 10,
+      "best_kernel": "inverse",
+      "validation_r2_by_kernel": {
+        "rbf": 0.9332703431122628,
+        "laplace": 0.9365816597282656,
+        "inverse": 0.9372228108473898
+      },
+      "test_r2": 0.9461784758989993,
+      "response": "wasserstein_1_on_affected_lsoa_month_predictions",
+      "kernel_distance": "fraction of frozen Hull LSOAs masked",
+      "perturbation": "replace easting/northing of selected LSOAs with training median",
+      "extra_perturbation": "none"
+    }
+  }
+}

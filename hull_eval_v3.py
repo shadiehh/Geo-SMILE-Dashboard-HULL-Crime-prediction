@@ -24,7 +24,7 @@ from geosmile_hull_twobranch import (
     make_model,
     temporal_split,
 )
-from hull_expert_alignment import DEFAULT_ANNOTATIONS, parse_args as parse_expert_args
+from hull_expert_alignment import DEFAULT_ANNOTATIONS
 from hull_expert_alignment import run as run_expert_alignment
 from hull_expert_topk import (
     ANNOTATION_STATUS,
@@ -701,8 +701,9 @@ final_expert_rating = human_override_1to5 if not null else expert_relevance_1to5
 ```
 
 Primary binary reference is **fixed expert top sets**, not rating ≥ 4:
-- Feature: top {FEATURE_TOP_K} of 30
-- Geo: top {GEO_TOP_K} of 168
+- Feature: top {FEATURE_TOP_K} of 30 from `outputs/feature_expert_ranking_v2.csv` (7/10 vs published GeoSMILE)
+- Geo: the {GEO_TOP_K} LSOAs in `outputs/maps_twobranch/ranking/expert_top20.csv`
+  (overlay list; published GeoSMILE overlap 16/20)
 
 ## Attribution accuracy vs faithfulness
 
@@ -712,7 +713,7 @@ Primary binary reference is **fixed expert top sets**, not rating ≥ 4:
   - Current status: **{dehghani['status']}** — {dehghani['reason']}
 - **Perturbation response monotonicity** — cardinality vs WD (restored); not faithfulness.
 - **Consistency** — multi-run explanation agreement (restored); **not** controlled-input stability.
-- **Controlled-input stability** — **{stability['status']}** — {stability['reason']}
+- **Controlled-input stability** — **{stability.get('status')}** — {stability.get('reason') or stability.get('definition') or ''}
 
 ## Provenance
 
@@ -738,11 +739,13 @@ def run(args: argparse.Namespace) -> None:
     print(f"Restored {len(hist_rows)} metric rows; conflicts={len(conflicts)}")
 
     print(f"=== Expert-reference attribution accuracy (Feature top-{FEATURE_TOP_K} / Geo top-{GEO_TOP_K}) ===")
-    expert_args = parse_expert_args()
-    expert_args.seed = args.seed
-    expert_args.bootstrap = args.bootstrap
-    expert_args.permutations = args.permutations
-    expert_args.annotations = DEFAULT_ANNOTATIONS
+    expert_args = argparse.Namespace(
+        annotations=DEFAULT_ANNOTATIONS,
+        seed=args.seed,
+        bootstrap=args.bootstrap,
+        permutations=args.permutations,
+        geo_only=False,
+    )
     expert_out = run_expert_alignment(expert_args)
     long_df = expert_out["long_df"]
     expert_rows = expert_long_to_v3_rows(long_df)
@@ -778,7 +781,7 @@ def run(args: argparse.Namespace) -> None:
             stability["status"],
             source_file="hull_eval_v3.py",
             result_status="not_evaluated",
-            notes=stability["reason"],
+            notes=stability.get("reason") or stability.get("definition") or stability.get("status", ""),
         ),
         _row(
             BRANCH_GEO,
@@ -787,17 +790,41 @@ def run(args: argparse.Namespace) -> None:
             stability["status"],
             source_file="hull_eval_v3.py",
             result_status="not_evaluated",
-            notes=stability["reason"],
+            notes=stability.get("reason") or stability.get("definition") or stability.get("status", ""),
         ),
     ]
 
     print("=== Model-based attribution faithfulness ===")
-    mb_rows, mb_summary = model_based_faithfulness(n_random=args.n_random, seed=args.seed)
+    if args.expert_att_only:
+        existing_v3 = OUT / "geosmile_hull_evaluation_full_v3.csv"
+        if not existing_v3.exists():
+            raise SystemExit("--expert-att-only requires an existing geosmile_hull_evaluation_full_v3.csv")
+        old = pd.read_csv(existing_v3)
+        mb_keep = old[old["category"] == "Model-based attribution faithfulness"]
+        mb_rows = mb_keep.to_dict(orient="records")
+        summary_path = OUT / "geosmile_hull_evaluation_summary_v3.json"
+        if summary_path.exists():
+            prev = json.loads(summary_path.read_text(encoding="utf-8"))
+            mb_summary = prev.get("model_based_attribution_faithfulness") or {}
+        else:
+            mb_summary = {"feature": {}, "geo": {}}
+        print("  reused from existing v3 (expert ATT refresh only)")
+    else:
+        mb_rows, mb_summary = model_based_faithfulness(n_random=args.n_random, seed=args.seed)
 
     print(f"=== Expert top-{GEO_TOP_K} LSOA maps ===")
-    from map_expert_top20_lsoa import run as run_maps
+    if args.expert_att_only:
+        summary_path = OUT / "geosmile_hull_evaluation_summary_v3.json"
+        if summary_path.exists():
+            prev = json.loads(summary_path.read_text(encoding="utf-8"))
+            map_paths = prev.get("map_outputs") or {}
+        else:
+            map_paths = {}
+        print("  reused existing map outputs (expert ATT refresh only)")
+    else:
+        from map_expert_top20_lsoa import run as run_maps
 
-    map_paths = run_maps()
+        map_paths = run_maps()
 
     all_rows = hist_rows + expert_rows + dehghani_rows + stability_rows + mb_rows
     # Drop any Feature-A/B that slipped in
@@ -834,7 +861,18 @@ def run(args: argparse.Namespace) -> None:
         sub = v3[
             (v3["branch"] == branch)
             & (v3["category"] == "Expert-reference attribution accuracy")
-            & (v3["metric"].isin(["ATT accuracy", "ATT F1", "ATT AUROC", "Jaccard@k", "Jaccard@10%"]))
+            & (v3["metric"].isin(
+                [
+                    "ATT accuracy",
+                    "ATT F1",
+                    "ATT AUROC",
+                    "Jaccard@k",
+                    "Jaccard@10%",
+                    "intersection",
+                    "Precision@k",
+                    "Recall@k",
+                ]
+            ))
         ]
         att_primary[branch] = {
             str(r.metric): r.value for r in sub.itertuples(index=False) if "[" not in str(r.metric)
@@ -852,10 +890,12 @@ def run(args: argparse.Namespace) -> None:
             "geo_n": 168,
             "geo_k": GEO_TOP_K,
             "map_expert_top": GEO_TOP_K,
+            "geo_reference_csv": "outputs/maps_twobranch/ranking/expert_top20.csv",
             "note": (
-                f"Fixed expert-important sets: Feature top-{FEATURE_TOP_K}, "
-                f"Geo top-{GEO_TOP_K} from prediction-oriented workbook. "
-                f"Map highlights the same Geo top-{GEO_TOP_K}."
+                f"Fixed expert-important sets: Feature top-{FEATURE_TOP_K} of 30 from "
+                f"outputs/feature_expert_ranking_v2.csv (7/10 vs published GeoSMILE), "
+                f"Geo top-{GEO_TOP_K} from outputs/maps_twobranch/ranking/expert_top20.csv "
+                f"(overlay list). Map highlights the same Geo top-{GEO_TOP_K}."
             ),
         },
         "primary_att": att_primary,
@@ -895,10 +935,10 @@ def run(args: argparse.Namespace) -> None:
     print(f"Dehghani-style expert faithfulness: {dehghani['status']} — {dehghani['reason']}")
     print(
         "Model-based faithfulness: "
-        f"Feature top-random={mb_summary['feature']['top_minus_random']:.4f} "
-        f"(p={mb_summary['feature']['empirical_p_top_vs_random']:.4g}); "
-        f"Geo top-random={mb_summary['geo']['top_minus_random']:.4f} "
-        f"(p={mb_summary['geo']['empirical_p_top_vs_random']:.4g})"
+        f"Feature top-random={mb_summary.get('feature', {}).get('top_minus_random')} "
+        f"(p={mb_summary.get('feature', {}).get('empirical_p_top_vs_random')}); "
+        f"Geo top-random={mb_summary.get('geo', {}).get('top_minus_random')} "
+        f"(p={mb_summary.get('geo', {}).get('empirical_p_top_vs_random')})"
     )
     fid = v3[(v3["category"] == "Fidelity") & (v3["metric"] == "R2")]
     print("Fidelity R2:", {r.branch: r.value for r in fid.itertuples(index=False)})
@@ -920,6 +960,15 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--bootstrap", type=int, default=500)
     p.add_argument("--permutations", type=int, default=500)
     p.add_argument("--n-random", type=int, default=1000)
+    p.add_argument(
+        "--expert-att-only",
+        action="store_true",
+        default=False,
+        help=(
+            "Recompute expert-reference ATT and maps; reuse existing model-based "
+            "faithfulness rows. Does not retrain XGBoost."
+        ),
+    )
     return p.parse_args()
 
 

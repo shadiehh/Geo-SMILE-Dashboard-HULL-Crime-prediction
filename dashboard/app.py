@@ -27,6 +27,8 @@ import streamlit as st
 
 from dashboard.data.loader import load_hull_bundle
 from dashboard.data.schema import LSOA_ID, LSOA_NAME, MAP_VIEWS, PROVIDERS
+from dashboard.views.attribution_patterns import render_attribution_patterns_section
+from dashboard.views.diagnostics import render_diagnostics_section
 from dashboard.views.explanation_panel import render_explanation_panel, stakeholder_selector
 from dashboard.views.feature_panel import (
     render_evaluation,
@@ -70,6 +72,17 @@ Measures how sensitive the Geo-branch explanation is to geographic context
 **Latitude / Longitude feature effects**
 Show the contribution associated with coordinate features included in the
 predictive Feature SMILE run. These are not GeoSensitivity.
+
+**Lat / lon / GeoSensitivity overlay**
+RGB composite of independently scaled absolute values: red =
+|GeoSensitivity|, green = |latitude effect|, blue = |longitude effect|.
+This is a visualisation only. It does not merge the three quantities.
+
+**GeoSensitivity top 50 + lat/lon overlay**
+The importance set is the top 50 |GeoSensitivity| LSOAs. Shade is
+GeoSensitivity rank (darker = rank 1). Latitude and longitude overlay
+only on that set. An LSOA that is top-50 lat/lon but not top-50
+GeoSensitivity is not treated as important.
 
 **Spatial pattern**
 Tests whether |GeoSensitivity| values form spatial clusters or outliers
@@ -128,6 +141,18 @@ LSOA's Feature SMILE explanation. Rank is not the same as strength.
 
     with mapper:
         st.markdown(f"**{MAP_VIEWS[map_view]}**")
+        if map_view == "overlay":
+            st.caption(
+                "Red = |GeoSensitivity|. Green = |latitude feature effect|. "
+                "Blue = |longitude feature effect|. Each channel uses its own "
+                "98th-percentile scale. Not a single merged effect. Not causal."
+            )
+        if map_view == "top50_rank":
+            st.caption(
+                "Importance = top 50 |GeoSensitivity|. Shade = that rank. "
+                "Outline = also top-50 latitude and/or longitude. "
+                "Lat/lon-only LSOAs stay grey. Not causal."
+            )
         clicked = render_map(bundle, map_view, st.session_state.selected_lsoa)
         if clicked and clicked != st.session_state.selected_lsoa:
             st.session_state.selected_lsoa = clicked
@@ -147,6 +172,9 @@ LSOA's Feature SMILE explanation. Rank is not the same as strength.
         current_map_view=map_view,
         selected_lsoa=st.session_state.selected_lsoa,
     )
+
+    render_diagnostics_section(stakeholder_id)
+    render_attribution_patterns_section(bundle, stakeholder_id)
 
 
 if __name__ == "__main__":

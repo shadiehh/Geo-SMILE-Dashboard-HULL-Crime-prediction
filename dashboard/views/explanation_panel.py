@@ -7,6 +7,7 @@ import streamlit as st
 from dashboard.data.loader import HullBundle
 from dashboard.data.schema import PROVIDERS, STAKEHOLDER_HELP, STAKEHOLDERS
 from dashboard.llm.anthropic_provider import AnthropicProvider
+from dashboard.llm.attribution_evidence import build_local_attribution_evidence
 from dashboard.llm.base import LLMResponse
 from dashboard.llm.cache import cache_get, cache_put, evidence_hash
 from dashboard.llm.evidence_builder import build_evidence
@@ -15,11 +16,9 @@ from dashboard.llm.prompt import GEOSMILE_SYSTEM_PROMPT, SYSTEM_PROMPT_VERSION
 
 
 def _providers_for(choice: str) -> list:
-    if choice == "openai":
-        return [OpenAIProvider()]
     if choice == "anthropic":
         return [AnthropicProvider()]
-    return [OpenAIProvider(), AnthropicProvider()]
+    return [OpenAIProvider()]
 
 
 def _generate(
@@ -104,13 +103,20 @@ def render_explanation_panel(
         selected_lsoa=selected_lsoa,
         user_question=follow_up.strip() or None,
     )
+    evidence["local_attribution_patterns"] = build_local_attribution_evidence(
+        bundle.local_features,
+        bundle.global_features,
+        bundle.geometry,
+        tuple(bundle.feature_names),
+        selected_lsoa if scope == "lsoa" else None,
+    )
     with st.expander("Evidence package sent to the LLM"):
         st.json(evidence)
 
     if not (generate or regenerate):
         previous = st.session_state.get("last_explanations")
         if previous:
-            _render_pair(previous, provider_choice)
+            _render_result(previous, provider_choice)
         return
 
     if scope == "lsoa" and not selected_lsoa:
@@ -129,23 +135,12 @@ def render_explanation_panel(
         )
     st.session_state["last_explanations"] = results
     st.session_state["last_evidence"] = evidence
-    _render_pair(results, provider_choice)
+    _render_result(results, provider_choice)
 
 
-def _render_pair(results: dict[str, LLMResponse], provider_choice: str) -> None:
-    if provider_choice == "compare":
-        left, right = st.columns(2)
-        with left:
-            _show_response(results.get("openai") or LLMResponse(
-                False, "", "openai", "", "", "No OpenAI result."
-            ), "OpenAI explanation")
-        with right:
-            _show_response(results.get("anthropic") or LLMResponse(
-                False, "", "anthropic", "", "", "No Anthropic result."
-            ), "Anthropic explanation")
-        return
-    name = "openai" if provider_choice == "openai" else "anthropic"
-    heading = PROVIDERS[provider_choice] + " explanation"
+def _render_result(results: dict[str, LLMResponse], provider_choice: str) -> None:
+    name = "anthropic" if provider_choice == "anthropic" else "openai"
+    heading = PROVIDERS[name] + " explanation"
     if name in results:
         _show_response(results[name], heading)
 

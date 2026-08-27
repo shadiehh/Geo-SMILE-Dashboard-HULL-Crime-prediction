@@ -1,4 +1,4 @@
-"""Final expert-reference attribution table: Feature 10/30 + Geo 20/168.
+"""Final expert-reference attribution table: Feature ranking-v2 top-10 + Geo 20/168.
 
 Writes:
   outputs/geosmile_hull_expert_att_final.csv
@@ -25,6 +25,7 @@ from sklearn.metrics import (
 )
 
 from hull_expert_alignment import graded_gains, topk_indices
+from hull_expert_topk import load_geo_expert_reference
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "outputs"
@@ -113,7 +114,7 @@ def feature_metrics() -> dict[str, float | str]:
         expert_rank=merged["expert_rank"].to_numpy(dtype=int),
         model_rank=merged["geosmile_rank"].to_numpy(dtype=int),
         scores=pd.to_numeric(merged["abs_coefficient"], errors="coerce").to_numpy(dtype=float),
-        ratings=None,  # use 1/expert_rank gains
+        ratings=None,
         k=10,
     )
     rho_c, _ = spearmanr(cat["expert_category_rank"], cat["geosmile_category_rank"])
@@ -127,9 +128,26 @@ def feature_metrics() -> dict[str, float | str]:
 
 def geo_metrics() -> dict[str, float | str]:
     g = pd.read_csv(RANK_DIR / "geo_expert_importance_ranks.csv")
+    g["lsoa21cd"] = g["lsoa21cd"].astype(str)
+    canon = load_geo_expert_reference()
+    codes = set(canon["lsoa21cd"].astype(str))
+    rank_map = dict(zip(canon["lsoa21cd"].astype(str), canon["expert_rank"].astype(int)))
+    ranked_top20 = set(
+        g.loc[pd.to_numeric(g["expert_importance_rank"], errors="coerce") <= 20, "lsoa21cd"]
+    )
+    if ranked_top20 != codes:
+        raise SystemExit(
+            "geo_expert_importance_ranks.csv expert top-20 does not match "
+            "outputs/maps_twobranch/ranking/expert_top20.csv"
+        )
+    expert_rank = g["lsoa21cd"].map(rank_map)
+    leftover = expert_rank.isna()
+    expert_rank = expert_rank.where(
+        ~leftover, pd.to_numeric(g["expert_importance_rank"], errors="coerce")
+    )
     suite = _topk_suite(
-        ids=g["lsoa21cd"].astype(str).to_numpy(),
-        expert_rank=g["expert_importance_rank"].to_numpy(dtype=int),
+        ids=g["lsoa21cd"].to_numpy(),
+        expert_rank=expert_rank.to_numpy(dtype=int),
         model_rank=g["geo_importance_rank"].to_numpy(dtype=int),
         scores=pd.to_numeric(g["geo_abs_coefficient"], errors="coerce").to_numpy(dtype=float),
         ratings=pd.to_numeric(g["reference_rating"], errors="coerce").to_numpy(dtype=float),
@@ -237,8 +255,13 @@ def main() -> None:
     lines = [
         r"\begin{longtable}{p{0.38\textwidth} r r}",
         r"\caption{Expert-reference attribution-accuracy and ranking metrics. "
-        r"Feature uses the top-10 reference over 30 predictors "
-        r"(\texttt{feature\_expert\_ranking\_v2}). Geo uses the top-20 "
+        r"Feature uses the ranking-v2 top-10 of 30 predictors "
+        r"(7/10 overlap with published GeoSMILE). "
+        r"Set-based Feature quantities correspond to "
+        rf"$\mathrm{{TP}}={int(feat['intersection'])}$, "
+        rf"$\mathrm{{FP}}=\mathrm{{FN}}={int(feat['fp'])}$, "
+        rf"$\mathrm{{TN}}={int(feat['tn'])}$. "
+        r"Geo uses the top-20 "
         r"reference over 168 LSOAs (\texttt{expert\_top20}); "
         r"set-based Geo quantities correspond to $\mathrm{TP}=16$, $\mathrm{FP}=\mathrm{FN}=4$, "
         r"$\mathrm{TN}=144$. Rank and score diagnostics for Geo are computed against this "

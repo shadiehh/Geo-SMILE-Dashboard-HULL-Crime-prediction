@@ -4,7 +4,9 @@ Active branches only:
   - Feature (location excluded) — feature_global_importance.csv
   - Geo — geo_coefficients.csv
 
-Primary binary reference is fixed expert top sets (Feature k=10 of 30, Geo k=20 of 168), not rating>=4.
+Primary binary reference is fixed expert top sets, not rating>=4:
+  Feature k=10 of 30 from outputs/feature_expert_ranking_v2.csv (7/10 vs published GeoSMILE)
+  Geo k=20 of 168 from outputs/maps_twobranch/ranking/expert_top20.csv (16/20 vs published GeoSMILE)
 """
 
 from __future__ import annotations
@@ -1166,23 +1168,32 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     feat_ann, geo_ann = load_annotations(ann_path)
     warnings_all: list[str] = []
     results = []
+    geo_only = bool(getattr(args, "geo_only", False))
 
-    feat_path = OUT / "feature_global_importance.csv"
-    if not feat_path.exists():
-        raise SystemExit(f"Missing {feat_path}")
-    print(f"Evaluating {BRANCH_FEATURE} (complete 30-player set)...")
-    feat_res = evaluate_feature_branch(
-        feat_path,
-        feat_ann,
-        branch=BRANCH_FEATURE,
-        evaluation_scope="complete_30_feature",
-        require_full=True,
-        expected_n=30,
-        seed=args.seed,
-        n_boot=args.bootstrap,
-        n_perm=args.permutations,
-    )
-    results.append(feat_res)
+    feat_merged_path = OUT / "geosmile_hull_expert_alignment_merged_feature.csv"
+    if geo_only:
+        if not feat_merged_path.exists():
+            raise SystemExit("--geo-only requires existing Feature alignment CSV")
+        print(f"Keeping existing {BRANCH_FEATURE} alignment from {feat_merged_path.name}")
+        feat_merged = pd.read_csv(feat_merged_path)
+    else:
+        feat_path = OUT / "feature_global_importance.csv"
+        if not feat_path.exists():
+            raise SystemExit(f"Missing {feat_path}")
+        print(f"Evaluating {BRANCH_FEATURE} (complete 30-player set)...")
+        feat_res = evaluate_feature_branch(
+            feat_path,
+            feat_ann,
+            branch=BRANCH_FEATURE,
+            evaluation_scope="complete_30_feature",
+            require_full=True,
+            expected_n=30,
+            seed=args.seed,
+            n_boot=args.bootstrap,
+            n_perm=args.permutations,
+        )
+        results.append(feat_res)
+        feat_merged = feat_res["merged"]
 
     geo_path = OUT / "geo_coefficients.csv"
     if not geo_path.exists():
@@ -1195,7 +1206,6 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
     # Alignment table (per-unit)
     align_rows = []
-    feat_merged = feat_res["merged"]
     for _, r in feat_merged.iterrows():
         align_rows.append(
             {
@@ -1238,27 +1248,27 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     align_df = pd.DataFrame(align_rows)
     align_df.to_csv(OUT / "geosmile_hull_expert_top10_alignment.csv", index=False)
 
-    # Keep merged diagnostics (Feature + Geo only; no Feature-A/B)
-    feat_merged[
-        [
-            c
-            for c in [
-                "feature",
-                "geosmile_coefficient",
-                "geosmile_abs_attribution",
-                "final_expert_rating",
-                "expert_rank",
-                "expert_top10_reference",
-                "geosmile_rank",
-                "geosmile_top10_prediction",
-                "matched_top10",
-                "confidence",
-                "relevance_label",
-                "source_branch",
+    if not geo_only:
+        feat_merged[
+            [
+                c
+                for c in [
+                    "feature",
+                    "geosmile_coefficient",
+                    "geosmile_abs_attribution",
+                    "final_expert_rating",
+                    "expert_rank",
+                    "expert_top10_reference",
+                    "geosmile_rank",
+                    "geosmile_top10_prediction",
+                    "matched_top10",
+                    "confidence",
+                    "relevance_label",
+                    "source_branch",
+                ]
+                if c in feat_merged.columns
             ]
-            if c in feat_merged.columns
-        ]
-    ].to_csv(OUT / "geosmile_hull_expert_alignment_merged_feature.csv", index=False)
+        ].to_csv(OUT / "geosmile_hull_expert_alignment_merged_feature.csv", index=False)
 
     geo_keep = [
         c
@@ -1286,7 +1296,12 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     geo_merged[geo_keep].to_csv(OUT / "geosmile_hull_expert_alignment_merged_geo.csv", index=False)
 
     long_df = pd.DataFrame([row for res in results for row in res["long_rows"]])
-    long_df.to_csv(OUT / "geosmile_hull_expert_alignment_full.csv", index=False)
+    full_path = OUT / "geosmile_hull_expert_alignment_full.csv"
+    if geo_only and full_path.exists():
+        prev_long = pd.read_csv(full_path)
+        feat_long = prev_long[~prev_long["branch"].astype(str).str.startswith("Geo")]
+        long_df = pd.concat([feat_long, long_df], ignore_index=True)
+    long_df.to_csv(full_path, index=False)
 
     summary = {
         "schema_version": SCHEMA_VERSION,
@@ -1301,11 +1316,10 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "geo_n": 168,
             "geo_k": GEO_TOP_K,
             "map_geo_k": GEO_TOP_K,
-            "geo_selection": (
-                "expert_top20_reference"
-                if "expert_top20_reference" in geo_ann.columns
-                else "rating_score_confidence_rank"
-            ),
+            "feature_selection": "canonical_ranking_v2_top10",
+            "feature_reference_csv": "outputs/feature_expert_ranking_v2.csv",
+            "geo_selection": "canonical_overlay_expert_top20_csv",
+            "geo_reference_csv": "outputs/maps_twobranch/ranking/expert_top20.csv",
             "primary_binary": "expert_top10_reference",
             "not_used_as_primary": "rating >= 4",
         },
@@ -1347,6 +1361,17 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             }
         )
 
+    if geo_only:
+        prev_sum_path = OUT / "geosmile_hull_expert_alignment_summary.json"
+        if prev_sum_path.exists():
+            prev_sum = json.loads(prev_sum_path.read_text(encoding="utf-8"))
+            feat_branches = [
+                b
+                for b in prev_sum.get("branches", [])
+                if not str(b.get("branch", "")).startswith("Geo")
+            ]
+            summary["branches"] = feat_branches + summary["branches"]
+
     (OUT / "geosmile_hull_expert_alignment_summary.json").write_text(
         json.dumps(_json_safe(summary), indent=2), encoding="utf-8"
     )
@@ -1376,12 +1401,13 @@ _METHOD_MD = """# Hull GeoSMILE expert-reference attribution accuracy
 
 ## Expert reference
 
-Workbook: `hull_expert_top20.xlsx`  
+Workbook: `hull_expert_top20.xlsx` (Feature ratings and Geo metadata)  
+Geo expert set: `outputs/maps_twobranch/ranking/expert_top20.csv`  
 Status: `expert_reference`
 
 Primary evaluation uses fixed expert top sets:
 - Feature: top 10 of 30
-- Geo: top 20 of 168
+- Geo: the 20 LSOAs in `expert_top20.csv` (overlay list; 16/20 vs published GeoSMILE)
 
 ## What this evaluation measures
 

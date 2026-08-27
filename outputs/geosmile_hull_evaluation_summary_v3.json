@@ -1,6 +1,6 @@
 {
   "schema_version": "3.0.0",
-  "generation_timestamp": "2026-08-06T20:23:40.805425+00:00",
+  "generation_timestamp": "2026-08-26T00:56:10.874485+00:00",
   "active_branches": [
     "Feature (location excluded)",
     "Geo"
@@ -13,22 +13,27 @@
     "geo_n": 168,
     "geo_k": 20,
     "map_expert_top": 20,
-    "note": "Expert top sets: Feature top-10 of 30, Geo top-20 of 168. Model-based faithfulness interventions use the same cardinalities."
+    "geo_reference_csv": "outputs/maps_twobranch/ranking/expert_top20.csv",
+    "note": "Fixed expert-important sets: Feature top-10 of 30 from outputs/feature_expert_ranking_v2.csv (7/10 vs published GeoSMILE), Geo top-20 from outputs/maps_twobranch/ranking/expert_top20.csv (overlay list). Map highlights the same Geo top-20."
   },
   "primary_att": {
     "Feature (location excluded)": {
       "ATT accuracy": 0.8,
       "ATT F1": 0.7,
-      "ATT AUROC": 0.825,
-      "Jaccard@k": 0.5384615384615384,
-      "Top-10 overlap": 7
+      "ATT AUROC": 0.8250000000000001,
+      "intersection": 7.0,
+      "Precision@k": 0.7,
+      "Recall@k": 0.7,
+      "Jaccard@k": 0.5384615384615384
     },
     "Geo": {
-      "ATT accuracy": 0.8809523809523809,
-      "ATT F1": 0.5,
-      "ATT AUROC": 0.7820945945945946,
-      "Jaccard@k": 0.3333333333333333,
-      "Top-20 overlap_custom_rewrite": 16
+      "ATT accuracy": 0.9523809523809523,
+      "ATT F1": 0.8000000000000002,
+      "ATT AUROC": 0.9081081081081082,
+      "intersection": 16.0,
+      "Precision@k": 0.8,
+      "Recall@k": 0.8,
+      "Jaccard@k": 0.6666666666666666
     }
   },
   "dehghani_style_expert_faithfulness": {
@@ -247,21 +252,20 @@
     "comparison_png": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_expert_vs_geosmile_top20.png",
     "comparison_html": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_expert_vs_geosmile_top20.html",
     "map_data_csv": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_expert_top20_lsoa_map_data.csv",
-    "overlap": "10",
-    "jaccard": "0.3333333333333333"
+    "overlap": "16",
+    "jaccard": "0.6666666666666666"
   },
   "coverage": {
     "Feature (location excluded)": "30/30",
     "Geo": "168/168"
   },
   "limitations": [
-    "The expert reference is a provisional AI-assisted, evidence-based annotation and does not represent formal multi-expert consensus.",
+    "Expert reference.",
     "Not causal; not ground truth; coefficient signs not validated as crime direction.",
-    "Insufficient independent predictive-model runs with both test performance and expert-reference attribution metrics.",
-    "ATT/controlled-input stability expands the explanation reference with four real outside-Hull LSOAs (north=E01012953 (East Riding of Yorkshire 023A); east=E01013094 (East Riding of Yorkshire 029A); south=E01013009 (East Riding of Yorkshire 034B); west=E01013112 (East Riding of Yorkshire 025D)); models remain trained on Hull only. Means are over the four cardinal directions."
+    "Controlled-input stability not evaluated; consistency is multi-run only.",
+    "Insufficient independent predictive-model runs with both test performance and expert-reference attribution metrics."
   ],
   "warnings": [],
   "provenance_file": "geosmile_hull_result_provenance.csv",
-  "conflicts_file": "geosmile_hull_result_conflicts.csv",
-  "known_inconsistencies": []
+  "conflicts_file": "geosmile_hull_result_conflicts.csv"
 }

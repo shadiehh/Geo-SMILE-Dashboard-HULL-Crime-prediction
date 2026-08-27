@@ -2,15 +2,20 @@
 
 from __future__ import annotations
 
+import importlib.util
 import os
+from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 from dashboard.data.loader import load_hull_bundle
 from dashboard.llm.anthropic_provider import AnthropicProvider
+from dashboard.llm.attribution_evidence import compute_local_attribution_evidence
 from dashboard.llm.base import LLMResponse
 from dashboard.llm.evidence_builder import build_evidence, user_payload
 from dashboard.llm.openai_provider import OpenAIProvider
 from dashboard.llm.prompt import GEOSMILE_SYSTEM_PROMPT, SYSTEM_PROMPT_VERSION, assert_prompt_semantics
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_prompt_forbids_semantic_collapses():
@@ -21,7 +26,24 @@ def test_prompt_forbids_semantic_collapses():
     assert "## 4. INPUT / EVIDENCE CONTRACT" in text
     assert "## 8. SPATIAL-PATTERN SEMANTICS" in text
     assert "Global Moran versus Local Moran" in text
-    assert SYSTEM_PROMPT_VERSION == "geosmile-hull-v1"
+    assert SYSTEM_PROMPT_VERSION == "geosmile-hull-v4"
+
+
+def test_dashboard_prompt_contains_full_policy_not_a_loader():
+    source = (ROOT / "dashboard" / "llm" / "prompt.py").read_text(encoding="utf-8")
+    assert "importlib" not in source
+    assert "GEOSMILE EXPLAIN — SYSTEM POLICY" in source
+    assert "## 16. SELF-CHECK" in source
+
+
+def test_repo_root_prompt_matches_dashboard_prompt():
+    path = ROOT / "llm" / "prompt.py"
+    spec = importlib.util.spec_from_file_location("geosmile_root_prompt", path)
+    assert spec is not None and spec.loader is not None
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    assert mod.SYSTEM_PROMPT_VERSION == SYSTEM_PROMPT_VERSION
+    assert mod.GEOSMILE_SYSTEM_PROMPT == GEOSMILE_SYSTEM_PROMPT
 
 
 def test_openai_and_anthropic_share_identical_master_prompt():
@@ -112,6 +134,69 @@ def test_provider_failure_is_isolated():
     assert openai_result.ok is False
     assert anthropic_result.ok is True
     assert anthropic_result.text == "survived"
+
+
+def test_prompt_requires_bold_titles_and_documents_new_evidence():
+    text = GEOSMILE_SYSTEM_PROMPT
+    assert "markdown bold title" in text
+    assert "local_attribution_patterns" in text
+
+
+def test_local_attribution_evidence_hull_wide_shape():
+    bundle = load_hull_bundle()
+    evidence = compute_local_attribution_evidence(
+        local_features=bundle.local_features,
+        global_features=bundle.global_features,
+        geometry=bundle.geometry,
+        feature_names=bundle.feature_names,
+        selected_lsoa=None,
+    )
+    assert "selected_lsoa" not in evidence["dominant_local_feature"]
+    assert len(evidence["dominant_local_feature"]["hull_wide_top_features"]) <= 5
+    assert 0.0 <= evidence["explanation_concentration"]["hull_wide_mean"] <= 1.0
+    assert len(evidence["explanation_archetypes"]["clusters"]) == 4
+    clustering = evidence["dominant_global_feature_clustering"]
+    assert clustering["feature_label"]
+    assert set(clustering["lisa_counts"]) == {"HH", "LL", "HL", "LH", "NS"}
+    assert "GeoSensitivity" not in evidence["note"] or "not" in evidence["note"].lower()
+
+
+def test_local_attribution_evidence_selected_lsoa_adds_fields():
+    bundle = load_hull_bundle()
+    lsoa_id = str(bundle.lsoa.iloc[0]["lsoa21cd"])
+    evidence = compute_local_attribution_evidence(
+        local_features=bundle.local_features,
+        global_features=bundle.global_features,
+        geometry=bundle.geometry,
+        feature_names=bundle.feature_names,
+        selected_lsoa=lsoa_id,
+    )
+    assert "selected_lsoa" in evidence["dominant_local_feature"]
+    assert "selected_lsoa" in evidence["explanation_concentration"]
+    assert "selected_lsoa_archetype" in evidence["explanation_archetypes"]
+
+
+def test_explanation_panel_merges_local_attribution_patterns_into_evidence():
+    bundle = load_hull_bundle()
+    evidence = build_evidence(
+        bundle,
+        stakeholder_id="technical",
+        current_map_view="geo_sensitivity",
+        scope="overall",
+        selected_lsoa=None,
+    )
+    assert "local_attribution_patterns" not in evidence  # build_evidence itself stays unchanged
+    from dashboard.llm.attribution_evidence import build_local_attribution_evidence
+
+    evidence["local_attribution_patterns"] = build_local_attribution_evidence(
+        bundle.local_features,
+        bundle.global_features,
+        bundle.geometry,
+        tuple(bundle.feature_names),
+        None,
+    )
+    assert "local_attribution_patterns" in evidence
+    assert "dominant_local_feature" in evidence["local_attribution_patterns"]
 
 
 def test_public_error_does_not_echo_secrets(monkeypatch):

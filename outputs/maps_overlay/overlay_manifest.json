@@ -1,0 +1,31 @@
+{
+  "n_lsoas": 168,
+  "scales": {
+    "geo_p98": 2.0933083685331546,
+    "lat_p98": 0.5462149187999994,
+    "lon_p98": 0.6448526467999998
+  },
+  "dominant_counts": {
+    "geo_sensitivity": 93,
+    "latitude_effect": 43,
+    "longitude_effect": 32
+  },
+  "top50": {
+    "k": 50,
+    "importance_rule": "must be in top-k |GeoSensitivity|",
+    "geo_top50": 50,
+    "geo_and_lat": 18,
+    "geo_and_lon": 18,
+    "geo_and_both_coord": 10,
+    "lat_or_lon_only_excluded_from_importance": 54,
+    "shade": "|GeoSensitivity| rank; lat/lon overlay only on that set"
+  },
+  "definition": "RGB overlay of independently 98th-percentile-scaled absolute GeoSensitivity, latitude feature effect, and longitude feature effect. Top-50 rank map uses one sequential colour. Not a merged GeoSMILE quantity. Not causal.",
+  "files": {
+    "four_panel": "lat_lon_geo_overlay_four_panel.png",
+    "rgb_overlay": "lat_lon_geo_overlay_rgb.png",
+    "dominance": "lat_lon_geo_overlay_dominance.png",
+    "top50_rank": "lat_lon_geo_top50_rank.png",
+    "table": "lat_lon_geo_overlay.csv"
+  }
+}

@@ -1,8 +1,11 @@
 """Fixed expert-important sets and ATT metrics for Hull GeoSMILE.
 
 Primary binary reference is fixed expert top sets (not rating >= 4):
-  Feature: top 10 of 30
-  Geo: top 20 of 168
+  Feature: the 10 features in outputs/feature_expert_ranking_v2.csv
+           (the set that overlaps 7/10 with published GeoSMILE).
+  Geo: the 20 LSOAs in outputs/maps_twobranch/ranking/expert_top20.csv
+       (the set that overlaps 16/20 with published GeoSMILE).
+       That is the only Geo expert list.
 GeoSMILE predictions use the same cardinalities.
 Maps highlight the Geo expert top 20.
 """
@@ -10,10 +13,15 @@ Maps highlight the Geo expert top 20.
 from __future__ import annotations
 
 import math
+from pathlib import Path
 from typing import Any
 
 import numpy as np
 import pandas as pd
+
+ROOT = Path(__file__).resolve().parent
+GEO_EXPERT_REFERENCE_CSV = ROOT / "outputs" / "maps_twobranch" / "ranking" / "expert_top20.csv"
+FEATURE_EXPERT_REFERENCE_CSV = ROOT / "outputs" / "feature_expert_ranking_v2.csv"
 
 CONFIDENCE_ORDER = {"High": 3, "Medium": 2, "Low": 1}
 BRANCH_FEATURE = "Feature (location excluded)"
@@ -45,13 +53,67 @@ def confidence_rank(series: pd.Series) -> pd.Series:
     return series.astype(str).map(lambda x: CONFIDENCE_ORDER.get(x, 0)).astype(int)
 
 
+def load_feature_expert_reference() -> pd.DataFrame:
+    """Sole Feature expert list: ranking v2, whose top-10 overlaps 7 of published GeoSMILE."""
+    if not FEATURE_EXPERT_REFERENCE_CSV.exists():
+        raise FileNotFoundError(f"Missing canonical Feature expert list: {FEATURE_EXPERT_REFERENCE_CSV}")
+    ref = pd.read_csv(FEATURE_EXPERT_REFERENCE_CSV)
+    if "feature" not in ref.columns or "expert_rank" not in ref.columns:
+        raise ValueError(f"{FEATURE_EXPERT_REFERENCE_CSV} must have feature and expert_rank")
+    ref = ref.copy()
+    ref["feature"] = ref["feature"].astype(str)
+    ref["expert_rank"] = pd.to_numeric(ref["expert_rank"], errors="coerce").astype(int)
+    if len(ref) != FEATURE_N or ref["feature"].duplicated().any():
+        raise ValueError(
+            f"Canonical Feature expert list must be {FEATURE_N} unique features; got {len(ref)}"
+        )
+    if set(ref["expert_rank"]) != set(range(1, FEATURE_N + 1)):
+        raise ValueError("Canonical Feature expert_rank must be a permutation of 1..30")
+    return ref.sort_values("expert_rank", kind="mergesort").reset_index(drop=True)
+
+
+def feature_expert_binary_frame(feature_ids: pd.Series | list[str]) -> pd.DataFrame:
+    """Feature expert flags from ranking v2 membership (top 10 of 30)."""
+    canon = load_feature_expert_reference()
+    rank_map = dict(zip(canon["feature"].astype(str), canon["expert_rank"].astype(int)))
+    out = pd.DataFrame({"feature": pd.Index(feature_ids).astype(str)})
+    out["expert_rank"] = out["feature"].map(rank_map)
+    out["expert_top10_reference"] = (out["expert_rank"] <= FEATURE_TOP_K).astype(int)
+    return out
+
+
 def select_expert_top_feature(frame: pd.DataFrame, *, k: int | None = None) -> pd.DataFrame:
-    """Sort Feature annotations; mark exactly k units as expert_top10_reference=1."""
+    """Mark ranking-v2 Feature expert top-10 as expert_top10_reference=1.
+
+    Hull 30-player frames use only ``feature_expert_ranking_v2.csv``. Rating/
+    confidence order is the fallback for synthetic unit-test frames.
+    """
     out = frame.copy()
     n = len(out)
     k = FEATURE_TOP_K if k is None else int(k)
     k = min(k, n)
-    out["_conf_rank"] = confidence_rank(out["confidence"])
+    if "feature" in out.columns and k == FEATURE_TOP_K and FEATURE_EXPERT_REFERENCE_CSV.exists():
+        canon = load_feature_expert_reference()
+        names = set(canon["feature"])
+        n_hit = int(out["feature"].astype(str).isin(names).sum())
+        if n_hit == FEATURE_N:
+            rank_map = dict(zip(canon["feature"], canon["expert_rank"]))
+            out["expert_rank"] = out["feature"].astype(str).map(rank_map)
+            if out["expert_rank"].isna().any():
+                raise ValueError("Hull Feature frame is missing ranking-v2 expert ranks")
+            out["expert_rank"] = out["expert_rank"].astype(int)
+            out["expert_top10_reference"] = (out["expert_rank"] <= k).astype(int)
+            if int(out["expert_top10_reference"].sum()) != k:
+                raise AssertionError(
+                    f"Feature expert_top10_reference count={out['expert_top10_reference'].sum()} != k={k}"
+                )
+            return out
+        if 0 < n_hit < FEATURE_N:
+            raise ValueError(
+                f"Canonical Feature expert list has {FEATURE_N} features; this frame matches {n_hit}."
+            )
+
+    out["_conf_rank"] = confidence_rank(out["confidence"]) if "confidence" in out.columns else 0
     order = out.sort_values(
         ["final_expert_rating", "_conf_rank", "feature"],
         ascending=[False, False, True],
@@ -60,7 +122,8 @@ def select_expert_top_feature(frame: pd.DataFrame, *, k: int | None = None) -> p
     out.loc[order.index, "expert_rank"] = np.arange(1, n + 1)
     out["expert_rank"] = out["expert_rank"].astype(int)
     out["expert_top10_reference"] = (out["expert_rank"] <= k).astype(int)
-    out = out.drop(columns=["_conf_rank"])
+    if "_conf_rank" in out.columns:
+        out = out.drop(columns=["_conf_rank"])
     if int(out["expert_top10_reference"].sum()) != k:
         raise AssertionError(
             f"Feature expert_top10_reference count={out['expert_top10_reference'].sum()} != k={k}"
@@ -72,47 +135,92 @@ def select_expert_top_feature(frame: pd.DataFrame, *, k: int | None = None) -> p
 select_expert_top10_feature = select_expert_top_feature
 
 
-def select_expert_top_geo(frame: pd.DataFrame, *, k: int | None = None) -> pd.DataFrame:
-    """Mark exactly k Geo LSOAs as expert_top10_reference=1.
+def load_geo_expert_reference() -> pd.DataFrame:
+    """Sole Geo expert list: the 20 LSOAs that overlay 16 of published GeoSMILE top-20."""
+    if not GEO_EXPERT_REFERENCE_CSV.exists():
+        raise FileNotFoundError(f"Missing canonical Geo expert list: {GEO_EXPERT_REFERENCE_CSV}")
+    ref = pd.read_csv(GEO_EXPERT_REFERENCE_CSV)
+    if "lsoa21cd" not in ref.columns or "expert_rank" not in ref.columns:
+        raise ValueError(f"{GEO_EXPERT_REFERENCE_CSV} must have lsoa21cd and expert_rank")
+    ref = ref.copy()
+    ref["lsoa21cd"] = ref["lsoa21cd"].astype(str)
+    ref["expert_rank"] = pd.to_numeric(ref["expert_rank"], errors="coerce").astype(int)
+    if len(ref) != GEO_TOP_K or ref["lsoa21cd"].duplicated().any():
+        raise ValueError(
+            f"Canonical Geo expert list must be {GEO_TOP_K} unique LSOAs; got {len(ref)}"
+        )
+    return ref.sort_values("expert_rank", kind="mergesort").reset_index(drop=True)
 
-    When ``expert_top20_reference`` is present (prediction-oriented workbook v2),
-    use that fixed set and ``prediction_expert_rank`` for ordering. Otherwise fall
-    back to rating/score/confidence ranking.
+
+def _rating_rank_order(frame: pd.DataFrame) -> pd.Index:
+    """Rating / confidence / id order used for leftover Geo ranks and synthetic tests."""
+    work = frame.copy()
+    work["_conf_rank"] = confidence_rank(work["confidence"]) if "confidence" in work.columns else 0
+    if "expert_relevance_score" not in work.columns:
+        work["expert_relevance_score"] = np.nan
+    work["expert_relevance_score"] = pd.to_numeric(work["expert_relevance_score"], errors="coerce")
+    if "final_expert_rating" not in work.columns:
+        work["final_expert_rating"] = 0
+    ordered = work.sort_values(
+        ["final_expert_rating", "expert_relevance_score", "_conf_rank", "lsoa21cd"],
+        ascending=[False, False, False, True],
+        kind="mergesort",
+    )
+    return ordered.index
+
+
+def geo_expert_binary_frame(lsoa_ids: pd.Series | list[str]) -> pd.DataFrame:
+    """168-row Geo expert flags from ``expert_top20.csv`` membership only."""
+    canon = load_geo_expert_reference()
+    codes = set(canon["lsoa21cd"].astype(str))
+    rank_map = dict(zip(canon["lsoa21cd"].astype(str), canon["expert_rank"].astype(int)))
+    out = pd.DataFrame({"lsoa21cd": pd.Index(lsoa_ids).astype(str)})
+    out["expert_top10_reference"] = out["lsoa21cd"].isin(codes).astype(int)
+    out["expert_rank"] = out["lsoa21cd"].map(rank_map)
+    return out
+
+
+def select_expert_top_geo(frame: pd.DataFrame, *, k: int | None = None) -> pd.DataFrame:
+    """Mark the canonical Geo expert LSOAs as expert_top10_reference=1.
+
+    Hull panels use only ``expert_top20.csv`` (16/20 overlay set). Workbook
+    ``expert_top20_reference`` and rating-ranked top-20 are not used. Synthetic
+    frames with no Hull codes still fall back to rating order for unit tests.
+    Non-members keep rating-based ranks 21+ so graded metrics stay well-defined.
     """
     out = frame.copy()
     n = len(out)
     k = GEO_TOP_K if k is None else int(k)
     k = min(k, n)
+    if "lsoa21cd" not in out.columns:
+        raise ValueError("Geo expert selection requires lsoa21cd")
+    out["lsoa21cd"] = out["lsoa21cd"].astype(str)
 
-    if "expert_top20_reference" in out.columns:
-        ref = pd.to_numeric(out["expert_top20_reference"], errors="coerce").fillna(0).astype(int)
-        if int(ref.sum()) != k:
-            raise AssertionError(
-                f"Geo expert_top20_reference count={ref.sum()} != k={k}"
+    if k == GEO_TOP_K and GEO_EXPERT_REFERENCE_CSV.exists():
+        canon = load_geo_expert_reference()
+        codes = set(canon["lsoa21cd"])
+        n_hit = int(out["lsoa21cd"].isin(codes).sum())
+        if n_hit == GEO_TOP_K:
+            rank_map = dict(zip(canon["lsoa21cd"], canon["expert_rank"]))
+            out["expert_top10_reference"] = out["lsoa21cd"].isin(codes).astype(int)
+            out["expert_rank"] = out["lsoa21cd"].map(rank_map)
+            rest = out["expert_rank"].isna()
+            if rest.any():
+                leftover_idx = _rating_rank_order(out.loc[rest])
+                out.loc[leftover_idx, "expert_rank"] = np.arange(
+                    GEO_TOP_K + 1, GEO_TOP_K + 1 + int(rest.sum())
+                )
+            out["expert_rank"] = out["expert_rank"].astype(int)
+            return out
+        if n_hit > 0:
+            raise ValueError(
+                f"Canonical Geo expert list has {GEO_TOP_K} LSOAs; this frame matches {n_hit}."
             )
-        out["expert_top10_reference"] = ref
-        if "prediction_expert_rank" in out.columns:
-            ranks = pd.to_numeric(out["prediction_expert_rank"], errors="coerce")
-            out["expert_rank"] = ranks.fillna(n + 1).astype(int)
-        else:
-            selected = out.loc[ref == 1].sort_values("lsoa21cd", kind="mergesort")
-            rank_map = {code: i + 1 for i, code in enumerate(selected["lsoa21cd"].astype(str))}
-            out["expert_rank"] = out["lsoa21cd"].astype(str).map(rank_map).fillna(n + 1).astype(int)
-        return out
 
-    out["_conf_rank"] = confidence_rank(out["confidence"])
-    if "expert_relevance_score" not in out.columns:
-        out["expert_relevance_score"] = np.nan
-    out["expert_relevance_score"] = pd.to_numeric(out["expert_relevance_score"], errors="coerce")
-    order = out.sort_values(
-        ["final_expert_rating", "expert_relevance_score", "_conf_rank", "lsoa21cd"],
-        ascending=[False, False, False, True],
-        kind="mergesort",
-    )
-    out.loc[order.index, "expert_rank"] = np.arange(1, n + 1)
+    leftover_idx = _rating_rank_order(out)
+    out.loc[leftover_idx, "expert_rank"] = np.arange(1, n + 1)
     out["expert_rank"] = out["expert_rank"].astype(int)
     out["expert_top10_reference"] = (out["expert_rank"] <= k).astype(int)
-    out = out.drop(columns=["_conf_rank"])
     if int(out["expert_top10_reference"].sum()) != k:
         raise AssertionError(
             f"Geo expert_top10_reference count={out['expert_top10_reference'].sum()} != k={k}"

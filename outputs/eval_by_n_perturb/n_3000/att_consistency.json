@@ -1,0 +1,32 @@
+{
+  "n_perturb": 3000,
+  "n_repeats": 5,
+  "seed_base": 100,
+  "seeds": [
+    100,
+    101,
+    102,
+    103,
+    104
+  ],
+  "feature": {
+    "Rank Spearman Mean": 0.7817575083426028,
+    "Rank Spearman Std": 0.05015202679457552,
+    "Score Pearson Mean": 0.9995742316887011,
+    "Score Pearson Std": 0.00010522701586935215,
+    "Top-20% Jaccard Mean": 1.0,
+    "Top-20% Jaccard Std": 0.0,
+    "Fidelity R2 Mean": 0.9763279359058229,
+    "Fidelity R2 Std": 0.0016372203709685124
+  },
+  "geo": {
+    "Rank Spearman Mean": 0.9271675583743756,
+    "Rank Spearman Std": 0.010050237031538314,
+    "Score Pearson Mean": 0.995955492459454,
+    "Score Pearson Std": 0.00029931397810941887,
+    "Top-20% Jaccard Mean": 0.8585269480006321,
+    "Top-20% Jaccard Std": 0.033301272693230306,
+    "Fidelity R2 Mean": 0.9440088750837277,
+    "Fidelity R2 Std": 0.0068408510110950695
+  }
+}

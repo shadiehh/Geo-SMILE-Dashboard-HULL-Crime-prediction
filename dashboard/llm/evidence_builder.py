@@ -140,6 +140,7 @@ def build_evidence(
                 "cluster != high magnitude",
                 "rank != strength",
                 "attribution != causation",
+                "RGB overlay != a fourth GeoSMILE object",
             ],
         },
         "global_geo": geo_stats,

@@ -92,12 +92,6 @@ def load_full_v3() -> pd.DataFrame:
     df = pd.read_csv(path)
     keep = df["branch"].isin([FEATURE_BRANCH, GEO_BRANCH])
     df = df.loc[keep].copy()
-    # Feature expert-reference in full_v3 used fixed top-6; drop those so
-    # Feature expert metrics come only from ranking_v2 top-10.
-    drop_feat_expert = (df["branch"] == FEATURE_BRANCH) & (
-        df["category"].astype(str) == EXPERT_CAT
-    )
-    df = df.loc[~drop_feat_expert].copy()
     df["evaluation_set"] = "full_v3"
     for col in SCHEMA:
         if col not in df.columns:
@@ -106,8 +100,8 @@ def load_full_v3() -> pd.DataFrame:
 
 
 def load_feature_top10_att() -> pd.DataFrame:
-    """Compute Feature expert ATT metrics at k=10 from ranking v2 table."""
-    feat_path = _require(OUT_DIR / "feature_category_alignment" / "feature_with_categories.csv")
+    """Compute Feature expert ATT at k=10 of 30 from ranking v2 (7/10 GeoSMILE overlap)."""
+    feat_path = _require(OUT_DIR / "geosmile_hull_expert_alignment_merged_feature.csv")
     if feat_path is None:
         return pd.DataFrame(columns=SCHEMA)
 
@@ -123,21 +117,32 @@ def load_feature_top10_att() -> pd.DataFrame:
     )
 
     merged = pd.read_csv(feat_path)
-    need = {"feature", "expert_rank", "geosmile_rank", "abs_coefficient"}
+    need = {
+        "feature",
+        "expert_rank",
+        "geosmile_rank",
+        "geosmile_abs_attribution",
+        "expert_top10_reference",
+        "geosmile_top10_prediction",
+    }
     if not need.issubset(merged.columns):
         MISSING.append(f"{_rel(feat_path)} missing {sorted(need - set(merged.columns))}")
         return pd.DataFrame(columns=SCHEMA)
 
     k = 10
-    g = set(merged.loc[merged["geosmile_rank"] <= k, "feature"].astype(str))
-    e = set(merged.loc[merged["expert_rank"] <= k, "feature"].astype(str))
+    if int(merged["expert_top10_reference"].sum()) != k:
+        MISSING.append(f"{_rel(feat_path)} expert flags != {k}")
+        return pd.DataFrame(columns=SCHEMA)
+
+    g = set(merged.loc[merged["geosmile_top10_prediction"] == 1, "feature"].astype(str))
+    e = set(merged.loc[merged["expert_top10_reference"] == 1, "feature"].astype(str))
     both = sorted(g & e)
-    y_true = (merged["expert_rank"] <= k).astype(int).to_numpy()
-    y_pred = (merged["geosmile_rank"] <= k).astype(int).to_numpy()
-    y_score = pd.to_numeric(merged["abs_coefficient"], errors="coerce").to_numpy()
+    y_true = merged["expert_top10_reference"].to_numpy(dtype=int)
+    y_pred = merged["geosmile_top10_prediction"].to_numpy(dtype=int)
+    y_score = pd.to_numeric(merged["geosmile_abs_attribution"], errors="coerce").to_numpy()
     n = int(len(merged))
     src = _rel(feat_path)
-    note = f"feature_ranking_v2 top-10; both={both}"
+    note = f"feature_expert_ranking_v2 top-10 (7/10 GeoSMILE overlap); both={both}"
 
     metrics = {
         "Top-10 overlap": float(len(both)),
@@ -161,7 +166,7 @@ def load_feature_top10_att() -> pd.DataFrame:
         rows.append(
             _empty_row(
                 branch=FEATURE_BRANCH,
-                evaluation_set="feature_ranking_v2",
+                evaluation_set="feature_top10_of_30",
                 category=EXPERT_CAT,
                 metric=f"feature: {metric}",
                 value=_to_float(value),
@@ -176,147 +181,8 @@ def load_feature_top10_att() -> pd.DataFrame:
 
 
 def load_feature_ranking_v2() -> pd.DataFrame:
-    rows: list[dict] = []
-    eval_path = _require(
-        OUT_DIR / "feature_category_alignment" / "feature_expert_alignment_eval_v2.csv"
-    )
-    if eval_path is not None:
-        df = pd.read_csv(eval_path)
-        for _, r in df.iterrows():
-            level = str(r.get("level", "")).strip()
-            metric_raw = str(r.get("metric", "")).strip()
-            metric = f"{level}: {metric_raw}" if level else metric_raw
-            notes = r.get("notes", pd.NA)
-            p_value = pd.NA
-            # notes often encode p=...
-            if isinstance(notes, str) and "p=" in notes.lower():
-                try:
-                    p_value = float(notes.lower().split("p=")[-1].split()[0].strip(",;"))
-                except ValueError:
-                    p_value = pd.NA
-            rows.append(
-                _empty_row(
-                    branch=r.get("branch", FEATURE_BRANCH),
-                    evaluation_set="feature_ranking_v2",
-                    category=EXPERT_CAT,
-                    metric=metric,
-                    value=_to_float(r.get("value")),
-                    p_value=p_value,
-                    source_file=_rel(eval_path),
-                    result_status="ok",
-                    notes=notes,
-                )
-            )
-
-    optional = [
-        OUT_DIR / "feature_category_alignment" / "feature_top10_comparison_v2.csv",
-        OUT_DIR
-        / "feature_category_alignment"
-        / "feature_category_importance_comparison.csv",
-    ]
-    for opt in optional:
-        if not opt.exists():
-            MISSING.append(_rel(opt))
-            continue
-        df = pd.read_csv(opt)
-        # Best-effort long-format / wide conversion
-        if {"metric", "value"}.issubset(df.columns):
-            for _, r in df.iterrows():
-                level = str(r.get("level", "feature")).strip() or "feature"
-                metric_raw = str(r.get("metric", "")).strip()
-                rows.append(
-                    _empty_row(
-                        branch=r.get("branch", FEATURE_BRANCH),
-                        evaluation_set="feature_ranking_v2",
-                        category=EXPERT_CAT,
-                        metric=f"{level}: {metric_raw}",
-                        value=_to_float(r.get("value")),
-                        source_file=_rel(opt),
-                        result_status="ok",
-                        notes=r.get("notes", pd.NA),
-                    )
-                )
-        else:
-            # store numeric columns as metrics
-            id_cols = {
-                c
-                for c in df.columns
-                if c.lower() in {"feature", "category", "branch", "notes", "level"}
-            }
-            for _, r in df.iterrows():
-                for col in df.columns:
-                    if col in id_cols:
-                        continue
-                    val = _to_float(r[col])
-                    if pd.isna(val):
-                        continue
-                    level = str(r.get("level", "feature")).strip() or "feature"
-                    rows.append(
-                        _empty_row(
-                            branch=r.get("branch", FEATURE_BRANCH),
-                            evaluation_set="feature_ranking_v2",
-                            category=EXPERT_CAT,
-                            metric=f"{level}: {col}",
-                            value=val,
-                            source_file=_rel(opt),
-                            result_status="ok",
-                            notes=r.get("notes", pd.NA),
-                        )
-                    )
-
-    # Derive Top-10 overlap from ranked feature table if available and Top-10 not already present
-    feat_path = OUT_DIR / "feature_category_alignment" / "feature_with_categories.csv"
-    has_top10 = any(
-        isinstance(r.get("metric"), str) and "Top-10" in r["metric"] for r in rows
-    )
-    if feat_path.exists() and not has_top10:
-        fdf = pd.read_csv(feat_path)
-        if {"expert_rank", "geosmile_rank"}.issubset(fdf.columns):
-            k = 10
-            expert_top = set(fdf.loc[fdf["expert_rank"] <= k, "feature"].astype(str))
-            model_top = set(fdf.loc[fdf["geosmile_rank"] <= k, "feature"].astype(str))
-            overlap = len(expert_top & model_top)
-            both = sorted(expert_top & model_top)
-            rows.append(
-                _empty_row(
-                    branch=FEATURE_BRANCH,
-                    evaluation_set="feature_ranking_v2",
-                    category=EXPERT_CAT,
-                    metric="feature: Top-10 overlap",
-                    value=float(overlap),
-                    n=int(len(fdf)),
-                    k=k,
-                    source_file=_rel(feat_path),
-                    result_status="derived",
-                    notes=f"both={both}",
-                )
-            )
-            rows.append(
-                _empty_row(
-                    branch=FEATURE_BRANCH,
-                    evaluation_set="feature_ranking_v2",
-                    category=EXPERT_CAT,
-                    metric="feature: Top-10 overlap ratio",
-                    value=float(overlap) / float(k),
-                    n=int(len(fdf)),
-                    k=k,
-                    source_file=_rel(feat_path),
-                    result_status="derived",
-                    notes=f"overlap/{k}",
-                )
-            )
-    elif not feat_path.exists():
-        # only note missing if we needed it and Top-10 was absent from eval
-        if not has_top10:
-            MISSING.append(_rel(feat_path))
-
-    out = pd.DataFrame(rows, columns=SCHEMA) if rows else pd.DataFrame(columns=SCHEMA)
-    # Feature cut is top-10 only — drop any residual Top-6 rows
-    if not out.empty:
-        out = out[
-            ~out["metric"].astype(str).str.contains(r"Top-6|top6|top-6", case=False, regex=True)
-        ].copy()
-    return out
+    """Deprecated alias: ranking v2 is now the Feature expert ATT source."""
+    return load_feature_top10_att()
 
 
 def _topk_overlap_metrics(
@@ -574,7 +440,7 @@ def load_two_branch_summary() -> pd.DataFrame:
 
 
 def build_key_subset(full: pd.DataFrame) -> pd.DataFrame:
-    rank_sets = {"feature_ranking_v2", "geo_expert_top20"}
+    rank_sets = {"feature_top10_of_30", "geo_expert_top20"}
     mask = full["evaluation_set"].isin(rank_sets) | (
         (full["evaluation_set"] == "full_v3")
         & (full["category"].isin(KEY_V3_CATEGORIES))
@@ -600,7 +466,6 @@ def _metric_lookup(df: pd.DataFrame, evaluation_set: str, metric_substr: str) ->
 def main() -> None:
     parts = [
         load_full_v3(),
-        load_feature_ranking_v2(),
         load_feature_top10_att(),
         # Keep Geo expert top-20 as the Geo expert reference.
         load_geo_expert_top20(),
@@ -646,7 +511,7 @@ def main() -> None:
     print(full.groupby(["evaluation_set", "branch"]).size().to_string())
     print()
     print("=== LATEST RANKING METRICS ===")
-    fr = full[full["evaluation_set"] == "feature_ranking_v2"]
+    fr = full[full["evaluation_set"] == "feature_top10_of_30"]
     for needle in ("Top-10 overlap", "ATT F1", "ATT AUROC", "Spearman rho (ranks)"):
         hit = fr[fr["metric"].astype(str).str.contains(needle, regex=False)]
         if "Spearman" in needle:

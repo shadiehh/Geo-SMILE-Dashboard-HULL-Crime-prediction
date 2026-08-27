@@ -1,0 +1,86 @@
+{
+  "n_perturb": 3000,
+  "smile_seed": 42,
+  "baseline": "hull_only_smile_at_this_n",
+  "n_reps": 4,
+  "feature_k": 10,
+  "geo_k": 20,
+  "neighbors": {
+    "north": {
+      "lsoa21cd": "E01012953",
+      "lsoa21nm": "East Riding of Yorkshire 023A",
+      "feature_jaccard": 1.0,
+      "feature_spearman": 0.9982202447163514,
+      "geo_jaccard": 0.9047619047619048,
+      "geo_spearman": 0.9994735803119038,
+      "geo_top20_overlap_n": 19.0,
+      "geo_top19_jaccard": 1.0,
+      "geo_top19_overlap_n": 19.0,
+      "geo_extra_rank": 123.0,
+      "geo_extra_abs_coefficient": 0.2807096056161372,
+      "geo_extra_in_top20": 0.0,
+      "feature_pred_spearman": 1.0,
+      "geo_pred_spearman": 1.0
+    },
+    "east": {
+      "lsoa21cd": "E01013094",
+      "lsoa21nm": "East Riding of Yorkshire 029A",
+      "feature_jaccard": 1.0,
+      "feature_spearman": 0.9986651835372636,
+      "geo_jaccard": 1.0,
+      "geo_spearman": 0.9994533334008232,
+      "geo_top20_overlap_n": 20.0,
+      "geo_top19_jaccard": 1.0,
+      "geo_top19_overlap_n": 19.0,
+      "geo_extra_rank": 113.0,
+      "geo_extra_abs_coefficient": 0.393339176446108,
+      "geo_extra_in_top20": 0.0,
+      "feature_pred_spearman": 1.0,
+      "geo_pred_spearman": 1.0
+    },
+    "south": {
+      "lsoa21cd": "E01013009",
+      "lsoa21nm": "East Riding of Yorkshire 034B",
+      "feature_jaccard": 1.0,
+      "feature_spearman": 0.9986651835372636,
+      "geo_jaccard": 0.9047619047619048,
+      "geo_spearman": 0.9994938272229844,
+      "geo_top20_overlap_n": 19.0,
+      "geo_top19_jaccard": 1.0,
+      "geo_top19_overlap_n": 19.0,
+      "geo_extra_rank": 137.0,
+      "geo_extra_abs_coefficient": 0.15835961009899543,
+      "geo_extra_in_top20": 0.0,
+      "feature_pred_spearman": 1.0,
+      "geo_pred_spearman": 1.0
+    },
+    "west": {
+      "lsoa21cd": "E01013112",
+      "lsoa21nm": "East Riding of Yorkshire 025D",
+      "feature_jaccard": 1.0,
+      "feature_spearman": 0.9977753058954394,
+      "geo_jaccard": 0.9047619047619048,
+      "geo_spearman": 0.9994583951285934,
+      "geo_top20_overlap_n": 19.0,
+      "geo_top19_jaccard": 1.0,
+      "geo_top19_overlap_n": 19.0,
+      "geo_extra_rank": 72.0,
+      "geo_extra_abs_coefficient": 0.7046630025486544,
+      "geo_extra_in_top20": 0.0,
+      "feature_pred_spearman": 1.0,
+      "geo_pred_spearman": 1.0
+    }
+  },
+  "feature": {
+    "top_k_jaccard_mean": 1.0,
+    "top_k_jaccard_std": 0.0,
+    "spearman_mean": 0.9983314794215795,
+    "spearman_std": 0.00036892378090716966
+  },
+  "geo": {
+    "top_k_jaccard_mean": 0.9285714285714285,
+    "top_k_jaccard_std": 0.041239304942116126,
+    "spearman_mean": 0.9994697840160762,
+    "spearman_std": 1.5754500632680804e-05
+  }
+}

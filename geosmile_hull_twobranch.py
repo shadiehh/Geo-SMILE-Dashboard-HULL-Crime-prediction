@@ -396,7 +396,8 @@ def geo_smile_coefficients(
     min_sel: int = 5,
     max_sel: int = 10,
     sample_lsoas: list[str] | None = None,
-) -> tuple[pd.DataFrame, dict]:
+    return_pool: bool = False,
+) -> tuple:
     """Per-LSOA geo SMILE: mask LSOA coordinates to training median; W1 response.
 
     If `sample_lsoas` is set, Hull (core) columns keep the baseline order and the
@@ -504,6 +505,8 @@ def geo_smile_coefficients(
             else "none"
         ),
     }
+    if return_pool:
+        return coef, diagnostics, M, responses, distances
     return coef, diagnostics
 
 

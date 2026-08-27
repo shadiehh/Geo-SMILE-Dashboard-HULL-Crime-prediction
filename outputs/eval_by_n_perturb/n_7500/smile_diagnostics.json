@@ -1,0 +1,35 @@
+{
+  "feature": {
+    "best_kernel": "inverse",
+    "validation_r2_by_kernel": {
+      "rbf": 0.9756531330850411,
+      "laplace": 0.9758554846874323,
+      "inverse": 0.9759130905406147
+    },
+    "test_r2": 0.9757685394559127,
+    "n_unique_masks": 7500,
+    "response": "wasserstein_1_prediction_distribution",
+    "kernel_distance": "hamming_fraction_features_masked"
+  },
+  "geo": {
+    "method": "per_lsoa_location_masking_no_kmeans",
+    "n_spatial_units": 168,
+    "n_perturbations": 7500,
+    "n_sampled_lsoas": 168,
+    "n_extra_lsoas": 0,
+    "extra_inclusion_rate": 0.0,
+    "min_lsoas_per_perturbation": 5,
+    "max_lsoas_per_perturbation": 10,
+    "best_kernel": "inverse",
+    "validation_r2_by_kernel": {
+      "rbf": 0.9382049029271932,
+      "laplace": 0.9413212069033408,
+      "inverse": 0.9415768549353696
+    },
+    "test_r2": 0.9480849223424488,
+    "response": "wasserstein_1_on_affected_lsoa_month_predictions",
+    "kernel_distance": "fraction of frozen Hull LSOAs masked",
+    "perturbation": "replace easting/northing of selected LSOAs with training median",
+    "extra_perturbation": "none"
+  }
+}

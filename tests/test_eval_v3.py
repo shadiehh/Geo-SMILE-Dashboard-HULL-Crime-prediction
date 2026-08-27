@@ -71,6 +71,77 @@ def test_feature_expert_topk_equals_10():
     assert FEATURE_TOP_K == 10
 
 
+def test_feature_alignment_is_ten_of_thirty():
+    path = OUT / "geosmile_hull_expert_alignment_merged_feature.csv"
+    if not path.exists():
+        pytest.skip("Feature alignment not generated yet")
+    m = pd.read_csv(path)
+    assert int(m["expert_top10_reference"].sum()) == 10
+    assert int(m["geosmile_top10_prediction"].sum()) == 10
+    assert int((m["expert_rank"] <= 10).sum()) == 10
+    from hull_expert_topk import load_feature_expert_reference
+
+    ref = load_feature_expert_reference()
+    marked = set(m.loc[m["expert_top10_reference"] == 1, "feature"].astype(str))
+    assert marked == set(ref.loc[ref["expert_rank"] <= 10, "feature"].astype(str))
+    assert int(m["matched_top10"].sum()) == 7
+
+
+def test_feature_expert_is_ranking_v2_seven_of_ten():
+    from hull_expert_topk import FEATURE_EXPERT_REFERENCE_CSV, load_feature_expert_reference
+
+    assert FEATURE_EXPERT_REFERENCE_CSV.exists()
+    ref = load_feature_expert_reference()
+    coef = pd.read_csv(OUT / "feature_global_importance.csv")
+    out = select_expert_top_feature(coef)
+    marked = set(out.loc[out["expert_top10_reference"] == 1, "feature"].astype(str))
+    assert marked == set(ref.loc[ref["expert_rank"] <= 10, "feature"].astype(str))
+    model10 = set(
+        coef.sort_values(["abs_coefficient", "feature"], ascending=[False, True], kind="mergesort")
+        .head(10)["feature"]
+        .astype(str)
+    )
+    assert len(marked & model10) == 7
+
+
+
+def test_geo_expert_is_canonical_overlay_list():
+    from hull_expert_topk import GEO_EXPERT_REFERENCE_CSV, load_geo_expert_reference
+
+    assert GEO_EXPERT_REFERENCE_CSV.exists()
+    ref = load_geo_expert_reference()
+    assert len(ref) == 20
+    coef = pd.read_csv(OUT / "geo_coefficients.csv")
+    coef["lsoa21cd"] = coef["lsoa21cd"].astype(str)
+    out = select_expert_top_geo(coef)
+    marked = set(out.loc[out["expert_top10_reference"] == 1, "lsoa21cd"].astype(str))
+    assert marked == set(ref["lsoa21cd"].astype(str))
+    model20 = set(
+        coef.sort_values(["geo_abs_coefficient", "lsoa21cd"], ascending=[False, True], kind="mergesort")
+        .head(20)["lsoa21cd"]
+        .astype(str)
+    )
+    assert len(marked & model20) == 16
+    leftover = out.loc[out["expert_top10_reference"] == 0]
+    if {"final_expert_rating", "expert_relevance_score"}.issubset(coef.columns):
+        ordered = leftover.sort_values(
+            ["final_expert_rating", "expert_relevance_score", "lsoa21cd"],
+            ascending=[False, False, True],
+            kind="mergesort",
+        )
+        assert ordered["expert_rank"].tolist() == list(range(21, 169))
+
+
+def test_geo_expert_binary_frame_matches_overlay():
+    from hull_expert_topk import geo_expert_binary_frame, load_geo_expert_reference
+
+    coef = pd.read_csv(OUT / "geo_coefficients.csv")
+    flags = geo_expert_binary_frame(coef["lsoa21cd"])
+    ref = load_geo_expert_reference()
+    marked = set(flags.loc[flags["expert_top10_reference"] == 1, "lsoa21cd"].astype(str))
+    assert marked == set(ref["lsoa21cd"].astype(str))
+    assert int(flags["expert_top10_reference"].sum()) == 20
+
 
 def test_geo_expert_topk_equals_20():
     rows = [
@@ -84,22 +155,6 @@ def test_geo_expert_topk_equals_20():
     ]
     out = select_expert_top_geo(pd.DataFrame(rows))
     assert int(out["expert_top10_reference"].sum()) == 20
-
-
-def test_geo_expert_topk_from_v2_reference_flag():
-    v2 = ROOT / "geosmile_hull_prediction_expert_top20_v2.xlsx"
-    if not v2.exists():
-        pytest.skip("v2 workbook missing")
-    geo = pd.read_excel(v2, sheet_name="LSOA_Annotations")
-    geo["lsoa21cd"] = geo["lsoa21cd"].astype(str)
-    geo["final_expert_rating"] = resolve_reference_rating(
-        geo["expert_relevance_1to5"], geo.get("human_override_1to5")
-    )
-    out = select_expert_top_geo(geo)
-    assert int(out["expert_top10_reference"].sum()) == 20
-    assert out["expert_top10_reference"].equals(
-        pd.to_numeric(geo["expert_top20_reference"], errors="coerce").fillna(0).astype(int)
-    )
 
 
 def test_map_selects_exactly_20():
@@ -221,6 +276,37 @@ def test_stability_distinct_from_consistency():
     rows, _, _ = restore_historical_metrics()
     cats = {r["category"] for r in rows}
     assert "Consistency" in cats
+
+
+def test_geo_v3_primary_intersection_uses_overlay_list():
+    path = OUT / "geosmile_hull_evaluation_full_v3.csv"
+    if not path.exists():
+        pytest.skip("v3 not generated yet")
+    v3 = pd.read_csv(path)
+    geo = v3[
+        (v3["branch"] == BRANCH_GEO)
+        & (v3["category"] == "Expert-reference attribution accuracy")
+        & (v3["metric"] == "intersection")
+    ]
+    assert not geo.empty
+    assert float(geo.iloc[0]["value"]) == 16
+    assert float(geo.iloc[0]["k"]) == 20
+
+
+def test_feature_v3_primary_is_ten_of_thirty():
+    path = OUT / "geosmile_hull_evaluation_full_v3.csv"
+    if not path.exists():
+        pytest.skip("v3 not generated yet")
+    v3 = pd.read_csv(path)
+    feat = v3[
+        (v3["branch"] == BRANCH_FEATURE)
+        & (v3["category"] == "Expert-reference attribution accuracy")
+        & (v3["metric"] == "intersection")
+    ]
+    assert not feat.empty
+    assert float(feat.iloc[0]["k"]) == 10
+    assert float(feat.iloc[0]["n"]) == 30
+    assert float(feat.iloc[0]["value"]) == 7
 
 
 def test_no_feature_ab_in_v3_when_present():

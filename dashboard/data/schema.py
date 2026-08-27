@@ -51,6 +51,15 @@ TWOBRANCH_SUMMARY_JSON = "outputs/run_summary_twobranch.json"
 FEATURE_CONSISTENCY_CSV = "outputs/geosmile_hull_feat_consistency.csv"
 GEO_CONSISTENCY_CSV = "outputs/geosmile_hull_geo_consistency.csv"
 
+# Robustness sweep (Model Diagnostics tab): eval_by_n_perturb.py output.
+EVAL_SWEEP_DIR = "outputs/eval_by_n_perturb"
+EVAL_SWEEP_N_GRID = (1000, 2000, 3000, 4000, 5000, 7500, 10000)
+PUBLISHED_N = {"feature": 1024, "geo": 2000}
+EXPERT_ALIGNMENT_FEATURE_CSV = "outputs/geosmile_hull_expert_alignment_merged_feature.csv"
+EXPERT_ALIGNMENT_GEO_CSV = "outputs/geosmile_hull_expert_alignment_merged_geo.csv"
+PUBLISHED_FEATURE_FIDELITY_CSV = "outputs/geosmile_hull_feat_fidelity.csv"
+PUBLISHED_GEO_FIDELITY_CSV = "outputs/geosmile_hull_geo_fidelity.csv"
+
 LOCATION_TOKENS = (
     "coord",
     "easting",
@@ -80,6 +89,8 @@ MAP_VIEWS = {
     "geo_sensitivity": "GeoSensitivity",
     "latitude_effect": "Latitude feature effect",
     "longitude_effect": "Longitude feature effect",
+    "overlay": "Lat / lon / GeoSensitivity overlay",
+    "top50_rank": "GeoSensitivity top 50 + lat/lon overlay",
     "spatial_pattern": "Spatial pattern",
 }
 
@@ -102,7 +113,6 @@ STAKEHOLDER_HELP = {
 PROVIDERS = {
     "openai": "OpenAI",
     "anthropic": "Anthropic",
-    "compare": "Compare both",
 }
 
 
