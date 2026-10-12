@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "The model\u2019s crime predictions across Hull mainly depend on prior six-month crime averages, with \u201cCrime roll mean 6\u201d being the strongest influencing feature both citywide and for Kingston upon Hull 029C, where its value is particularly notable. Less influential features include road density and long-term sickness percentage. For the selected area, this pattern aligns closely with Hull\u2019s overall feature influence landscape. Geographic sensitivity shows Kingston upon Hull 029C ranks fourth with moderate absolute impact, and spatial analysis indicates it lies within a notable cluster of areas with similarly elevated geographic sensitivity. This explanation does not imply causes of crime and does not incorporate local social context.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-27T23:53:42.879724+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 11478,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 128,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 11606
+  },
+  "prompt_version": "geosmile-hull-v6"
+}

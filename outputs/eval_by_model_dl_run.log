@@ -1,0 +1,66 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788283084.670690   14276 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788283086.987283   14276 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+[dl] predictive performance (Feature + Geo)...
+I0000 00:00:1788283087.568690   14276 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+
+=== [dl] running GeoSMILE pipeline (n=2000) ===
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788283135.395170    4376 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788283137.140543    4376 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Writing sweep to D:\GEO SMILE CODE\hull\outputs\eval_by_model\dl only. Will not replace 7 published tables (1024/2000 Feature/Geo artefacts left untouched).
+[18:18:57] Training Feature and Geo dl (seed 42) once with n_jobs=2...
+I0000 00:00:1788283137.594149    4376 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+
+=== [18:19:41] N=2000 Feature masks / Geo perturbations (this N only) ===
+[18:19:41] Feature SMILE n=2000 seed=42
+[18:22:04] Geo SMILE n=2000 seed=42
+[18:24:20] Accuracy Feature=0.6667 (5/10) | Geo=0.8929 (11/20)
+[18:24:20] Fidelity Feature R2=0.2531 | Geo R2=0.9184
+[18:24:20] Faithfulness n_random=1000
+[18:27:24] Faithfulness top-random Feature=-1.1274 | Geo=-11.6202
+[18:27:24] ATT stability (4 cardinal neighbors), baseline = Hull-only at N=2000
+  [18:27:24] ATT stability north: adding E01012953 East Riding of Yorkshire 023A
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+  [18:32:24] ATT stability east: adding E01013094 East Riding of Yorkshire 029A
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+  [18:37:32] ATT stability south: adding E01013009 East Riding of Yorkshire 034B
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+  [18:42:31] ATT stability west: adding E01013112 East Riding of Yorkshire 025D
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+[18:47:30] ATT stability Jaccard Feature=1.000 | Geo=1.000
+[18:47:30] ATT consistency 5 seeds from 100 at N=2000
+  [18:47:30] consistency seed 100 Feature n=2000
+  [18:49:52] consistency seed 100 Geo n=2000
+  [18:52:08] consistency seed 101 Feature n=2000
+  [18:54:28] consistency seed 101 Geo n=2000
+  [18:56:44] consistency seed 102 Feature n=2000
+  [18:59:04] consistency seed 102 Geo n=2000
+  [19:01:20] consistency seed 103 Feature n=2000
+  [19:03:41] consistency seed 103 Geo n=2000
+  [19:05:56] consistency seed 104 Feature n=2000
+  [19:08:17] consistency seed 104 Geo n=2000
+[19:10:32] Consistency Rank Spearman Feature=0.726 | Geo=0.926
+[19:10:32] N=2000 done in 50.9 min -> D:\GEO SMILE CODE\hull\outputs\eval_by_model\dl\n_2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\dl\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.666667                      5     0.253064              0.258035                      -1.127427                    6.18835                  7.315777                    1.0                0.999889                       0.725562                          0.714286                   0.256844                             2000
+      2000     Geo  0.892857                     11     0.918425              0.935614                     -11.620196                   19.54222                 31.162416                    1.0                0.999508                       0.926217                          0.710809                   0.907314                             2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\dl\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.666667                      5     0.253064              0.258035                      -1.127427                    6.18835                  7.315777                    1.0                0.999889                       0.725562                          0.714286                   0.256844                             2000
+      2000     Geo  0.892857                     11     0.918425              0.935614                     -11.620196                   19.54222                 31.162416                    1.0                0.999508                       0.926217                          0.710809                   0.907314                             2000
+
+Done. Published 1024/2000 tables were not modified. Results: D:\GEO SMILE CODE\hull\outputs\eval_by_model\dl
+=== [dl] done in 51.7 min ===
+
+Done. Summary: D:\GEO SMILE CODE\hull\outputs\eval_by_model\model_comparison_summary.csv

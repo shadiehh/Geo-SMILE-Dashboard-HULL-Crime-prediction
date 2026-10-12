@@ -1,0 +1,2184 @@
+{
+ "fidelity": [
+  {
+   "model": "xgboost",
+   "family": "Boosting",
+   "pred_r2": 0.8956733279339549,
+   "r2": 0.9483618579283803,
+   "wr2": 0.9461329443085624,
+   "mae": 0.7848536511600392,
+   "wmae": 0.8007069141265192,
+   "rmse": 1.3550068947375022,
+   "wrmse": 1.400089999982989,
+   "kernel": "inverse"
+  },
+  {
+   "model": "lightgbm",
+   "family": "Boosting",
+   "pred_r2": 0.8967830225728478,
+   "r2": 0.9481792605350212,
+   "wr2": 0.9459661690817498,
+   "mae": 0.7949827108579163,
+   "wmae": 0.8108869790767887,
+   "rmse": 1.3781185100615247,
+   "wrmse": 1.4239019552995866,
+   "kernel": "inverse"
+  },
+  {
+   "model": "catboost",
+   "family": "Boosting",
+   "pred_r2": 0.8959397168009859,
+   "r2": 0.9479288148426454,
+   "wr2": 0.94576593950002,
+   "mae": 0.7999386744385049,
+   "wmae": 0.8148125473487292,
+   "rmse": 1.3779130093120415,
+   "wrmse": 1.4226819495322418,
+   "kernel": "inverse"
+  },
+  {
+   "model": "svr",
+   "family": "Kernel",
+   "pred_r2": 0.862937125047153,
+   "r2": 0.9484838981790784,
+   "wr2": 0.946268572240932,
+   "mae": 0.7712337353838942,
+   "wmae": 0.7821496902456885,
+   "rmse": 1.5002841527848678,
+   "wrmse": 1.5506183919046634,
+   "kernel": "inverse"
+  },
+  {
+   "model": "gp",
+   "family": "Kernel",
+   "pred_r2": 0.899271353958983,
+   "r2": 0.9480613835351336,
+   "wr2": 0.945823148212618,
+   "mae": 0.858481135094118,
+   "wmae": 0.8740332563647564,
+   "rmse": 1.5212612724399783,
+   "wrmse": 1.5719903054291284,
+   "kernel": "inverse"
+  },
+  {
+   "model": "mlp",
+   "family": "Neural",
+   "pred_r2": 0.8529028601991053,
+   "r2": 0.9473642756186336,
+   "wr2": 0.9454802177533752,
+   "mae": 1.1014067180049183,
+   "wmae": 1.1110306140692252,
+   "rmse": 1.918489929357232,
+   "wrmse": 1.9728866088336183,
+   "kernel": "inverse"
+  },
+  {
+   "model": "dl",
+   "family": "Neural",
+   "pred_r2": 0.6663315153645153,
+   "r2": 0.9453850780107096,
+   "wr2": 0.9437935078209748,
+   "mae": 0.561561989143045,
+   "wmae": 0.5725504706540184,
+   "rmse": 0.8164165219589552,
+   "wrmse": 0.8399482063836103,
+   "kernel": "inverse"
+  },
+  {
+   "model": "ann",
+   "family": "Neural",
+   "pred_r2": 0.8663277237038551,
+   "r2": 0.9483191299926488,
+   "wr2": 0.9462214435599188,
+   "mae": 0.9415804069126404,
+   "wmae": 0.953364411503899,
+   "rmse": 1.7660066349491352,
+   "wrmse": 1.8214666971808315,
+   "kernel": "inverse"
+  },
+  {
+   "model": "cnn",
+   "family": "Neural",
+   "pred_r2": 0.634516769783504,
+   "r2": 0.948125825943317,
+   "wr2": 0.9457909068452104,
+   "mae": 1.1967699259592677,
+   "wmae": 1.211913928783518,
+   "rmse": 2.430299279032201,
+   "wrmse": 2.513007541579108,
+   "kernel": "inverse"
+  },
+  {
+   "model": "transformer",
+   "family": "Neural",
+   "pred_r2": 0.8733016635255211,
+   "r2": 0.9483272102499308,
+   "wr2": 0.9459975406816729,
+   "mae": 0.7133884590021785,
+   "wmae": 0.728730332255703,
+   "rmse": 1.2308540422030745,
+   "wrmse": 1.2731120143842862,
+   "kernel": "inverse"
+  }
+ ],
+ "menu": {
+  "models": [
+   "xgboost",
+   "lightgbm",
+   "catboost",
+   "svr",
+   "gp",
+   "mlp",
+   "dl",
+   "ann",
+   "cnn",
+   "transformer"
+  ],
+  "rows": [
+   {
+    "surrogate": "Weighted Ridge",
+    "vals": [
+     0.9483618579283803,
+     0.9481792605350212,
+     0.9479288148426454,
+     0.9484838981790784,
+     0.9480613835351336,
+     0.9473642756186336,
+     0.9453850780107096,
+     0.9483191299926488,
+     0.948125825943317,
+     0.9483272102499308
+    ]
+   },
+   {
+    "surrogate": "Weighted OLS",
+    "vals": [
+     0.9474906413430072,
+     0.9473133692406368,
+     0.9470044388601536,
+     0.9475792702529112,
+     0.9471701736776916,
+     0.9462200027240202,
+     0.9444354341879784,
+     0.9473311756174972,
+     0.947225798044448,
+     0.9474850406158646
+    ]
+   },
+   {
+    "surrogate": "Ridge (\u03b1 = 0)",
+    "vals": [
+     0.9474906413430072,
+     0.9473133692406368,
+     0.9470044388601536,
+     0.9475792702529112,
+     0.9471701736776916,
+     0.9462200027240202,
+     0.9444354341879784,
+     0.9473311756174972,
+     0.947225798044448,
+     0.9474850406158646
+    ]
+   },
+   {
+    "surrogate": "Bayesian ridge",
+    "vals": [
+     0.9477136304045476,
+     0.9475350188843648,
+     0.9472381189463062,
+     0.9478062576097896,
+     0.9473962502813752,
+     0.9464961582239207,
+     0.9446736629320148,
+     0.9475774159442948,
+     0.9474519915831922,
+     0.9477018310562604
+    ]
+   },
+   {
+    "surrogate": "Linear regression",
+    "vals": [
+     0.9484789816897296,
+     0.9483231552384864,
+     0.9481027290740708,
+     0.9486313580620376,
+     0.9482297508224036,
+     0.9478444617390522,
+     0.9456081856737774,
+     0.948618525575178,
+     0.94830686146552,
+     0.9483999804478154
+    ]
+   },
+   {
+    "surrogate": "Unweighted OLS",
+    "vals": [
+     0.9484789816897296,
+     0.9483231552384864,
+     0.9481027290740708,
+     0.9486313580620376,
+     0.9482297508224036,
+     0.9478444617390522,
+     0.9456081856737774,
+     0.948618525575178,
+     0.94830686146552,
+     0.9483999804478154
+    ]
+   },
+   {
+    "surrogate": "Ridge (unweighted)",
+    "vals": [
+     0.948554388579912,
+     0.9483960630857629,
+     0.9482008651169944,
+     0.9487168608552576,
+     0.9483129853854756,
+     0.9480465350175074,
+     0.9457401509561184,
+     0.9487410428556212,
+     0.9483859713578154,
+     0.9484624087047392
+    ]
+   },
+   {
+    "surrogate": "Hist. grad. boosting",
+    "vals": [
+     0.9047304441957426,
+     0.9046847510361686,
+     0.9063665758981608,
+     0.919961659368597,
+     0.91201075308068,
+     0.8887933155044184,
+     0.8390311651679488,
+     0.9151194495016342,
+     0.936331144357517,
+     0.8935124495323487
+    ]
+   },
+   {
+    "surrogate": "Random forest",
+    "vals": [
+     0.8285088051120056,
+     0.8254453635769591,
+     0.8220233489484906,
+     0.8654603378109758,
+     0.8406810259624984,
+     0.797618120935608,
+     0.7119006784599022,
+     0.8557549678363403,
+     0.895651184387621,
+     0.8169423433452272
+    ]
+   },
+   {
+    "surrogate": "Shallow tree",
+    "vals": [
+     0.7332059152734218,
+     0.7331335199149291,
+     0.7257690806974371,
+     0.8176725759691152,
+     0.7507631237929047,
+     0.7231360790782525,
+     0.4660813024247726,
+     0.7998746820078978,
+     0.8532637128549448,
+     0.7242984694433066
+    ]
+   },
+   {
+    "surrogate": "Kernel ridge (RBF)",
+    "vals": [
+     0.6183431768627958,
+     0.6183572916062056,
+     0.6185194271699438,
+     0.6141227144792021,
+     0.6172956031572223,
+     0.6245970475273755,
+     0.6304133850564575,
+     0.6184526377929846,
+     0.6121775247927532,
+     0.6163881050669653
+    ]
+   },
+   {
+    "surrogate": "Elastic net (weak)",
+    "vals": [
+     0.5591093220225786,
+     0.5600381035219446,
+     0.560480393971736,
+     0.5824235239540831,
+     0.5731156622852642,
+     0.577252288922592,
+     0.4441913438193617,
+     0.5875566383662643,
+     0.6149876511973353,
+     0.5430435962630616
+    ]
+   },
+   {
+    "surrogate": "Poisson GLM",
+    "vals": [
+     0.5031456860030379,
+     0.5036926470943897,
+     0.4998400225212853,
+     0.4931285844108206,
+     0.5116338691229447,
+     0.5946408752241319,
+     0.4397927815441431,
+     0.5317717524092973,
+     0.5857558918519705,
+     0.4898003922087195
+    ]
+   },
+   {
+    "surrogate": "Tweedie GLM",
+    "vals": [
+     0.192868879234763,
+     0.192348805811538,
+     0.1914603333961609,
+     0.1816704475539474,
+     0.1920098539596998,
+     0.2178695324352552,
+     0.1917849016113536,
+     0.1911313440574222,
+     0.1945495339422035,
+     0.1908336704677804
+    ]
+   },
+   {
+    "surrogate": "Null, SD",
+    "vals": [
+     0.0173970491758052,
+     0.017351928793851,
+     0.0163350755700051,
+     0.0173636389286169,
+     0.0161206617689892,
+     0.0148523092057693,
+     0.016420355819175,
+     0.0159032445312136,
+     0.0169674954657185,
+     0.0184759486576225
+    ]
+   }
+  ]
+ },
+ "accuracy": [
+  {
+   "model": "xgboost",
+   "pred_r2": 0.8956733279339549,
+   "auroc": 0.7012539184952978,
+   "k": {
+    "20": {
+     "hits": 18,
+     "accuracy": 0.9,
+     "lift": 2.6068965517241383,
+     "p_hypergeom": 6.902642338477305e-08,
+     "recall": 0.3103448275862069,
+     "att_f1": 0.4615384615384615,
+     "att_acc": 0.75,
+     "jaccard": 0.3
+    },
+    "42": {
+     "hits": 27,
+     "accuracy": 0.6428571428571429,
+     "lift": 1.862068965517241,
+     "p_hypergeom": 4.897338817157418e-06,
+     "recall": 0.4655172413793103,
+     "att_f1": 0.54,
+     "att_acc": 0.7261904761904762,
+     "jaccard": 0.3698630136986301
+    },
+    "50": {
+     "hits": 31,
+     "accuracy": 0.62,
+     "lift": 1.7958620689655174,
+     "p_hypergeom": 1.7227647551175377e-06,
+     "recall": 0.5344827586206896,
+     "att_f1": 0.5740740740740741,
+     "att_acc": 0.7261904761904762,
+     "jaccard": 0.4025974025974026
+    },
+    "58": {
+     "hits": 33,
+     "accuracy": 0.5689655172413793,
+     "lift": 1.6480380499405471,
+     "p_hypergeom": 1.1831379260468163e-05,
+     "recall": 0.5689655172413793,
+     "att_f1": 0.5689655172413793,
+     "att_acc": 0.7023809523809523,
+     "jaccard": 0.3975903614457831
+    }
+   }
+  },
+  {
+   "model": "lightgbm",
+   "pred_r2": 0.8967830225728478,
+   "auroc": 0.7175548589341693,
+   "k": {
+    "20": {
+     "hits": 18,
+     "accuracy": 0.9,
+     "lift": 2.6068965517241383,
+     "p_hypergeom": 6.902642338477305e-08,
+     "recall": 0.3103448275862069,
+     "att_f1": 0.4615384615384615,
+     "att_acc": 0.75,
+     "jaccard": 0.3
+    },
+    "42": {
+     "hits": 27,
+     "accuracy": 0.6428571428571429,
+     "lift": 1.862068965517241,
+     "p_hypergeom": 4.897338817157418e-06,
+     "recall": 0.4655172413793103,
+     "att_f1": 0.54,
+     "att_acc": 0.7261904761904762,
+     "jaccard": 0.3698630136986301
+    },
+    "50": {
+     "hits": 30,
+     "accuracy": 0.6,
+     "lift": 1.7379310344827583,
+     "p_hypergeom": 8.925908333279344e-06,
+     "recall": 0.5172413793103449,
+     "att_f1": 0.5555555555555556,
+     "att_acc": 0.7142857142857143,
+     "jaccard": 0.3846153846153846
+    },
+    "58": {
+     "hits": 34,
+     "accuracy": 0.5862068965517241,
+     "lift": 1.6979785969084422,
+     "p_hypergeom": 2.456792061197537e-06,
+     "recall": 0.5862068965517241,
+     "att_f1": 0.5862068965517241,
+     "att_acc": 0.7142857142857143,
+     "jaccard": 0.4146341463414634
+    }
+   }
+  },
+  {
+   "model": "catboost",
+   "pred_r2": 0.8959397168009859,
+   "auroc": 0.7021943573667713,
+   "k": {
+    "20": {
+     "hits": 18,
+     "accuracy": 0.9,
+     "lift": 2.6068965517241383,
+     "p_hypergeom": 6.902642338477305e-08,
+     "recall": 0.3103448275862069,
+     "att_f1": 0.4615384615384615,
+     "att_acc": 0.75,
+     "jaccard": 0.3
+    },
+    "42": {
+     "hits": 28,
+     "accuracy": 0.6666666666666666,
+     "lift": 1.9310344827586208,
+     "p_hypergeom": 8.248125544967908e-07,
+     "recall": 0.4827586206896552,
+     "att_f1": 0.56,
+     "att_acc": 0.7380952380952381,
+     "jaccard": 0.3888888888888889
+    },
+    "50": {
+     "hits": 28,
+     "accuracy": 0.56,
+     "lift": 1.6220689655172416,
+     "p_hypergeom": 0.0001657466987731,
+     "recall": 0.4827586206896552,
+     "att_f1": 0.5185185185185185,
+     "att_acc": 0.6904761904761905,
+     "jaccard": 0.35
+    },
+    "58": {
+     "hits": 32,
+     "accuracy": 0.5517241379310345,
+     "lift": 1.5980975029726516,
+     "p_hypergeom": 5.073036904442395e-05,
+     "recall": 0.5517241379310345,
+     "att_f1": 0.5517241379310345,
+     "att_acc": 0.6904761904761905,
+     "jaccard": 0.3809523809523809
+    }
+   }
+  },
+  {
+   "model": "svr",
+   "pred_r2": 0.862937125047153,
+   "auroc": 0.6835423197492162,
+   "k": {
+    "20": {
+     "hits": 16,
+     "accuracy": 0.8,
+     "lift": 2.317241379310345,
+     "p_hypergeom": 1.248407869482926e-05,
+     "recall": 0.2758620689655172,
+     "att_f1": 0.4102564102564102,
+     "att_acc": 0.7261904761904762,
+     "jaccard": 0.2580645161290322
+    },
+    "42": {
+     "hits": 28,
+     "accuracy": 0.6666666666666666,
+     "lift": 1.9310344827586208,
+     "p_hypergeom": 8.248125544967908e-07,
+     "recall": 0.4827586206896552,
+     "att_f1": 0.56,
+     "att_acc": 0.7380952380952381,
+     "jaccard": 0.3888888888888889
+    },
+    "50": {
+     "hits": 33,
+     "accuracy": 0.66,
+     "lift": 1.9117241379310344,
+     "p_hypergeom": 4.3695589774366495e-08,
+     "recall": 0.5689655172413793,
+     "att_f1": 0.6111111111111112,
+     "att_acc": 0.75,
+     "jaccard": 0.44
+    },
+    "58": {
+     "hits": 35,
+     "accuracy": 0.603448275862069,
+     "lift": 1.7479191438763375,
+     "p_hypergeom": 4.529900777693082e-07,
+     "recall": 0.603448275862069,
+     "att_f1": 0.603448275862069,
+     "att_acc": 0.7261904761904762,
+     "jaccard": 0.4320987654320987
+    }
+   }
+  },
+  {
+   "model": "gp",
+   "pred_r2": 0.899271353958983,
+   "auroc": 0.6984326018808779,
+   "k": {
+    "20": {
+     "hits": 18,
+     "accuracy": 0.9,
+     "lift": 2.6068965517241383,
+     "p_hypergeom": 6.902642338477305e-08,
+     "recall": 0.3103448275862069,
+     "att_f1": 0.4615384615384615,
+     "att_acc": 0.75,
+     "jaccard": 0.3
+    },
+    "42": {
+     "hits": 28,
+     "accuracy": 0.6666666666666666,
+     "lift": 1.9310344827586208,
+     "p_hypergeom": 8.248125544967908e-07,
+     "recall": 0.4827586206896552,
+     "att_f1": 0.56,
+     "att_acc": 0.7380952380952381,
+     "jaccard": 0.3888888888888889
+    },
+    "50": {
+     "hits": 30,
+     "accuracy": 0.6,
+     "lift": 1.7379310344827583,
+     "p_hypergeom": 8.925908333279344e-06,
+     "recall": 0.5172413793103449,
+     "att_f1": 0.5555555555555556,
+     "att_acc": 0.7142857142857143,
+     "jaccard": 0.3846153846153846
+    },
+    "58": {
+     "hits": 32,
+     "accuracy": 0.5517241379310345,
+     "lift": 1.5980975029726516,
+     "p_hypergeom": 5.073036904442395e-05,
+     "recall": 0.5517241379310345,
+     "att_f1": 0.5517241379310345,
+     "att_acc": 0.6904761904761905,
+     "jaccard": 0.3809523809523809
+    }
+   }
+  },
+  {
+   "model": "mlp",
+   "pred_r2": 0.8529028601991053,
+   "auroc": 0.6971786833855801,
+   "k": {
+    "20": {
+     "hits": 17,
+     "accuracy": 0.85,
+     "lift": 2.462068965517241,
+     "p_hypergeom": 1.1187137820172206e-06,
+     "recall": 0.293103448275862,
+     "att_f1": 0.4358974358974359,
+     "att_acc": 0.7380952380952381,
+     "jaccard": 0.2786885245901639
+    },
+    "42": {
+     "hits": 25,
+     "accuracy": 0.5952380952380952,
+     "lift": 1.7241379310344829,
+     "p_hypergeom": 0.0001141829328334,
+     "recall": 0.4310344827586206,
+     "att_f1": 0.5,
+     "att_acc": 0.7023809523809523,
+     "jaccard": 0.3333333333333333
+    },
+    "50": {
+     "hits": 28,
+     "accuracy": 0.56,
+     "lift": 1.6220689655172416,
+     "p_hypergeom": 0.0001657466987731,
+     "recall": 0.4827586206896552,
+     "att_f1": 0.5185185185185185,
+     "att_acc": 0.6904761904761905,
+     "jaccard": 0.35
+    },
+    "58": {
+     "hits": 31,
+     "accuracy": 0.5344827586206896,
+     "lift": 1.548156956004756,
+     "p_hypergeom": 0.0001941603889885,
+     "recall": 0.5344827586206896,
+     "att_f1": 0.5344827586206896,
+     "att_acc": 0.6785714285714286,
+     "jaccard": 0.3647058823529411
+    }
+   }
+  },
+  {
+   "model": "dl",
+   "pred_r2": 0.6663315153645153,
+   "auroc": 0.7247648902821316,
+   "k": {
+    "20": {
+     "hits": 18,
+     "accuracy": 0.9,
+     "lift": 2.6068965517241383,
+     "p_hypergeom": 6.902642338477305e-08,
+     "recall": 0.3103448275862069,
+     "att_f1": 0.4615384615384615,
+     "att_acc": 0.75,
+     "jaccard": 0.3
+    },
+    "42": {
+     "hits": 27,
+     "accuracy": 0.6428571428571429,
+     "lift": 1.862068965517241,
+     "p_hypergeom": 4.897338817157418e-06,
+     "recall": 0.4655172413793103,
+     "att_f1": 0.54,
+     "att_acc": 0.7261904761904762,
+     "jaccard": 0.3698630136986301
+    },
+    "50": {
+     "hits": 31,
+     "accuracy": 0.62,
+     "lift": 1.7958620689655174,
+     "p_hypergeom": 1.7227647551175377e-06,
+     "recall": 0.5344827586206896,
+     "att_f1": 0.5740740740740741,
+     "att_acc": 0.7261904761904762,
+     "jaccard": 0.4025974025974026
+    },
+    "58": {
+     "hits": 34,
+     "accuracy": 0.5862068965517241,
+     "lift": 1.6979785969084422,
+     "p_hypergeom": 2.456792061197537e-06,
+     "recall": 0.5862068965517241,
+     "att_f1": 0.5862068965517241,
+     "att_acc": 0.7142857142857143,
+     "jaccard": 0.4146341463414634
+    }
+   }
+  },
+  {
+   "model": "ann",
+   "pred_r2": 0.8663277237038551,
+   "auroc": 0.7040752351097179,
+   "k": {
+    "20": {
+     "hits": 17,
+     "accuracy": 0.85,
+     "lift": 2.462068965517241,
+     "p_hypergeom": 1.1187137820172206e-06,
+     "recall": 0.293103448275862,
+     "att_f1": 0.4358974358974359,
+     "att_acc": 0.7380952380952381,
+     "jaccard": 0.2786885245901639
+    },
+    "42": {
+     "hits": 26,
+     "accuracy": 0.6190476190476191,
+     "lift": 1.793103448275862,
+     "p_hypergeom": 2.5299740894744352e-05,
+     "recall": 0.4482758620689655,
+     "att_f1": 0.52,
+     "att_acc": 0.7142857142857143,
+     "jaccard": 0.3513513513513513
+    },
+    "50": {
+     "hits": 28,
+     "accuracy": 0.56,
+     "lift": 1.6220689655172416,
+     "p_hypergeom": 0.0001657466987731,
+     "recall": 0.4827586206896552,
+     "att_f1": 0.5185185185185185,
+     "att_acc": 0.6904761904761905,
+     "jaccard": 0.35
+    },
+    "58": {
+     "hits": 33,
+     "accuracy": 0.5689655172413793,
+     "lift": 1.6480380499405471,
+     "p_hypergeom": 1.1831379260468163e-05,
+     "recall": 0.5689655172413793,
+     "att_f1": 0.5689655172413793,
+     "att_acc": 0.7023809523809523,
+     "jaccard": 0.3975903614457831
+    }
+   }
+  },
+  {
+   "model": "cnn",
+   "pred_r2": 0.634516769783504,
+   "auroc": 0.6893416927899685,
+   "k": {
+    "20": {
+     "hits": 17,
+     "accuracy": 0.85,
+     "lift": 2.462068965517241,
+     "p_hypergeom": 1.1187137820172206e-06,
+     "recall": 0.293103448275862,
+     "att_f1": 0.4358974358974359,
+     "att_acc": 0.7380952380952381,
+     "jaccard": 0.2786885245901639
+    },
+    "42": {
+     "hits": 24,
+     "accuracy": 0.5714285714285714,
+     "lift": 1.6551724137931034,
+     "p_hypergeom": 0.0004518519218163,
+     "recall": 0.4137931034482758,
+     "att_f1": 0.48,
+     "att_acc": 0.6904761904761905,
+     "jaccard": 0.3157894736842105
+    },
+    "50": {
+     "hits": 28,
+     "accuracy": 0.56,
+     "lift": 1.6220689655172416,
+     "p_hypergeom": 0.0001657466987731,
+     "recall": 0.4827586206896552,
+     "att_f1": 0.5185185185185185,
+     "att_acc": 0.6904761904761905,
+     "jaccard": 0.35
+    },
+    "58": {
+     "hits": 32,
+     "accuracy": 0.5517241379310345,
+     "lift": 1.5980975029726516,
+     "p_hypergeom": 5.073036904442395e-05,
+     "recall": 0.5517241379310345,
+     "att_f1": 0.5517241379310345,
+     "att_acc": 0.6904761904761905,
+     "jaccard": 0.3809523809523809
+    }
+   }
+  },
+  {
+   "model": "transformer",
+   "pred_r2": 0.8733016635255211,
+   "auroc": 0.6835423197492163,
+   "k": {
+    "20": {
+     "hits": 18,
+     "accuracy": 0.9,
+     "lift": 2.6068965517241383,
+     "p_hypergeom": 6.902642338477305e-08,
+     "recall": 0.3103448275862069,
+     "att_f1": 0.4615384615384615,
+     "att_acc": 0.75,
+     "jaccard": 0.3
+    },
+    "42": {
+     "hits": 28,
+     "accuracy": 0.6666666666666666,
+     "lift": 1.9310344827586208,
+     "p_hypergeom": 8.248125544967908e-07,
+     "recall": 0.4827586206896552,
+     "att_f1": 0.56,
+     "att_acc": 0.7380952380952381,
+     "jaccard": 0.3888888888888889
+    },
+    "50": {
+     "hits": 31,
+     "accuracy": 0.62,
+     "lift": 1.7958620689655174,
+     "p_hypergeom": 1.7227647551175377e-06,
+     "recall": 0.5344827586206896,
+     "att_f1": 0.5740740740740741,
+     "att_acc": 0.7261904761904762,
+     "jaccard": 0.4025974025974026
+    },
+    "58": {
+     "hits": 35,
+     "accuracy": 0.603448275862069,
+     "lift": 1.7479191438763375,
+     "p_hypergeom": 4.529900777693082e-07,
+     "recall": 0.603448275862069,
+     "att_f1": 0.603448275862069,
+     "att_acc": 0.7261904761904762,
+     "jaccard": 0.4320987654320987
+    }
+   }
+  }
+ ],
+ "faith": [
+  {
+   "model_set": "all models",
+   "measure": "att_auroc",
+   "M": 10,
+   "pearson_r": -0.1565577154551026,
+   "pearson_p": 0.6658013221141719,
+   "pearson_p_one_sided": 0.6670993389429143,
+   "spearman_rho": 0.2121212121212121,
+   "spearman_p": 0.5563057751029299
+  },
+  {
+   "model_set": "all models",
+   "measure": "hits@20",
+   "M": 10,
+   "pearson_r": 0.1471795626589917,
+   "pearson_p": 0.6849286694373351,
+   "pearson_p_one_sided": 0.3424643347186675,
+   "spearman_rho": 0.6033815244679472,
+   "spearman_p": 0.0647672969935006
+  },
+  {
+   "model_set": "all models",
+   "measure": "hits@42",
+   "M": 10,
+   "pearson_r": 0.583765350920072,
+   "pearson_p": 0.0764273546758974,
+   "pearson_p_one_sided": 0.0382136773379487,
+   "spearman_rho": 0.6018567831279716,
+   "spearman_p": 0.0656287994542614
+  },
+  {
+   "model_set": "all models",
+   "measure": "hits@50",
+   "M": 10,
+   "pearson_r": 0.1245191983405973,
+   "pearson_p": 0.7317984581530625,
+   "pearson_p_one_sided": 0.3658992290765313,
+   "spearman_rho": 0.0572077553547355,
+   "spearman_p": 0.8752667870913545
+  },
+  {
+   "model_set": "all models",
+   "measure": "hits@58",
+   "M": 10,
+   "pearson_r": 0.0539853913741669,
+   "pearson_p": 0.8822505279685824,
+   "pearson_p_one_sided": 0.4411252639842912,
+   "spearman_rho": 0.0123868101150162,
+   "spearman_p": 0.9729080099355808
+  },
+  {
+   "model_set": "excl. dl, cnn",
+   "measure": "att_auroc",
+   "M": 8,
+   "pearson_r": 0.5097439814169088,
+   "pearson_p": 0.1968881918734741,
+   "pearson_p_one_sided": 0.098444095936737,
+   "spearman_rho": 0.5000000000000001,
+   "spearman_p": 0.2070312499999999
+  },
+  {
+   "model_set": "excl. dl, cnn",
+   "measure": "hits@20",
+   "M": 8,
+   "pearson_r": 0.7789845119210093,
+   "pearson_p": 0.022714129087381,
+   "pearson_p_one_sided": 0.0113570645436905,
+   "spearman_rho": 0.8247860988423227,
+   "spearman_p": 0.0117423956239039
+  },
+  {
+   "model_set": "excl. dl, cnn",
+   "measure": "hits@42",
+   "M": 8,
+   "pearson_r": 0.539797581170786,
+   "pearson_p": 0.1673018327899627,
+   "pearson_p_one_sided": 0.0836509163949813,
+   "spearman_rho": 0.4341880276029773,
+   "spearman_p": 0.2824268859109865
+  },
+  {
+   "model_set": "excl. dl, cnn",
+   "measure": "hits@50",
+   "M": 8,
+   "pearson_r": 0.0333903893400834,
+   "pearson_p": 0.9374395388595312,
+   "pearson_p_one_sided": 0.4687197694297655,
+   "spearman_rho": 0.0,
+   "spearman_p": 1.0
+  },
+  {
+   "model_set": "excl. dl, cnn",
+   "measure": "hits@58",
+   "M": 8,
+   "pearson_r": -0.0641787087793134,
+   "pearson_p": 0.8799949453712511,
+   "pearson_p_one_sided": 0.5600025273143742,
+   "spearman_rho": -0.0727392967453308,
+   "spearman_p": 0.8640941349883787
+  }
+ ],
+ "overlap50": {
+  "cols": [
+   "model",
+   "Sculcoates-City Centre-Dairycoates (of 22)",
+   "Bransholme-Sutton-Stoneferry (of 22)",
+   "Southcoates-Marfleet (of 14)",
+   "total (of 58)",
+   "share_of_model_top50_pct",
+   "in_model_top20",
+   "mean_rank_of_hits"
+  ],
+  "rows": [
+   [
+    "xgboost",
+    16,
+    11,
+    4,
+    31,
+    62.0,
+    18,
+    20.7
+   ],
+   [
+    "lightgbm",
+    17,
+    9,
+    4,
+    30,
+    60.0,
+    18,
+    20.0
+   ],
+   [
+    "catboost",
+    17,
+    8,
+    3,
+    28,
+    56.0,
+    18,
+    17.6
+   ],
+   [
+    "svr",
+    17,
+    11,
+    5,
+    33,
+    66.0,
+    16,
+    22.5
+   ],
+   [
+    "gp",
+    18,
+    8,
+    4,
+    30,
+    60.0,
+    18,
+    19.2
+   ],
+   [
+    "mlp",
+    19,
+    4,
+    5,
+    28,
+    56.0,
+    17,
+    18.6
+   ],
+   [
+    "dl",
+    18,
+    9,
+    4,
+    31,
+    62.0,
+    18,
+    20.5
+   ],
+   [
+    "ann",
+    18,
+    5,
+    5,
+    28,
+    56.0,
+    17,
+    19.7
+   ],
+   [
+    "cnn",
+    18,
+    7,
+    3,
+    28,
+    56.0,
+    17,
+    19.9
+   ],
+   [
+    "transformer",
+    16,
+    11,
+    4,
+    31,
+    62.0,
+    18,
+    19.9
+   ]
+  ]
+ },
+ "overlap42": {
+  "cols": [
+   "model",
+   "Sculcoates-City Centre-Dairycoates (of 22)",
+   "Bransholme-Sutton-Stoneferry (of 22)",
+   "Southcoates-Marfleet (of 14)",
+   "total (of 58)",
+   "share_of_model_top42_pct",
+   "in_model_top20",
+   "mean_rank_of_hits"
+  ],
+  "rows": [
+   [
+    "xgboost",
+    16,
+    8,
+    3,
+    27,
+    64.3,
+    18,
+    16.9
+   ],
+   [
+    "lightgbm",
+    16,
+    8,
+    3,
+    27,
+    64.3,
+    18,
+    17.0
+   ],
+   [
+    "catboost",
+    17,
+    8,
+    3,
+    28,
+    66.7,
+    18,
+    17.6
+   ],
+   [
+    "svr",
+    16,
+    8,
+    4,
+    28,
+    66.7,
+    16,
+    18.2
+   ],
+   [
+    "gp",
+    18,
+    6,
+    4,
+    28,
+    66.7,
+    18,
+    17.2
+   ],
+   [
+    "mlp",
+    18,
+    3,
+    4,
+    25,
+    59.5,
+    17,
+    15.2
+   ],
+   [
+    "dl",
+    18,
+    5,
+    4,
+    27,
+    64.3,
+    18,
+    16.7
+   ],
+   [
+    "ann",
+    18,
+    3,
+    5,
+    26,
+    61.9,
+    17,
+    17.5
+   ],
+   [
+    "cnn",
+    16,
+    5,
+    3,
+    24,
+    57.1,
+    17,
+    15.5
+   ],
+   [
+    "transformer",
+    16,
+    9,
+    3,
+    28,
+    66.7,
+    18,
+    17.1
+   ]
+  ]
+ },
+ "ref": [
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012788",
+   "lsoa21nm": "Kingston upon Hull 002E",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.438,
+   "lsoa_km2": 0.438,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012764",
+   "lsoa21nm": "Kingston upon Hull 005A",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.308,
+   "lsoa_km2": 0.308,
+   "models_with_lsoa_in_top50": 8,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012785",
+   "lsoa21nm": "Kingston upon Hull 002B",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.176,
+   "lsoa_km2": 0.176,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012910",
+   "lsoa21nm": "Kingston upon Hull 006D",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.123,
+   "lsoa_km2": 0.123,
+   "models_with_lsoa_in_top50": 3,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012789",
+   "lsoa21nm": "Kingston upon Hull 002F",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.358,
+   "lsoa_km2": 0.358,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012787",
+   "lsoa21nm": "Kingston upon Hull 002D",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.301,
+   "lsoa_km2": 0.301,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012912",
+   "lsoa21nm": "Kingston upon Hull 006E",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.354,
+   "lsoa_km2": 0.354,
+   "models_with_lsoa_in_top50": 9,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012790",
+   "lsoa21nm": "Kingston upon Hull 004D",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.241,
+   "lsoa_km2": 0.241,
+   "models_with_lsoa_in_top50": 1,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012905",
+   "lsoa21nm": "Kingston upon Hull 006C",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.236,
+   "lsoa_km2": 0.236,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012830",
+   "lsoa21nm": "Kingston upon Hull 006B",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.185,
+   "lsoa_km2": 0.185,
+   "models_with_lsoa_in_top50": 2,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012815",
+   "lsoa21nm": "Kingston upon Hull 013D",
+   "overlap_fraction": 0.971,
+   "inside_km2": 0.341,
+   "lsoa_km2": 0.351,
+   "models_with_lsoa_in_top50": 4,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012817",
+   "lsoa21nm": "Kingston upon Hull 016D",
+   "overlap_fraction": 0.963,
+   "inside_km2": 1.704,
+   "lsoa_km2": 1.768,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012829",
+   "lsoa21nm": "Kingston upon Hull 006A",
+   "overlap_fraction": 0.96,
+   "inside_km2": 1.082,
+   "lsoa_km2": 1.127,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012906",
+   "lsoa21nm": "Kingston upon Hull 004E",
+   "overlap_fraction": 0.95,
+   "inside_km2": 0.452,
+   "lsoa_km2": 0.476,
+   "models_with_lsoa_in_top50": 3,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012769",
+   "lsoa21nm": "Kingston upon Hull 005D",
+   "overlap_fraction": 0.948,
+   "inside_km2": 0.256,
+   "lsoa_km2": 0.27,
+   "models_with_lsoa_in_top50": 7,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012814",
+   "lsoa21nm": "Kingston upon Hull 013C",
+   "overlap_fraction": 0.792,
+   "inside_km2": 0.191,
+   "lsoa_km2": 0.241,
+   "models_with_lsoa_in_top50": 8,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012786",
+   "lsoa21nm": "Kingston upon Hull 002C",
+   "overlap_fraction": 0.719,
+   "inside_km2": 0.243,
+   "lsoa_km2": 0.338,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012778",
+   "lsoa21nm": "Kingston upon Hull 004A",
+   "overlap_fraction": 0.653,
+   "inside_km2": 0.142,
+   "lsoa_km2": 0.217,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012818",
+   "lsoa21nm": "Kingston upon Hull 013E",
+   "overlap_fraction": 0.567,
+   "inside_km2": 0.182,
+   "lsoa_km2": 0.322,
+   "models_with_lsoa_in_top50": 1,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012765",
+   "lsoa21nm": "Kingston upon Hull 005B",
+   "overlap_fraction": 0.566,
+   "inside_km2": 0.133,
+   "lsoa_km2": 0.235,
+   "models_with_lsoa_in_top50": 9,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012907",
+   "lsoa21nm": "Kingston upon Hull 007C",
+   "overlap_fraction": 0.539,
+   "inside_km2": 0.165,
+   "lsoa_km2": 0.305,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "lsoa21cd": "E01012813",
+   "lsoa21nm": "Kingston upon Hull 013B",
+   "overlap_fraction": 0.536,
+   "inside_km2": 0.225,
+   "lsoa_km2": 0.421,
+   "models_with_lsoa_in_top50": 8,
+   "expert_top20": 0
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01035466",
+   "lsoa21nm": "Kingston upon Hull 029H",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.424,
+   "lsoa_km2": 0.424,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 0
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012761",
+   "lsoa21nm": "Kingston upon Hull 015A",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.278,
+   "lsoa_km2": 0.278,
+   "models_with_lsoa_in_top50": 8,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012852",
+   "lsoa21nm": "Kingston upon Hull 024B",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.391,
+   "lsoa_km2": 0.391,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012850",
+   "lsoa21nm": "Kingston upon Hull 024A",
+   "overlap_fraction": 1.0,
+   "inside_km2": 0.175,
+   "lsoa_km2": 0.175,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 0
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012857",
+   "lsoa21nm": "Kingston upon Hull 024D",
+   "overlap_fraction": 0.994,
+   "inside_km2": 0.279,
+   "lsoa_km2": 0.281,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 0
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012872",
+   "lsoa21nm": "Kingston upon Hull 015E",
+   "overlap_fraction": 0.958,
+   "inside_km2": 0.161,
+   "lsoa_km2": 0.168,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012891",
+   "lsoa21nm": "Kingston upon Hull 030C",
+   "overlap_fraction": 0.874,
+   "inside_km2": 0.213,
+   "lsoa_km2": 0.244,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01033104",
+   "lsoa21nm": "Kingston upon Hull 029E",
+   "overlap_fraction": 0.853,
+   "inside_km2": 0.573,
+   "lsoa_km2": 0.672,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012892",
+   "lsoa21nm": "Kingston upon Hull 030D",
+   "overlap_fraction": 0.833,
+   "inside_km2": 0.187,
+   "lsoa_km2": 0.224,
+   "models_with_lsoa_in_top50": 5,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012855",
+   "lsoa21nm": "Kingston upon Hull 029D",
+   "overlap_fraction": 0.73,
+   "inside_km2": 0.34,
+   "lsoa_km2": 0.466,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012763",
+   "lsoa21nm": "Kingston upon Hull 018C",
+   "overlap_fraction": 0.695,
+   "inside_km2": 0.207,
+   "lsoa_km2": 0.298,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012868",
+   "lsoa21nm": "Kingston upon Hull 015B",
+   "overlap_fraction": 0.674,
+   "inside_km2": 0.102,
+   "lsoa_km2": 0.151,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012869",
+   "lsoa21nm": "Kingston upon Hull 015C",
+   "overlap_fraction": 0.48,
+   "inside_km2": 0.082,
+   "lsoa_km2": 0.17,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 0
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01035468",
+   "lsoa21nm": "Kingston upon Hull 031I",
+   "overlap_fraction": 0.475,
+   "inside_km2": 0.092,
+   "lsoa_km2": 0.194,
+   "models_with_lsoa_in_top50": 2,
+   "expert_top20": 0
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012854",
+   "lsoa21nm": "Kingston upon Hull 029C",
+   "overlap_fraction": 0.439,
+   "inside_km2": 0.373,
+   "lsoa_km2": 0.849,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012867",
+   "lsoa21nm": "Kingston upon Hull 024E",
+   "overlap_fraction": 0.406,
+   "inside_km2": 0.238,
+   "lsoa_km2": 0.587,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01033109",
+   "lsoa21nm": "Kingston upon Hull 029F",
+   "overlap_fraction": 0.363,
+   "inside_km2": 0.199,
+   "lsoa_km2": 0.549,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 0
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012889",
+   "lsoa21nm": "Kingston upon Hull 030B",
+   "overlap_fraction": 0.33,
+   "inside_km2": 0.643,
+   "lsoa_km2": 1.946,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01035465",
+   "lsoa21nm": "Kingston upon Hull 029G",
+   "overlap_fraction": 0.326,
+   "inside_km2": 0.112,
+   "lsoa_km2": 0.342,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 0
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012757",
+   "lsoa21nm": "Kingston upon Hull 025B",
+   "overlap_fraction": 0.269,
+   "inside_km2": 0.084,
+   "lsoa_km2": 0.313,
+   "models_with_lsoa_in_top50": 9,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012856",
+   "lsoa21nm": "Kingston upon Hull 024C",
+   "overlap_fraction": 0.207,
+   "inside_km2": 0.104,
+   "lsoa_km2": 0.502,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 1
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "lsoa21cd": "E01012871",
+   "lsoa21nm": "Kingston upon Hull 015D",
+   "overlap_fraction": 0.167,
+   "inside_km2": 0.102,
+   "lsoa_km2": 0.609,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 1
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01012902",
+   "lsoa21nm": "Kingston upon Hull 022D",
+   "overlap_fraction": 0.96,
+   "inside_km2": 0.156,
+   "lsoa_km2": 0.163,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01035464",
+   "lsoa21nm": "Kingston upon Hull 017G",
+   "overlap_fraction": 0.826,
+   "inside_km2": 0.694,
+   "lsoa_km2": 0.84,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 0
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01012901",
+   "lsoa21nm": "Kingston upon Hull 020E",
+   "overlap_fraction": 0.809,
+   "inside_km2": 0.146,
+   "lsoa_km2": 0.181,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01012843",
+   "lsoa21nm": "Kingston upon Hull 021B",
+   "overlap_fraction": 0.696,
+   "inside_km2": 0.55,
+   "lsoa_km2": 0.79,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 0
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01012846",
+   "lsoa21nm": "Kingston upon Hull 021D",
+   "overlap_fraction": 0.67,
+   "inside_km2": 0.233,
+   "lsoa_km2": 0.348,
+   "models_with_lsoa_in_top50": 1,
+   "expert_top20": 0
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01012903",
+   "lsoa21nm": "Kingston upon Hull 022E",
+   "overlap_fraction": 0.582,
+   "inside_km2": 0.088,
+   "lsoa_km2": 0.152,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01012847",
+   "lsoa21nm": "Kingston upon Hull 021E",
+   "overlap_fraction": 0.55,
+   "inside_km2": 0.102,
+   "lsoa_km2": 0.186,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01012896",
+   "lsoa21nm": "Kingston upon Hull 020D",
+   "overlap_fraction": 0.407,
+   "inside_km2": 0.149,
+   "lsoa_km2": 0.367,
+   "models_with_lsoa_in_top50": 1,
+   "expert_top20": 0
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01012894",
+   "lsoa21nm": "Kingston upon Hull 020C",
+   "overlap_fraction": 0.398,
+   "inside_km2": 0.188,
+   "lsoa_km2": 0.471,
+   "models_with_lsoa_in_top50": 5,
+   "expert_top20": 1
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01012807",
+   "lsoa21nm": "Kingston upon Hull 016C",
+   "overlap_fraction": 0.313,
+   "inside_km2": 0.095,
+   "lsoa_km2": 0.305,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01012899",
+   "lsoa21nm": "Kingston upon Hull 022B",
+   "overlap_fraction": 0.266,
+   "inside_km2": 0.062,
+   "lsoa_km2": 0.232,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 1
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01012820",
+   "lsoa21nm": "Kingston upon Hull 022A",
+   "overlap_fraction": 0.229,
+   "inside_km2": 0.04,
+   "lsoa_km2": 0.176,
+   "models_with_lsoa_in_top50": 4,
+   "expert_top20": 0
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01012844",
+   "lsoa21nm": "Kingston upon Hull 017B",
+   "overlap_fraction": 0.203,
+   "inside_km2": 0.039,
+   "lsoa_km2": 0.19,
+   "models_with_lsoa_in_top50": 0,
+   "expert_top20": 0
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "lsoa21cd": "E01012848",
+   "lsoa21nm": "Kingston upon Hull 020B",
+   "overlap_fraction": 0.031,
+   "inside_km2": 0.182,
+   "lsoa_km2": 5.831,
+   "models_with_lsoa_in_top50": 10,
+   "expert_top20": 0
+  }
+ ],
+ "ref_summary": [
+  {
+   "region": "Bransholme-Sutton-Stoneferry",
+   "n": 22,
+   "exp": 0,
+   "all10": 2
+  },
+  {
+   "region": "Sculcoates-City Centre-Dairycoates",
+   "n": 22,
+   "exp": 15,
+   "all10": 15
+  },
+  {
+   "region": "Southcoates-Marfleet",
+   "n": 14,
+   "exp": 2,
+   "all10": 3
+  }
+ ],
+ "ref_meta": {
+  "n": 58,
+  "n_all": 168,
+  "chance": 0.34523809523809523,
+  "expert_top20_inside": 17,
+  "ks": [
+   20,
+   42,
+   50,
+   58
+  ],
+  "expected_hits": {
+   "20": 6.904761904761905,
+   "42": 14.5,
+   "50": 17.261904761904763,
+   "58": 20.023809523809526
+  },
+  "max_p": [
+   0.0004518519218163,
+   "cnn",
+   42
+  ]
+ },
+ "xgb_facts": {
+  "by_region": {
+   "20": {
+    "Sculcoates-City Centre-Dairycoates": 13,
+    "Southcoates-Marfleet": 3,
+    "Bransholme-Sutton-Stoneferry": 2
+   },
+   "42": {
+    "Sculcoates-City Centre-Dairycoates": 16,
+    "Bransholme-Sutton-Stoneferry": 8,
+    "Southcoates-Marfleet": 3
+   }
+  },
+  "top20_misses": [
+   [
+    6,
+    "E01012805"
+   ],
+   [
+    13,
+    "E01012809"
+   ]
+  ],
+  "lowest_ref_ranks": [
+   150,
+   151,
+   155,
+   160,
+   163,
+   165
+  ]
+ },
+ "xgb": {
+  "fidelity": {
+   "R2": 0.9483618579283803,
+   "Weighted R2": 0.9461329443085625,
+   "MAE": 0.7848536511600392,
+   "WMAE": 0.8007069141265192,
+   "RMSE": 1.3550068947375022,
+   "WRMSE": 1.400089999982989,
+   "best_kernel": "inverse",
+   "validation_r2_by_kernel": {
+    "rbf": 0.9281603760934529,
+    "laplace": 0.9390186584917277,
+    "inverse": 0.9414648261853955
+   },
+   "n_masks": 4000,
+   "n_test": 800
+  },
+  "faithfulness": {
+   "k": 20,
+   "top_response": 37.83537204265594,
+   "bottom_response": 1.4152841448783873,
+   "random_mean": 11.61426926152408,
+   "random_ci95_low": 7.12320425838232,
+   "random_ci95_high": 21.36254917249084,
+   "top_minus_random": 26.22110278113186,
+   "top_minus_bottom": 36.420087897777556,
+   "empirical_p_top_vs_random": 0.000999000999000999,
+   "n_random": 1000
+  },
+  "stability": {
+   "kernel_fixed": null,
+   "directions": {
+    "north": {
+     "lsoa21cd": "E01012953",
+     "jaccard": 1.0,
+     "spearman": 0.9997823457058834,
+     "top20_retained": 20,
+     "added_rank": 82,
+     "added_coefficient": -0.39006650001441867,
+     "added_in_top20": false
+    },
+    "east": {
+     "lsoa21cd": "E01013094",
+     "jaccard": 1.0,
+     "spearman": 0.9997823457058834,
+     "top20_retained": 20,
+     "added_rank": 57,
+     "added_coefficient": -0.11150388648269337,
+     "added_in_top20": false
+    },
+    "south": {
+     "lsoa21cd": "E01013009",
+     "jaccard": 1.0,
+     "spearman": 0.9997722222503432,
+     "top20_retained": 20,
+     "added_rank": 101,
+     "added_coefficient": -0.6936289636066972,
+     "added_in_top20": false
+    },
+    "west": {
+     "lsoa21cd": "E01013112",
+     "jaccard": 1.0,
+     "spearman": 0.9997823457058834,
+     "top20_retained": 20,
+     "added_rank": 53,
+     "added_coefficient": -0.06500077171093076,
+     "added_in_top20": false
+    }
+   },
+   "jaccard_mean": 1.0,
+   "spearman_mean": 0.9997798148419983
+  },
+  "consistency": {
+   "seeds": [
+    100,
+    101,
+    102,
+    103,
+    104
+   ],
+   "mean_variance": 0.01536467136860494,
+   "median_variance": 0.010869684650719753,
+   "mean_sd": 0.11045366362232943,
+   "median_sd": 0.1042571739442961,
+   "max_sd": 0.6506939181142203,
+   "max_sd_lsoa": "E01033104",
+   "max_sd_lsoa_name": "Kingston upon Hull 029E",
+   "max_sd_lsoa_mean_coefficient": 22.97606848981995,
+   "max_sd_pct_of_mean": 2.8320507418513503,
+   "rank_spearman_mean": 0.9634948193216273,
+   "score_pearson_mean": 0.997200874311862,
+   "top20pct_jaccard_mean": 0.7728397223134065
+  }
+ },
+ "nsweep": [
+  {
+   "N": 1000,
+   "fidelity_r2": 0.9308932799497418,
+   "fidelity_weighted_r2": 0.9296722749911992,
+   "accuracy_overlap": 10,
+   "att_auroc": 0.7371621621621621,
+   "faithfulness_top_minus_random": 25.90425582650005,
+   "faithfulness_p": 0.0009990009990009,
+   "stability_jaccard": 1.0,
+   "stability_spearman": 0.9990604167826648,
+   "consistency_mean_variance": 0.0596926846775145,
+   "consistency_mean_sd": 0.2262524423166647,
+   "consistency_rank_spearman": 0.877357626252145
+  },
+  {
+   "N": 2000,
+   "fidelity_r2": 0.9231413443961368,
+   "fidelity_weighted_r2": 0.9365255493818404,
+   "accuracy_overlap": 9,
+   "att_auroc": 0.720945945945946,
+   "faithfulness_top_minus_random": 26.127158906751863,
+   "faithfulness_p": 0.0009990009990009,
+   "stability_jaccard": 1.0,
+   "stability_spearman": 0.9996355556005488,
+   "consistency_mean_variance": 0.0250977105080217,
+   "consistency_mean_sd": 0.1493115612716484,
+   "consistency_rank_spearman": 0.934058341474279
+  },
+  {
+   "N": 3000,
+   "fidelity_r2": 0.9439596598877832,
+   "fidelity_weighted_r2": 0.9413913941001576,
+   "accuracy_overlap": 9,
+   "att_auroc": 0.7297297297297297,
+   "faithfulness_top_minus_random": 26.385826520133016,
+   "faithfulness_p": 0.0009990009990009,
+   "stability_jaccard": 1.0,
+   "stability_spearman": 0.999684907446308,
+   "consistency_mean_variance": 0.0194629703317157,
+   "consistency_mean_sd": 0.1231970131450502,
+   "consistency_rank_spearman": 0.9524799935209884
+  },
+  {
+   "N": 4000,
+   "fidelity_r2": 0.9483618579283803,
+   "fidelity_weighted_r2": 0.9461329443085624,
+   "accuracy_overlap": 9,
+   "att_auroc": 0.7250000000000001,
+   "faithfulness_top_minus_random": 26.22110278113186,
+   "faithfulness_p": 0.0009990009990009,
+   "stability_jaccard": 1.0,
+   "stability_spearman": 0.9997798148419984,
+   "consistency_mean_variance": 0.0153646713686049,
+   "consistency_mean_sd": 0.1104536636223294,
+   "consistency_rank_spearman": 0.9634948193216272
+  },
+  {
+   "N": 5000,
+   "fidelity_r2": 0.9418024151542806,
+   "fidelity_weighted_r2": 0.9426899989571966,
+   "accuracy_overlap": 9,
+   "att_auroc": 0.7304054054054054,
+   "faithfulness_top_minus_random": 26.312439490363,
+   "faithfulness_p": 0.0009990009990009,
+   "stability_jaccard": 1.0,
+   "stability_spearman": 0.999812083356533,
+   "consistency_mean_variance": 0.0181420168607351,
+   "consistency_mean_sd": 0.1106048452188284,
+   "consistency_rank_spearman": 0.9681723619540294
+  },
+  {
+   "N": 7500,
+   "fidelity_r2": 0.9421304397439118,
+   "fidelity_weighted_r2": 0.9427601927039004,
+   "accuracy_overlap": 9,
+   "att_auroc": 0.7422297297297298,
+   "faithfulness_top_minus_random": 26.28352673091888,
+   "faithfulness_p": 0.0009990009990009,
+   "stability_jaccard": 1.0,
+   "stability_spearman": 0.9998930710008556,
+   "consistency_mean_variance": 0.0083080286857614,
+   "consistency_mean_sd": 0.083315066501923,
+   "consistency_rank_spearman": 0.9779007496418832
+  },
+  {
+   "N": 10000,
+   "fidelity_r2": 0.9459294994225144,
+   "fidelity_weighted_r2": 0.9456319852757722,
+   "accuracy_overlap": 9,
+   "att_auroc": 0.7364864864864864,
+   "faithfulness_top_minus_random": 26.24391643674373,
+   "faithfulness_p": 0.0009990009990009,
+   "stability_jaccard": 1.0,
+   "stability_spearman": 0.9998177778002746,
+   "consistency_mean_variance": 0.0058353404707767,
+   "consistency_mean_sd": 0.0697372644167949,
+   "consistency_rank_spearman": 0.983425119330232
+  }
+ ],
+ "cons_top10": [
+  {
+   "rank_by_mean": 1,
+   "lsoa21cd": "E01033104",
+   "mean_coefficient": 22.97606848981995,
+   "sd": 0.6506939181142203,
+   "variance": 0.4234025750708355,
+   "sd_pct_of_abs_mean": 2.8320507418513503,
+   "expert_region": 1
+  },
+  {
+   "rank_by_mean": 2,
+   "lsoa21cd": "E01012889",
+   "mean_coefficient": 7.070145383296994,
+   "sd": 0.1034976031942034,
+   "variance": 0.0107117538669447,
+   "sd_pct_of_abs_mean": 1.463868104306785,
+   "expert_region": 1
+  },
+  {
+   "rank_by_mean": 3,
+   "lsoa21cd": "E01012854",
+   "mean_coefficient": 4.393848523165581,
+   "sd": 0.1159853563175726,
+   "variance": 0.0134526028801142,
+   "sd_pct_of_abs_mean": 2.639721321890498,
+   "expert_region": 1
+  },
+  {
+   "rank_by_mean": 4,
+   "lsoa21cd": "E01012871",
+   "mean_coefficient": 4.337951743148855,
+   "sd": 0.0418975684640707,
+   "variance": 0.0017554062432014,
+   "sd_pct_of_abs_mean": 0.965837587525994,
+   "expert_region": 1
+  },
+  {
+   "rank_by_mean": 5,
+   "lsoa21cd": "E01012852",
+   "mean_coefficient": 4.216008877142901,
+   "sd": 0.0704712165846455,
+   "variance": 0.00496619236692,
+   "sd_pct_of_abs_mean": 1.6715149004240792,
+   "expert_region": 1
+  },
+  {
+   "rank_by_mean": 6,
+   "lsoa21cd": "E01012848",
+   "mean_coefficient": 3.406101993521544,
+   "sd": 0.0576001038835257,
+   "variance": 0.0033177719673929,
+   "sd_pct_of_abs_mean": 1.69108570421796,
+   "expert_region": 1
+  },
+  {
+   "rank_by_mean": 7,
+   "lsoa21cd": "E01012805",
+   "mean_coefficient": 3.392646123467395,
+   "sd": 0.0767007027326309,
+   "variance": 0.0058829977996794,
+   "sd_pct_of_abs_mean": 2.2607929015078154,
+   "expert_region": 0
+  },
+  {
+   "rank_by_mean": 8,
+   "lsoa21cd": "E01012763",
+   "mean_coefficient": 3.168787398178044,
+   "sd": 0.140451408164753,
+   "variance": 0.019726598055462,
+   "sd_pct_of_abs_mean": 4.432339267869732,
+   "expert_region": 1
+  },
+  {
+   "rank_by_mean": 9,
+   "lsoa21cd": "E01012855",
+   "mean_coefficient": 2.967963074201204,
+   "sd": 0.1280300792934656,
+   "variance": 0.0163917012038911,
+   "sd_pct_of_abs_mean": 4.313735585403925,
+   "expert_region": 1
+  },
+  {
+   "rank_by_mean": 10,
+   "lsoa21cd": "E01012787",
+   "mean_coefficient": 2.614972114937572,
+   "sd": 0.1339138135914164,
+   "variance": 0.0179329094705966,
+   "sd_pct_of_abs_mean": 5.121041743675092,
+   "expert_region": 1
+  }
+ ],
+ "cons_groups": [
+  {
+   "group": "Top 20 (by mean coefficient)",
+   "n": 20,
+   "mean_var": 0.03051324226967126,
+   "mean_sd": 0.1216726977986247,
+   "median_sd": 0.0960265739876438,
+   "max_sd": 0.6506939181142203,
+   "med_rel": 3.622079716901186
+  },
+  {
+   "group": "Top 42",
+   "n": 42,
+   "mean_var": 0.022003270844715643,
+   "mean_sd": 0.11735606530802742,
+   "median_sd": 0.1106309647266901,
+   "max_sd": 0.6506939181142203,
+   "med_rel": 12.717152709763983
+  },
+  {
+   "group": "Ranks 43\u2013168",
+   "n": 126,
+   "mean_var": 0.01315180487656797,
+   "mean_sd": 0.10815286306043005,
+   "median_sd": 0.10288251261455506,
+   "max_sd": 0.2466575106228506,
+   "med_rel": 15.375493966614691
+  },
+  {
+   "group": "Expert-region LSOAs",
+   "n": 58,
+   "mean_var": 0.017576606687951565,
+   "mean_sd": 0.10704906356133229,
+   "median_sd": 0.09454717448608144,
+   "max_sd": 0.6506939181142203,
+   "med_rel": 12.109167203883635
+  },
+  {
+   "group": "Other LSOAs",
+   "n": 110,
+   "mean_var": 0.014198378200222095,
+   "mean_sd": 0.11224881638176426,
+   "median_sd": 0.11096550546217016,
+   "max_sd": 0.2466575106228506,
+   "med_rel": 16.498590181701474
+  },
+  {
+   "group": "All LSOAs",
+   "n": 168,
+   "mean_var": 0.015364671368604891,
+   "mean_sd": 0.11045366362232939,
+   "median_sd": 0.10425717394429604,
+   "max_sd": 0.6506939181142203,
+   "med_rel": 15.375493966614691
+  }
+ ],
+ "images": {
+  "regions.jpg": [
+   1600,
+   1087
+  ],
+  "top50_panel.jpg": [
+   1800,
+   1130
+  ],
+  "faithfulness.jpg": [
+   1800,
+   547
+  ],
+  "xgb_top50.jpg": [
+   1200,
+   1215
+  ]
+ }
+}

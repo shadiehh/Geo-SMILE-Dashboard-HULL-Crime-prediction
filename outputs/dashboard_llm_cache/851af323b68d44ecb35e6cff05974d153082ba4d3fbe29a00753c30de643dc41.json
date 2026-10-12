@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "In Hull overall, GeoSensitivity shows modest positive spatial clustering with Moran\u2019s I of 0.044 (p = 0.027), including seven areas of high GeoSensitivity near others like them. GeoSensitivity values vary widely, with a maximum absolute of about 24.2 but a mean absolute of 0.86, indicating varied geographic influence. The dominant local feature across most areas is \"Crime roll mean 6,\" suggesting it\u2019s worth examining further. Pattern scale is not established.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-10T21:08:15.096858+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 7668,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 100,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 7768
+  },
+  "prompt_version": "geosmile-hull-v5"
+}

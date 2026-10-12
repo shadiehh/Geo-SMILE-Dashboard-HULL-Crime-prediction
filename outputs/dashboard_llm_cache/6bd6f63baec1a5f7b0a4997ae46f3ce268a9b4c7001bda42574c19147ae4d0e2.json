@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "Recent crime-history variables like six-month and three-month rolling means dominate the model signals worth closer review across Hull, with \"Crime roll mean 6\" being the strongest operational feature. The selected LSOA, Kingston upon Hull 029C, shows the same top feature pattern and has a moderate GeoSensitivity value ranked 4th out of 168, indicating its geographic influence is notable though not exceptionally high. This area forms part of a High\u2013High spatial cluster in GeoSensitivity, which is statistically confirmed, meaning it is spatially close to other areas with similar model sensitivity. Its latitude and longitude effects are small and negative, distinct from GeoSensitivity. Nearby areas and spatial anomaly evidence are not available. The explanation exhibits strong stability and faithfulness in evaluation.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-27T23:46:32.199111+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 11479,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 153,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 11632
+  },
+  "prompt_version": "geosmile-hull-v6"
+}

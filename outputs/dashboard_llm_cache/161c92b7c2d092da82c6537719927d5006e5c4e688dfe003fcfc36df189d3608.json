@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "The Geo branch\u2019s GeoSensitivity in Hull reaches a maximum absolute value of **23.1**, with the selected LSOA \u201cKingston upon Hull 029C\u201d ranking 4th at 2.32, classified as a moderate magnitude and part of a statistically significant high\u2013high spatial cluster of GeoSensitivity. Latitude and longitude effects for this area are small and negative, around -0.10 and -0.16 respectively, indicating they are distinct and weaker than GeoSensitivity. The dominant local non-location feature is \"Crime roll mean 6\" with a large negative coefficient of -23.6, consistent with the global ranking where it holds first place overall. The global spatial pattern shows positive but modest clustering of GeoSensitivity (Moran's I **0.044**, p=0.029), with seven LSOAs in high\u2013high clusters. Explanation robustness is strong, with Geo branch surrogate fidelity around 0.94 and stable ATT Jaccard scores of 1.0 for both features and geography. Limitations include non-causal interpretation, no established pattern scale, and absent multiple-comparison-adjusted LISA p-values.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-27T23:53:53.351757+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 11483,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 233,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 11716
+  },
+  "prompt_version": "geosmile-hull-v6"
+}

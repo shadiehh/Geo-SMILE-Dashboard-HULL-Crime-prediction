@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "The model\u2019s GeoSensitivity across Hull shows generally low geographic influence, with absolute values mostly modest (mean ~0.86). Spatial analysis found some small clusters of similar GeoSensitivity patterns, but no large-scale regional grouping is established. Latitude and longitude effects are separate and not detailed here. Evaluation indicates the explanations are stable and fairly accurate, but these results do not imply geography causes crime and have known limitations.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-10T21:08:23.592062+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 7670,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 82,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 7752
+  },
+  "prompt_version": "geosmile-hull-v5"
+}

@@ -24,6 +24,10 @@ from dashboard.data.schema import (
     GEO_ABS,
     GEO_CONSISTENCY_CSV,
     GEO_CSV,
+    GEO_DESIGN,
+    GEO_DESIGN_N,
+    GEO_METRICS_JSON,
+    GEO_RANK_FIELD,
     GEO_SIGNED,
     GEO_TERTILE,
     LISA_CLASS,
@@ -35,6 +39,7 @@ from dashboard.data.schema import (
     LOCATION_LOCAL_CSV,
     LSOA_ID,
     LSOA_NAME,
+    PLACE_NAMES_CSV,
     TWOBRANCH_SUMMARY_JSON,
     human_label,
     is_location_feature,
@@ -85,7 +90,7 @@ def _json_safe(value):
 def top_features_for_lsoa(
     local_features: pd.DataFrame,
     lsoa_id: str,
-    k: int = 10,
+    k: int | None = 10,
 ) -> list[dict]:
     """Rank non-location local SMILE coefficients by absolute magnitude."""
     row = local_features.loc[local_features[LSOA_ID].astype(str) == str(lsoa_id)]
@@ -174,13 +179,19 @@ def load_hull_bundle(root: Path | None = None) -> HullBundle:
     global_loc = pd.read_csv(root / FEATURE_GLOBAL_WITH_LOCATION_CSV)
     pattern = json.loads((root / LISA_JSON).read_text(encoding="utf-8"))
     area = pd.read_csv(root / AREA_CSV)[[LSOA_ID, AREA_FIELD]]
+    places = pd.read_csv(root / PLACE_NAMES_CSV).fillna("")
     boundaries = gpd.read_file(root / BOUNDARIES_GEOJSON)
 
-    for frame in (geo, loc, lisa, local_feat, published_local, area):
+    for frame in (geo, loc, lisa, local_feat, published_local, area, places):
         frame[LSOA_ID] = frame[LSOA_ID].astype(str)
     boundaries[LSOA_ID] = boundaries[LSOA_ID].astype(str)
 
-    geo = geo.sort_values(GEO_ABS, ascending=False, kind="mergesort").reset_index(drop=True)
+    if LSOA_NAME not in geo.columns:
+        geo = geo.merge(places[[LSOA_ID, LSOA_NAME]], on=LSOA_ID, how="left", validate="one_to_one")
+    if GEO_ABS not in geo.columns:
+        geo[GEO_ABS] = geo[GEO_SIGNED].abs()
+    # Area-data design ranks by the signed coefficient (rank 1 = most sensitive).
+    geo = geo.sort_values(GEO_RANK_FIELD, ascending=False, kind="mergesort").reset_index(drop=True)
     geo["geo_rank"] = np.arange(1, len(geo) + 1)
 
     clusters = _cluster_lookup(pattern)
@@ -217,6 +228,12 @@ def load_hull_bundle(root: Path | None = None) -> HullBundle:
         validate="one_to_one",
     )
     lsoa = lsoa.merge(area, on=LSOA_ID, how="left", validate="one_to_one")
+    lsoa = lsoa.merge(
+        places[[LSOA_ID, "locality_label", "nearby_localities", "major_streets"]],
+        on=LSOA_ID,
+        how="left",
+        validate="one_to_one",
+    )
     lsoa["cluster_id"] = lsoa[LSOA_ID].map(lambda c: (clusters.get(c) or {}).get("cluster_id"))
     lsoa["cluster_kind"] = lsoa[LSOA_ID].map(lambda c: (clusters.get(c) or {}).get("cluster_kind"))
     lsoa["cluster_size"] = lsoa[LSOA_ID].map(lambda c: (clusters.get(c) or {}).get("cluster_size"))
@@ -246,8 +263,10 @@ def load_hull_bundle(root: Path | None = None) -> HullBundle:
         "spatial_clustering": str(LISA_CSV),
         "boundaries": str(BOUNDARIES_GEOJSON),
         "feature_consistency": str(FEATURE_CONSISTENCY_CSV),
-        "geo_consistency": str(GEO_CONSISTENCY_CSV),
+        "geo_metrics": str(GEO_METRICS_JSON),
+        "place_names": str(PLACE_NAMES_CSV),
     }
+    diagnostics["geo_design"] = GEO_DESIGN
 
     evaluation = {
         "v3": json.loads((root / EVAL_V3_JSON).read_text(encoding="utf-8"))
@@ -263,6 +282,9 @@ def load_hull_bundle(root: Path | None = None) -> HullBundle:
             "feature": _consistency_from_csv(root / FEATURE_CONSISTENCY_CSV),
             "geo": _consistency_from_csv(root / GEO_CONSISTENCY_CSV),
         },
+        "geo_area_data": json.loads((root / GEO_METRICS_JSON).read_text(encoding="utf-8"))
+        if (root / GEO_METRICS_JSON).exists()
+        else {},
     }
 
     feature_names = [
@@ -343,6 +365,34 @@ def compact_evaluation(evaluation: dict) -> dict:
             "feature": feat_c or None,
             "geo": geo_c or None,
         }
+    geo_ad = evaluation.get("geo_area_data") or {}
+    if geo_ad:
+        cons = geo_ad.get("consistency") or {}
+        faith_ad = geo_ad.get("faithfulness") or {}
+        stab = geo_ad.get("stability") or {}
+        out["geo_design"] = {
+            "name": GEO_DESIGN,
+            "definition": (
+                "Area-data design: masking an LSOA replaces ALL of its model inputs "
+                "with the training median; response is Wasserstein-1 on the affected "
+                "LSOA-month predictions of the 30-feature model; LSOAs ranked by the "
+                "signed Geo-SMILE coefficient."
+            ),
+            "n_perturbations": geo_ad.get("n", GEO_DESIGN_N),
+        }
+        out["geo_surrogate_test_r2"] = _json_safe((geo_ad.get("smile_diagnostics") or {}).get("test_r2"))
+        out["geo_fidelity_r2"] = _json_safe((geo_ad.get("fidelity") or {}).get("R2"))
+        out["geo_att_stability_jaccard_mean"] = _json_safe(stab.get("jaccard_mean"))
+        out["geo_att_stability_spearman_mean"] = _json_safe(stab.get("spearman_mean"))
+        out["att_stability_geo_jaccard"] = _json_safe(stab.get("jaccard_mean"))
+        out["geo_holdout_r2"] = None  # Geo branch now explains the Feature model
+        if cons:
+            out.setdefault("consistency", {})["geo"] = {
+                "rank_spearman_mean": _json_safe(cons.get("rank_spearman_mean")),
+                "score_pearson_mean": _json_safe(cons.get("score_pearson_mean")),
+                "top20pct_jaccard_mean": _json_safe(cons.get("top20pct_jaccard_mean")),
+                "seeds": cons.get("seeds"),
+            }
     faith = v3.get("model_based_attribution_faithfulness") or {}
     if faith.get("feature"):
         out["feature_faithfulness_top_minus_random"] = _json_safe(
@@ -351,7 +401,10 @@ def compact_evaluation(evaluation: dict) -> dict:
         out["feature_faithfulness_empirical_p"] = _json_safe(
             faith["feature"].get("empirical_p_top_vs_random")
         )
-    if faith.get("geo"):
+    if geo_ad.get("faithfulness"):
+        out["geo_faithfulness_top_minus_random"] = _json_safe(faith_ad.get("top_minus_random"))
+        out["geo_faithfulness_empirical_p"] = _json_safe(faith_ad.get("empirical_p_top_vs_random"))
+    elif faith.get("geo"):
         out["geo_faithfulness_top_minus_random"] = _json_safe(
             faith["geo"].get("top_minus_random")
         )

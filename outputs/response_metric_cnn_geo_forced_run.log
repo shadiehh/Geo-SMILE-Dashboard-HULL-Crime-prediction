@@ -1,0 +1,29 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788651952.030315    2560 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788651955.467068    2560 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[cnn] FORCED: running both branches regardless of R2 guard (Feature=0.844, Geo=0.661)
+
+=== [cnn] === Feature: SKIPPED, Geo: run
+I0000 00:00:1788651956.421315    2560 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[cnn] Geo pool (n=2000, all 3 response metrics)...
+[cnn] Geo(n=2000)/wasserstein: R2=0.9203 MAE=0.6812 RMSE=1.0238
+[cnn] Geo(n=2000)/l1_mean_abs_diff: R2=0.9203 MAE=0.6812 RMSE=1.0238
+[cnn] Geo(n=2000)/l2_mean_sq_diff: R2=0.9174 MAE=39.6283 RMSE=78.2695
+[cnn] Geo pool (n=4000, all 3 response metrics)...
+[cnn] Geo(n=4000)/wasserstein: R2=0.9433 MAE=0.5369 RMSE=0.8245
+[cnn] Geo(n=4000)/l1_mean_abs_diff: R2=0.9433 MAE=0.5369 RMSE=0.8245
+[cnn] Geo(n=4000)/l2_mean_sq_diff: R2=0.9471 MAE=29.6702 RMSE=62.9298
+[cnn] Geo pool (n=6000, all 3 response metrics)...
+[cnn] Geo(n=6000)/wasserstein: R2=0.9475 MAE=0.5201 RMSE=0.7709
+[cnn] Geo(n=6000)/l1_mean_abs_diff: R2=0.9475 MAE=0.5201 RMSE=0.7709
+[cnn] Geo(n=6000)/l2_mean_sq_diff: R2=0.9487 MAE=27.4990 RMSE=54.5468
+[cnn] Geo pool (n=8000, all 3 response metrics)...
+[cnn] Geo(n=8000)/wasserstein: R2=0.9490 MAE=0.5254 RMSE=0.7864
+[cnn] Geo(n=8000)/l1_mean_abs_diff: R2=0.9490 MAE=0.5254 RMSE=0.7864
+[cnn] Geo(n=8000)/l2_mean_sq_diff: R2=0.9484 MAE=29.3026 RMSE=59.5715
+[cnn] done in 34.3 min
+
+Done. 216 rows (12 new/recomputed). Summary: D:\GEO SMILE CODE\hull\outputs\response_metric_comparison\response_metric_comparison_summary.csv

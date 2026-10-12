@@ -1,0 +1,11 @@
+model,Sculcoates-City Centre-Dairycoates (of 22),Bransholme-Sutton-Stoneferry (of 22),Southcoates-Marfleet (of 14),total (of 58),share_of_model_top50_pct,in_model_top20,mean_rank_of_hits
+xgboost,16,11,4,31,62.0,18,20.7
+lightgbm,17,9,4,30,60.0,18,20.0
+catboost,17,8,3,28,56.0,18,17.6
+svr,17,11,5,33,66.0,16,22.5
+gp,18,8,4,30,60.0,18,19.2
+mlp,19,4,5,28,56.0,17,18.6
+dl,18,9,4,31,62.0,18,20.5
+ann,18,5,5,28,56.0,17,19.7
+cnn,18,7,3,28,56.0,17,19.9
+transformer,16,11,4,31,62.0,18,19.9

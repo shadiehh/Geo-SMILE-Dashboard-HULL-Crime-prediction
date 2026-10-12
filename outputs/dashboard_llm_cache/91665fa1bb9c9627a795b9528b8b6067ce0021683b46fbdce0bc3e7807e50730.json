@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "**Key finding**  \nThe GeoSensitivity analysis across Hull shows a modest but statistically significant spatial clustering of geographic influence on next-month crime count predictions. The maximum absolute GeoSensitivity value is **24.22**, with a median of **0.62**, indicating variability in geographic contribution to the model. Spatial clustering measured by Global **Moran's I** (a statistic that tests whether similar values sit near each other in space) is **0.044** with a **p-value of 0.027**, confirming positive spatial clustering of GeoSensitivity values. However, the geographic pattern scale is **not established** in the computed outputs.\n\n**Why it matters**  \nThis GeoSensitivity clustering means that some areas in Hull have higher geographic influence on the model\u2019s output, and these tend to be near each other rather than randomly distributed. Understanding where and how strongly geography influences predictions can inform management oversight of the model\u2019s behavior, but does not directly imply crime causes or intervention targets.\n\n**Where it occurs**  \nLocal Indicators of Spatial Association (LISA) classify 7 LSOAs as **high GeoSensitivity surrounded by high GeoSensitivity (HH)** and 6 LSOAs as **low surrounded by low (LL)**, with the majority (148 of 168) showing no significant local spatial clustering. There are also small numbers of spatial outliers (6 LH and 1 HL), but no isolated (ISLAND) areas. This indicates some concentrated pockets of geographic influence but many areas without significant clustering.\n\n**Evidence strength**  \nEvaluation results show high explanation stability and fidelity:  \n- Controlled-input **ATT stability Jaccard** values are **1.0** for both Feature and Geo branches, indicating top attributions remain stable under input expansion.  \n- Surrogate test **R\u00b2** is **0.90** for GeoSensitivity, measuring good approximation of the masking effect by the surrogate model.  \n- Empirical p-values for GeoSensitivity faithfulness are **0.036**, showing the top GeoSensitivity attributions have better intervention effect than random chance.  \nPrediction holdout **R\u00b2** is **0.88**, demonstrating reasonable overall forecast accuracy.  \nThese metrics support confidence in the explanation\u2019s consistency but do not validate any causal interpretation.\n\n**Important limitation**  \nThe analysis is explicitly **not causal**; GeoSensitivity indicates model sensitivity to geographic location masking, not geographic causes of crime. The spatial clustering analysis uses unadjusted p-values without multiple comparison corrections, and the pattern scale remains **not established**. There is no directly supplied local context or deprivation variables to interpret spatial patterns in terms of social or operational factors.\n\n**Next step**  \nFor decision-relevant insight, examining specific LSOAs with the highest GeoSensitivity ranks and their accompanying local Feature-branch attributions (non-location features) can help understand model influence concentration. Further, exploring if the dominant global feature \"Crime roll mean 6\" clusters spatially (it shows significant clustering with Moran\u2019s I = **0.457, p=0.004**) may provide additional operational understanding. However, any operational response should not treat GeoSensitivity as a target or cause but rather as a model explanation layer.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-08-28T10:34:19.848178+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 7853,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 641,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 8494
+  },
+  "prompt_version": "geosmile-hull-v4"
+}

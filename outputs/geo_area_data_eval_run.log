@@ -1,0 +1,80 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1790681195.877092   14980 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1790681199.185540   14980 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[12:26:40] Training the 30-feature XGBoost (seed 42) -- explained by both branches under this design
+[12:26:41] === N=1000 ===
+[12:26:50]   fidelity R2=0.9309  accuracy 10/20  AUROC=0.7372
+[12:28:49]   faithfulness top-random=25.904 p=0.001
+[12:29:06]     stability north (E01012953): J=1.000 rho=0.9991 added rank 111
+[12:29:21]     stability east (E01013094): J=1.000 rho=0.9990 added rank 90
+[12:29:36]     stability south (E01013009): J=1.000 rho=0.9992 added rank 136
+[12:29:47]     stability west (E01013112): J=1.000 rho=0.9990 added rank 86
+[12:30:44]   consistency mean var=0.05969 mean SD=0.22625 rank rho=0.877
+[12:30:44] N=1000 done in 4.0 min
+[12:30:44] === N=2000 ===
+[12:31:08]   fidelity R2=0.9231  accuracy 9/20  AUROC=0.7209
+[12:32:51]   faithfulness top-random=26.127 p=0.001
+[12:33:11]     stability north (E01012953): J=1.000 rho=0.9996 added rank 72
+[12:33:31]     stability east (E01013094): J=1.000 rho=0.9997 added rank 50
+[12:33:51]     stability south (E01013009): J=1.000 rho=0.9996 added rank 99
+[12:34:11]     stability west (E01013112): J=1.000 rho=0.9997 added rank 49
+[12:35:51]   consistency mean var=0.02510 mean SD=0.14931 rank rho=0.934
+[12:35:51] N=2000 done in 5.1 min
+[12:35:51] === N=3000 ===
+[12:36:22]   fidelity R2=0.9440  accuracy 9/20  AUROC=0.7297
+[12:38:34]   faithfulness top-random=26.386 p=0.001
+[12:39:20]     stability north (E01012953): J=1.000 rho=0.9997 added rank 63
+[12:40:13]     stability east (E01013094): J=1.000 rho=0.9997 added rank 50
+[12:41:05]     stability south (E01013009): J=1.000 rho=0.9997 added rank 94
+[12:41:50]     stability west (E01013112): J=1.000 rho=0.9997 added rank 44
+[12:46:10]   consistency mean var=0.01946 mean SD=0.12320 rank rho=0.952
+[12:46:10] N=3000 done in 10.3 min
+[12:46:10] === N=4000 ===
+[12:47:16]   fidelity R2=0.9484  accuracy 9/20  AUROC=0.7250
+[12:49:41]   faithfulness top-random=26.221 p=0.001
+[12:50:45]     stability north (E01012953): J=1.000 rho=0.9998 added rank 82
+[12:51:48]     stability east (E01013094): J=1.000 rho=0.9998 added rank 57
+[12:52:56]     stability south (E01013009): J=1.000 rho=0.9998 added rank 101
+[12:54:29]     stability west (E01013112): J=1.000 rho=0.9998 added rank 53
+[13:01:05]   consistency mean var=0.01536 mean SD=0.11045 rank rho=0.963
+[13:02:52]     stability north (E01012953): J=1.000 rho=0.9998 added rank 80
+[13:04:10]     stability east (E01013094): J=1.000 rho=0.9998 added rank 57
+[13:04:52]     stability south (E01013009): J=1.000 rho=0.9998 added rank 102
+[13:05:36]     stability west (E01013112): J=1.000 rho=0.9998 added rank 53
+[13:05:36] N=4000 done in 19.4 min
+[13:05:36] === N=5000 ===
+[13:06:35]   fidelity R2=0.9418  accuracy 9/20  AUROC=0.7304
+[13:08:25]   faithfulness top-random=26.312 p=0.001
+[13:09:17]     stability north (E01012953): J=1.000 rho=0.9998 added rank 71
+[13:10:10]     stability east (E01013094): J=1.000 rho=0.9998 added rank 48
+[13:11:02]     stability south (E01013009): J=1.000 rho=0.9998 added rank 97
+[13:11:59]     stability west (E01013112): J=1.000 rho=0.9998 added rank 46
+[13:16:20]   consistency mean var=0.01814 mean SD=0.11060 rank rho=0.968
+[13:16:20] N=5000 done in 10.7 min
+[13:16:20] === N=7500 ===
+[13:17:39]   fidelity R2=0.9421  accuracy 9/20  AUROC=0.7422
+[13:19:28]   faithfulness top-random=26.284 p=0.001
+[13:20:47]     stability north (E01012953): J=1.000 rho=0.9999 added rank 72
+[13:22:05]     stability east (E01013094): J=1.000 rho=0.9999 added rank 51
+[13:23:38]     stability south (E01013009): J=1.000 rho=0.9999 added rank 93
+[13:24:58]     stability west (E01013112): J=1.000 rho=0.9999 added rank 46
+[13:31:46]   consistency mean var=0.00831 mean SD=0.08332 rank rho=0.978
+[13:31:46] N=7500 done in 15.4 min
+[13:31:46] === N=10000 ===
+[13:33:36]   fidelity R2=0.9459  accuracy 9/20  AUROC=0.7365
+[13:35:38]   faithfulness top-random=26.244 p=0.001
+[13:37:28]     stability north (E01012953): J=1.000 rho=0.9998 added rank 75
+[13:39:16]     stability east (E01013094): J=1.000 rho=0.9998 added rank 54
+[13:41:04]     stability south (E01013009): J=1.000 rho=0.9998 added rank 99
+[13:42:51]     stability west (E01013112): J=1.000 rho=0.9998 added rank 52
+[13:50:42]   consistency mean var=0.00584 mean SD=0.06974 rank rho=0.983
+[13:50:42] N=10000 done in 18.9 min
+    N  fidelity_r2  fidelity_weighted_r2  accuracy_overlap  att_auroc  faithfulness_top_minus_random  faithfulness_p  stability_jaccard  stability_spearman  consistency_mean_variance  consistency_mean_sd  consistency_rank_spearman
+ 1000       0.9309                0.9297                10     0.7372                        25.9043           0.001                1.0              0.9991                     0.0597               0.2263                     0.8774
+ 2000       0.9231                0.9365                 9     0.7209                        26.1272           0.001                1.0              0.9996                     0.0251               0.1493                     0.9341
+ 3000       0.9440                0.9414                 9     0.7297                        26.3858           0.001                1.0              0.9997                     0.0195               0.1232                     0.9525
+ 4000       0.9484                0.9461                 9     0.7250                        26.2211           0.001                1.0              0.9998                     0.0154               0.1105                     0.9635
+ 5000       0.9418                0.9427                 9     0.7304                        26.3124           0.001                1.0              0.9998                     0.0181               0.1106                     0.9682
+ 7500       0.9421                0.9428                 9     0.7422                        26.2835           0.001                1.0              0.9999                     0.0083               0.0833                     0.9779
+10000       0.9459                0.9456                 9     0.7365                        26.2439           0.001                1.0              0.9998                     0.0058               0.0697                     0.9834

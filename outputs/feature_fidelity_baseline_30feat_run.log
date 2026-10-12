@@ -1,0 +1,55 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788909043.677171   13708 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788909046.669866   13708 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+No exclusions: baseline run with all 30 Feature players
+
+=== [xgboost] ===
+[xgboost] Feature fidelity (30 features): R2=0.9780 R2w=0.9784 kernel=inverse
+
+=== [lightgbm] ===
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+[lightgbm] Feature fidelity (30 features): R2=0.9833 R2w=0.9834 kernel=inverse
+
+=== [catboost] ===
+[catboost] Feature fidelity (30 features): R2=0.9849 R2w=0.9848 kernel=inverse
+
+=== [mlp] ===
+[mlp] Feature fidelity (30 features): R2=0.0905 R2w=0.0847 kernel=rbf
+
+=== [svr] ===
+[svr] Feature fidelity (30 features): R2=0.9366 R2w=0.9376 kernel=inverse
+
+=== [gp] ===
+[gp] Feature fidelity (30 features): R2=0.9964 R2w=0.9964 kernel=inverse
+
+=== [dl] ===
+I0000 00:00:1788909445.852960   13708 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[dl] Feature fidelity (30 features): R2=0.1397 R2w=0.1471 kernel=inverse
+
+=== [ann] ===
+[ann] Feature fidelity (30 features): R2=0.9551 R2w=0.9547 kernel=inverse
+
+=== [cnn] ===
+[cnn] Feature fidelity (30 features): R2=0.9148 R2w=0.9156 kernel=inverse
+
+=== [transformer] ===
+WARNING:tensorflow:From C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:233: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[transformer] Feature fidelity (30 features): R2=0.9913 R2w=0.9922 kernel=rbf
+
+Done. D:\GEO SMILE CODE\hull\outputs\feature_fidelity_excl_dominant\summary_baseline_30feat.csv
+      model  n_features       r2  weighted_r2          mae         rmse best_kernel
+         gp          30 0.996364     0.996362     0.121944     0.153323     inverse
+transformer          30 0.991264     0.992216     0.169896     0.216288         rbf
+   catboost          30 0.984859     0.984839     0.165433     0.217294     inverse
+   lightgbm          30 0.983350     0.983414     0.320115     0.379867     inverse
+    xgboost          30 0.978036     0.978412     0.347468     0.399431     inverse
+        ann          30 0.955131     0.954685     0.279260     0.361043     inverse
+        svr          30 0.936556     0.937608     0.298379     0.375590     inverse
+        cnn          30 0.914783     0.915626     0.292039     0.393210     inverse
+         dl          30 0.139736     0.147067     8.740668    17.415661     inverse
+        mlp          30 0.090483     0.084721 27741.638864 85602.332358         rbf

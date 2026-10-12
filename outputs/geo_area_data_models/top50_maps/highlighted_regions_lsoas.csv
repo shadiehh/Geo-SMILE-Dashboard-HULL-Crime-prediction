@@ -1,0 +1,59 @@
+region,lsoa21cd,lsoa21nm,overlap_fraction,inside_km2,lsoa_km2,models_with_lsoa_in_top50,expert_top20
+Bransholme-Sutton-Stoneferry,E01012788,Kingston upon Hull 002E,1.0,0.438,0.438,0,0
+Bransholme-Sutton-Stoneferry,E01012764,Kingston upon Hull 005A,1.0,0.308,0.308,8,0
+Bransholme-Sutton-Stoneferry,E01012785,Kingston upon Hull 002B,1.0,0.176,0.176,0,0
+Bransholme-Sutton-Stoneferry,E01012910,Kingston upon Hull 006D,1.0,0.123,0.123,3,0
+Bransholme-Sutton-Stoneferry,E01012789,Kingston upon Hull 002F,1.0,0.358,0.358,0,0
+Bransholme-Sutton-Stoneferry,E01012787,Kingston upon Hull 002D,1.0,0.301,0.301,10,0
+Bransholme-Sutton-Stoneferry,E01012912,Kingston upon Hull 006E,1.0,0.354,0.354,9,0
+Bransholme-Sutton-Stoneferry,E01012790,Kingston upon Hull 004D,1.0,0.241,0.241,1,0
+Bransholme-Sutton-Stoneferry,E01012905,Kingston upon Hull 006C,1.0,0.236,0.236,0,0
+Bransholme-Sutton-Stoneferry,E01012830,Kingston upon Hull 006B,1.0,0.185,0.185,2,0
+Bransholme-Sutton-Stoneferry,E01012815,Kingston upon Hull 013D,0.971,0.341,0.351,4,0
+Bransholme-Sutton-Stoneferry,E01012817,Kingston upon Hull 016D,0.963,1.704,1.768,10,0
+Bransholme-Sutton-Stoneferry,E01012829,Kingston upon Hull 006A,0.96,1.082,1.127,0,0
+Bransholme-Sutton-Stoneferry,E01012906,Kingston upon Hull 004E,0.95,0.452,0.476,3,0
+Bransholme-Sutton-Stoneferry,E01012769,Kingston upon Hull 005D,0.948,0.256,0.27,7,0
+Bransholme-Sutton-Stoneferry,E01012814,Kingston upon Hull 013C,0.792,0.191,0.241,8,0
+Bransholme-Sutton-Stoneferry,E01012786,Kingston upon Hull 002C,0.719,0.243,0.338,0,0
+Bransholme-Sutton-Stoneferry,E01012778,Kingston upon Hull 004A,0.653,0.142,0.217,0,0
+Bransholme-Sutton-Stoneferry,E01012818,Kingston upon Hull 013E,0.567,0.182,0.322,1,0
+Bransholme-Sutton-Stoneferry,E01012765,Kingston upon Hull 005B,0.566,0.133,0.235,9,0
+Bransholme-Sutton-Stoneferry,E01012907,Kingston upon Hull 007C,0.539,0.165,0.305,0,0
+Bransholme-Sutton-Stoneferry,E01012813,Kingston upon Hull 013B,0.536,0.225,0.421,8,0
+Sculcoates-City Centre-Dairycoates,E01035466,Kingston upon Hull 029H,1.0,0.424,0.424,10,0
+Sculcoates-City Centre-Dairycoates,E01012761,Kingston upon Hull 015A,1.0,0.278,0.278,8,1
+Sculcoates-City Centre-Dairycoates,E01012852,Kingston upon Hull 024B,1.0,0.391,0.391,10,1
+Sculcoates-City Centre-Dairycoates,E01012850,Kingston upon Hull 024A,1.0,0.175,0.175,10,0
+Sculcoates-City Centre-Dairycoates,E01012857,Kingston upon Hull 024D,0.994,0.279,0.281,10,0
+Sculcoates-City Centre-Dairycoates,E01012872,Kingston upon Hull 015E,0.958,0.161,0.168,0,1
+Sculcoates-City Centre-Dairycoates,E01012891,Kingston upon Hull 030C,0.874,0.213,0.244,10,1
+Sculcoates-City Centre-Dairycoates,E01033104,Kingston upon Hull 029E,0.853,0.573,0.672,10,1
+Sculcoates-City Centre-Dairycoates,E01012892,Kingston upon Hull 030D,0.833,0.187,0.224,5,1
+Sculcoates-City Centre-Dairycoates,E01012855,Kingston upon Hull 029D,0.73,0.34,0.466,10,1
+Sculcoates-City Centre-Dairycoates,E01012763,Kingston upon Hull 018C,0.695,0.207,0.298,10,1
+Sculcoates-City Centre-Dairycoates,E01012868,Kingston upon Hull 015B,0.674,0.102,0.151,10,1
+Sculcoates-City Centre-Dairycoates,E01012869,Kingston upon Hull 015C,0.48,0.082,0.17,10,0
+Sculcoates-City Centre-Dairycoates,E01035468,Kingston upon Hull 031I,0.475,0.092,0.194,2,0
+Sculcoates-City Centre-Dairycoates,E01012854,Kingston upon Hull 029C,0.439,0.373,0.849,10,1
+Sculcoates-City Centre-Dairycoates,E01012867,Kingston upon Hull 024E,0.406,0.238,0.587,0,1
+Sculcoates-City Centre-Dairycoates,E01033109,Kingston upon Hull 029F,0.363,0.199,0.549,10,0
+Sculcoates-City Centre-Dairycoates,E01012889,Kingston upon Hull 030B,0.33,0.643,1.946,10,1
+Sculcoates-City Centre-Dairycoates,E01035465,Kingston upon Hull 029G,0.326,0.112,0.342,10,0
+Sculcoates-City Centre-Dairycoates,E01012757,Kingston upon Hull 025B,0.269,0.084,0.313,9,1
+Sculcoates-City Centre-Dairycoates,E01012856,Kingston upon Hull 024C,0.207,0.104,0.502,0,1
+Sculcoates-City Centre-Dairycoates,E01012871,Kingston upon Hull 015D,0.167,0.102,0.609,10,1
+Southcoates-Marfleet,E01012902,Kingston upon Hull 022D,0.96,0.156,0.163,0,0
+Southcoates-Marfleet,E01035464,Kingston upon Hull 017G,0.826,0.694,0.84,10,0
+Southcoates-Marfleet,E01012901,Kingston upon Hull 020E,0.809,0.146,0.181,0,0
+Southcoates-Marfleet,E01012843,Kingston upon Hull 021B,0.696,0.55,0.79,10,0
+Southcoates-Marfleet,E01012846,Kingston upon Hull 021D,0.67,0.233,0.348,1,0
+Southcoates-Marfleet,E01012903,Kingston upon Hull 022E,0.582,0.088,0.152,0,0
+Southcoates-Marfleet,E01012847,Kingston upon Hull 021E,0.55,0.102,0.186,0,0
+Southcoates-Marfleet,E01012896,Kingston upon Hull 020D,0.407,0.149,0.367,1,0
+Southcoates-Marfleet,E01012894,Kingston upon Hull 020C,0.398,0.188,0.471,5,1
+Southcoates-Marfleet,E01012807,Kingston upon Hull 016C,0.313,0.095,0.305,0,0
+Southcoates-Marfleet,E01012899,Kingston upon Hull 022B,0.266,0.062,0.232,0,1
+Southcoates-Marfleet,E01012820,Kingston upon Hull 022A,0.229,0.04,0.176,4,0
+Southcoates-Marfleet,E01012844,Kingston upon Hull 017B,0.203,0.039,0.19,0,0
+Southcoates-Marfleet,E01012848,Kingston upon Hull 020B,0.031,0.182,5.831,10,0

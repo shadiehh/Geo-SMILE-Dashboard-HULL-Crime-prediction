@@ -1,7 +1,8 @@
 """Sweep Feature/Geo GeoSMILE metrics across perturbation counts.
 
 Writes only under outputs/eval_by_n_perturb/. Does not replace the published
-1024-mask / 2000-perturbation tables under outputs/.
+4000-mask / 4000-perturbation tables under outputs/ (raised from the earlier
+1024/2000 design, now retired).
 
 Metrics (both branches, each N in 1000, 2000, 3000, 4000, 5000):
   accuracy       expert-reference ATT accuracy (Feature k=10, Geo k=20)
@@ -10,7 +11,10 @@ Metrics (both branches, each N in 1000, 2000, 3000, 4000, 5000):
   att_stability  cardinal-neighbor Jaccard of Feature top-10 / Geo top-20
   att_consistency multi-seed Rank Spearman and Top-20% Jaccard (base 100, 5 repeats)
 
-Models are the published two-branch XGBoosts, trained once (seed 42).
+Models are two-branch, trained once (seed 42). Defaults to the published XGBoost;
+pass --model to run the same pipeline against an alternative candidate (see
+model_factory.MODEL_NAMES) -- always pair a non-default --model with a distinct
+--output-dir so its cached rankings never get mistaken for XGBoost's.
 """
 
 from __future__ import annotations
@@ -35,7 +39,6 @@ from geosmile_hull_twobranch import (
     SPATIAL_COLUMNS,
     choose_feature_players,
     geo_smile_coefficients,
-    make_model,
     smile_global_feature,
     temporal_split,
 )
@@ -54,6 +57,7 @@ from hull_expert_topk import (
     feature_expert_binary_frame,
     geo_expert_binary_frame,
 )
+from model_factory import MODEL_NAMES, fit_model, make_model
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "outputs"
@@ -804,6 +808,12 @@ def write_summaries(results: list[dict] | None = None) -> None:
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--n-grid", type=int, nargs="+", default=list(N_GRID_DEFAULT))
+    p.add_argument(
+        "--model",
+        choices=MODEL_NAMES,
+        default="xgboost",
+        help="Black-box model GeoSMILE explains (default: xgboost, the published model).",
+    )
     p.add_argument("--n-random", type=int, default=N_RANDOM_FAITH)
     p.add_argument("--n-repeats", type=int, default=N_REPEATS)
     p.add_argument("--consistency-seed-base", type=int, default=CONSISTENCY_SEED_BASE)
@@ -829,7 +839,7 @@ def parse_args() -> argparse.Namespace:
         "--n-jobs",
         type=int,
         default=2,
-        help="XGBoost threads (default 2 so the machine stays usable). Use -1 for all cores.",
+        help="Model threads (default 2 so the machine stays usable). Use -1 for all cores.",
     )
     return p.parse_args()
 
@@ -845,7 +855,7 @@ def main() -> None:
     _log(
         f"Writing sweep to {DEST} only. "
         f"Will not replace {len(existing)} published tables "
-        "(1024/2000 Feature/Geo artefacts left untouched)."
+        "(4000/4000 Feature/Geo artefacts left untouched)."
     )
 
     panel = pd.read_csv(PANEL_PATH)
@@ -874,24 +884,26 @@ def main() -> None:
         os.environ["OMP_NUM_THREADS"] = str(args.n_jobs)
         os.environ["OMP_WAIT_POLICY"] = "PASSIVE"
     _log(
-        f"[{_now()}] Training Feature and Geo XGBoost (seed {SEED}) once "
+        f"[{_now()}] Training Feature and Geo {args.model} (seed {SEED}) once "
         f"with n_jobs={args.n_jobs}..."
     )
-    model_feat = make_model(SEED)
-    model_geo = make_model(SEED)
-    model_feat.set_params(n_jobs=args.n_jobs)
-    model_geo.set_params(n_jobs=args.n_jobs)
-    model_feat.fit(
+    model_feat = make_model(args.model, SEED, n_jobs=args.n_jobs)
+    model_geo = make_model(args.model, SEED, n_jobs=args.n_jobs)
+    fit_model(
+        args.model,
+        model_feat,
         panel.loc[train, players],
         panel.loc[train, Y_COL],
-        eval_set=[(panel.loc[validation, players], panel.loc[validation, Y_COL])],
-        verbose=False,
+        panel.loc[validation, players],
+        panel.loc[validation, Y_COL],
     )
-    model_geo.fit(
+    fit_model(
+        args.model,
+        model_geo,
         panel.loc[train, SPATIAL_COLUMNS],
         panel.loc[train, Y_COL],
-        eval_set=[(panel.loc[validation, SPATIAL_COLUMNS], panel.loc[validation, Y_COL])],
-        verbose=False,
+        panel.loc[validation, SPATIAL_COLUMNS],
+        panel.loc[validation, Y_COL],
     )
 
     neighbors, extra_panel = load_cached_neighbors()
@@ -950,7 +962,7 @@ def main() -> None:
         write_summaries(results)
 
     write_summaries(results)
-    _log(f"\nDone. Published 1024/2000 tables were not modified. Results: {DEST}")
+    _log(f"\nDone. Published 4000/4000 tables were not modified. Results: {DEST}")
 
 
 if __name__ == "__main__":

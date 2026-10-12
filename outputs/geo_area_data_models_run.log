@@ -1,0 +1,45 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1790681235.141192    2540 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1790681240.103506    2540 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[12:27:23] [xgboost] predictive R2 (30-feature model) = 0.8957; building Geo pool N=4000
+[12:28:25] [xgboost] Geo weighted-Ridge R2=0.9484  overlap 9/20  ATT-AUC=0.7250  (1.1 min)
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+[12:28:27] [lightgbm] predictive R2 (30-feature model) = 0.8968; building Geo pool N=4000
+[12:29:33] [lightgbm] Geo weighted-Ridge R2=0.9482  overlap 9/20  ATT-AUC=0.7470  (1.1 min)
+[12:29:38] [catboost] predictive R2 (30-feature model) = 0.8959; building Geo pool N=4000
+[12:30:04] [catboost] Geo weighted-Ridge R2=0.9479  overlap 10/20  ATT-AUC=0.7459  (0.5 min)
+[12:30:05] [mlp] predictive R2 (30-feature model) = 0.8529; building Geo pool N=4000
+[12:30:26] [mlp] Geo weighted-Ridge R2=0.9474  overlap 11/20  ATT-AUC=0.8672  (0.4 min)
+[12:30:26] [svr] predictive R2 (30-feature model) = 0.8629; building Geo pool N=4000
+[12:36:47] [svr] Geo weighted-Ridge R2=0.9485  overlap 9/20  ATT-AUC=0.6936  (6.4 min)
+[12:37:46] [gp] predictive R2 (30-feature model) = 0.8993; building Geo pool N=4000
+[13:00:25] [gp] Geo weighted-Ridge R2=0.9481  overlap 10/20  ATT-AUC=0.7483  (23.6 min)
+I0000 00:00:1790683225.670073    2540 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[13:00:53] [dl] predictive R2 (30-feature model) = 0.6663; building Geo pool N=4000
+[13:11:40] [dl] Geo weighted-Ridge R2=0.9454  overlap 11/20  ATT-AUC=0.7625  (11.3 min)
+[13:12:10] [ann] predictive R2 (30-feature model) = 0.8663; building Geo pool N=4000
+[13:22:15] [ann] Geo weighted-Ridge R2=0.9483  overlap 9/20  ATT-AUC=0.7895  (10.6 min)
+[13:23:19] [cnn] predictive R2 (30-feature model) = 0.6345; building Geo pool N=4000
+[13:34:02] [cnn] Geo weighted-Ridge R2=0.9481  overlap 10/20  ATT-AUC=0.7280  (11.8 min)
+WARNING:tensorflow:From C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:233: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[13:34:57] [transformer] predictive R2 (30-feature model) = 0.8733; building Geo pool N=4000
+[13:47:25] [transformer] Geo weighted-Ridge R2=0.9483  overlap 10/20  ATT-AUC=0.6926  (13.4 min)
+branch                  measure  M  pearson_r  p_two_sided  spearman_rho
+   Geo Top-20 reference overlap 10     -0.477        0.164        -0.389
+   Geo                  ATT-AUC 10     -0.005        0.990        -0.103
+      model        family  predictive_r2  overlap  att_auc  geo_ridge_r2
+    xgboost Tree ensemble         0.8957        9   0.7250        0.9484
+   lightgbm Tree ensemble         0.8968        9   0.7470        0.9482
+   catboost Tree ensemble         0.8959       10   0.7459        0.9479
+        mlp        Neural         0.8529       11   0.8672        0.9474
+        svr        Kernel         0.8629        9   0.6936        0.9485
+         gp        Kernel         0.8993       10   0.7483        0.9481
+         dl        Neural         0.6663       11   0.7625        0.9454
+        ann        Neural         0.8663        9   0.7895        0.9483
+        cnn        Neural         0.6345       10   0.7280        0.9481
+transformer        Neural         0.8733       10   0.6926        0.9483

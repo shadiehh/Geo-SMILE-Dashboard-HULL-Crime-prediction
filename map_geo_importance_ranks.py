@@ -258,6 +258,9 @@ def plot_topk_value_map(
     path: Path,
     footer_note: str,
     added_codes: list[str] | set[str] | None = None,
+    vmin: float | None = None,
+    vmax: float | None = None,
+    show_colorbar: bool = True,
 ) -> None:
     added = {str(c) for c in (added_codes or []) if str(c)}
     selected = gdf[rank_col] <= top_n
@@ -266,9 +269,14 @@ def plot_topk_value_map(
     plot.plot(ax=ax, color=MUTED_FILL, edgecolor="white", linewidth=0.12, zorder=1)
     if value_col == "reference_rating":
         norm = Normalize(vmin=1.0, vmax=5.0)
+    elif vmax is not None:
+        # Caller-supplied shared scale (e.g. a small-multiple panel comparing
+        # several maps) -- overrides the default per-map auto-scaling below,
+        # which would otherwise make relative intensity across maps misleading.
+        norm = Normalize(vmin=vmin if vmin is not None else 0.0, vmax=vmax)
     else:
-        vmax = max(float(plot.loc[selected, value_col].max()), 1e-9)
-        norm = Normalize(vmin=0.0, vmax=vmax)
+        auto_vmax = max(float(plot.loc[selected, value_col].max()), 1e-9)
+        norm = Normalize(vmin=0.0, vmax=auto_vmax)
     plot.loc[selected].plot(
         column=value_col,
         cmap=cmap,
@@ -285,10 +293,11 @@ def plot_topk_value_map(
     _label_ranks(ax, plot.loc[selected], rank_col)
     ax.set_axis_off()
     ax.set_title(title, fontsize=12, fontweight="bold", color=INK, pad=8)
-    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
-    sm.set_array([])
-    cbar = fig.colorbar(sm, ax=ax, shrink=0.68, pad=0.015)
-    cbar.set_label(cbar_label, fontsize=9, color=INK_MUTED)
+    if show_colorbar:
+        sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+        sm.set_array([])
+        cbar = fig.colorbar(sm, ax=ax, shrink=0.68, pad=0.015)
+        cbar.set_label(cbar_label, fontsize=9, color=INK_MUTED)
     _footer(fig, footer_note)
     _save(fig, path)
 

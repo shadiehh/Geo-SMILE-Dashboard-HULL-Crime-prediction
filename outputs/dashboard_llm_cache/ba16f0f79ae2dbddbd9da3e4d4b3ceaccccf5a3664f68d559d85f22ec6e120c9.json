@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "The model shows that Kingston upon Hull 015A has a moderate GeoSensitivity of -1.40, ranking 20th out of 168 areas in Hull, indicating its geographic influence is comparative rather than strong. Its GeoSensitivity pattern is not statistically clustered nearby. This does not mean the area causes crime. The explanation is stable and reliable by evaluation standards.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-10T21:47:17.854495+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 8422,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 73,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 8495
+  },
+  "prompt_version": "geosmile-hull-v5"
+}

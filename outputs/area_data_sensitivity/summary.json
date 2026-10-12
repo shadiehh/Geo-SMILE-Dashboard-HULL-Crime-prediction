@@ -1,0 +1,55 @@
+{
+  "design": "30-feature Feature model; per-LSOA masking of ALL input columns to training median; W1 on affected LSOA-months. Exact per-LSOA shift (primary) plus SMILE surrogate (mask draws identical to the Geo branch).",
+  "perturbations": 4000,
+  "seed": 42,
+  "holdout": {
+    "mae": 4.825808855394523,
+    "rmse": 6.890812256907791,
+    "r2": 0.8956733279339549
+  },
+  "surrogate": {
+    "best_kernel": "laplace",
+    "validation_r2_by_kernel": {
+      "rbf": 0.9362478596055702,
+      "laplace": 0.9364320307010613,
+      "inverse": 0.9359855447988102
+    },
+    "test_r2": 0.9438938633357984,
+    "n_perturbations": 4000,
+    "response": "wasserstein_1_on_affected_lsoa_month_predictions",
+    "perturbation": "replace ALL input columns of selected LSOAs with training median"
+  },
+  "typical_area_prediction": 15.516319274902344,
+  "exact_w1_distribution": {
+    "count": 168.0,
+    "mean": 9.763154416921592,
+    "std": 15.928530184837053,
+    "min": 0.7544243335723877,
+    "50%": 6.35809063911438,
+    "90%": 22.02022771835328,
+    "max": 176.72613906860352
+  },
+  "smile_signed_vs_exact_rank_spearman": 0.9817296936136182,
+  "noise_floor_rank_spearman_exact": [
+    0.9975425311675891,
+    0.9937462353399711
+  ],
+  "noise_floor_rank_spearman_smile": [
+    0.9629810539529564,
+    0.9715505590678324
+  ],
+  "vs_published_geo_signed_rank_spearman": 0.50853660388437,
+  "vs_published_top20_overlap": 8,
+  "moran": {
+    "moran_i": 0.23103602607494622,
+    "p_value": 0.001,
+    "lisa_counts": {
+      "HH": 9,
+      "LL": 12,
+      "HL": 3,
+      "LH": 5,
+      "NS": 139
+    }
+  },
+  "note": "Not causal. Sensitivity = how far the area's predictions sit from the typical-area prediction when all its data is replaced by the Hull median."
+}

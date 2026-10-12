@@ -1,0 +1,30 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1789040566.373745   13540 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1789040569.484961   13540 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Fitting catboost Feature and Geo models (Hull-only)...
+Baseline (Hull-only) Feature + Geo SMILE...
+Saved: D:\GEO SMILE CODE\hull\outputs\att_stability_catboost\baseline\geo_top20_map.png
+  Saved visuals -> D:\GEO SMILE CODE\hull\outputs\att_stability_catboost\baseline
+
+=== [north] ===
+Saved: D:\GEO SMILE CODE\hull\outputs\att_stability_catboost\north\geo_top20_map.png
+  Saved visuals -> D:\GEO SMILE CODE\hull\outputs\att_stability_catboost\north
+[north] added E01012953 (East Riding of Yorkshire 023A): feature_jaccard=1.000 geo_jaccard=1.000 geo_extra_rank=103.0
+
+=== [east] ===
+Saved: D:\GEO SMILE CODE\hull\outputs\att_stability_catboost\east\geo_top20_map.png
+  Saved visuals -> D:\GEO SMILE CODE\hull\outputs\att_stability_catboost\east
+[east] added E01013094 (East Riding of Yorkshire 029A): feature_jaccard=1.000 geo_jaccard=1.000 geo_extra_rank=119.0
+
+=== [south] ===
+Saved: D:\GEO SMILE CODE\hull\outputs\att_stability_catboost\south\geo_top20_map.png
+  Saved visuals -> D:\GEO SMILE CODE\hull\outputs\att_stability_catboost\south
+[south] added E01013009 (East Riding of Yorkshire 034B): feature_jaccard=1.000 geo_jaccard=1.000 geo_extra_rank=147.0
+
+=== [west] ===
+Saved: D:\GEO SMILE CODE\hull\outputs\att_stability_catboost\west\geo_top20_map.png
+  Saved visuals -> D:\GEO SMILE CODE\hull\outputs\att_stability_catboost\west
+[west] added E01013112 (East Riding of Yorkshire 025D): feature_jaccard=1.000 geo_jaccard=1.000 geo_extra_rank=147.0
+
+Done.

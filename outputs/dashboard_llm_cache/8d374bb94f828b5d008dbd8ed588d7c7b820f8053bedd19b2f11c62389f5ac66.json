@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "**Key finding**  \nFor the selected LSOA, Kingston upon Hull 020B, the GeoSensitivity value is modest at 0.489 (ranked 101 out of 168 areas in Hull). This indicates that, in comparison to the rest of Hull, the geographic masking effect on the model\u2019s prediction here is relatively low to moderate. The latitude feature effect is positive (0.285), and the longitude effect is negative (-0.151), but both effects have modest absolute values.\n\n**Why it matters**  \nUnderstanding that GeoSensitivity is modest here shows that the model\u2019s prediction for this LSOA\u2019s next-month crime count is not highly sensitive to location masking compared to other Hull areas. The separate latitude and longitude effects suggest some influence of geographic coordinates in the feature-based prediction, but these effects are small. Hence, geography has some role, but not a dominating one, in this local prediction.\n\n**Where it occurs**  \nThis assessment applies specifically to the LSOA named Kingston upon Hull 020B. At the overall Hull scale, GeoSensitivity values vary widely from very small (~0.004) to large (~24.2), so this area\u2019s modest GeoSensitivity places it near the middle-to-lower sensitivity range. Spatial analysis classifies this LSOA\u2019s GeoSensitivity as not part of any statistically significant cluster.\n\n**Evidence strength**  \nThe Geo branch explaining location masking shows good surrogate fidelity (R\u00b2 ~0.90) and faithfulness, indicating the GeoSensitivity measures reliably approximate the impact of location masking on model predictions. Similarly, control tests confirm stable GeoSensitivity and feature attributions. The global spatial clustering of absolute GeoSensitivity across Hull is statistically significant but very weak (Moran\u2019s I = 0.044, p = 0.027), and this selected LSOA is not within any significant local cluster (LISA class \u201cNot significant\u201d with local p = 0.286). Therefore, this modest GeoSensitivity at the local level should be interpreted as a comparative rather than a strong geographic influence.\n\n**Important limitation**  \nThis evidence describes attribution in the predictive model, not causation of crime. GeoSensitivity reflects the model\u2019s sensitivity to location masking and should not be interpreted as the local area causing crime or as policy guidance for intervention. Pattern scale for spatial clustering is not established in the supplied data, and multiple-comparison-adjusted local significance was not calculated. Moreover, latitude and longitude effects are distinct from GeoSensitivity and should be interpreted separately.\n\n**Next step**  \nFurther inspection could focus on other LSOAs with higher GeoSensitivity values or explore the top local non-location features influencing this LSOA\u2019s prediction, such as the dominant local feature \u201cCrime roll mean 6,\u201d which has a strong negative coefficient (-20.54) here. Reviewing spatial clustering and feature attribution patterns across Hull may support a broader understanding of geographic and feature contributions to crime prediction.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-08-27T21:48:51.698717+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 8053,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 590,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 8643
+  },
+  "prompt_version": "geosmile-hull-v1"
+}

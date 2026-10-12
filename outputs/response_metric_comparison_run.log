@@ -1,0 +1,142 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788463449.430360   11092 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788463451.569213   11092 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [xgboost] === Feature: run, Geo: run
+[xgboost] Feature pool (n=1024, all 3 response metrics)...
+[xgboost] Feature/wasserstein: R2=0.9780 MAE=0.3475 RMSE=0.3994
+[xgboost] Feature/l1_mean_abs_diff: R2=0.9837 MAE=0.2893 RMSE=0.3418
+[xgboost] Feature/l2_mean_sq_diff: R2=0.9763 MAE=12.8179 RMSE=15.6353
+[xgboost] Geo pool (n=2000, all 3 response metrics)...
+[xgboost] Geo(n=2000)/wasserstein: R2=0.9204 MAE=0.8498 RMSE=1.5720
+[xgboost] Geo(n=2000)/l1_mean_abs_diff: R2=0.9204 MAE=0.8498 RMSE=1.5720
+[xgboost] Geo(n=2000)/l2_mean_sq_diff: R2=0.9189 MAE=125.0858 RMSE=275.1281
+[xgboost] Geo pool (n=4000, all 3 response metrics)...
+[xgboost] Geo(n=4000)/wasserstein: R2=0.9479 MAE=0.6851 RMSE=1.2836
+[xgboost] Geo(n=4000)/l1_mean_abs_diff: R2=0.9479 MAE=0.6851 RMSE=1.2836
+[xgboost] Geo(n=4000)/l2_mean_sq_diff: R2=0.9480 MAE=89.7399 RMSE=223.9160
+[xgboost] Geo pool (n=6000, all 3 response metrics)...
+[xgboost] Geo(n=6000)/wasserstein: R2=0.9482 MAE=0.6436 RMSE=1.1590
+[xgboost] Geo(n=6000)/l1_mean_abs_diff: R2=0.9482 MAE=0.6436 RMSE=1.1590
+[xgboost] Geo(n=6000)/l2_mean_sq_diff: R2=0.9484 MAE=81.3970 RMSE=190.3307
+[xgboost] Geo pool (n=8000, all 3 response metrics)...
+[xgboost] Geo(n=8000)/wasserstein: R2=0.9471 MAE=0.6923 RMSE=1.2719
+[xgboost] Geo(n=8000)/l1_mean_abs_diff: R2=0.9471 MAE=0.6923 RMSE=1.2719
+[xgboost] Geo(n=8000)/l2_mean_sq_diff: R2=0.9474 MAE=89.9195 RMSE=214.2562
+[xgboost] done in 1.9 min
+
+=== [lightgbm] === Feature: run, Geo: run
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+[lightgbm] Feature pool (n=1024, all 3 response metrics)...
+[lightgbm] Feature/wasserstein: R2=0.9833 MAE=0.3201 RMSE=0.3799
+[lightgbm] Feature/l1_mean_abs_diff: R2=0.9883 MAE=0.2670 RMSE=0.3168
+[lightgbm] Feature/l2_mean_sq_diff: R2=0.9890 MAE=10.8992 RMSE=12.9029
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+[lightgbm] Geo pool (n=2000, all 3 response metrics)...
+[lightgbm] Geo(n=2000)/wasserstein: R2=0.9186 MAE=0.8394 RMSE=1.5452
+[lightgbm] Geo(n=2000)/l1_mean_abs_diff: R2=0.9186 MAE=0.8394 RMSE=1.5452
+[lightgbm] Geo(n=2000)/l2_mean_sq_diff: R2=0.9186 MAE=121.8497 RMSE=268.7574
+[lightgbm] Geo pool (n=4000, all 3 response metrics)...
+[lightgbm] Geo(n=4000)/wasserstein: R2=0.9472 MAE=0.6648 RMSE=1.2573
+[lightgbm] Geo(n=4000)/l1_mean_abs_diff: R2=0.9472 MAE=0.6648 RMSE=1.2573
+[lightgbm] Geo(n=4000)/l2_mean_sq_diff: R2=0.9479 MAE=87.3606 RMSE=218.4384
+[lightgbm] Geo pool (n=6000, all 3 response metrics)...
+[lightgbm] Geo(n=6000)/wasserstein: R2=0.9481 MAE=0.6268 RMSE=1.1314
+[lightgbm] Geo(n=6000)/l1_mean_abs_diff: R2=0.9481 MAE=0.6268 RMSE=1.1314
+[lightgbm] Geo(n=6000)/l2_mean_sq_diff: R2=0.9484 MAE=78.9081 RMSE=185.6637
+[lightgbm] Geo pool (n=8000, all 3 response metrics)...
+[lightgbm] Geo(n=8000)/wasserstein: R2=0.9472 MAE=0.6700 RMSE=1.2353
+[lightgbm] Geo(n=8000)/l1_mean_abs_diff: R2=0.9472 MAE=0.6700 RMSE=1.2353
+[lightgbm] Geo(n=8000)/l2_mean_sq_diff: R2=0.9474 MAE=87.1444 RMSE=208.8837
+[lightgbm] done in 3.8 min
+
+=== [catboost] === Feature: run, Geo: run
+[catboost] Feature pool (n=1024, all 3 response metrics)...
+[catboost] Feature/wasserstein: R2=0.9849 MAE=0.1654 RMSE=0.2173
+[catboost] Feature/l1_mean_abs_diff: R2=0.9908 MAE=0.1373 RMSE=0.1721
+[catboost] Feature/l2_mean_sq_diff: R2=0.9481 MAE=9.0958 RMSE=12.2194
+[catboost] Geo pool (n=2000, all 3 response metrics)...
+[catboost] Geo(n=2000)/wasserstein: R2=0.9200 MAE=0.8427 RMSE=1.5538
+[catboost] Geo(n=2000)/l1_mean_abs_diff: R2=0.9200 MAE=0.8427 RMSE=1.5538
+[catboost] Geo(n=2000)/l2_mean_sq_diff: R2=0.9189 MAE=123.9851 RMSE=272.4052
+[catboost] Geo pool (n=4000, all 3 response metrics)...
+[catboost] Geo(n=4000)/wasserstein: R2=0.9482 MAE=0.6631 RMSE=1.2676
+[catboost] Geo(n=4000)/l1_mean_abs_diff: R2=0.9482 MAE=0.6631 RMSE=1.2676
+[catboost] Geo(n=4000)/l2_mean_sq_diff: R2=0.9480 MAE=89.0282 RMSE=221.7356
+[catboost] Geo pool (n=6000, all 3 response metrics)...
+[catboost] Geo(n=6000)/wasserstein: R2=0.9482 MAE=0.6264 RMSE=1.1424
+[catboost] Geo(n=6000)/l1_mean_abs_diff: R2=0.9482 MAE=0.6264 RMSE=1.1424
+[catboost] Geo(n=6000)/l2_mean_sq_diff: R2=0.9484 MAE=80.6741 RMSE=188.5058
+[catboost] Geo pool (n=8000, all 3 response metrics)...
+[catboost] Geo(n=8000)/wasserstein: R2=0.9472 MAE=0.6739 RMSE=1.2542
+[catboost] Geo(n=8000)/l1_mean_abs_diff: R2=0.9472 MAE=0.6739 RMSE=1.2542
+[catboost] Geo(n=8000)/l2_mean_sq_diff: R2=0.9474 MAE=89.2625 RMSE=212.2831
+[catboost] done in 0.9 min
+
+=== [mlp] === Feature: run, Geo: SKIPPED
+[mlp] Feature pool (n=1024, all 3 response metrics)...
+[mlp] Feature/wasserstein: R2=0.0905 MAE=27741.6389 RMSE=85602.3324
+[mlp] Feature/l1_mean_abs_diff: R2=0.0905 MAE=27741.5399 RMSE=85602.1779
+[mlp] Feature/l2_mean_sq_diff: R2=0.0164 MAE=3325754465433.4409 RMSE=16313981976086.9375
+[mlp] done in 0.1 min
+
+=== [svr] === Feature: run, Geo: SKIPPED
+[svr] Feature pool (n=1024, all 3 response metrics)...
+[svr] Feature/wasserstein: R2=0.9366 MAE=0.2984 RMSE=0.3756
+[svr] Feature/l1_mean_abs_diff: R2=0.9347 MAE=0.2967 RMSE=0.3819
+[svr] Feature/l2_mean_sq_diff: R2=0.9054 MAE=6.4034 RMSE=8.4978
+[svr] done in 0.7 min
+
+=== [gp] === Feature: run, Geo: run
+[gp] Feature pool (n=1024, all 3 response metrics)...
+[gp] Feature/wasserstein: R2=0.9964 MAE=0.1219 RMSE=0.1533
+[gp] Feature/l1_mean_abs_diff: R2=0.9910 MAE=0.1667 RMSE=0.2159
+[gp] Feature/l2_mean_sq_diff: R2=0.8664 MAE=11.4987 RMSE=22.4122
+[gp] Geo pool (n=2000, all 3 response metrics)...
+[gp] Geo(n=2000)/wasserstein: R2=0.9172 MAE=0.8361 RMSE=1.4817
+[gp] Geo(n=2000)/l1_mean_abs_diff: R2=0.9172 MAE=0.8361 RMSE=1.4817
+[gp] Geo(n=2000)/l2_mean_sq_diff: R2=0.9178 MAE=107.5335 RMSE=236.1909
+[gp] Geo pool (n=4000, all 3 response metrics)...
+[gp] Geo(n=4000)/wasserstein: R2=0.9461 MAE=0.6660 RMSE=1.1968
+[gp] Geo(n=4000)/l1_mean_abs_diff: R2=0.9461 MAE=0.6660 RMSE=1.1968
+[gp] Geo(n=4000)/l2_mean_sq_diff: R2=0.9478 MAE=77.1566 RMSE=191.0356
+[gp] Geo pool (n=6000, all 3 response metrics)...
+[gp] Geo(n=6000)/wasserstein: R2=0.9482 MAE=0.6289 RMSE=1.0767
+[gp] Geo(n=6000)/l1_mean_abs_diff: R2=0.9482 MAE=0.6289 RMSE=1.0767
+[gp] Geo(n=6000)/l2_mean_sq_diff: R2=0.9485 MAE=69.1993 RMSE=162.5878
+[gp] Geo pool (n=8000, all 3 response metrics)...
+[gp] Geo(n=8000)/wasserstein: R2=0.9479 MAE=0.6584 RMSE=1.1549
+[gp] Geo(n=8000)/l1_mean_abs_diff: R2=0.9479 MAE=0.6584 RMSE=1.1549
+[gp] Geo(n=8000)/l2_mean_sq_diff: R2=0.9475 MAE=76.0626 RMSE=182.3252
+[gp] done in 78.9 min
+
+=== [dl] === Feature: run, Geo: run
+I0000 00:00:1788468628.867888   11092 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[dl] Feature pool (n=1024, all 3 response metrics)...
+[dl] Feature/wasserstein: R2=0.1244 MAE=5.7211 RMSE=9.7478
+[dl] Feature/l1_mean_abs_diff: R2=0.1322 MAE=5.7379 RMSE=9.7827
+[dl] Feature/l2_mean_sq_diff: R2=0.0255 MAE=70316.6082 RMSE=179025.6769
+[dl] Geo pool (n=2000, all 3 response metrics)...
+[dl] Geo(n=2000)/wasserstein: R2=0.9184 MAE=0.9596 RMSE=1.6250
+[dl] Geo(n=2000)/l1_mean_abs_diff: R2=0.9184 MAE=0.9596 RMSE=1.6250
+[dl] Geo(n=2000)/l2_mean_sq_diff: R2=0.9171 MAE=136.9498 RMSE=291.6145
+[dl] Geo pool (n=4000, all 3 response metrics)...
+[dl] Geo(n=4000)/wasserstein: R2=0.9451 MAE=0.7720 RMSE=1.3343
+[dl] Geo(n=4000)/l1_mean_abs_diff: R2=0.9451 MAE=0.7720 RMSE=1.3343
+[dl] Geo(n=4000)/l2_mean_sq_diff: R2=0.9477 MAE=96.9522 RMSE=235.0669
+[dl] Geo pool (n=6000, all 3 response metrics)...
+[dl] Geo(n=6000)/wasserstein: R2=0.9485 MAE=0.7182 RMSE=1.1876
+[dl] Geo(n=6000)/l1_mean_abs_diff: R2=0.9485 MAE=0.7182 RMSE=1.1876
+[dl] Geo(n=6000)/l2_mean_sq_diff: R2=0.9488 MAE=87.8808 RMSE=200.4210
+[dl] Geo pool (n=8000, all 3 response metrics)...
+[dl] Geo(n=8000)/wasserstein: R2=0.9475 MAE=0.7530 RMSE=1.2684
+[dl] Geo(n=8000)/l1_mean_abs_diff: R2=0.9475 MAE=0.7530 RMSE=1.2684
+[dl] Geo(n=8000)/l2_mean_sq_diff: R2=0.9475 MAE=95.9191 RMSE=223.5922
+[dl] done in 42.0 min
+
+Done. 81 rows. Summary: D:\GEO SMILE CODE\hull\outputs\response_metric_comparison\response_metric_comparison_summary.csv

@@ -1,0 +1,29 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788701696.284242    2556 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788701698.413946    2556 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Saved: D:\GEO SMILE CODE\hull\outputs\top_maps\figures\geo_top20_xgboost.png
+Saved: D:\GEO SMILE CODE\hull\outputs\top_maps\figures\geo_top20_lightgbm.png
+Saved: D:\GEO SMILE CODE\hull\outputs\top_maps\figures\geo_top20_catboost.png
+[svr/Geo] SKIPPED (R2=0.316 <= 0.7)
+Saved: D:\GEO SMILE CODE\hull\outputs\top_maps\figures\geo_top20_gp.png
+[mlp/Feature] fitting Random Forest surrogate (n=8192, weighted=True)...
+[mlp/Geo] EXCLUDED (correctly gated, see model_screening_section.tex)
+I0000 00:00:1788701738.467781    2556 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[dl/Feature] fitting Random Forest surrogate (n=4096, weighted=False)...
+Saved: D:\GEO SMILE CODE\hull\outputs\top_maps\figures\geo_top20_dl.png
+[ann/Feature] fresh Ridge SMILE fit (n=1024)...
+[ann/Geo] fresh Ridge SMILE fit (n=4000)...
+Saved: D:\GEO SMILE CODE\hull\outputs\top_maps\figures\geo_top20_ann.png
+[cnn/Feature] fresh Ridge SMILE fit (n=1024)...
+[cnn/Geo] fresh Ridge SMILE fit (n=4000) [FORCED]...
+WARNING:tensorflow:From C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:233: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+Saved: D:\GEO SMILE CODE\hull\outputs\top_maps\figures\geo_top20_cnn.png
+[transformer/Feature] fresh Ridge SMILE fit (n=1024)...
+[transformer/Geo] fresh Ridge SMILE fit (n=4000)...
+Saved: D:\GEO SMILE CODE\hull\outputs\top_maps\figures\geo_top20_transformer.png
+
+Done. 18 (model, branch) combos figured. Report: D:\GEO SMILE CODE\hull\outputs\top_maps

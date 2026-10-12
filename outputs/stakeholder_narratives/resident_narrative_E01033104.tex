@@ -1,0 +1,27 @@
+% Resident narrative, city-centre case: Kingston upon Hull 029E (E01033104).
+% Values: outputs/feature_local_coefficients.csv, outputs/geo_area_data_eval/n_4000/geo_coefficients.csv
+% (area-data Geo design), outputs/geo_area_data_eval/spatial_patterns/lisa_lsoa.csv (LISA). Street names: OpenStreetMap (Overpass) within the official ONS LSOA 2021 boundaries.
+Across Hull, the model's predictions depend mostly on each area's recent
+crime history, especially the average over the last six months. This reliance
+is strongest in the city centre and Old Town, and along the inner-city belt
+through Dairycoates, Stepney and Sculcoates. Unemployment and long-term
+sickness shares play a much smaller part, and features such as area size, road
+density and junction density matter least.
+
+Kingston upon Hull 029E (\texttt{E01033104}) is Hull's city centre and Old
+Town: Queen Victoria Square, Whitefriargate, Jameson Street, Paragon Square and
+Ferensway, Trinity Square, Market Place and Queens Dock Avenue, down to Humber
+Street and Castle Street. Here the model leans on the six- and three-month crime
+averages far more than anywhere else in Hull, while junction numbers,
+long-term sickness and transit-stop counts matter least. The model is
+\textbf{more sensitive to this area's data than to any other area in Hull}
+(rank 1 of 168): if this area's information were replaced with typical Hull
+values, its predictions would change more than anywhere else. Neighbouring
+areas share this pattern: together with the rest of the Old Town and the
+areas running west along Hessle Road and Anlaby Road towards Dairycoates
+(around Coltman Street), north-west along Spring Bank into Stepney (around
+Argyle Street), and north along Beverley Road and Freetown Way, it forms a
+group of nine areas where the model is unusually sensitive to local data.
+
+This describes what the model uses, \textbf{not what causes crime}, and says
+nothing about the people who live, work or shop there.

@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "Across Hull, the areas with the highest geographic sensitivity to crime predictions include Kingston upon Hull 029E, which stands out with a substantially larger GeoSensitivity value of about 23.1 compared to others, indicating a relatively strong geographic influence in the model; in contrast, the lowest sensitive areas have values close to zero, showing minimal geographic impact. Spatial clustering analysis detects limited grouping of high GeoSensitivity values, with seven areas significantly clustered and similar clustering near Kingston upon Hull 029C, which ranks fourth citywide with a moderate GeoSensitivity of roughly 2.3. This selected area belongs to a small cluster of high GeoSensitivity LSOAs, distinguished in the spatial pattern analysis. Its geographic sensitivity is notably above the Hull median of about 0.65 but far below the top-ranked outlier. Latitude and longitude effects are separate and modest negatives for this area, around -0.10 and -0.16 respectively. The area's top non-location features involve recent crime rolling means and unemployment, consistent with broader Hull patterns. The evaluated explanation shows strong stability and fidelity, lending confidence in geographic attribution but it remains crucial to note that these findings do not imply causation or prescribe planning interventions, and the spatial pattern scale is not established.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-27T23:45:11.054744+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 11479,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 249,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 11728
+  },
+  "prompt_version": "geosmile-hull-v6"
+}

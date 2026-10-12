@@ -1,0 +1,52 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788654033.336358   12404 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788654035.899735   12404 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [ann] === Feature: run, Geo: run
+I0000 00:00:1788654036.513400   12404 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[ann] generating Feature mask pool (n=1024)...
+[ann] Feature: trying surrogates...
+[ann] Feature/ridge_kernel_weighted: R2=0.9551 MAE=0.2793 RMSE=0.3610
+[ann] Feature/random_forest: R2=0.9022 MAE=0.4123 RMSE=0.5329
+[ann] Feature/hist_gradient_boosting: R2=0.9648 MAE=0.2505 RMSE=0.3200
+[ann] generating Geo mask pool (n=4000)...
+[ann] Geo: trying surrogates...
+[ann] Geo/ridge_kernel_weighted: R2=0.9426 MAE=0.7233 RMSE=1.0607
+[ann] Geo/random_forest: R2=0.6174 MAE=2.1922 RMSE=2.7383
+[ann] Geo/hist_gradient_boosting: R2=0.7962 MAE=1.5559 RMSE=1.9987
+[ann] done in 6.9 min
+
+=== [cnn] === FORCED: running both branches regardless of R2 guard (Feature=0.844, Geo=0.661)
+
+=== [cnn] === Feature: run, Geo: run
+[cnn] generating Feature mask pool (n=1024)...
+[cnn] Feature: trying surrogates...
+[cnn] Feature/ridge_kernel_weighted: R2=0.9148 MAE=0.2920 RMSE=0.3932
+[cnn] Feature/random_forest: R2=0.8913 MAE=0.3442 RMSE=0.4441
+[cnn] Feature/hist_gradient_boosting: R2=0.9585 MAE=0.2092 RMSE=0.2744
+[cnn] generating Geo mask pool (n=4000)...
+[cnn] Geo: trying surrogates...
+[cnn] Geo/ridge_kernel_weighted: R2=0.9433 MAE=0.5369 RMSE=0.8245
+[cnn] Geo/random_forest: R2=0.5619 MAE=1.8317 RMSE=2.2920
+[cnn] Geo/hist_gradient_boosting: R2=0.7570 MAE=1.3263 RMSE=1.7068
+[cnn] done in 7.7 min
+
+=== [transformer] === Feature: run, Geo: run
+WARNING:tensorflow:From C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:233: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[transformer] generating Feature mask pool (n=1024)...
+[transformer] Feature: trying surrogates...
+[transformer] Feature/ridge_kernel_weighted: R2=0.9913 MAE=0.1699 RMSE=0.2163
+[transformer] Feature/random_forest: R2=0.9834 MAE=0.2335 RMSE=0.2978
+[transformer] Feature/hist_gradient_boosting: R2=0.9946 MAE=0.1309 RMSE=0.1699
+[transformer] generating Geo mask pool (n=4000)...
+[transformer] Geo: trying surrogates...
+[transformer] Geo/ridge_kernel_weighted: R2=0.9445 MAE=0.6103 RMSE=1.0159
+[transformer] Geo/random_forest: R2=0.6815 MAE=1.9110 RMSE=2.4338
+[transformer] Geo/hist_gradient_boosting: R2=0.8161 MAE=1.4064 RMSE=1.8494
+[transformer] done in 8.0 min
+
+Done. Summary: D:\GEO SMILE CODE\hull\outputs\surrogate_comparison\surrogate_comparison_summary.csv

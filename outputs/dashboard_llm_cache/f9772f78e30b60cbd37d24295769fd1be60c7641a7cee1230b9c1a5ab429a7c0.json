@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "**What the model shows**  \nThe model explains predictions about next-month crime counts in Hull by identifying how much geography and other factors influence each local area\u2019s predicted crime. For the selected area, called **Kingston upon Hull 030B**, the **GeoSensitivity** (a measure of how much the model depends on the specific geographical location of that area when making predictions) is relatively large at **6.75**, ranking it **2nd out of 168 LSOAs** in Hull. This means the model\u2019s prediction for this area notably changes when the exact location information is masked, indicating geography plays a comparatively important role here. Separately, the effects of **latitude** and **longitude** as geographic features are small for this area, with values **0.056** (latitude effect) and **-0.046** (longitude effect), showing limited influence from these coordinate features. Spatial pattern analysis shows that this area is classified as **Not significant** in terms of spatial clustering of GeoSensitivity, meaning it is not part of a statistically identified cluster of similar geographic influence.\n\n**What that means**  \nThis result means that for Kingston upon Hull 030B, the model relies more on precise geographic positioning than average across Hull to make its crime prediction. However, this is different from simply using latitude or longitude values as predictors, which have minimal individual effect here. The lack of significant clustering suggests that this strong geographic dependence does not necessarily extend to neighboring areas in a cluster pattern. Additionally, the local explanation shows that the top non-location factors influencing predictions here primarily involve recent crime trends \u2014 for example, the feature labeled **Crime roll mean 6** has a large effect size of **-31.63**, indicating this area\u2019s recent 6-month crime averages strongly shape the model\u2019s output. Other important local factors include shorter-term crime rolling means and unemployment percentage.\n\n**What it does not mean**  \nIt is important to understand that a high GeoSensitivity or a large local feature effect does not mean the area causes crime or that geography itself causes crime. GeoSensitivity is a technical measure of the model\u2019s use of location information, not a statement about crime risk or community characteristics. Also, the latitude and longitude effects are separate and much smaller than GeoSensitivity here, so geography\u2019s influence is not captured simply by coordinates. The absence of significant spatial clustering means the high geographic effect in this area is not part of a larger geographic cluster. Lastly, the model\u2019s explanations are estimations under certain evaluation metrics and do not establish causation.\n\n**How certain the result is**  \nThe explanation\u2019s reliability is supported by evaluation metrics showing strong stability and fidelity. The Geo-branch GeoSensitivity exhibits **controlled-input ATT stability Jaccard indices of 1.0**, indicating high consistency of the geographic attributions under tested perturbations. The Geo branch also has a high surrogate test R\u00b2 of about **0.90** and an empirical faithfulness p-value of **0.036**, confirming the geographic explanations are statistically meaningful under the model design. Spatial clustering tests detect a **positive spatial clustering of GeoSensitivity overall with a Moran\u2019s I of 0.044 (p = 0.027)**, but the selected area is not part of a statistically significant local cluster at the usual 0.05 threshold. Pattern scale for clustering has not been established. These evaluation results reflect the model and explanation quality but do not provide certainty about actual crime factors or causal influences.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-08-27T23:22:46.184234+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 8280,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 697,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 8977
+  },
+  "prompt_version": "geosmile-hull-v2"
+}

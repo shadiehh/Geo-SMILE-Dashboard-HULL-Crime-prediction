@@ -1,0 +1,24 @@
+{
+  "geo_signed": [
+    "signed/geo_coefficient_signed.png"
+  ],
+  "geo_abs": [
+    "absolute/geo_coefficient_abs.png"
+  ],
+  "feature_signed": [
+    "signed/feature_crime_rolling_mean_6_signed.png",
+    "signed/feature_crime_rolling_mean_3_signed.png",
+    "signed/feature_unemployed_pct_age16plus_signed.png",
+    "signed/feature_long_term_sick_disabled_pct_signed.png",
+    "signed/feature_owner_occupied_pct_signed.png",
+    "signed/feature_crime_lag_1_signed.png"
+  ],
+  "feature_abs": [
+    "absolute/feature_crime_rolling_mean_6_abs.png",
+    "absolute/feature_crime_rolling_mean_3_abs.png",
+    "absolute/feature_unemployed_pct_age16plus_abs.png",
+    "absolute/feature_long_term_sick_disabled_pct_abs.png",
+    "absolute/feature_owner_occupied_pct_abs.png",
+    "absolute/feature_crime_lag_1_abs.png"
+  ]
+}

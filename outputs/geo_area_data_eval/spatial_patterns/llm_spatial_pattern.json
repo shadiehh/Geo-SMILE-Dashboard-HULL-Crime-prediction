@@ -1,0 +1,1650 @@
+{
+  "value_field": "geo_coefficient",
+  "weights": "queen_contiguity_row_standardised",
+  "n_lsoas": 168,
+  "n_analysed": 168,
+  "islands": [],
+  "p_threshold": 0.05,
+  "n_permutations": 999,
+  "seed": 42,
+  "notes": "Association of geo_coefficient in space. HH = high geosensitivity surrounded by high; HL = high surrounded by low (localised anomaly). Not a causal crime effect.",
+  "GLOBAL_SPATIAL_PATTERN": {
+    "Moran_I": 0.21914394974096335,
+    "expected_I": -0.005988023952095809,
+    "p_value": 0.001,
+    "n_permutations": 999,
+    "interpretation": "positive spatial clustering of geosensitivity"
+  },
+  "LOCAL_SPATIAL_PATTERN": {
+    "method": "LISA_Moran_Local",
+    "p_threshold": 0.05,
+    "counts": {
+      "HH": 9,
+      "LL": 9,
+      "HL": 3,
+      "LH": 5,
+      "NS": 142,
+      "ISLAND": 0
+    },
+    "contiguous_HH_clusters": [
+      {
+        "cluster_id": 1,
+        "n": 9,
+        "lsoa21cd": [
+          "E01012850",
+          "E01012852",
+          "E01012854",
+          "E01012855",
+          "E01012891",
+          "E01033104",
+          "E01033109",
+          "E01035465",
+          "E01035466"
+        ]
+      }
+    ],
+    "contiguous_LL_clusters": [
+      {
+        "cluster_id": 1,
+        "n": 4,
+        "lsoa21cd": [
+          "E01012873",
+          "E01012874",
+          "E01012877",
+          "E01012879"
+        ]
+      },
+      {
+        "cluster_id": 2,
+        "n": 3,
+        "lsoa21cd": [
+          "E01012834",
+          "E01012837",
+          "E01012849"
+        ]
+      },
+      {
+        "cluster_id": 3,
+        "n": 2,
+        "lsoa21cd": [
+          "E01012786",
+          "E01012832"
+        ]
+      }
+    ],
+    "n_HIGH_HL_anomalies": 3,
+    "lsoas": [
+      {
+        "lsoa21cd": "E01033104",
+        "lsoa21nm": "Kingston upon Hull 029E",
+        "geo_coefficient": 22.32598125447709,
+        "geo_sensitivity": "HIGH",
+        "lisa": "HH",
+        "local_I": 12.075565250447315,
+        "p_value": 0.003
+      },
+      {
+        "lsoa21cd": "E01012889",
+        "lsoa21nm": "Kingston upon Hull 030B",
+        "geo_coefficient": 7.176457590623275,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.5576058644378219,
+        "p_value": 0.109
+      },
+      {
+        "lsoa21cd": "E01012871",
+        "lsoa21nm": "Kingston upon Hull 015D",
+        "geo_coefficient": 4.725618919405221,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.0934177153014883,
+        "p_value": 0.399
+      },
+      {
+        "lsoa21cd": "E01012854",
+        "lsoa21nm": "Kingston upon Hull 029C",
+        "geo_coefficient": 4.26712037699458,
+        "geo_sensitivity": "HIGH",
+        "lisa": "HH",
+        "local_I": 7.9925975248864045,
+        "p_value": 0.001
+      },
+      {
+        "lsoa21cd": "E01012852",
+        "lsoa21nm": "Kingston upon Hull 024B",
+        "geo_coefficient": 4.134116816860071,
+        "geo_sensitivity": "HIGH",
+        "lisa": "HH",
+        "local_I": 1.5383352623809035,
+        "p_value": 0.035
+      },
+      {
+        "lsoa21cd": "E01012805",
+        "lsoa21nm": "Kingston upon Hull 026A",
+        "geo_coefficient": 3.5433532324229766,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.22178827404969034,
+        "p_value": 0.466
+      },
+      {
+        "lsoa21cd": "E01012848",
+        "lsoa21nm": "Kingston upon Hull 020B",
+        "geo_coefficient": 3.2622757494102186,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.031316112476248596,
+        "p_value": 0.369
+      },
+      {
+        "lsoa21cd": "E01012763",
+        "lsoa21nm": "Kingston upon Hull 018C",
+        "geo_coefficient": 2.9613753215591965,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.6884037074228065,
+        "p_value": 0.056
+      },
+      {
+        "lsoa21cd": "E01012855",
+        "lsoa21nm": "Kingston upon Hull 029D",
+        "geo_coefficient": 2.8697580959341877,
+        "geo_sensitivity": "HIGH",
+        "lisa": "HH",
+        "local_I": 1.6526577369892061,
+        "p_value": 0.039
+      },
+      {
+        "lsoa21cd": "E01012787",
+        "lsoa21nm": "Kingston upon Hull 002D",
+        "geo_coefficient": 2.8110472835151543,
+        "geo_sensitivity": "HIGH",
+        "lisa": "HL",
+        "local_I": -0.5096477099673598,
+        "p_value": 0.031
+      },
+      {
+        "lsoa21cd": "E01035464",
+        "lsoa21nm": "Kingston upon Hull 017G",
+        "geo_coefficient": 2.439595305324611,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.12546690797049628,
+        "p_value": 0.25
+      },
+      {
+        "lsoa21cd": "E01035466",
+        "lsoa21nm": "Kingston upon Hull 029H",
+        "geo_coefficient": 2.093151941332383,
+        "geo_sensitivity": "HIGH",
+        "lisa": "HH",
+        "local_I": 2.8272728553912105,
+        "p_value": 0.001
+      },
+      {
+        "lsoa21cd": "E01012809",
+        "lsoa21nm": "Kingston upon Hull 026C",
+        "geo_coefficient": 2.0870803820104302,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.186201495883674,
+        "p_value": 0.158
+      },
+      {
+        "lsoa21cd": "E01012891",
+        "lsoa21nm": "Kingston upon Hull 030C",
+        "geo_coefficient": 1.9672340118187548,
+        "geo_sensitivity": "HIGH",
+        "lisa": "HH",
+        "local_I": 0.9592650888727463,
+        "p_value": 0.027
+      },
+      {
+        "lsoa21cd": "E01012850",
+        "lsoa21nm": "Kingston upon Hull 024A",
+        "geo_coefficient": 1.858956508630004,
+        "geo_sensitivity": "HIGH",
+        "lisa": "HH",
+        "local_I": 0.9922233302843808,
+        "p_value": 0.03
+      },
+      {
+        "lsoa21cd": "E01033109",
+        "lsoa21nm": "Kingston upon Hull 029F",
+        "geo_coefficient": 1.8082843681275695,
+        "geo_sensitivity": "HIGH",
+        "lisa": "HH",
+        "local_I": 2.4701783253960796,
+        "p_value": 0.002
+      },
+      {
+        "lsoa21cd": "E01035465",
+        "lsoa21nm": "Kingston upon Hull 029G",
+        "geo_coefficient": 1.7797695191156837,
+        "geo_sensitivity": "HIGH",
+        "lisa": "HH",
+        "local_I": 1.8260778250964373,
+        "p_value": 0.001
+      },
+      {
+        "lsoa21cd": "E01012843",
+        "lsoa21nm": "Kingston upon Hull 021B",
+        "geo_coefficient": 1.6984672036820463,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.10811402103484163,
+        "p_value": 0.19
+      },
+      {
+        "lsoa21cd": "E01012857",
+        "lsoa21nm": "Kingston upon Hull 024D",
+        "geo_coefficient": 1.2774291906495856,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.2286170482037451,
+        "p_value": 0.079
+      },
+      {
+        "lsoa21cd": "E01012817",
+        "lsoa21nm": "Kingston upon Hull 016D",
+        "geo_coefficient": 1.0539208212401605,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.02051728957241026,
+        "p_value": 0.299
+      },
+      {
+        "lsoa21cd": "E01012865",
+        "lsoa21nm": "Kingston upon Hull 027E",
+        "geo_coefficient": 0.883169805759651,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.1383096218913612,
+        "p_value": 0.093
+      },
+      {
+        "lsoa21cd": "E01012757",
+        "lsoa21nm": "Kingston upon Hull 025B",
+        "geo_coefficient": 0.7357893166118509,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.14707775538489157,
+        "p_value": 0.067
+      },
+      {
+        "lsoa21cd": "E01012868",
+        "lsoa21nm": "Kingston upon Hull 015B",
+        "geo_coefficient": 0.6885664333172966,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.0675657364225327,
+        "p_value": 0.312
+      },
+      {
+        "lsoa21cd": "E01012827",
+        "lsoa21nm": "Kingston upon Hull 011D",
+        "geo_coefficient": 0.613143270630155,
+        "geo_sensitivity": "HIGH",
+        "lisa": "HL",
+        "local_I": -0.10624755896991146,
+        "p_value": 0.02
+      },
+      {
+        "lsoa21cd": "E01012814",
+        "lsoa21nm": "Kingston upon Hull 013C",
+        "geo_coefficient": 0.4696248101126341,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.0008566600695122441,
+        "p_value": 0.337
+      },
+      {
+        "lsoa21cd": "E01012869",
+        "lsoa21nm": "Kingston upon Hull 015C",
+        "geo_coefficient": 0.4402757661059845,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.042801744313338316,
+        "p_value": 0.154
+      },
+      {
+        "lsoa21cd": "E01012875",
+        "lsoa21nm": "Kingston upon Hull 003A",
+        "geo_coefficient": 0.3746987936485422,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.05958841680126661,
+        "p_value": 0.091
+      },
+      {
+        "lsoa21cd": "E01012801",
+        "lsoa21nm": "Kingston upon Hull 019E",
+        "geo_coefficient": 0.3259664450084544,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.05094101522033759,
+        "p_value": 0.064
+      },
+      {
+        "lsoa21cd": "E01012813",
+        "lsoa21nm": "Kingston upon Hull 013B",
+        "geo_coefficient": 0.3246542035401765,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.005173932838612268,
+        "p_value": 0.39
+      },
+      {
+        "lsoa21cd": "E01012792",
+        "lsoa21nm": "Kingston upon Hull 014B",
+        "geo_coefficient": 0.3066895265585198,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.026390002804606037,
+        "p_value": 0.385
+      },
+      {
+        "lsoa21cd": "E01012912",
+        "lsoa21nm": "Kingston upon Hull 006E",
+        "geo_coefficient": 0.2881611510794372,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.020035134524042007,
+        "p_value": 0.395
+      },
+      {
+        "lsoa21cd": "E01012909",
+        "lsoa21nm": "Kingston upon Hull 007D",
+        "geo_coefficient": 0.2837236429076572,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.023702988961039628,
+        "p_value": 0.415
+      },
+      {
+        "lsoa21cd": "E01012771",
+        "lsoa21nm": "Kingston upon Hull 028B",
+        "geo_coefficient": 0.2793035170325901,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.037698254924254444,
+        "p_value": 0.167
+      },
+      {
+        "lsoa21cd": "E01012819",
+        "lsoa21nm": "Kingston upon Hull 016E",
+        "geo_coefficient": 0.2791032680420227,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.0014092665124481028,
+        "p_value": 0.328
+      },
+      {
+        "lsoa21cd": "E01012765",
+        "lsoa21nm": "Kingston upon Hull 005B",
+        "geo_coefficient": 0.2638702380565789,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.02463119146145769,
+        "p_value": 0.364
+      },
+      {
+        "lsoa21cd": "E01012770",
+        "lsoa21nm": "Kingston upon Hull 028A",
+        "geo_coefficient": 0.2491241627014349,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.031207136768800797,
+        "p_value": 0.313
+      },
+      {
+        "lsoa21cd": "E01012769",
+        "lsoa21nm": "Kingston upon Hull 005D",
+        "geo_coefficient": 0.2211238797804864,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.019120694969334502,
+        "p_value": 0.454
+      },
+      {
+        "lsoa21cd": "E01012764",
+        "lsoa21nm": "Kingston upon Hull 005A",
+        "geo_coefficient": 0.2125112680342759,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.0017753523355152877,
+        "p_value": 0.32
+      },
+      {
+        "lsoa21cd": "E01012796",
+        "lsoa21nm": "Kingston upon Hull 023A",
+        "geo_coefficient": 0.1754758498881978,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.020051470422137656,
+        "p_value": 0.357
+      },
+      {
+        "lsoa21cd": "E01012803",
+        "lsoa21nm": "Kingston upon Hull 023E",
+        "geo_coefficient": 0.1667407369577042,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.013932661797859743,
+        "p_value": 0.44
+      },
+      {
+        "lsoa21cd": "E01012835",
+        "lsoa21nm": "Kingston upon Hull 009B",
+        "geo_coefficient": 0.0752866819733811,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.01330595919757969,
+        "p_value": 0.142
+      },
+      {
+        "lsoa21cd": "E01012773",
+        "lsoa21nm": "Kingston upon Hull 027A",
+        "geo_coefficient": 0.0725002905881571,
+        "geo_sensitivity": "HIGH",
+        "lisa": "HL",
+        "local_I": -0.013327426232039708,
+        "p_value": 0.045
+      },
+      {
+        "lsoa21cd": "E01012820",
+        "lsoa21nm": "Kingston upon Hull 022A",
+        "geo_coefficient": 0.0715650546153338,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.005223324179259791,
+        "p_value": 0.435
+      },
+      {
+        "lsoa21cd": "E01012911",
+        "lsoa21nm": "Kingston upon Hull 007E",
+        "geo_coefficient": 0.0497148152724997,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.005299862717375579,
+        "p_value": 0.313
+      },
+      {
+        "lsoa21cd": "E01012815",
+        "lsoa21nm": "Kingston upon Hull 013D",
+        "geo_coefficient": 0.0287921655335755,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.0030556908118209688,
+        "p_value": 0.172
+      },
+      {
+        "lsoa21cd": "E01012799",
+        "lsoa21nm": "Kingston upon Hull 023B",
+        "geo_coefficient": 0.0274536883185952,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.0034592840698599316,
+        "p_value": 0.286
+      },
+      {
+        "lsoa21cd": "E01012884",
+        "lsoa21nm": "Kingston upon Hull 033C",
+        "geo_coefficient": 0.0035419418581524,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.001332293153355867,
+        "p_value": 0.192
+      },
+      {
+        "lsoa21cd": "E01012910",
+        "lsoa21nm": "Kingston upon Hull 006D",
+        "geo_coefficient": 0.0031728345203483,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.00058928533716483,
+        "p_value": 0.424
+      },
+      {
+        "lsoa21cd": "E01012883",
+        "lsoa21nm": "Kingston upon Hull 033B",
+        "geo_coefficient": -0.0104889915940181,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.0016542468102811439,
+        "p_value": 0.056
+      },
+      {
+        "lsoa21cd": "E01012818",
+        "lsoa21nm": "Kingston upon Hull 013E",
+        "geo_coefficient": -0.0164369647061686,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.00041237809026102167,
+        "p_value": 0.26
+      },
+      {
+        "lsoa21cd": "E01012864",
+        "lsoa21nm": "Kingston upon Hull 027D",
+        "geo_coefficient": -0.0565010958190862,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.005567476781496606,
+        "p_value": 0.264
+      },
+      {
+        "lsoa21cd": "E01012760",
+        "lsoa21nm": "Kingston upon Hull 025D",
+        "geo_coefficient": -0.0624728729342092,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.005041262745690136,
+        "p_value": 0.404
+      },
+      {
+        "lsoa21cd": "E01012812",
+        "lsoa21nm": "Kingston upon Hull 013A",
+        "geo_coefficient": -0.0678755549831794,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.0037705036097465208,
+        "p_value": 0.465
+      },
+      {
+        "lsoa21cd": "E01012830",
+        "lsoa21nm": "Kingston upon Hull 006B",
+        "geo_coefficient": -0.0837418953894226,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.008566764434764349,
+        "p_value": 0.281
+      },
+      {
+        "lsoa21cd": "E01035463",
+        "lsoa21nm": "Kingston upon Hull 011F",
+        "geo_coefficient": -0.096014270039485,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": 0.00873428064494927,
+        "p_value": 0.297
+      },
+      {
+        "lsoa21cd": "E01012761",
+        "lsoa21nm": "Kingston upon Hull 015A",
+        "geo_coefficient": -0.0982988974282568,
+        "geo_sensitivity": "HIGH",
+        "lisa": "NS",
+        "local_I": -0.009377504436318289,
+        "p_value": 0.164
+      },
+      {
+        "lsoa21cd": "E01035472",
+        "lsoa21nm": "Kingston upon Hull 035C",
+        "geo_coefficient": -0.1106598014841551,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.011128809927720317,
+        "p_value": 0.33
+      },
+      {
+        "lsoa21cd": "E01035471",
+        "lsoa21nm": "Kingston upon Hull 035B",
+        "geo_coefficient": -0.1763699958643705,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.013855971517635467,
+        "p_value": 0.384
+      },
+      {
+        "lsoa21cd": "E01035469",
+        "lsoa21nm": "Kingston upon Hull 034C",
+        "geo_coefficient": -0.1796331402438433,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.01833737563331129,
+        "p_value": 0.332
+      },
+      {
+        "lsoa21cd": "E01012908",
+        "lsoa21nm": "Kingston upon Hull 004F",
+        "geo_coefficient": -0.1871902065294521,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.02476850484776342,
+        "p_value": 0.165
+      },
+      {
+        "lsoa21cd": "E01012913",
+        "lsoa21nm": "Kingston upon Hull 014E",
+        "geo_coefficient": -0.2053246103006972,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.021510297176353204,
+        "p_value": 0.311
+      },
+      {
+        "lsoa21cd": "E01012762",
+        "lsoa21nm": "Kingston upon Hull 018B",
+        "geo_coefficient": -0.2220312140819018,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.007945826740032783,
+        "p_value": 0.27
+      },
+      {
+        "lsoa21cd": "E01012766",
+        "lsoa21nm": "Kingston upon Hull 012A",
+        "geo_coefficient": -0.228465370407691,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.027072697182129794,
+        "p_value": 0.118
+      },
+      {
+        "lsoa21cd": "E01012758",
+        "lsoa21nm": "Kingston upon Hull 018A",
+        "geo_coefficient": -0.2296730861051064,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.010134129606459668,
+        "p_value": 0.243
+      },
+      {
+        "lsoa21cd": "E01012902",
+        "lsoa21nm": "Kingston upon Hull 022D",
+        "geo_coefficient": -0.2404233293783193,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.02890623447340027,
+        "p_value": 0.215
+      },
+      {
+        "lsoa21cd": "E01012892",
+        "lsoa21nm": "Kingston upon Hull 030D",
+        "geo_coefficient": -0.242418629759784,
+        "geo_sensitivity": "MID",
+        "lisa": "LH",
+        "local_I": -0.14308478109037537,
+        "p_value": 0.014
+      },
+      {
+        "lsoa21cd": "E01012791",
+        "lsoa21nm": "Kingston upon Hull 014A",
+        "geo_coefficient": -0.2575283628020192,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.03547891903128572,
+        "p_value": 0.138
+      },
+      {
+        "lsoa21cd": "E01012807",
+        "lsoa21nm": "Kingston upon Hull 016C",
+        "geo_coefficient": -0.2639615671269251,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.007653880481108627,
+        "p_value": 0.267
+      },
+      {
+        "lsoa21cd": "E01012836",
+        "lsoa21nm": "Kingston upon Hull 009C",
+        "geo_coefficient": -0.266277963461292,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.03027044358594032,
+        "p_value": 0.214
+      },
+      {
+        "lsoa21cd": "E01012859",
+        "lsoa21nm": "Kingston upon Hull 030A",
+        "geo_coefficient": -0.2692183113001102,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.027833122242889273,
+        "p_value": 0.132
+      },
+      {
+        "lsoa21cd": "E01012880",
+        "lsoa21nm": "Kingston upon Hull 008C",
+        "geo_coefficient": -0.297258268593664,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.04371516790686851,
+        "p_value": 0.082
+      },
+      {
+        "lsoa21cd": "E01012846",
+        "lsoa21nm": "Kingston upon Hull 021D",
+        "geo_coefficient": -0.3130822490167991,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.031045109416003178,
+        "p_value": 0.15
+      },
+      {
+        "lsoa21cd": "E01012839",
+        "lsoa21nm": "Kingston upon Hull 009D",
+        "geo_coefficient": -0.3143623694031219,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.049704887785344584,
+        "p_value": 0.163
+      },
+      {
+        "lsoa21cd": "E01035470",
+        "lsoa21nm": "Kingston upon Hull 035A",
+        "geo_coefficient": -0.3270346782133292,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.010603950313913835,
+        "p_value": 0.41
+      },
+      {
+        "lsoa21cd": "E01012904",
+        "lsoa21nm": "Kingston upon Hull 007B",
+        "geo_coefficient": -0.331890882103342,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.01479016100723923,
+        "p_value": 0.468
+      },
+      {
+        "lsoa21cd": "E01012772",
+        "lsoa21nm": "Kingston upon Hull 028C",
+        "geo_coefficient": -0.3553837802996813,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.040558241492028954,
+        "p_value": 0.271
+      },
+      {
+        "lsoa21cd": "E01012793",
+        "lsoa21nm": "Kingston upon Hull 014C",
+        "geo_coefficient": -0.3670122511621269,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.03004001029508165,
+        "p_value": 0.343
+      },
+      {
+        "lsoa21cd": "E01012894",
+        "lsoa21nm": "Kingston upon Hull 020C",
+        "geo_coefficient": -0.3723868724885146,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.06152813483658037,
+        "p_value": 0.098
+      },
+      {
+        "lsoa21cd": "E01012783",
+        "lsoa21nm": "Kingston upon Hull 004B",
+        "geo_coefficient": -0.3775131560942522,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.032547190713223755,
+        "p_value": 0.353
+      },
+      {
+        "lsoa21cd": "E01012881",
+        "lsoa21nm": "Kingston upon Hull 008D",
+        "geo_coefficient": -0.3844503527759195,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.02256986827097163,
+        "p_value": 0.403
+      },
+      {
+        "lsoa21cd": "E01012806",
+        "lsoa21nm": "Kingston upon Hull 016B",
+        "geo_coefficient": -0.3904857202302118,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.0043114401268005325,
+        "p_value": 0.394
+      },
+      {
+        "lsoa21cd": "E01012914",
+        "lsoa21nm": "Kingston upon Hull 012C",
+        "geo_coefficient": -0.4257892611042831,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.029909724405065945,
+        "p_value": 0.311
+      },
+      {
+        "lsoa21cd": "E01012824",
+        "lsoa21nm": "Kingston upon Hull 010A",
+        "geo_coefficient": -0.4331372957703136,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.05988476646418662,
+        "p_value": 0.094
+      },
+      {
+        "lsoa21cd": "E01012870",
+        "lsoa21nm": "Kingston upon Hull 018E",
+        "geo_coefficient": -0.467911235442222,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.016627612532284893,
+        "p_value": 0.455
+      },
+      {
+        "lsoa21cd": "E01012828",
+        "lsoa21nm": "Kingston upon Hull 011E",
+        "geo_coefficient": -0.4842813511035477,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.055338804678232136,
+        "p_value": 0.291
+      },
+      {
+        "lsoa21cd": "E01012776",
+        "lsoa21nm": "Kingston upon Hull 027B",
+        "geo_coefficient": -0.4855186219616004,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.04375435647349693,
+        "p_value": 0.28
+      },
+      {
+        "lsoa21cd": "E01012797",
+        "lsoa21nm": "Kingston upon Hull 019C",
+        "geo_coefficient": -0.4953237681000559,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.06990463150748519,
+        "p_value": 0.25
+      },
+      {
+        "lsoa21cd": "E01012867",
+        "lsoa21nm": "Kingston upon Hull 024E",
+        "geo_coefficient": -0.5010650738089647,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.06565646807529257,
+        "p_value": 0.11
+      },
+      {
+        "lsoa21cd": "E01012774",
+        "lsoa21nm": "Kingston upon Hull 019A",
+        "geo_coefficient": -0.5144859945894565,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.04848997538421321,
+        "p_value": 0.355
+      },
+      {
+        "lsoa21cd": "E01012899",
+        "lsoa21nm": "Kingston upon Hull 022B",
+        "geo_coefficient": -0.5220428730892547,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.0034083016939741194,
+        "p_value": 0.356
+      },
+      {
+        "lsoa21cd": "E01012906",
+        "lsoa21nm": "Kingston upon Hull 004E",
+        "geo_coefficient": -0.5435712368014516,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.04814576361623058,
+        "p_value": 0.322
+      },
+      {
+        "lsoa21cd": "E01033107",
+        "lsoa21nm": "Kingston upon Hull 035E",
+        "geo_coefficient": -0.5451473110994098,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.055123923496740675,
+        "p_value": 0.338
+      },
+      {
+        "lsoa21cd": "E01012866",
+        "lsoa21nm": "Kingston upon Hull 018D",
+        "geo_coefficient": -0.5734635819487217,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.03734564108066586,
+        "p_value": 0.419
+      },
+      {
+        "lsoa21cd": "E01012860",
+        "lsoa21nm": "Kingston upon Hull 031B",
+        "geo_coefficient": -0.5821035409531032,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.04937139431843152,
+        "p_value": 0.307
+      },
+      {
+        "lsoa21cd": "E01012802",
+        "lsoa21nm": "Kingston upon Hull 023D",
+        "geo_coefficient": -0.5916366693451867,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.010408163436219016,
+        "p_value": 0.397
+      },
+      {
+        "lsoa21cd": "E01012888",
+        "lsoa21nm": "Kingston upon Hull 031E",
+        "geo_coefficient": -0.5940586392471037,
+        "geo_sensitivity": "MID",
+        "lisa": "LH",
+        "local_I": -0.1728963024335269,
+        "p_value": 0.049
+      },
+      {
+        "lsoa21cd": "E01012862",
+        "lsoa21nm": "Kingston upon Hull 025E",
+        "geo_coefficient": -0.6009869754664708,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.07281978488319332,
+        "p_value": 0.149
+      },
+      {
+        "lsoa21cd": "E01012781",
+        "lsoa21nm": "Kingston upon Hull 034B",
+        "geo_coefficient": -0.6033858984242041,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.12305635976603319,
+        "p_value": 0.057
+      },
+      {
+        "lsoa21cd": "E01012896",
+        "lsoa21nm": "Kingston upon Hull 020D",
+        "geo_coefficient": -0.6504275858800088,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.001162739535710446,
+        "p_value": 0.381
+      },
+      {
+        "lsoa21cd": "E01012845",
+        "lsoa21nm": "Kingston upon Hull 021C",
+        "geo_coefficient": -0.6849194642557356,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.03636555017991842,
+        "p_value": 0.238
+      },
+      {
+        "lsoa21cd": "E01012901",
+        "lsoa21nm": "Kingston upon Hull 020E",
+        "geo_coefficient": -0.7009269762197545,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.07682727499817814,
+        "p_value": 0.275
+      },
+      {
+        "lsoa21cd": "E01035468",
+        "lsoa21nm": "Kingston upon Hull 031I",
+        "geo_coefficient": -0.7090356979055847,
+        "geo_sensitivity": "MID",
+        "lisa": "LH",
+        "local_I": -0.25548583674597697,
+        "p_value": 0.043
+      },
+      {
+        "lsoa21cd": "E01033105",
+        "lsoa21nm": "Kingston upon Hull 035D",
+        "geo_coefficient": -0.7126757622493303,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.08936204807506065,
+        "p_value": 0.162
+      },
+      {
+        "lsoa21cd": "E01012882",
+        "lsoa21nm": "Kingston upon Hull 033A",
+        "geo_coefficient": -0.7167429262432325,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.10512564023080198,
+        "p_value": 0.104
+      },
+      {
+        "lsoa21cd": "E01012794",
+        "lsoa21nm": "Kingston upon Hull 014D",
+        "geo_coefficient": -0.7206250200226759,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.04853363472793226,
+        "p_value": 0.488
+      },
+      {
+        "lsoa21cd": "E01012832",
+        "lsoa21nm": "Kingston upon Hull 034E",
+        "geo_coefficient": -0.7272412024258185,
+        "geo_sensitivity": "MID",
+        "lisa": "LL",
+        "local_I": 0.1278091739915201,
+        "p_value": 0.015
+      },
+      {
+        "lsoa21cd": "E01012790",
+        "lsoa21nm": "Kingston upon Hull 004D",
+        "geo_coefficient": -0.7366197596144192,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.024266414403258076,
+        "p_value": 0.443
+      },
+      {
+        "lsoa21cd": "E01012811",
+        "lsoa21nm": "Kingston upon Hull 026E",
+        "geo_coefficient": -0.7407639166079654,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.09746209013473758,
+        "p_value": 0.168
+      },
+      {
+        "lsoa21cd": "E01012804",
+        "lsoa21nm": "Kingston upon Hull 016A",
+        "geo_coefficient": -0.7617255208450335,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.028588346031048966,
+        "p_value": 0.261
+      },
+      {
+        "lsoa21cd": "E01012858",
+        "lsoa21nm": "Kingston upon Hull 031A",
+        "geo_coefficient": -0.7633604888393623,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": -0.12122910096142771,
+        "p_value": 0.101
+      },
+      {
+        "lsoa21cd": "E01012777",
+        "lsoa21nm": "Kingston upon Hull 028E",
+        "geo_coefficient": -0.7683492140353791,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.03876907091203051,
+        "p_value": 0.478
+      },
+      {
+        "lsoa21cd": "E01012816",
+        "lsoa21nm": "Kingston upon Hull 020A",
+        "geo_coefficient": -0.7759210919826788,
+        "geo_sensitivity": "MID",
+        "lisa": "NS",
+        "local_I": 0.022061132638377667,
+        "p_value": 0.474
+      },
+      {
+        "lsoa21cd": "E01012841",
+        "lsoa21nm": "Kingston upon Hull 017A",
+        "geo_coefficient": -0.7829208107587604,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.03885643830564493,
+        "p_value": 0.493
+      },
+      {
+        "lsoa21cd": "E01012788",
+        "lsoa21nm": "Kingston upon Hull 002E",
+        "geo_coefficient": -0.7848771321689086,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.04379182723756658,
+        "p_value": 0.458
+      },
+      {
+        "lsoa21cd": "E01012789",
+        "lsoa21nm": "Kingston upon Hull 002F",
+        "geo_coefficient": -0.7945741813866034,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.025083216187419367,
+        "p_value": 0.492
+      },
+      {
+        "lsoa21cd": "E01012916",
+        "lsoa21nm": "Kingston upon Hull 012D",
+        "geo_coefficient": -0.8419355667986359,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.0999145282882876,
+        "p_value": 0.169
+      },
+      {
+        "lsoa21cd": "E01012893",
+        "lsoa21nm": "Kingston upon Hull 030E",
+        "geo_coefficient": -0.8541787569856578,
+        "geo_sensitivity": "LOW",
+        "lisa": "LH",
+        "local_I": -0.25031367863419896,
+        "p_value": 0.045
+      },
+      {
+        "lsoa21cd": "E01012873",
+        "lsoa21nm": "Kingston upon Hull 008A",
+        "geo_coefficient": -0.8544198132222652,
+        "geo_sensitivity": "LOW",
+        "lisa": "LL",
+        "local_I": 0.15829333471290832,
+        "p_value": 0.025
+      },
+      {
+        "lsoa21cd": "E01012833",
+        "lsoa21nm": "Kingston upon Hull 009A",
+        "geo_coefficient": -0.8710264519626641,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.11374214728033047,
+        "p_value": 0.219
+      },
+      {
+        "lsoa21cd": "E01012887",
+        "lsoa21nm": "Kingston upon Hull 033D",
+        "geo_coefficient": -0.8726775465135512,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.1210610701351958,
+        "p_value": 0.214
+      },
+      {
+        "lsoa21cd": "E01012810",
+        "lsoa21nm": "Kingston upon Hull 026D",
+        "geo_coefficient": -0.8763098038398094,
+        "geo_sensitivity": "LOW",
+        "lisa": "LH",
+        "local_I": -0.27614500417073734,
+        "p_value": 0.037
+      },
+      {
+        "lsoa21cd": "E01012900",
+        "lsoa21nm": "Kingston upon Hull 022C",
+        "geo_coefficient": -0.879167639508016,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": -0.17152056564980536,
+        "p_value": 0.086
+      },
+      {
+        "lsoa21cd": "E01012876",
+        "lsoa21nm": "Kingston upon Hull 003B",
+        "geo_coefficient": -0.8817762227745545,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.1320833656876344,
+        "p_value": 0.14
+      },
+      {
+        "lsoa21cd": "E01012767",
+        "lsoa21nm": "Kingston upon Hull 012B",
+        "geo_coefficient": -0.8828643583114567,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.04954107591999482,
+        "p_value": 0.494
+      },
+      {
+        "lsoa21cd": "E01012829",
+        "lsoa21nm": "Kingston upon Hull 006A",
+        "geo_coefficient": -0.8950970731235515,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.037232657746829705,
+        "p_value": 0.456
+      },
+      {
+        "lsoa21cd": "E01012918",
+        "lsoa21nm": "Kingston upon Hull 008G",
+        "geo_coefficient": -0.9041827489778675,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.13698649233126428,
+        "p_value": 0.103
+      },
+      {
+        "lsoa21cd": "E01012808",
+        "lsoa21nm": "Kingston upon Hull 026B",
+        "geo_coefficient": -0.9083128933492506,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": -0.2449574673836219,
+        "p_value": 0.05
+      },
+      {
+        "lsoa21cd": "E01012822",
+        "lsoa21nm": "Kingston upon Hull 007A",
+        "geo_coefficient": -0.9120570801322412,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.04776533726693269,
+        "p_value": 0.458
+      },
+      {
+        "lsoa21cd": "E01012903",
+        "lsoa21nm": "Kingston upon Hull 022E",
+        "geo_coefficient": -0.9127691262378552,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": -0.057016157715053944,
+        "p_value": 0.216
+      },
+      {
+        "lsoa21cd": "E01012847",
+        "lsoa21nm": "Kingston upon Hull 021E",
+        "geo_coefficient": -0.92565966147254,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": -0.15180440933731523,
+        "p_value": 0.125
+      },
+      {
+        "lsoa21cd": "E01012874",
+        "lsoa21nm": "Kingston upon Hull 008B",
+        "geo_coefficient": -0.964677744497444,
+        "geo_sensitivity": "LOW",
+        "lisa": "LL",
+        "local_I": 0.17595381419747028,
+        "p_value": 0.019
+      },
+      {
+        "lsoa21cd": "E01012879",
+        "lsoa21nm": "Kingston upon Hull 003E",
+        "geo_coefficient": -0.9735257311937656,
+        "geo_sensitivity": "LOW",
+        "lisa": "LL",
+        "local_I": 0.21768004097883575,
+        "p_value": 0.019
+      },
+      {
+        "lsoa21cd": "E01012786",
+        "lsoa21nm": "Kingston upon Hull 002C",
+        "geo_coefficient": -0.9884716812781515,
+        "geo_sensitivity": "LOW",
+        "lisa": "LL",
+        "local_I": 0.18946660726266742,
+        "p_value": 0.016
+      },
+      {
+        "lsoa21cd": "E01012795",
+        "lsoa21nm": "Kingston upon Hull 019B",
+        "geo_coefficient": -0.9981376059661088,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.0869009355365361,
+        "p_value": 0.296
+      },
+      {
+        "lsoa21cd": "E01012768",
+        "lsoa21nm": "Kingston upon Hull 005C",
+        "geo_coefficient": -1.013426516236525,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.03578998197426685,
+        "p_value": 0.437
+      },
+      {
+        "lsoa21cd": "E01012886",
+        "lsoa21nm": "Kingston upon Hull 031D",
+        "geo_coefficient": -1.017849362207601,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.11264983577018113,
+        "p_value": 0.202
+      },
+      {
+        "lsoa21cd": "E01012756",
+        "lsoa21nm": "Kingston upon Hull 025A",
+        "geo_coefficient": -1.0521525685236028,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.08922450531073745,
+        "p_value": 0.367
+      },
+      {
+        "lsoa21cd": "E01012842",
+        "lsoa21nm": "Kingston upon Hull 021A",
+        "geo_coefficient": -1.0559409241821966,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": -0.025744182451604362,
+        "p_value": 0.285
+      },
+      {
+        "lsoa21cd": "E01012780",
+        "lsoa21nm": "Kingston upon Hull 034D",
+        "geo_coefficient": -1.0601652683847314,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.17753844460852947,
+        "p_value": 0.073
+      },
+      {
+        "lsoa21cd": "E01012779",
+        "lsoa21nm": "Kingston upon Hull 034A",
+        "geo_coefficient": -1.063782300811246,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.15820112646717618,
+        "p_value": 0.171
+      },
+      {
+        "lsoa21cd": "E01012759",
+        "lsoa21nm": "Kingston upon Hull 025C",
+        "geo_coefficient": -1.065680640467496,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.06907600591133652,
+        "p_value": 0.387
+      },
+      {
+        "lsoa21cd": "E01012878",
+        "lsoa21nm": "Kingston upon Hull 003D",
+        "geo_coefficient": -1.0665873364524503,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.15327053194867638,
+        "p_value": 0.078
+      },
+      {
+        "lsoa21cd": "E01012917",
+        "lsoa21nm": "Kingston upon Hull 008F",
+        "geo_coefficient": -1.0770997605426669,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.17230680127258122,
+        "p_value": 0.054
+      },
+      {
+        "lsoa21cd": "E01012821",
+        "lsoa21nm": "Kingston upon Hull 011A",
+        "geo_coefficient": -1.0796782149100403,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.11138721207821382,
+        "p_value": 0.339
+      },
+      {
+        "lsoa21cd": "E01012834",
+        "lsoa21nm": "Kingston upon Hull 010C",
+        "geo_coefficient": -1.0801473754391495,
+        "geo_sensitivity": "LOW",
+        "lisa": "LL",
+        "local_I": 0.23639914707297216,
+        "p_value": 0.005
+      },
+      {
+        "lsoa21cd": "E01012877",
+        "lsoa21nm": "Kingston upon Hull 003C",
+        "geo_coefficient": -1.0851920536430826,
+        "geo_sensitivity": "LOW",
+        "lisa": "LL",
+        "local_I": 0.2269949100262899,
+        "p_value": 0.01
+      },
+      {
+        "lsoa21cd": "E01012856",
+        "lsoa21nm": "Kingston upon Hull 024C",
+        "geo_coefficient": -1.0954502310223044,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": -0.1892583654936999,
+        "p_value": 0.092
+      },
+      {
+        "lsoa21cd": "E01012849",
+        "lsoa21nm": "Kingston upon Hull 017C",
+        "geo_coefficient": -1.103055663864276,
+        "geo_sensitivity": "LOW",
+        "lisa": "LL",
+        "local_I": 0.18048102506749242,
+        "p_value": 0.033
+      },
+      {
+        "lsoa21cd": "E01012837",
+        "lsoa21nm": "Kingston upon Hull 010D",
+        "geo_coefficient": -1.1037859896558164,
+        "geo_sensitivity": "LOW",
+        "lisa": "LL",
+        "local_I": 0.22585556896031175,
+        "p_value": 0.006
+      },
+      {
+        "lsoa21cd": "E01012785",
+        "lsoa21nm": "Kingston upon Hull 002B",
+        "geo_coefficient": -1.10434485649947,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.16838291609782868,
+        "p_value": 0.117
+      },
+      {
+        "lsoa21cd": "E01012778",
+        "lsoa21nm": "Kingston upon Hull 004A",
+        "geo_coefficient": -1.120146824622732,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.021523349873299215,
+        "p_value": 0.403
+      },
+      {
+        "lsoa21cd": "E01012782",
+        "lsoa21nm": "Kingston upon Hull 002A",
+        "geo_coefficient": -1.1220706536810028,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.19009539142091117,
+        "p_value": 0.071
+      },
+      {
+        "lsoa21cd": "E01012775",
+        "lsoa21nm": "Kingston upon Hull 028D",
+        "geo_coefficient": -1.124892229306356,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.09584624391722339,
+        "p_value": 0.364
+      },
+      {
+        "lsoa21cd": "E01012800",
+        "lsoa21nm": "Kingston upon Hull 023C",
+        "geo_coefficient": -1.1299519833147098,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.0562766003830545,
+        "p_value": 0.473
+      },
+      {
+        "lsoa21cd": "E01012907",
+        "lsoa21nm": "Kingston upon Hull 007C",
+        "geo_coefficient": -1.137072658259957,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.08836601706515385,
+        "p_value": 0.316
+      },
+      {
+        "lsoa21cd": "E01012840",
+        "lsoa21nm": "Kingston upon Hull 009E",
+        "geo_coefficient": -1.1402037568725394,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.18211863514982413,
+        "p_value": 0.054
+      },
+      {
+        "lsoa21cd": "E01012915",
+        "lsoa21nm": "Kingston upon Hull 008E",
+        "geo_coefficient": -1.1410618435189233,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.15940244199320314,
+        "p_value": 0.173
+      },
+      {
+        "lsoa21cd": "E01012863",
+        "lsoa21nm": "Kingston upon Hull 027C",
+        "geo_coefficient": -1.1621091509265484,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.008355578055713034,
+        "p_value": 0.388
+      },
+      {
+        "lsoa21cd": "E01012838",
+        "lsoa21nm": "Kingston upon Hull 010E",
+        "geo_coefficient": -1.162756673472149,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.185524048473343,
+        "p_value": 0.12
+      },
+      {
+        "lsoa21cd": "E01012905",
+        "lsoa21nm": "Kingston upon Hull 006C",
+        "geo_coefficient": -1.2031132598522734,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": -0.001354985508536609,
+        "p_value": 0.365
+      },
+      {
+        "lsoa21cd": "E01012784",
+        "lsoa21nm": "Kingston upon Hull 004C",
+        "geo_coefficient": -1.215558125472421,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": -0.07514013680645067,
+        "p_value": 0.232
+      },
+      {
+        "lsoa21cd": "E01032595",
+        "lsoa21nm": "Kingston upon Hull 033E",
+        "geo_coefficient": -1.2260619617153137,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.10914914128345332,
+        "p_value": 0.339
+      },
+      {
+        "lsoa21cd": "E01012872",
+        "lsoa21nm": "Kingston upon Hull 015E",
+        "geo_coefficient": -1.2407302251222767,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": -0.17212816077375415,
+        "p_value": 0.103
+      },
+      {
+        "lsoa21cd": "E01012825",
+        "lsoa21nm": "Kingston upon Hull 010B",
+        "geo_coefficient": -1.2423417459404944,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.1658662703879373,
+        "p_value": 0.167
+      },
+      {
+        "lsoa21cd": "E01012844",
+        "lsoa21nm": "Kingston upon Hull 017B",
+        "geo_coefficient": -1.2655537905858425,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": -0.05446352749470952,
+        "p_value": 0.248
+      },
+      {
+        "lsoa21cd": "E01012898",
+        "lsoa21nm": "Kingston upon Hull 017F",
+        "geo_coefficient": -1.2785758446646298,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": -0.0030325236380486288,
+        "p_value": 0.37
+      },
+      {
+        "lsoa21cd": "E01012798",
+        "lsoa21nm": "Kingston upon Hull 019D",
+        "geo_coefficient": -1.307785965296299,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": 0.08877523790437208,
+        "p_value": 0.474
+      },
+      {
+        "lsoa21cd": "E01035467",
+        "lsoa21nm": "Kingston upon Hull 031H",
+        "geo_coefficient": -1.3250807834686087,
+        "geo_sensitivity": "LOW",
+        "lisa": "NS",
+        "local_I": -0.1741414100781104,
+        "p_value": 0.104
+      }
+    ],
+    "example_HH": [
+      {
+        "lsoa21cd": "E01033104",
+        "lsoa21nm": "Kingston upon Hull 029E",
+        "geo_coefficient": 22.32598125447709
+      },
+      {
+        "lsoa21cd": "E01012854",
+        "lsoa21nm": "Kingston upon Hull 029C",
+        "geo_coefficient": 4.26712037699458
+      },
+      {
+        "lsoa21cd": "E01012852",
+        "lsoa21nm": "Kingston upon Hull 024B",
+        "geo_coefficient": 4.134116816860071
+      },
+      {
+        "lsoa21cd": "E01012855",
+        "lsoa21nm": "Kingston upon Hull 029D",
+        "geo_coefficient": 2.8697580959341877
+      },
+      {
+        "lsoa21cd": "E01035466",
+        "lsoa21nm": "Kingston upon Hull 029H",
+        "geo_coefficient": 2.093151941332383
+      },
+      {
+        "lsoa21cd": "E01012891",
+        "lsoa21nm": "Kingston upon Hull 030C",
+        "geo_coefficient": 1.9672340118187548
+      },
+      {
+        "lsoa21cd": "E01012850",
+        "lsoa21nm": "Kingston upon Hull 024A",
+        "geo_coefficient": 1.858956508630004
+      },
+      {
+        "lsoa21cd": "E01033109",
+        "lsoa21nm": "Kingston upon Hull 029F",
+        "geo_coefficient": 1.8082843681275695
+      }
+    ],
+    "example_HIGH_HL": [
+      {
+        "lsoa21cd": "E01012787",
+        "lsoa21nm": "Kingston upon Hull 002D",
+        "geo_coefficient": 2.8110472835151543
+      },
+      {
+        "lsoa21cd": "E01012827",
+        "lsoa21nm": "Kingston upon Hull 011D",
+        "geo_coefficient": 0.613143270630155
+      },
+      {
+        "lsoa21cd": "E01012773",
+        "lsoa21nm": "Kingston upon Hull 027A",
+        "geo_coefficient": 0.0725002905881571
+      }
+    ]
+  }
+}

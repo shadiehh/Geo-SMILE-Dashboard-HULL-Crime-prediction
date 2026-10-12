@@ -1,0 +1,102 @@
+{
+  "model": "svr",
+  "elapsed_sec": 407.05927562713623,
+  "do_feature": true,
+  "do_geo": false,
+  "feature_kernel": "inverse",
+  "geo_kernel": null,
+  "metric1_att_accuracy": {
+    "feature": {
+      "n": 30,
+      "k": 10,
+      "TP": 7,
+      "FP": 3,
+      "FN": 3,
+      "TN": 17,
+      "ATT_accuracy": 0.8,
+      "ATT_F1": 0.7,
+      "ATT_AUROC_continuous": 0.7750000000000001,
+      "precision_at_k": 0.7,
+      "recall_at_k": 0.7,
+      "jaccard_at_k": 0.5384615384615384
+    },
+    "geo": {
+      "skipped": true,
+      "reason": "predictive R2=0.316096550273369 <= 0.7 (or non-positive)"
+    }
+  },
+  "metric2_faithfulness": {
+    "feature": {
+      "note": "joint metric requires both Feature and Geo to pass the R2 gate; skipped since at least one did not"
+    },
+    "geo": {
+      "skipped": true,
+      "reason": "predictive R2=0.316096550273369 <= 0.7 (or non-positive)"
+    },
+    "note": "joint metric requires both Feature and Geo to pass the R2 gate; skipped since at least one did not"
+  },
+  "metric3_att_stability": {
+    "feature": {
+      "note": "joint metric requires both Feature and Geo to pass the R2 gate; skipped since at least one did not"
+    },
+    "geo": {
+      "skipped": true,
+      "reason": "predictive R2=0.316096550273369 <= 0.7 (or non-positive)"
+    },
+    "note": "joint metric requires both Feature and Geo to pass the R2 gate; skipped since at least one did not"
+  },
+  "metric4_att_consistency": {
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "feature": {
+      "Rank Spearman Mean": 0.8232801878630577,
+      "Rank Spearman Std": 0.06101416911539849,
+      "Score Pearson Mean": 0.9967856819747161,
+      "Score Pearson Std": 0.0011935338757615526,
+      "Top-20% Jaccard Mean": 0.7714285714285716,
+      "Top-20% Jaccard Std": 0.11428571428571428,
+      "Fidelity R2 Mean": 0.9379472714185336
+    },
+    "geo": {
+      "skipped": true,
+      "reason": "predictive R2=0.316096550273369 <= 0.7 (or non-positive)"
+    }
+  },
+  "metric5_att_fidelity": {
+    "feature": {
+      "R2": 0.9365561012579305,
+      "Weighted R2": 0.9376080348395437,
+      "MAE": 0.29837930884697916,
+      "WMAE": 0.2951105002230973,
+      "RMSE": 0.37558958769519724,
+      "WRMSE": 0.3710174941852836,
+      "best_kernel": "inverse",
+      "validation_r2_by_kernel": {
+        "rbf": 0.9327069781577734,
+        "laplace": 0.9349664558108084,
+        "inverse": 0.9362249243803075
+      },
+      "n_masks": 1024,
+      "n_test": 205,
+      "N_p": 205,
+      "N_s": 30,
+      "N_p_minus_N_s_minus_1": 174,
+      "R2_adj_w": 0.9268507994670512,
+      "guard_triggered": false
+    },
+    "geo": {
+      "skipped": true,
+      "reason": "predictive R2=0.316096550273369 <= 0.7 (or non-positive)"
+    }
+  }
+}

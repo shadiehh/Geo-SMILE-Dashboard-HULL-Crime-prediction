@@ -1,0 +1,54 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788911297.147915    3436 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788911299.828991    3436 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [xgboost] ===
+[xgboost] Geo fidelity: R2=0.9479 R2w=0.9454 kernel=inverse
+
+=== [lightgbm] ===
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+[lightgbm] Geo fidelity: R2=0.9472 R2w=0.9449 kernel=inverse
+
+=== [catboost] ===
+[catboost] Geo fidelity: R2=0.9482 R2w=0.9457 kernel=inverse
+
+=== [mlp] ===
+[mlp] Geo fidelity: R2=0.9415 R2w=0.9421 kernel=inverse
+
+=== [svr] ===
+[svr] Geo fidelity: R2=0.9433 R2w=0.9427 kernel=inverse
+
+=== [gp] ===
+[gp] Geo fidelity: R2=0.9461 R2w=0.9441 kernel=inverse
+
+=== [dl] ===
+I0000 00:00:1788912328.300794    3436 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[dl] Geo fidelity: R2=0.9445 R2w=0.9435 kernel=inverse
+
+=== [ann] ===
+[ann] Geo fidelity: R2=0.9426 R2w=0.9424 kernel=inverse
+
+=== [cnn] ===
+[cnn] Geo fidelity: R2=0.9433 R2w=0.9425 kernel=inverse
+
+=== [transformer] ===
+WARNING:tensorflow:From C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:233: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[transformer] Geo fidelity: R2=0.9445 R2w=0.9431 kernel=inverse
+
+Done. D:\GEO SMILE CODE\hull\outputs\feature_fidelity_excl_dominant\geo_summary_all_models.csv
+      model       r2  weighted_r2      mae     rmse best_kernel
+   catboost 0.948154     0.945736 0.663150 1.267649     inverse
+    xgboost 0.947871     0.945414 0.685103 1.283630     inverse
+   lightgbm 0.947234     0.944872 0.664813 1.257261     inverse
+         gp 0.946108     0.944089 0.666036 1.196839     inverse
+transformer 0.944514     0.943128 0.610281 1.015881     inverse
+         dl 0.944455     0.943455 0.661474 1.058163     inverse
+        cnn 0.943308     0.942470 0.536854 0.824463     inverse
+        svr 0.943285     0.942720 0.365980 0.507686     inverse
+        ann 0.942595     0.942380 0.723265 1.060663     inverse
+        mlp 0.941463     0.942087 0.396375 0.555809     inverse

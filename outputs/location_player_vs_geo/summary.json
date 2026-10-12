@@ -1,0 +1,27 @@
+{
+  "design": "Feature-B: 30 predictors + joint location player (BNG centroid easting/northing masked together)",
+  "n_masks": 4000,
+  "seed": 42,
+  "kernel": "inverse",
+  "holdout": {
+    "mae": 4.831365756690502,
+    "rmse": 6.906991039191308,
+    "r2": 0.8951828603615944
+  },
+  "global_test_r2": 0.9851475399880056,
+  "location_global_coefficient": -0.01869959903994845,
+  "location_global_rank_of_31": 26,
+  "spearman_signed": -0.1713268307003913,
+  "spearman_abs_location": -0.1551293018358887,
+  "lowest_location": [
+    "E01012825",
+    -0.3420368432998657,
+    164
+  ],
+  "highest_location": [
+    "E01012845",
+    1.1848218441009521,
+    100
+  ],
+  "geo_rank1_location_effect": -0.13297492265701294
+}

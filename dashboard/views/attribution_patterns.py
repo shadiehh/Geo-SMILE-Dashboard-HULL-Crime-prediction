@@ -57,7 +57,7 @@ SEQUENTIAL_BLUE = [
 ]
 
 MAP_CENTER = {"lat": 53.767, "lon": -0.327}
-DEFAULT_PERSONAS = {"technical", "domain", "governance"}
+DEFAULT_PERSONAS = {"researcher", "planner", "governance"}
 
 
 @st.cache_data(show_spinner=False)
@@ -348,7 +348,7 @@ def _render_archetypes(bundle: HullBundle, gdf: pd.DataFrame) -> None:
         "K-means clusters on each LSOA's standardized local feature coefficient "
         "vector (30 non-location features), grouping areas whose explanations "
         "share a similar feature profile — independent of geographic adjacency "
-        "(distinct from the LISA clustering of |GeoSensitivity| elsewhere in the app)."
+        "(distinct from the LISA clustering of GeoSensitivity elsewhere in the app)."
     )
     k = st.slider("Number of archetypes (k)", min_value=2, max_value=8, value=4, key="attr_archetype_k")
     feature_names = tuple(bundle.feature_names)
@@ -483,7 +483,7 @@ def render_attribution_patterns_section(bundle: HullBundle, stakeholder_id: str)
             "feature attribution: dominant local feature, magnitude comparison, "
             "explanation archetypes, explanation concentration, and dominant "
             "global features with spatial clustering. Shown by default for "
-            "Technical, Domain, and Governance personas."
+            "GeoAI Researcher, City Planner, and Governance personas."
         ),
     )
     if not show:

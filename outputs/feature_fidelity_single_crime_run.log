@@ -1,0 +1,55 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788910146.243518   16036 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788910149.605283   16036 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Excluding ['crime_lag_1', 'crime_lag_2', 'crime_lag_3', 'crime_rolling_mean_3']: 30 -> 26 Feature players
+
+=== [xgboost] ===
+[xgboost] Feature fidelity (26 features): R2=0.9962 R2w=0.9962 kernel=inverse
+
+=== [lightgbm] ===
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+[lightgbm] Feature fidelity (26 features): R2=0.9950 R2w=0.9950 kernel=inverse
+
+=== [catboost] ===
+[catboost] Feature fidelity (26 features): R2=0.9972 R2w=0.9972 kernel=inverse
+
+=== [mlp] ===
+[mlp] Feature fidelity (26 features): R2=0.1791 R2w=0.1877 kernel=rbf
+
+=== [svr] ===
+[svr] Feature fidelity (26 features): R2=0.9379 R2w=0.9382 kernel=laplace
+
+=== [gp] ===
+[gp] Feature fidelity (26 features): R2=0.9912 R2w=0.9911 kernel=inverse
+
+=== [dl] ===
+I0000 00:00:1788910447.361738   16036 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[dl] Feature fidelity (26 features): R2=0.4257 R2w=0.4244 kernel=inverse
+
+=== [ann] ===
+[ann] Feature fidelity (26 features): R2=0.9492 R2w=0.9500 kernel=inverse
+
+=== [cnn] ===
+[cnn] Feature fidelity (26 features): R2=0.9717 R2w=0.9713 kernel=inverse
+
+=== [transformer] ===
+WARNING:tensorflow:From C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:233: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[transformer] Feature fidelity (26 features): R2=0.9875 R2w=0.9885 kernel=rbf
+
+Done. D:\GEO SMILE CODE\hull\outputs\feature_fidelity_excl_dominant\summary_single_crime_feature.csv
+      model  n_features       r2  weighted_r2         mae        rmse best_kernel
+   catboost          26 0.997158     0.997214    0.113161    0.150692     inverse
+    xgboost          26 0.996184     0.996216    0.159902    0.193630     inverse
+   lightgbm          26 0.995026     0.995036    0.186830    0.239747     inverse
+         gp          26 0.991161     0.991119    0.212080    0.259039     inverse
+transformer          26 0.987547     0.988519    0.222746    0.285441         rbf
+        cnn          26 0.971689     0.971338    0.342464    0.433936     inverse
+        ann          26 0.949248     0.949953    0.360651    0.463373     inverse
+        svr          26 0.937915     0.938196    0.314689    0.393967     laplace
+         dl          26 0.425660     0.424382   27.887201   35.259734     inverse
+        mlp          26 0.179145     0.187670 1329.476038 2742.836442         rbf

@@ -20,27 +20,27 @@ DEST = OUT / "eval_by_n_perturb" / "plots"
 BLUE, PINK, TEAL, INK, MUTED = "#1E88E5", "#FF0051", "#147D74", "#12171C", "#57646D"
 
 PUBLISHED = {
-    "Feature": {"n": 1024, "r2": 0.9853258990364979, "wr2": 0.9851034980432535},
-    "Geo": {"n": 2000, "r2": 0.9307547925394969, "wr2": 0.9282632145290007},
+    "Feature": {"n": 4000, "r2": 0.9769549209642179, "wr2": 0.9770971025312047},
+    "Geo": {"n": 4000, "r2": 0.9478707156885263, "wr2": 0.9454139717459202},
 }
 PUBLISHED_METRICS = {
     "Feature": {
-        "n": 1024,
-        "fidelity_r2": 0.9853258990364979,
-        "accuracy_intersection": 7,
-        "faithfulness_top_minus_random": 4.401935675204154,
+        "n": 4000,
+        "fidelity_r2": 0.9769549209642179,
+        "accuracy_intersection": 6,
+        "faithfulness_top_minus_random": 4.246146297796495,
         "att_stability_jaccard": 1.0,
-        "att_consistency_rank_spearman": 0.6935706340378198,
-        "att_consistency_top20pct_jaccard": 0.8285714285714286,
+        "att_consistency_rank_spearman": 0.8310567296996663,
+        "att_consistency_top20pct_jaccard": 1.0,
     },
     "Geo": {
-        "n": 2000,
-        "fidelity_r2": 0.9307547925394969,
-        "accuracy_intersection": 16,
-        "faithfulness_top_minus_random": 7.971964220285416,
+        "n": 4000,
+        "fidelity_r2": 0.9478707156885263,
+        "accuracy_intersection": 15,
+        "faithfulness_top_minus_random": 8.02810170066357,
         "att_stability_jaccard": 1.0,
-        "att_consistency_rank_spearman": 0.7431279452928463,
-        "att_consistency_top20pct_jaccard": 0.6233203175869684,
+        "att_consistency_rank_spearman": 0.9472694509543891,
+        "att_consistency_top20pct_jaccard": 0.8100615190088876,
     },
 }
 
@@ -246,7 +246,7 @@ def plot_five_metrics(sweep: pd.DataFrame, path: Path) -> None:
     fig.legend(handles, labels, loc="upper center", ncol=2, frameon=False, bbox_to_anchor=(0.5, 1.02))
     fig.suptitle(
         "Five Hull GeoSMILE evaluation metrics versus perturbation budget\n"
-        "Circles: independent runs. Stars: published Feature 1024 / Geo 2000 (seed 42).",
+        "Circles: independent runs. Stars: published Feature 4000 / Geo 4000 (seed 42).",
         fontweight="bold",
         y=1.06,
     )
@@ -270,7 +270,7 @@ def write_table(sweep: pd.DataFrame, path: Path) -> None:
     for branch, pub in PUBLISHED.items():
         rows.append(
             {
-                "source": "published_1024_2000",
+                "source": "published_4000_4000",
                 "branch": branch,
                 "n_perturb": pub["n"],
                 "surrogate_r2": pub["r2"],

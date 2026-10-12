@@ -1,0 +1,552 @@
+{
+  "previous_attempts": [],
+  "stakeholder": "governance",
+  "question": "Is the explanation traceable, robust, appropriately bounded and defensible?",
+  "prompt_version": "geosmile-hull-v8",
+  "card_mode_addendum": "\n---\n\n## 17. CARD MODE ADDENDUM\n\noutput_mode is card_mode: the text fills a short card for a Governance / Assurance reader,\nshown with four stat tiles and two dashboard panels (01: GeoSensitivity across five seeds for\nthe top areas; 02: top-20 stability when a neighbouring area is added in each of four\ndirections). This section replaces section 14 \"Length and form\" and its bolding rule. Every\nother section, including prohibited claims and the self-check, still applies.\n\nAssurance language: exact metric names and values are allowed; keep each metric's definition\nexact. ATT Faithfulness (across-model r between predictive R2 and ATT accuracy) and\nintervention impact (top 20 against random masking) are different measures: never conclude one\nfrom the other.\n\nReturn ONLY one JSON object with exactly these keys:\n\n- \"headline\": one sentence, at most 20 words.\n- \"tiles\": exactly 4 objects {\"value\": ..., \"label\": ...}. value is one figure from the\n  evidence (at most 8 characters); label is at most 8 words naming the measure exactly.\n  Cover fidelity, stability, reproducibility and faithfulness.\n- \"section_01\": at most 70 words, traceability and robustness (panels 01-02): provenance of the\n  explanation (design, perturbations, seeds), fidelity, stability and seed consistency.\n- \"section_02\": at most 70 words, unusual cases and interpretation limits: the most variable\n  area, the ATT Faithfulness result, and the main risks of unsupported inference (including\n  proxy concerns where the evidence supports them).\n- \"footer\": one limitation, at most 15 words.\n\nA tile figure is not cited again in the sections. Key-term counts: 1-2 in the headline and 2-4\nin EACH section. Tiles and footer carry no markup.\n\nHighlighting markup (you choose what to mark):\n\n- wrap every figure you cite as [[n:...]], e.g. [[n:14%]];\n- wrap the key terms a planner should catch when scanning as [[t:...]]. This is required,\n  not optional: keep to the counts given above, each at most 4 words (the finding phrase\n  itself, the leading feature names, or the key place names). Before answering, count the\n  [[t:...]] spans and fix any count outside the range;\n- no other markup and no markdown bold.\n\nEvery figure must be copied or rounded from EVIDENCE_JSON (shares as percentages:\n0.139 -> 14%). Do not compute new figures and do not cite a figure that is not supplied.\n\nILLUSTRATIVE_NARRATIVE in the user message shows the expected structure, order, tone and\nmarkup density. It is an example of wording, not evidence: take every figure from\nEVIDENCE_JSON, and write your own sentences.",
+  "illustrative_narrative": {
+    "headline": "The explanation is [[t:traceable and stable]], but [[t:faithfulness]] across models is not established.",
+    "tiles": [
+      {
+        "value": "0.948",
+        "label": "Geo surrogate fidelity R2"
+      },
+      {
+        "value": "1.0",
+        "label": "Top-20 Jaccard, neighbour additions"
+      },
+      {
+        "value": "0.963",
+        "label": "Geo rank Spearman across seeds"
+      },
+      {
+        "value": "0.15",
+        "label": "Geo ATT Faithfulness r, 10 models"
+      }
+    ],
+    "section_01": "GeoSensitivity comes from [[t:area-data masking]]: [[n:4000]] perturbations replace an area's inputs with Hull medians, and the response is the W1 shift in predictions. Rankings hold across [[n:5]] seeds (panel 01) and under all four neighbour additions (panel 02). Feature ranks are [[t:less reproducible]] across seeds ([[n:0.69]]).",
+    "section_02": "[[t:Old Town]] varies most across seeds (SD [[n:2.8%]] of its mean) and should be reviewed. Masking the top 20 moves predictions more than random areas ([[n:26.22]]), but that is intervention impact, not faithfulness. Census features may act as [[t:proxies]]; local LISA p-values are unadjusted.",
+    "footer": "Associational explanation; not a basis for decisions about individuals or communities."
+  },
+  "evidence": {
+    "application": {
+      "domain": "crime prediction",
+      "study_area": "Hull",
+      "spatial_unit": "LSOA",
+      "target": "next-month crime count"
+    },
+    "stakeholder": {
+      "id": "governance",
+      "label": "Governance / Assurance"
+    },
+    "current_map_view": "geo_sensitivity",
+    "output_mode": "card_mode",
+    "current_map_view_label": "GeoSensitivity",
+    "prompt_version": "geosmile-hull-v8",
+    "semantic_separation": {
+      "geo_sensitivity": "Geo branch area-data masking SMILE (all inputs of an LSOA set to Hull medians)",
+      "latitude_effect": "latitude as a Feature SMILE player",
+      "longitude_effect": "longitude as a Feature SMILE player",
+      "spatial_pattern": "LISA/Moran on signed GeoSensitivity",
+      "not_equivalent": [
+        "GeoSensitivity != latitude feature effect",
+        "GeoSensitivity != longitude feature effect",
+        "cluster != high magnitude",
+        "rank != strength",
+        "attribution != causation",
+        "RGB overlay != a fourth GeoSMILE object"
+      ]
+    },
+    "global_geo": {
+      "n_lsoas": 168,
+      "geo_sensitivity_median": -0.47609629327288483,
+      "geo_sensitivity_p90": 1.7228578983121385,
+      "n_negative": 120,
+      "geo_sensitivity_mean_abs": 1.004874251717173,
+      "geo_sensitivity_median_abs": 0.7315152595188347,
+      "geo_sensitivity_p90_abs": 1.7228578983121385,
+      "geo_sensitivity_max_abs": 22.32598125447709,
+      "geo_sensitivity_min_abs": 0.0031728345203483,
+      "highest_geo_sensitivity_lsoas": [
+        {
+          "id": "E01033104",
+          "name": "Kingston upon Hull 029E",
+          "geo_sensitivity": 22.32598125447709,
+          "geo_rank": 1,
+          "lisa_class": "HH",
+          "place_context": {
+            "lsoa_code": "E01033104",
+            "locality_label": "Old Town",
+            "recognisable_places": [
+              "Old Town"
+            ],
+            "major_streets": [
+              "Ferensway",
+              "Castle Street",
+              "Queens Dock Avenue"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012889",
+          "name": "Kingston upon Hull 030B",
+          "geo_sensitivity": 7.176457590623275,
+          "geo_rank": 2,
+          "lisa_class": "NS",
+          "place_context": {
+            "lsoa_code": "E01012889",
+            "locality_label": "Dairycoates",
+            "recognisable_places": [
+              "Dairycoates"
+            ],
+            "major_streets": [
+              "Clive Sullivan Way",
+              "Hessle Road",
+              "Freightliner Road"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012871",
+          "name": "Kingston upon Hull 015D",
+          "geo_sensitivity": 4.725618919405221,
+          "geo_rank": 3,
+          "lisa_class": "NS",
+          "place_context": {
+            "lsoa_code": "E01012871",
+            "locality_label": "Sculcoates",
+            "recognisable_places": [
+              "Sculcoates",
+              "Stoneferry"
+            ],
+            "major_streets": [
+              "Clough Road",
+              "Bank Side",
+              "Innovation Drive"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012854",
+          "name": "Kingston upon Hull 029C",
+          "geo_sensitivity": 4.26712037699458,
+          "geo_rank": 4,
+          "lisa_class": "HH",
+          "place_context": {
+            "lsoa_code": "E01012854",
+            "locality_label": "Old Town",
+            "recognisable_places": [
+              "Old Town"
+            ],
+            "major_streets": [
+              "Hessle Road",
+              "English Street",
+              "Porter Street"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012852",
+          "name": "Kingston upon Hull 024B",
+          "geo_sensitivity": 4.134116816860071,
+          "geo_rank": 5,
+          "lisa_class": "HH",
+          "place_context": {
+            "lsoa_code": "E01012852",
+            "locality_label": "Stepney",
+            "recognisable_places": [],
+            "major_streets": [
+              "Londesborough Street",
+              "Argyle Street",
+              "Stanley Street"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        }
+      ],
+      "lowest_geo_sensitivity_lsoas": [
+        {
+          "id": "E01035467",
+          "name": "Kingston upon Hull 031H",
+          "geo_sensitivity": -1.3250807834686087,
+          "geo_rank": 168,
+          "lisa_class": "NS",
+          "place_context": {
+            "lsoa_code": "E01035467",
+            "locality_label": "Gipsyville",
+            "recognisable_places": [],
+            "major_streets": [
+              "Hawthorn Avenue",
+              "Chesterton Street",
+              "Brindle Road"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012798",
+          "name": "Kingston upon Hull 019D",
+          "geo_sensitivity": -1.307785965296299,
+          "geo_rank": 167,
+          "lisa_class": "NS",
+          "place_context": {
+            "lsoa_code": "E01012798",
+            "locality_label": "East Ella",
+            "recognisable_places": [],
+            "major_streets": [
+              "Coronation Road North",
+              "Hotham Road South",
+              "Priory Road"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012898",
+          "name": "Kingston upon Hull 017F",
+          "geo_sensitivity": -1.2785758446646298,
+          "geo_rank": 166,
+          "lisa_class": "NS",
+          "place_context": {
+            "lsoa_code": "E01012898",
+            "locality_label": "Bilton Grange",
+            "recognisable_places": [],
+            "major_streets": [
+              "Portobello Street",
+              "Kilnsea Grove",
+              "Broadway Drive"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012844",
+          "name": "Kingston upon Hull 017B",
+          "geo_sensitivity": -1.2655537905858425,
+          "geo_rank": 165,
+          "lisa_class": "NS",
+          "place_context": {
+            "lsoa_code": "E01012844",
+            "locality_label": "Greatfield",
+            "recognisable_places": [],
+            "major_streets": [
+              "Marfleet Lane",
+              "Burdale Close",
+              "Swanfield Road"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012825",
+          "name": "Kingston upon Hull 010B",
+          "geo_sensitivity": -1.2423417459404944,
+          "geo_rank": 164,
+          "lisa_class": "NS",
+          "place_context": {
+            "lsoa_code": "E01012825",
+            "locality_label": "Bilton Grange",
+            "recognisable_places": [],
+            "major_streets": [
+              "Holderness Road",
+              "Winchester Avenue",
+              "East Mount Avenue"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        }
+      ],
+      "ranking": "signed coefficient (rank 1 = highest GeoSensitivity)",
+      "note": "GeoSensitivity is the Geo-branch area-data SMILE coefficient: masking an LSOA replaces all of its model inputs with Hull training medians, and the coefficient attributes the resulting prediction shift to that LSOA. It is not latitude or longitude feature attribution."
+    },
+    "global_spatial_pattern": {
+      "global_pattern": {
+        "moran_i": 0.21914394974096335,
+        "p_value": 0.001,
+        "interpretation": "positive spatial clustering of geosensitivity",
+        "n_permutations": 999,
+        "weights": "queen_contiguity_row_standardised",
+        "value_field": "geo_coefficient"
+      },
+      "lisa_counts": {
+        "HH": 9,
+        "LL": 9,
+        "HL": 3,
+        "LH": 5,
+        "NS": 142,
+        "ISLAND": 0
+      },
+      "pattern_scale": "not established",
+      "note": "LISA classes describe clustering of signed GeoSensitivity (area-data design). They are not crime hotspots and not latitude/longitude effects.",
+      "lisa_counts_unit": "number of LSOAs in each LISA class, not number of clusters"
+    },
+    "top_global_features": [
+      {
+        "feature": "crime_rolling_mean_6",
+        "feature_label": "Crime roll mean 6",
+        "value": -5.2736911300425,
+        "abs_value": 5.2736911300425,
+        "rank": 1,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "crime_rolling_mean_3",
+        "feature_label": "Crime roll mean 3",
+        "value": -1.3006200356896156,
+        "abs_value": 1.3006200356896156,
+        "rank": 2,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "unemployed_pct_age16plus",
+        "feature_label": "Unemployment %",
+        "value": -0.4291638546245045,
+        "abs_value": 0.4291638546245045,
+        "rank": 3,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "long_term_sick_disabled_pct",
+        "feature_label": "Long-term sick %",
+        "value": -0.3114541283269771,
+        "abs_value": 0.3114541283269771,
+        "rank": 4,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "owner_occupied_pct",
+        "feature_label": "Owner occupied %",
+        "value": -0.217783437348828,
+        "abs_value": 0.217783437348828,
+        "rank": 5,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "crime_lag_1",
+        "feature_label": "Crime lag 1",
+        "value": -0.1790273269640614,
+        "abs_value": 0.1790273269640614,
+        "rank": 6,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "crime_lag_2",
+        "feature_label": "Crime lag 2",
+        "value": -0.1764991973080903,
+        "abs_value": 0.1764991973080903,
+        "rank": 7,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "social_rented_pct",
+        "feature_label": "Social rented %",
+        "value": -0.1007233987904975,
+        "abs_value": 0.1007233987904975,
+        "rank": 8,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "retail_per_km2",
+        "feature_label": "Retail density",
+        "value": -0.0897975700999567,
+        "abs_value": 0.0897975700999567,
+        "rank": 9,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "nightlife_per_km2",
+        "feature_label": "Nightlife density",
+        "value": -0.0748603948480409,
+        "abs_value": 0.0748603948480409,
+        "rank": 10,
+        "source": "published Feature branch (location excluded)"
+      }
+    ],
+    "lowest_global_features": [
+      {
+        "feature": "lsoa_area_km2",
+        "feature_label": "LSOA area",
+        "value": 0.0125221211690187,
+        "abs_value": 0.0125221211690187,
+        "rank": 30,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "road_length_km_per_km2",
+        "feature_label": "Road density",
+        "value": -0.021137097155989,
+        "abs_value": 0.021137097155989,
+        "rank": 29,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "intersection_per_km2",
+        "feature_label": "Intersection density",
+        "value": -0.0269912973258099,
+        "abs_value": 0.0269912973258099,
+        "rank": 28,
+        "source": "published Feature branch (location excluded)"
+      }
+    ],
+    "evaluation": {
+      "not_causal": true,
+      "feature_holdout_r2": 0.8956733279339549,
+      "feature_surrogate_test_r2": 0.9825149947049138,
+      "geo_surrogate_test_r2": 0.9438938633357984,
+      "att_stability_feature_jaccard": 1.0,
+      "att_stability_geo_jaccard": 1.0,
+      "att_stability_status": "Evaluated",
+      "att_stability_note": "Controlled-input ATT stability. Distinct from multi-run Consistency.",
+      "consistency": {
+        "definition": "Multi-run explanation consistency across seeds (consistency_seed_base=100). Pairwise Rank Spearman, Score Pearson, and Top-20% Jaccard of |coefficients|. Not controlled-input ATT stability.",
+        "feature": {
+          "rank_spearman_mean": 0.6935706340378198,
+          "rank_spearman_std": 0.0960346719933601,
+          "score_pearson_mean": 0.9989340894046788,
+          "score_pearson_std": 0.0002709466148649,
+          "top20pct_jaccard_mean": 0.8285714285714286,
+          "top20pct_jaccard_std": 0.139970842444753,
+          "fidelity_r2_mean": 0.9830120451629032,
+          "fidelity_r2_std": 0.0023511200455071,
+          "branch": "Feature"
+        },
+        "geo": {
+          "rank_spearman_mean": 0.9634948193216273,
+          "score_pearson_mean": 0.997200874311862,
+          "top20pct_jaccard_mean": 0.7728397223134065,
+          "seeds": [
+            100,
+            101,
+            102,
+            103,
+            104
+          ]
+        }
+      },
+      "geo_design": {
+        "name": "area_data",
+        "definition": "Area-data design: masking an LSOA replaces ALL of its model inputs with the training median; response is Wasserstein-1 on the affected LSOA-month predictions of the 30-feature model; LSOAs ranked by the signed Geo-SMILE coefficient.",
+        "n_perturbations": 4000
+      },
+      "geo_fidelity_r2": 0.9483618579283803,
+      "geo_att_stability_jaccard_mean": 1.0,
+      "geo_att_stability_spearman_mean": 0.9997798148419983,
+      "feature_faithfulness_top_minus_random": 4.401935675204154,
+      "feature_faithfulness_empirical_p": 0.015984015984015984,
+      "geo_faithfulness_top_minus_random": 26.22110278113186,
+      "geo_faithfulness_empirical_p": 0.000999000999000999
+    },
+    "limitations": [
+      "Not causal.",
+      "No RAG / no invented local context.",
+      "pattern_scale is not established in the computed outputs.",
+      "local_p_adjusted is not available in the published LISA table."
+    ],
+    "user_question": "Is the explanation traceable, robust, appropriately bounded and defensible?",
+    "governance_assurance": {
+      "provenance": {
+        "geo_design": "replace ALL model inputs of selected LSOAs with training median",
+        "geo_response": "wasserstein_1_on_affected_lsoa_month_predictions",
+        "geo_perturbations": 4000,
+        "seeds": [
+          100,
+          101,
+          102,
+          103,
+          104
+        ],
+        "n_areas": 168,
+        "feature_branch": "30 Feature players, location excluded"
+      },
+      "robustness": {
+        "geo_surrogate_r2": 0.948,
+        "neighbour_addition_jaccard_mean": 1.0,
+        "neighbour_directions": 4,
+        "geo_seed_rank_spearman": 0.963,
+        "geo_seed_top20pct_jaccard": 0.77,
+        "intervention_top20_minus_random_w1": 26.22,
+        "intervention_note": "supplementary intervention impact, not ATT Faithfulness",
+        "att_faithfulness_pearson_r": {
+          "Feature": -0.12,
+          "Geo": 0.15,
+          "n_models": 10,
+          "definition": "across-model Pearson r between predictive R2 and ATT accuracy"
+        }
+      },
+      "unusual_cases": {
+        "most_variable_area": {
+          "id": "E01033104",
+          "name": "Kingston upon Hull 029E",
+          "locality_label": "Old Town",
+          "sd": 0.65,
+          "sd_pct_of_mean": 2.8
+        }
+      },
+      "risks": [
+        "Attributions are associational, not causal.",
+        "Census characteristics can act as proxies for protected groups.",
+        "Local LISA p-values are unadjusted for multiple testing.",
+        "No retrieval: place names come only from supplied OpenStreetMap context."
+      ]
+    },
+    "card_technical": true
+  },
+  "runs": {
+    "openai": {
+      "ok": true,
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "timestamp": "2026-10-10T23:32:07.129780+00:00",
+      "prompt_version": "geosmile-hull-v8",
+      "raw": "{\n \"headline\": \"The explanation is [[t:traceable]], [[t:robust]], and reproducible, but [[t:faithfulness]] is limited.\",\n \"tiles\": [\n  {\n   \"value\": \"0.948\",\n   \"label\": \"Geo surrogate fidelity R2\"\n  },\n  {\n   \"value\": \"1.0\",\n   \"label\": \"Top-20 Jaccard, neighbour add\"\n  },\n  {\n   \"value\": \"0.963\",\n   \"label\": \"Geo rank Spearman, seeds\"\n  },\n  {\n   \"value\": \"0.15\",\n   \"label\": \"Geo ATT Faithfulness r\"\n  }\n ],\n \"section_01\": \"GeoSensitivity uses [[t:area-data masking]]: [[n:4000]] perturbations per run, with all inputs replaced by Hull medians. Rankings are highly [[t:reproducible]] across [[n:5]] seeds ([[n:0.963]] Spearman) and fully stable to neighbour additions ([[n:1.0]] Jaccard). Surrogate fidelity is high ([[n:0.948]] R2).\",\n \"section_02\": \"[[t:Old Town]] is the most variable area (SD [[n:2.8%]] of mean). Top-20 masking shifts predictions more than random ([[n:26.22]]), but ATT Faithfulness r is only [[n:0.15]]. Risks: attributions are [[t:associational]], not causal; census features may act as [[t:proxies]]; LISA p-values unadjusted.\",\n \"footer\": \"Pattern scale not established; local LISA significance not adjusted.\"\n}",
+      "content": {
+        "headline": "The explanation is [[t:traceable]], [[t:robust]], and reproducible, but [[t:faithfulness]] is limited.",
+        "tiles": [
+          {
+            "value": "0.948",
+            "label": "Geo surrogate fidelity R2"
+          },
+          {
+            "value": "1.0",
+            "label": "Top-20 Jaccard, neighbour add"
+          },
+          {
+            "value": "0.963",
+            "label": "Geo rank Spearman, seeds"
+          },
+          {
+            "value": "0.15",
+            "label": "Geo ATT Faithfulness r"
+          }
+        ],
+        "section_01": "GeoSensitivity uses [[t:area-data masking]]: [[n:4000]] perturbations per run, with all inputs replaced by Hull medians. Rankings are highly [[t:reproducible]] across [[n:5]] seeds ([[n:0.963]] Spearman) and fully stable to neighbour additions ([[n:1.0]] Jaccard). Surrogate fidelity is high ([[n:0.948]] R2).",
+        "section_02": "[[t:Old Town]] is the most variable area (SD [[n:2.8%]] of mean). Top-20 masking shifts predictions more than random ([[n:26.22]]), but ATT Faithfulness r is only [[n:0.15]]. Risks: attributions are [[t:associational]], not causal; census features may act as [[t:proxies]]; LISA p-values unadjusted.",
+        "footer": "Pattern scale not established; local LISA significance not adjusted."
+      },
+      "checks": {
+        "ok": true,
+        "problems": []
+      }
+    },
+    "anthropic": {
+      "ok": false,
+      "provider": "anthropic",
+      "timestamp": "2026-10-10T23:32:11.168373+00:00",
+      "error": "BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfuRrLFrz5yej4uUWQDcV'}"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "Kingston upon Hull 029E has the highest GeoSensitivity of **24.22**, indicating a large geographic influence relative to other Hull LSOAs; its spatial clustering is not statistically significant nearby. Latitude and longitude effects are positive but smaller. The most important local feature is \"Crime roll mean 6\" with a strong negative value. These findings do not imply causation, and the scale of spatial clustering for GeoSensitivity is not established.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-10T21:09:58.263428+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 8420,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 90,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 8510
+  },
+  "prompt_version": "geosmile-hull-v5"
+}

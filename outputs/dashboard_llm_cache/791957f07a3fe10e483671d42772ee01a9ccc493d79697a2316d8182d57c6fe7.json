@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "Key finding:\nThe GeoSensitivity values in Hull represent how sensitive the crime prediction model\u2019s Geo branch is to geographic location, measured by the Geo-branch location-masking SMILE coefficients. Across 168 small areas (LSOAs), the absolute GeoSensitivity ranges from a very small 0.0044 up to about 24.22, with an average around 0.86. This indicates that some areas show notably higher geographic influence on model explanations than others, but the overall average GeoSensitivity is modest in magnitude.\n\nWhy it matters:\nGeoSensitivity shows where geographic context has relatively greater influence on the model\u2019s explanation for next-month crime counts, which may help understand where location matters more for the model predictions in Hull. However, GeoSensitivity is not the same as latitude or longitude feature effects and should not be interpreted causally.\n\nWhere it occurs:\nSpatial pattern analysis using Moran\u2019s I found a positive spatial clustering of the absolute GeoSensitivity values, with a Moran\u2019s I of 0.044 and a p-value of 0.027, indicating statistically significant clustering of geographic sensitivity. Local Indicators of Spatial Association (LISA) identified 7 LSOAs in high-high (HH) clusters, where areas with high GeoSensitivity are surrounded by similarly high values, and other varied cluster types including 6 low-low (LL) and 6 low-high (LH) outliers. However, the extent or neighborhood scale of these clusters has not been established.\n\nEvidence strength:\nThe explanation evidence for GeoSensitivity and features is robust, with attitude stability for both feature and Geo branches measured at 1.0 Jaccard similarity under controlled inputs. Surrogate R\u00b2 values indicate good fidelity of the SMILE surrogate models to the original model predictions (about 0.98 for features and 0.90 for Geo). Empirical p-values for faithfulness tests are below 0.05, showing top-ranked explanations outperform random baselines.\n\nImportant limitation:\nGeographic sensitivity does not cause crime nor does a cluster mean a \u201chotspot\u201d of crime risk. Pattern scale remains unestablished, and no multiple-comparison adjusted local significance (p-adjusted) is available for LISA clusters. Latitude and longitude effects are separate from GeoSensitivity and are not reported here. The global top features showing large influence on crime prediction exclude location and are not based on GeoSensitivity.\n\nNext step:\nFor decision-making purposes, further inspection of local GeoSensitivity together with feature contributions and spatial patterns per specific LSOA is advisable. Also, consider evaluation metrics when assessing explanation reliability. Currently, only city-wide GeoSensitivity summaries and spatial clustering are available, not per-area GeoSensitivity details.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-08-21T10:23:40.359509+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 5943,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 536,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 6479
+  },
+  "prompt_version": "geosmile-hull-v1"
+}

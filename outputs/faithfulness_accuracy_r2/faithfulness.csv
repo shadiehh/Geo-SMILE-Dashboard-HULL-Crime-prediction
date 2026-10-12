@@ -1,0 +1,5 @@
+branch,measure,n,n_models,models,pearson_r,pearson_p,pearson_p_one_sided,spearman_rho,spearman_p
+Feature,att_accuracy,4096,10,"catboost,lightgbm,xgboost,gp,svr,ann,cnn,dl,mlp,transformer",-0.12233822430523161,0.7363545906628398,0.63182270466858,-0.09379580992210836,0.7966172454147068
+Feature,att_auc,4096,10,"catboost,lightgbm,xgboost,gp,svr,ann,cnn,dl,mlp,transformer",0.0990940590630292,0.7853478185726808,0.3926739092863404,-0.08510677611520905,0.8151715445415288
+Geo,att_accuracy,4000,9,"catboost,lightgbm,xgboost,gp,svr,ann,dl,mlp,transformer",0.115041670362204,0.7682083896807206,0.3841041948403603,0.20920685218893076,0.5890472411061645
+Geo,att_auc,4000,9,"catboost,lightgbm,xgboost,gp,svr,ann,dl,mlp,transformer",0.24596927117832598,0.523496071309764,0.261748035654882,0.19999999999999998,0.6059012741795533

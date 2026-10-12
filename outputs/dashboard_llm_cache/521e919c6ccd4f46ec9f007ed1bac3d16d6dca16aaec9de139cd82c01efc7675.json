@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "The GeoSensitivity for Kingston upon Hull 029E is **24.22**, the highest of 168 LSOAs, from the Geo branch location-masking SMILE. Its spatial clustering is not significant (local p = 0.069). Latitude and longitude effects are separate, with modest positive values 0.74 and 0.37. Explanation robustness is strong (Geo surrogate R\u00b2 0.90, ATT stability Jaccard 1.0). Caution: GeoSensitivity is not causal, and clustering scale is not established.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-10T21:10:04.515175+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 8422,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 112,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 8534
+  },
+  "prompt_version": "geosmile-hull-v5"
+}

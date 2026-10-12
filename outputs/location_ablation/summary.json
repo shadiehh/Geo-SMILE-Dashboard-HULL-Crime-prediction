@@ -1,0 +1,48 @@
+{
+  "design": "Same panel, split, XGBoost settings, seed, masks; only difference is the two location players.",
+  "masks": 4000,
+  "seed": 42,
+  "noise_seeds": [
+    43,
+    44
+  ],
+  "holdout": {
+    "without_location": {
+      "mae": 4.825808855394523,
+      "rmse": 6.890812256907791,
+      "r2": 0.8956733279339549
+    },
+    "with_location": {
+      "mae": 4.826538517006806,
+      "rmse": 6.91289182560709,
+      "r2": 0.8950036889248726
+    }
+  },
+  "surrogate_test_r2": {
+    "without_location": 0.9825149947049138,
+    "with_location": 0.9852216133799366
+  },
+  "location_players": {
+    "centroid_longitude": {
+      "coefficient": -0.060141236228658204,
+      "rank_of_32": 14
+    },
+    "centroid_latitude": {
+      "coefficient": 0.01468708101403094,
+      "rank_of_32": 28
+    }
+  },
+  "location_share_of_total_abs": 0.008213274978530596,
+  "global_rank_spearman_30_shared": 0.6783092324805339,
+  "noise_floor_rank_spearman": [
+    0.8246941045606229,
+    0.8189098998887653
+  ],
+  "top10_jaccard": 0.6666666666666666,
+  "n_features_change_exceeds_noise": 7,
+  "n_sign_flips": 3,
+  "local_rank_spearman_median": 0.8028921023359288,
+  "local_dominant_feature_changed_lsoas": 6,
+  "local_location_share_median": 0.01554882526397705,
+  "note": "Not causal. Changes include SMILE sampling noise; compare against noise_abs_range."
+}

@@ -1,0 +1,87 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788436741.391193   15548 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788436744.493242   15548 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [xgboost] ===
+[xgboost] combined predictive R2=0.8969 MAE=4.8117 RMSE=6.8493
+[xgboost] generating Feature mask pool (n=1024, coordinates held fixed)...
+[xgboost] Feature/ridge_kernel_weighted: R2=0.9774 MAE=0.3659 RMSE=0.4141
+[xgboost] Feature/random_forest: R2=0.9955 MAE=0.1433 RMSE=0.1847
+[xgboost] Feature/hist_gradient_boosting: R2=0.9980 MAE=0.0971 RMSE=0.1227
+[xgboost] generating Geo mask pool (n=4000, Feature players held fixed)...
+[xgboost] Geo/ridge_kernel_weighted: R2=0.9012 MAE=0.0215 RMSE=0.0297
+[xgboost] Geo/random_forest: R2=0.5750 MAE=0.0487 RMSE=0.0615
+[xgboost] Geo/hist_gradient_boosting: R2=0.7426 MAE=0.0373 RMSE=0.0479
+[xgboost] done in 1.5 min
+
+=== [lightgbm] ===
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+[lightgbm] combined predictive R2=0.8934 MAE=4.8378 RMSE=6.9671
+[lightgbm] generating Feature mask pool (n=1024, coordinates held fixed)...
+[lightgbm] Feature/ridge_kernel_weighted: R2=0.9866 MAE=0.2806 RMSE=0.3337
+[lightgbm] Feature/random_forest: R2=0.9964 MAE=0.1331 RMSE=0.1734
+[lightgbm] Feature/hist_gradient_boosting: R2=0.9985 MAE=0.0861 RMSE=0.1120
+[lightgbm] generating Geo mask pool (n=4000, Feature players held fixed)...
+[lightgbm] Geo/ridge_kernel_weighted: R2=0.8837 MAE=0.0284 RMSE=0.0390
+[lightgbm] Geo/random_forest: R2=0.4636 MAE=0.0657 RMSE=0.0837
+[lightgbm] Geo/hist_gradient_boosting: R2=0.6499 MAE=0.0515 RMSE=0.0676
+[lightgbm] done in 2.2 min
+
+=== [catboost] ===
+[catboost] combined predictive R2=0.8936 MAE=4.8823 RMSE=6.9604
+[catboost] generating Feature mask pool (n=1024, coordinates held fixed)...
+[catboost] Feature/ridge_kernel_weighted: R2=0.9699 MAE=0.2880 RMSE=0.3522
+[catboost] Feature/random_forest: R2=0.9916 MAE=0.1457 RMSE=0.1864
+[catboost] Feature/hist_gradient_boosting: R2=0.9978 MAE=0.0733 RMSE=0.0953
+[catboost] generating Geo mask pool (n=4000, Feature players held fixed)...
+[catboost] Geo/ridge_kernel_weighted: R2=0.9479 MAE=0.1368 RMSE=0.3440
+[catboost] Geo/random_forest: R2=0.9255 MAE=0.1135 RMSE=0.4114
+[catboost] Geo/hist_gradient_boosting: R2=0.9478 MAE=0.0976 RMSE=0.3443
+[catboost] done in 1.2 min
+
+=== [mlp] ===
+[mlp] combined predictive R2=0.5273 MAE=6.0692 RMSE=14.6685
+[mlp] SKIPPED: combined R2=0.5273 <= 0.7
+
+=== [svr] ===
+[svr] combined predictive R2=0.8675 MAE=5.3326 RMSE=7.7652
+[svr] generating Feature mask pool (n=1024, coordinates held fixed)...
+[svr] Feature/ridge_kernel_weighted: R2=0.9579 MAE=0.2348 RMSE=0.2957
+[svr] Feature/random_forest: R2=0.9544 MAE=0.2518 RMSE=0.3075
+[svr] Feature/hist_gradient_boosting: R2=0.9712 MAE=0.1899 RMSE=0.2443
+[svr] generating Geo mask pool (n=4000, Feature players held fixed)...
+[svr] Geo/ridge_kernel_weighted: R2=0.8707 MAE=0.1839 RMSE=0.2589
+[svr] Geo/random_forest: R2=0.7358 MAE=0.2789 RMSE=0.3701
+[svr] Geo/hist_gradient_boosting: R2=0.8138 MAE=0.2246 RMSE=0.3107
+[svr] done in 3.5 min
+
+=== [gp] ===
+[gp] combined predictive R2=0.8992 MAE=4.6905 RMSE=6.7743
+[gp] generating Feature mask pool (n=1024, coordinates held fixed)...
+[gp] Feature/ridge_kernel_weighted: R2=0.9966 MAE=0.1148 RMSE=0.1404
+[gp] Feature/random_forest: R2=0.9864 MAE=0.2233 RMSE=0.2810
+[gp] Feature/hist_gradient_boosting: R2=0.9961 MAE=0.1196 RMSE=0.1498
+[gp] generating Geo mask pool (n=4000, Feature players held fixed)...
+[gp] Geo/ridge_kernel_weighted: R2=0.8702 MAE=0.0547 RMSE=0.0729
+[gp] Geo/random_forest: R2=0.5763 MAE=0.1033 RMSE=0.1318
+[gp] Geo/hist_gradient_boosting: R2=0.7161 MAE=0.0818 RMSE=0.1079
+[gp] done in 17.1 min
+
+=== [dl] ===
+I0000 00:00:1788438275.878075   15548 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[dl] combined predictive R2=0.8700 MAE=5.0800 RMSE=7.6932
+[dl] generating Feature mask pool (n=1024, coordinates held fixed)...
+[dl] Feature/ridge_kernel_weighted: R2=-0.0157 MAE=1.9969 RMSE=2.9296
+[dl] Feature/random_forest: R2=0.8027 MAE=0.7400 RMSE=1.2911
+[dl] Feature/hist_gradient_boosting: R2=0.5698 MAE=1.1830 RMSE=1.9066
+[dl] generating Geo mask pool (n=4000, Feature players held fixed)...
+[dl] Geo/ridge_kernel_weighted: R2=0.8874 MAE=0.1095 RMSE=0.1458
+[dl] Geo/random_forest: R2=0.6869 MAE=0.1851 RMSE=0.2431
+[dl] Geo/hist_gradient_boosting: R2=0.8047 MAE=0.1426 RMSE=0.1920
+[dl] done in 6.6 min
+
+Done. D:\GEO SMILE CODE\hull\outputs\surrogate_comparison_combined

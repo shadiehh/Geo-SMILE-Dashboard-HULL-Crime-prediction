@@ -1,0 +1,18 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1789040743.782676   13276 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1789040746.968511   13276 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [catboost] Feature branch, R=10 reseeds ===
+Saved: D:\GEO SMILE CODE\hull\outputs\consistency_core_borderline\core_borderline_catboost_feature.png
+
+=== [catboost] Geo branch, R=10 reseeds ===
+Saved: D:\GEO SMILE CODE\hull\outputs\consistency_core_borderline\core_borderline_catboost_geo.png
+
+=== [xgboost] Feature branch, R=10 reseeds ===
+Saved: D:\GEO SMILE CODE\hull\outputs\consistency_core_borderline\core_borderline_xgboost_feature.png
+
+=== [xgboost] Geo branch, R=10 reseeds ===
+Saved: D:\GEO SMILE CODE\hull\outputs\consistency_core_borderline\core_borderline_xgboost_geo.png
+
+Done.

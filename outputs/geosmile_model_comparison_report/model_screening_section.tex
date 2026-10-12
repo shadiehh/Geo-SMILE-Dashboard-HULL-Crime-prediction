@@ -1,0 +1,152 @@
+% Requires \usepackage{booktabs} and \usepackage{multirow} in the preamble.
+\subsection{Screening Candidate Predictive Models by Category}
+\label{sec:hull_model_screening}
+
+GeoSMILE's SMILE-surrogate attribution machinery is model-agnostic: it perturbs
+inputs and observes the resulting shift in a model's own prediction
+distribution, so it can explain any regressor exposing a plain
+\texttt{fit(X, y)} / \texttt{predict(X)} interface. XGBoost was adopted as the
+predictive model this thesis explains, but that choice was not asserted
+without comparison. Before committing to it, six further candidates, spanning
+the three model categories realistically available for a tabular,
+non-self-explainable crime-count regression, were fit on the same panel and
+temporal split and screened on predictive fit and on how faithfully GeoSMILE
+could explain each one. The categories were: (i) \emph{gradient-boosted
+trees} -- LightGBM and CatBoost, alongside XGBoost itself; (ii)
+\emph{kernel/instance-based regressors} -- Support Vector Regression (SVR,
+RBF kernel) and Gaussian Process Regression; and (iii) \emph{feed-forward
+neural networks} -- a scikit-learn MLP and a deeper Keras/TensorFlow network,
+representing the two neural-network toolkits most commonly used for this
+class of problem. None of the six alternatives were hyperparameter-tuned;
+each was sized to a comparable capacity to XGBoost's published configuration,
+since the purpose of this pass is screening, not optimisation.
+
+Every candidate was trained twice, once per branch (Feature: 30 non-spatial
+predictors; Geo: the two LSOA centroid coordinates), with the same seed (42),
+the same temporal train/validation/test split, and the same SMILE budget as
+the published design (Feature: 1{,}024 masks; Geo: 4{,}000 perturbations --
+raised from the originally published 2{,}000 after a further XGBoost sweep
+showed higher Geo fidelity at that budget). A guard was applied before
+committing to the expensive attribution step: a branch was fit and explained
+by GeoSMILE only if its held-out predictive $R^2$ exceeded 0.7; a branch at or
+below that threshold was excluded from GeoSMILE fitting and every downstream
+attribution metric, rather than explaining a model that cannot itself
+predict adequately. This screen deliberately excludes any metric benchmarked
+against the external expert-reference set (ATT accuracy/F1/AUROC): those
+measure agreement with a human-curated list, not whether GeoSMILE can
+faithfully and stably explain a given predictive model, which is the
+question this comparison is asking. Table~\ref{tab:hull_model_screening}
+therefore reports, per branch, only: held-out predictive $R^2$; the
+Dehghani-style held-out surrogate fidelity $R^2$ (evaluation-split, not the
+kernel-selection diagnostic or the consistency-run mean -- see
+\S\ref{sec:hull_fidelity_definitions}); rank-Spearman consistency of the
+attribution ranking over ten SMILE reseeds ($R=10$); and cardinal-neighbour
+ATT stability (top-$k$ Jaccard of the attribution set before/after adding one
+real neighbouring LSOA to the reference).
+
+\begin{table}[htbp]
+\centering
+\caption{Predictive fit and GeoSMILE attribution quality by candidate model and category (seed 42, Feature $N{=}1{,}024$, Geo $N{=}4{,}000$). ``--'' marks a joint Feature+Geo diagnostic (stability) withheld because the model's Geo branch failed the $R^2>0.7$ guard.}
+\label{tab:hull_model_screening}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrrrrrr}
+\toprule
+& & \multicolumn{4}{c}{Feature} & \multicolumn{4}{c}{Geo} \\
+\cmidrule(lr){3-6}\cmidrule(lr){7-10}
+Category & Model & $R^2$ & Fidelity & Consist.\ $\rho$ & Stability $J$ & $R^2$ & Fidelity & Consist.\ $\rho$ & Stability $J$ \\
+\midrule
+\multirow{3}{*}{Gradient boosting}
+ & XGBoost  & 0.8957 & 0.9780 & 0.647 & 1.000 & 0.8752 & 0.9479 & 0.945 & 1.000 \\
+ & LightGBM & 0.8968 & 0.9834 & 0.722 & 1.000 & 0.8798 & 0.9472 & 0.950 & 1.000 \\
+ & CatBoost & 0.8959 & 0.9849 & 0.855 & 1.000 & 0.8739 & 0.9482 & 0.943 & 1.000 \\
+\midrule
+\multirow{2}{*}{Kernel / instance-based}
+ & SVR & 0.8629 & 0.9366 & 0.823 & -- & 0.3161 & \multicolumn{3}{c}{excluded, $R^2 \le 0.7$} \\
+ & GP  & 0.8993 & 0.9964 & 0.955 & 1.000 & 0.8777 & 0.9461 & 0.961 & 1.000 \\
+\midrule
+\multirow{2}{*}{Neural network}
+ & MLP        & 0.8529 & \textbf{0.0905} & 0.428 & -- & 0.4444 & \multicolumn{3}{c}{excluded, $R^2 \le 0.7$} \\
+ & DL (Keras) & 0.8574 & \textbf{0.1244} & 0.586 & 1.000 & 0.8235 & 0.9451 & 0.953 & 1.000 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\paragraph{Gradient-boosted trees.} XGBoost, LightGBM, and CatBoost are
+essentially interchangeable on predictive fit (Feature $R^2 = 0.896$--$0.897$;
+Geo $R^2 = 0.874$--$0.880$) and on GeoSMILE fidelity (Feature $\ge 0.978$, Geo
+$\ge 0.947$ across all three), with perfect cardinal-neighbour stability
+($J=1.000$) on both branches for all three. Consistency is where they
+separate: CatBoost's Feature-branch ranking is the most stable under reseeding
+($\rho=0.855$ at $R{=}10$), against $0.647$ for XGBoost and $0.722$ for
+LightGBM, while all three cluster tightly on the Geo branch
+($\rho=0.943$--$0.950$). This is the only category in which every tested
+model cleared the $R^2 > 0.7$ guard on both branches.
+
+\paragraph{Kernel and instance-based regressors.} Restricted to these four
+metrics, Gaussian Process regression is not a weak alternative -- it is the
+strongest single candidate in the table on Feature-branch quality: the best
+predictive fit of any model screened ($R^2=0.899$) and the best Feature-branch
+fidelity by a wide margin ($R^2=0.996$, next-best CatBoost at $0.985$), with
+the best Geo-branch consistency of any model that clears the $R^2>0.7$ guard
+on that branch ($\rho=0.961$; the MLP's nominal $0.988$ is not a valid
+comparison, since its Geo branch fails the guard outright, see below).
+GP's stability is perfect on both branches. Nothing in
+Table~\ref{tab:hull_model_screening} disqualifies it on quality grounds. What
+does not appear in the table is cost: across the full screening protocol
+(main pass, four cardinal-neighbour stability directions, ten consistency
+reseeds) GP alone took approximately four hours to explain, against
+single-digit minutes for any boosted-tree candidate, because Gaussian
+Process prediction cost scales with training-set size and GeoSMILE issues
+thousands of individual predictions per branch. GP is therefore carried
+forward as the strongest quality case for an alternative to boosting, with
+computational cost as the open objection, rather than being ruled out on
+these four metrics. SVR illustrates the guard directly: its Feature branch
+is workable ($R^2=0.863$, fidelity $0.937$, $\rho=0.823$) but its Geo branch,
+given only two raw coordinates and no spatial kernel structure, could not
+predict crime counts above $R^2=0.316$ and was excluded from GeoSMILE
+fitting entirely; because stability is a joint Feature+Geo diagnostic, it is
+withheld for SVR's Feature branch too, even though that branch individually
+passed the guard.
+
+\paragraph{Neural networks.} Both the scikit-learn MLP and the deeper
+Keras/TensorFlow network predict the Feature branch adequately in isolation
+($R^2=0.853$ and $0.857$) but GeoSMILE's surrogate fidelity on that same
+branch collapses for both: $R^2=0.090$ for the MLP and $0.124$ for the deep
+network, both negative once the weighted-adjustment for held-out sample size
+is applied ($-0.073$ and $-0.008$ respectively). Feature-branch consistency
+is correspondingly the weakest in the whole screen for these two models
+($\rho=0.428$ and $0.586$). The two toolkits diverge on the Geo branch,
+however: the deep network predicts it adequately ($R^2=0.824$) and GeoSMILE's
+fidelity ($0.945$) and consistency ($\rho=0.953$) there are comparable to, or
+better than, the boosted trees, with perfect stability. The MLP's Geo branch,
+by contrast, fails the same $R^2>0.7$ guard that excludes SVR's Geo branch
+($R^2=0.444$) and is excluded from GeoSMILE fitting entirely -- because
+stability is a joint Feature+Geo diagnostic, it is withheld for the MLP's
+Feature branch too, even though that branch individually passed the guard,
+mirroring SVR's treatment. Predictive fit alone would not have flagged either
+network as unsuitable on the Feature branch; only the fidelity and
+consistency metrics do, and they do so sharply and consistently across both
+neural-network toolkits under identical SMILE settings -- evidence this
+reflects the harder, higher-dimensional (30-input) ablation surface these
+architectures present to a mask-based surrogate, rather than an
+implementation quirk of either framework. On the Geo branch, the two
+toolkits' outcomes differ only because of predictive fit, not because of any
+difference in GeoSMILE's ability to explain them.
+
+\paragraph{Selection.} On predictive $R^2$, fidelity, consistency, and
+stability alone, gradient-boosted trees and Gaussian Process regression are
+close: GP wins outright on Feature-branch predictive fit and fidelity, the
+boosted trees are more uniform across both branches and cost a fraction of
+the compute. Both candidate categories comfortably clear
+every guard and show no fidelity collapse, in contrast to the neural
+networks (Feature-branch fidelity below $0.13$, and negative once
+weighted-adjusted, for both toolkits tested) and to SVR (excluded on Geo
+outright). XGBoost was carried forward as the published model on the
+strength of the boosting category as a whole -- it is not uniquely superior
+to LightGBM or CatBoost on this screen, and Gaussian Process regression
+remains a legitimate, quality-competitive alternative that this thesis did
+not pursue only because of its computational cost, not because these four
+metrics disqualify it. That trade-off, and GP's Feature-branch fidelity
+advantage in particular, is noted here as a direction for follow-up work
+rather than resolved.

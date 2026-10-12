@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "**What stands out**  \nThe selected area, Kingston upon Hull 012A, has a **modest GeoSensitivity** value of approximately **0.15**, ranking **144th out of 168 LSOAs** in Hull. This means that, relative to other areas, its geographic masking effect on the next-month crime count prediction model is comparatively low. The **latitude effect** here is **0.077**, and the **longitude effect** is **0.031**, both indicating small contributions from location features as modeled separately from GeoSensitivity.\n\n**Where**  \nKingston upon Hull 012A\u2019s GeoSensitivity is classified as **not statistically significant in spatial clustering** according to Local Moran\u2019s I/LISA analysis (**local Moran\u2019s I = 0.020**, **p = 0.375**). This means there is no strong evidence that this area\u2019s GeoSensitivity forms a spatial cluster with neighboring LSOAs.\n\n**What influences the model locally**  \nThe top 10 local non-location features influencing the model prediction in this LSOA include:  \n- **\"Crime roll mean 6\"** (6-month rolling average of past crime), the dominant local feature with a large positive coefficient of **4.53**.  \n- Other notable features with positive effects are **Unemployment % (0.99)**, **Long-term sick % (0.99)**, **Owner occupied % (0.80)**, and **Social rented % (0.45)**.  \n- Features with negative local effects include **Green space % (-0.58)**, **Crime lag 3 (-0.50)**, and **Road length (-0.41)**.  \nThese local feature effects differ and are independent from the geographic (GeoSensitivity) effect.\n\n**Spatial pattern**  \nAcross Hull, there is a **positive spatial clustering of GeoSensitivity** with a Global Moran\u2019s I of **0.044** (a measure that tests whether similar values cluster in space), statistically significant at **p = 0.027**. However, for Kingston upon Hull 012A specifically, the spatial clustering is **not significant**, so this LSOA is not part of any GeoSensitivity cluster. Overall, few areas show High-High (7) or Low-Low (6) GeoSensitivity clusters, indicating that spatial concentration of GeoSensitivity is limited.\n\n**What it may mean**  \nThe model\u2019s prediction in Kingston upon Hull 012A depends more on non-location features such as recent crime history and socioeconomic indicators than on geographic masking effects or latitude/longitude features. The modest GeoSensitivity suggests that the unique geographic identity of this area has limited comparative influence on the model\u2019s predictions.\n\n**What should be investigated**  \nFurther examination of key local features like the **six-month crime rolling mean**, **unemployment**, and **long-term sickness rates** may provide more operational insights, as these have strong local effects distinct from location-based influences. The lack of significant spatial clustering for this LSOA\u2019s GeoSensitivity suggests that geographic masking effects here do not reflect broader neighborhood patterns.\n\n**Limitation**  \nThis evidence does **not imply causation**: GeoSensitivity and feature attributions represent model explanation components, not crime causes. The spatial pattern scale is **not established** in the computed outputs, and multiple-testing adjustments for spatial significance (local_p_adjusted) are not available. The GeoSensitivity values must be interpreted in comparison with other areas; despite the rank, the absolute geographic influence here is modest.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-08-27T23:39:10.295668+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 8612,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 710,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 9322
+  },
+  "prompt_version": "geosmile-hull-v4"
+}

@@ -1,0 +1,79 @@
+% =====================================================================
+% City Planner stakeholder card (Chapter 6).
+% Question: where does the model rely most on built-environment features, and which ones?
+% Measure: share of each LSOA's total local Feature importance (|local coef| over all 30
+% players) from the 12 built-environment players (Feature branch); map 01 adds signed
+% GeoSensitivity (outputs/geo_area_data_eval/geo_coefficients_N4000.csv) for context.
+% Values: outputs/stakeholder_narratives/planner_built_share.csv (plot_planner_built_share.py);
+%         Moran's I on the share, queen contiguity, 999 permutations.
+% Previous GeoSensitivity version: planner_card_geosensitivity.tex
+%
+% Preamble: \usepackage[most]{tcolorbox}, xcolor, graphicx.
+% Copy planner_geo_map.pdf and planner_built_map.pdf (plot_planner_maps.py) into Chapter6/figs/.
+% =====================================================================
+
+\definecolor{cardInk}{HTML}{12171C}
+\definecolor{cardMuted}{HTML}{57646D}
+\definecolor{cardTeal}{HTML}{1F4E5F}
+\definecolor{cardPink}{HTML}{FCE4EC}
+\definecolor{cardWine}{HTML}{8A0033}
+\definecolor{cardRule}{HTML}{D9DEE2}
+
+\newcommand{\pv}[1]{\begingroup\setlength{\fboxsep}{1.5pt}\colorbox{cardPink}{\textcolor{cardWine}{\ttfamily\bfseries #1}}\endgroup}
+% Key phrase: the LLM-selected finding words (teal), distinct from \pv numbers (pink).
+% Keep phrases short: \colorbox does not break across lines.
+\newcommand{\kt}[1]{\begingroup\setlength{\fboxsep}{1.5pt}\colorbox{cardTeal!10}{\textcolor{cardTeal}{\bfseries #1}}\endgroup}
+\newcommand{\roletag}[1]{\tcbox[on line, colback=cardTeal, colframe=cardTeal, arc=2.5mm,
+  boxsep=0pt, left=6pt, right=6pt, top=3pt, bottom=3pt]{\color{white}\sffamily\bfseries\small #1}}
+\newcommand{\kicker}[1]{{\color{cardMuted}\sffamily\bfseries\footnotesize\MakeUppercase{#1}}}
+
+\begin{figure}[htbp]
+\begin{tcolorbox}[enhanced, colback=white, colframe=cardRule, arc=3mm, boxrule=0.6pt,
+                  left=3mm, right=3mm, top=4mm, bottom=4mm, fontupper=\sffamily\small\color{cardInk}]
+
+\roletag{CITY PLANNER}\par\medskip
+{\large\itshape Where does the model rely most on built-environment features, and which ones?}\par\medskip
+
+\begin{minipage}[t]{0.495\linewidth}
+  \kicker{01 \textperiodcentered{} Most sensitive area}\par\smallskip
+  \includegraphics[width=\linewidth]{Chapter6/figs/planner_geo_map.pdf}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.495\linewidth}
+  \kicker{02 \textperiodcentered{} Built-environment share}\par\smallskip
+  \includegraphics[width=\linewidth]{Chapter6/figs/planner_built_map.pdf}
+\end{minipage}
+
+\medskip
+\textbf{01.} The model is most sensitive to \kt{the city centre's own data} (029E, outlined on both
+maps; rank \pv{1/168}), but there \kt{recent crime dominates}: built-environment features (area, nightlife, retail,
+transit stops, roads, intersections, green space) carry only \pv{6\%} of its local importance,
+mostly \kt{retail}.
+
+\medskip
+\textbf{02.} Across Hull these features carry \pv{14\%} of local importance. The highest shares
+(\pv{41--45\%}) lie in \kt{residential areas outside the core}: Longhill, Avenues and Sculcoates on
+\kt{green space}, Bilton Grange on \kt{intersections}, Orchard Park on \kt{transit stops}. Across the
+top 20, green space leads in \pv{9} areas. The share is \kt{mildly clustered} (Moran's $I$ \pv{0.11},
+$p = 0.006$).
+
+\medskip
+\begin{tcolorbox}[enhanced, colback=white, frame hidden, sharp corners, boxrule=0pt,
+  borderline west={2pt}{0pt}{cardTeal},
+  left=5pt, right=5pt, top=3pt, bottom=3pt, fontupper=\sffamily\small\color{cardInk}]
+\textbf{Takeaway:} built-environment features matter most to the model in \kt{residential areas},
+\kt{not in the city centre} where it is most place-sensitive.
+\end{tcolorbox}
+
+\medskip
+{\color{cardRule}\rule{\linewidth}{0.4pt}}\par\smallskip
+{\color{cardMuted}\footnotesize Map 01: signed GeoSensitivity (darker = higher relative contribution;
+sign is not a crime direction). Map 02: share of local importance from built-environment features,
+not their effect on crime. Model behaviour, not planning targets.
+Highlights: \pv{pink} = values, \kt{teal} = key findings.}
+
+\end{tcolorbox}
+\caption{City Planner narrative: signed GeoSensitivity with the top-ranked LSOA outlined (left) and
+the share of each LSOA's local Feature importance from built-environment features (right). Both maps
+share one extent and scale; the city centre (029E) is outlined on each.}
+\label{fig:stakeholder-planner}
+\end{figure}

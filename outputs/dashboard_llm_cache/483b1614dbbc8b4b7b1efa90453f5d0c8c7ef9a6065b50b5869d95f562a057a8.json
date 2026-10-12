@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "Across Hull, the model's geographic sensitivity varies widely, with the highest being 22.3 in Old Town around Ferensway and Castle Street, indicating this area\u2019s predictions depend substantially on its own data; this top value is much larger than others, as the 20 most sensitive areas contribute 46% of the total shift. The selected area, Stoneferry near Holwell and Stoneferry Roads, ranks 20th with moderate GeoSensitivity of about 1.05, meaning its data moderately influences model predictions compared to the rest of Hull. Significant positive spatial clustering of GeoSensitivity is present overall, with several nearby high-sensitivity areas in Old Town and Stepney, but Stoneferry itself does not form a statistically significant cluster. The main citywide predictor feature is crime history, especially the six-month rolling crime average, which is also dominant in Stoneferry though its value there is negative, differing somewhat from the dominant Hull pattern. Latitude and longitude effects are small and not influential here. The model explanation is strongly supported by stability and fidelity evaluation, but geographic sensitivity is comparative, not a direct measure of cause.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-10-05T23:20:52.457361+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 13082,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 228,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 13310
+  },
+  "prompt_version": "geosmile-hull-v8"
+}

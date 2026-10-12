@@ -1,0 +1,29 @@
+{
+  "ok": true,
+  "text": "[[t:GeoSensitivity]] is highest in [[t:Old Town]] (Kingston upon Hull 029E) around [[t:Ferensway]], [[t:Castle Street]], and Queens Dock Avenue, with an absolute value of [[n:22.33]] (rank [[n:1/168]]). Additional high-sensitivity areas include [[t:Dairycoates]] (Clive Sullivan Way, Hessle Road), [[t:Sculcoates]] (Clough Road, Bank Side), and [[t:Stepney]] (Londesborough Street) at lower but still elevated values. GeoSensitivity is noticeably clustered, not isolated: nine LSOAs form a contiguous high cluster, with [[t:Old Town]] at the centre. Moran\u2019s I is [[n:0.22]] (permutation p = [[n:0.001]]), and the LISA breakdown shows [[n:9]] high clusters (HH), [[n:9]] low clusters (LL), and the remaining [[n:142]] areas without significant clustering; pattern scale remains [[t:not established]]. In contrast, areas like [[t:Gipsyville]] (Hawthorn Avenue), [[t:East Ella]] (Coronation Road North), and [[t:Bilton Grange]] (Portobello Street) have the lowest GeoSensitivity, around [[n:-1.33]] to [[n:-1.24]], meaning the model\u2019s predictions would change least if their local data were replaced.\n\nAcross Hull, the model depends primarily on recent [[t:crime history]] variables, which account for [[n:61%]] of local feature importance. [[t:Census characteristics]] provide [[n:20%]], while [[t:built environment]] features contribute [[n:14%]]. The main built-environment contributors citywide are [[t:retail]] (2.7%) and [[t:green space]] (2.6%), followed by [[t:intersections]], [[t:nightlife]], [[t:roads]], and [[t:transit stops]]; these shares are overall attributions, not effects on crime. The share attributed to built-environment factors is highest in [[t:Longhill]] (Kingston upon Hull 010E; [[n:45%]], led by green space), followed by [[t:Avenues]] (retail, green space), [[t:Bilton Grange]] (intersections), [[t:Sculcoates]] (green space), and [[t:Orchard Park]] (transit stops). In contrast, the core of [[t:Old Town]] (029E), despite its large GeoSensitivity, draws only [[n:6%]] from built-environment features and is dominated by crime history.\n\nThe cluster around [[t:Old Town]] (029E, rank 1; cluster size [[n:9]]) forms the central focus in spatial-contrast figures, with local explanation led by recent crime averages. Areas such as [[t:Longhill]] stand out for high built-environment attribution, mainly from green space, while other foci such as [[t:Gipsyville]] exemplify lowest model sensitivity. Attribution figures describe model reliance, not intervention priorities, and [[t:pattern scale is not established]].",
+  "provider": "openai",
+  "model": "gpt-4.1",
+  "timestamp": "2026-10-10T10:37:36.048171+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 14514,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 673,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 15187,
+    "checks": {
+      "ok": false,
+      "problems": [
+        "text: 324 words > 260",
+        "text: 31 key terms, expected 4-10",
+        "text: unmarked figure"
+      ]
+    }
+  },
+  "prompt_version": "geosmile-hull-v8+comprehensive-v1"
+}

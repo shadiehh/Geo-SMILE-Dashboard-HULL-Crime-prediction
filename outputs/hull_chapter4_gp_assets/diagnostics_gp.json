@@ -1,0 +1,25 @@
+{
+  "feature": {
+    "hoyer": 0.8313235922916882,
+    "gini": 0.749653335818188,
+    "entropy": 1.9708750187286463,
+    "n_nonzero": 30,
+    "n_total": 30
+  },
+  "geo": {
+    "hoyer": 0.5266316706782226,
+    "gini": 0.4377811969125479,
+    "entropy": 4.648298613084541,
+    "n_nonzero": 168,
+    "n_total": 168
+  },
+  "feature_global_reproduction_check": true,
+  "top6_global_drivers": [
+    "crime_rolling_mean_6",
+    "crime_lag_1",
+    "unemployed_pct_age16plus",
+    "crime_rolling_mean_3",
+    "transit_stop_count",
+    "crime_lag_2"
+  ]
+}

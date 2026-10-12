@@ -34,11 +34,13 @@ def test_top10_excludes_coordinates_and_ranks_by_abs():
 
 def test_pattern_parsing_hh_cluster():
     bundle = load_hull_bundle()
-    row = bundle.lsoa[bundle.lsoa[LSOA_ID] == "E01012891"].iloc[0]
+    # Area-data design: city-centre HH cluster around Hull 029E.
+    row = bundle.lsoa[bundle.lsoa[LSOA_ID] == "E01033104"].iloc[0]
     assert row["lisa_class"] == "HH"
     assert row["cluster_id"] == "HH-1"
-    assert int(row["cluster_size"]) == 3
-    assert "E01012892" in row["cluster_members"]
+    assert int(row["cluster_size"]) == 9
+    assert "E01012854" in row["cluster_members"]
+    assert row["locality_label"] == "Old Town"
     global_p = bundle.spatial_pattern["GLOBAL_SPATIAL_PATTERN"]
     assert global_p["Moran_I"] > 0
     assert "p_value" in global_p

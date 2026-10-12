@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "Across Hull, the model's predictions for next-month crime counts mainly depend on features related to recent crime history, especially the six-month rolling average of crime, which is the most influential factor citywide. Other important features include the three-month crime rolling mean and the unemployment rate, while features like road density and long-term sickness have comparatively low influence. In the selected area, Kingston upon Hull 029C, these same crime history features dominate the model, with the six-month crime roll being the top influence, alongside unemployment; this local feature pattern aligns with Hull's broader pattern. The geographic sensitivity varies notably across Hull, with most areas showing low to moderate geographic influence, while Kingston upon Hull 029C ranks fourth in GeoSensitivity with a moderate magnitude. This area is part of a statistically significant cluster of higher geographic sensitivity nearby. Latitude and longitude effects exist separately but are small in this area. It is important to note that these model attributions do not imply causation, and no local socioeconomic or environmental context is provided.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-27T23:45:49.683820+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 11477,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 9088
+    },
+    "output_tokens": 205,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 11682
+  },
+  "prompt_version": "geosmile-hull-v6"
+}

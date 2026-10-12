@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "GeoSensitivity varies widely across Hull, with the highest in Kingston upon Hull 029E at 23.11 and several other high-ranked LSOAs around 2 to 6.7, while some areas like Kingston upon Hull 028E exhibit very low GeoSensitivity near 0.01. Spatial clustering analysis shows a modest positive clustering of GeoSensitivity overall, including 7 areas in high-value clusters and 7 in low-value clusters, but the overall pattern scale is not established. The selected LSOA\u2019s rank and local spatial context are not provided. Among features excluding location, \"Crime roll mean 6\" is the dominant global driver, with other features like Unemployment % and Long-term sick % also influential. GeoSensitivity here reflects the Geo branch\u2019s location masking, distinct from latitude and longitude effects, which are not detailed. Limitations include non-causal interpretation, absence of local p-value adjustment for clustering, and no available pattern scale. Evaluation shows good explanation stability and fidelity, supporting robustness for planning interpretation.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-27T23:44:35.034186+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 10517,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 207,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 10724
+  },
+  "prompt_version": "geosmile-hull-v6"
+}

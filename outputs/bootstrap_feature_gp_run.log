@@ -1,0 +1,18 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788816895.670255    5584 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788816899.330229    5584 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [gp] Feature fidelity replicates (R=10, 0 already done) ===
+[gp] Feature seed=42: R2=0.9964 R2w=0.9964
+[gp] Feature seed=43: R2=0.9943 R2w=0.9943
+[gp] Feature seed=44: R2=0.9949 R2w=0.9949
+[gp] Feature seed=45: R2=0.9956 R2w=0.9955
+[gp] Feature seed=46: R2=0.9926 R2w=0.9923
+[gp] Feature seed=47: R2=0.9959 R2w=0.9959
+[gp] Feature seed=48: R2=0.9959 R2w=0.9960
+[gp] Feature seed=49: R2=0.9957 R2w=0.9956
+[gp] Feature seed=50: R2=0.9965 R2w=0.9966
+[gp] Feature seed=51: R2=0.9946 R2w=0.9944
+
+Done.

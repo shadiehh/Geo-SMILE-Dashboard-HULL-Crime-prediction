@@ -1,4 +1,8 @@
-"""Load the eval_by_n_perturb robustness sweep for the dashboard diagnostics tab.
+"""Load the robustness sweep for the dashboard diagnostics tab.
+
+Feature branch: eval_by_n_perturb. Geo branch: the area-data design sweep
+(hull_geo_area_data_eval.py, outputs/geo_area_data_eval/n_*/metrics.json),
+ranked by the signed coefficient; its published N is GEO_DESIGN_N.
 
 Expert-reference overlap is always computed here from the raw exported
 rankings (feature_importance.csv / geo_coefficients.csv). This module never
@@ -25,6 +29,8 @@ from dashboard.data.schema import (
     FEATURE_GLOBAL_PUBLISHED_CSV,
     GEO_CONSISTENCY_CSV,
     GEO_CSV,
+    GEO_DESIGN_DIR,
+    GEO_DESIGN_N,
     PUBLISHED_FEATURE_FIDELITY_CSV,
     PUBLISHED_GEO_FIDELITY_CSV,
     PUBLISHED_N,
@@ -124,14 +130,43 @@ def _ranking_for(path: Path, branch: str, expert_ids: set[str]) -> pd.DataFrame 
     if branch == "feature":
         id_col, mag_col = "feature", "abs_coefficient"
     else:
-        id_col, mag_col = "lsoa21cd", "geo_abs_coefficient"
+        # Area-data design ranks by the signed coefficient (descending).
+        id_col, mag_col = "lsoa21cd", "geo_coefficient"
     frame = pd.read_csv(path)
     frame[id_col] = frame[id_col].astype(str)
     ranked = rank_by_abs_magnitude(frame, id_col=id_col, mag_col=mag_col)
     return flag_expert_reference(ranked, id_col=id_col, expert_ids=expert_ids)
 
 
+def _area_data_geo_row(n: int, metrics_path: Path, ranking: pd.DataFrame | None, *, published: bool) -> dict:
+    m = _read_json(metrics_path)
+    fid = m.get("fidelity") or {}
+    faith = m.get("faithfulness") or {}
+    stab = m.get("stability") or {}
+    cons = m.get("consistency") or {}
+    overlap = expert_overlap_count(ranking, k=GEO_TOP_K) if ranking is not None else None
+    return {
+        "n_perturb": n,
+        "branch": _branch_label("geo"),
+        "is_published": published,
+        "surrogate_fidelity_r2": fid.get("R2"),
+        "kernel_diagnostic_r2": (m.get("smile_diagnostics") or {}).get("test_r2"),
+        "consistency_fidelity_r2_mean": None,
+        "consistency_fidelity_r2_std": None,
+        "faithfulness_top_minus_random": faith.get("top_minus_random"),
+        "faithfulness_empirical_p": faith.get("empirical_p_top_vs_random"),
+        "att_stability_jaccard": stab.get("jaccard_mean"),
+        "att_consistency_rank_spearman_mean": cons.get("rank_spearman_mean"),
+        "att_consistency_rank_spearman_std": None,
+        "expert_overlap_count": overlap,
+        "expert_overlap_k": GEO_TOP_K,
+        "expert_overlap_fraction": (overlap / GEO_TOP_K) if overlap is not None else None,
+    }
+
+
 def _sweep_metric_row(n: int, branch: str, n_dir: Path, ranking: pd.DataFrame | None) -> dict:
+    if branch == "geo":
+        return _area_data_geo_row(n, n_dir / "metrics.json", ranking, published=False)
     fid = _read_json(n_dir / "fidelity.json").get(branch, {}) or {}
     faith = _read_json(n_dir / "faithfulness.json").get(branch, {}) or {}
     stab = _read_json(n_dir / "att_stability.json").get(branch, {}) or {}
@@ -159,6 +194,10 @@ def _sweep_metric_row(n: int, branch: str, n_dir: Path, ranking: pd.DataFrame | 
 
 def _published_metric_row(root: Path, branch: str, ranking: pd.DataFrame | None) -> dict:
     n = PUBLISHED_N[branch]
+    if branch == "geo":
+        return _area_data_geo_row(
+            n, root / GEO_DESIGN_DIR / f"n_{GEO_DESIGN_N}" / "metrics.json", ranking, published=True
+        )
     fid_rel = PUBLISHED_FEATURE_FIDELITY_CSV if branch == "feature" else PUBLISHED_GEO_FIDELITY_CSV
     fid = _read_one_row_csv(root / fid_rel)
 
@@ -207,8 +246,8 @@ def load_sweep_bundle(root: Path | None = None) -> SweepBundle:
     rows: list[dict] = []
     n_grid = sorted(EVAL_SWEEP_N_GRID)
     for n in n_grid:
-        n_dir = sweep_dir / f"n_{n}"
         for branch in BRANCHES:
+            n_dir = (sweep_dir if branch == "feature" else root / GEO_DESIGN_DIR) / f"n_{n}"
             fname = "feature_importance.csv" if branch == "feature" else "geo_coefficients.csv"
             ranking = _ranking_for(n_dir / fname, branch, expert_ids[branch])
             if ranking is not None:

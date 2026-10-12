@@ -1,0 +1,81 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788298634.112295   15352 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788298635.725585   15352 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [xgboost] combined model (32 inputs) ===
+[xgboost] predictive MAE=4.8117 RMSE=6.8493 R2=0.8969
+[xgboost] Feature fidelity R2=0.9772
+[xgboost] Geo fidelity R2=0.9149
+[xgboost] faithfulness (n_random=1000)...
+[xgboost] faithfulness top-random Feature=4.3376 | Geo=0.5327
+[xgboost] consistency (5 seeds from 100)...
+[xgboost] consistency Rank Spearman Feature=0.780 | Geo=0.915
+[xgboost] done in 5.6 min
+
+=== [lightgbm] combined model (32 inputs) ===
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+[lightgbm] predictive MAE=4.8378 RMSE=6.9671 R2=0.8934
+[lightgbm] Feature fidelity R2=0.9871
+[lightgbm] Geo fidelity R2=0.8684
+[lightgbm] faithfulness (n_random=1000)...
+[lightgbm] faithfulness top-random Feature=5.0622 | Geo=0.5340
+[lightgbm] consistency (5 seeds from 100)...
+[lightgbm] consistency Rank Spearman Feature=0.823 | Geo=0.935
+[lightgbm] done in 8.0 min
+
+=== [catboost] combined model (32 inputs) ===
+[catboost] predictive MAE=4.8823 RMSE=6.9604 R2=0.8936
+[catboost] Feature fidelity R2=0.9683
+[catboost] Geo fidelity R2=0.9190
+[catboost] faithfulness (n_random=1000)...
+[catboost] faithfulness top-random Feature=4.1816 | Geo=2.2492
+[catboost] consistency (5 seeds from 100)...
+[catboost] consistency Rank Spearman Feature=0.826 | Geo=0.220
+[catboost] done in 4.0 min
+
+=== [mlp] combined model (32 inputs) ===
+[mlp] predictive MAE=6.0692 RMSE=14.6685 R2=0.5273
+[mlp] Feature fidelity R2=0.2842
+[mlp] Geo fidelity R2=0.9001
+[mlp] faithfulness (n_random=1000)...
+[mlp] faithfulness top-random Feature=-289.3605 | Geo=5.0875
+[mlp] consistency (5 seeds from 100)...
+[mlp] consistency Rank Spearman Feature=0.631 | Geo=0.857
+[mlp] done in 3.2 min
+
+=== [svr] combined model (32 inputs) ===
+[svr] predictive MAE=5.3326 RMSE=7.7652 R2=0.8675
+[svr] Feature fidelity R2=0.9643
+[svr] Geo fidelity R2=0.8427
+[svr] faithfulness (n_random=1000)...
+[svr] faithfulness top-random Feature=2.6176 | Geo=1.7035
+[svr] consistency (5 seeds from 100)...
+[svr] consistency Rank Spearman Feature=0.928 | Geo=0.766
+[svr] done in 17.1 min
+
+=== [gp] combined model (32 inputs) ===
+[gp] predictive MAE=4.6905 RMSE=6.7743 R2=0.8992
+[gp] Feature fidelity R2=0.9967
+[gp] Geo fidelity R2=0.8295
+[gp] faithfulness (n_random=1000)...
+[gp] faithfulness top-random Feature=4.5594 | Geo=0.5564
+[gp] consistency (5 seeds from 100)...
+[gp] consistency Rank Spearman Feature=0.974 | Geo=0.864
+[gp] done in 97.4 min
+
+=== [dl] combined model (32 inputs) ===
+I0000 00:00:1788306752.938875   15352 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[dl] predictive MAE=5.0800 RMSE=7.6932 R2=0.8700
+[dl] Feature fidelity R2=0.1615
+[dl] Geo fidelity R2=0.8630
+[dl] faithfulness (n_random=1000)...
+[dl] faithfulness top-random Feature=-0.0708 | Geo=2.0342
+[dl] consistency (5 seeds from 100)...
+[dl] consistency Rank Spearman Feature=0.620 | Geo=0.819
+[dl] done in 53.7 min
+
+Done. Summary: D:\GEO SMILE CODE\hull\outputs\eval_combined_model\combined_model_comparison_summary.csv

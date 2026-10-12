@@ -8,7 +8,15 @@ import numpy as np
 import pandas as pd
 
 from dashboard.data.loader import HullBundle, compact_evaluation, magnitude_class, top_features_for_lsoa
-from dashboard.data.schema import LISA_LABELS, LSOA_ID, LSOA_NAME, MAP_VIEWS, STAKEHOLDERS, human_label
+from dashboard.data.schema import (
+    LISA_LABELS,
+    LSOA_ID,
+    LSOA_NAME,
+    MAP_VIEWS,
+    OUTPUT_MODES,
+    STAKEHOLDERS,
+    human_label,
+)
 from dashboard.llm.prompt import SYSTEM_PROMPT_VERSION
 
 
@@ -26,18 +34,69 @@ def _num(value: Any):
     return value
 
 
-def _global_geo(lsoa: pd.DataFrame) -> dict[str, Any]:
+def _split(value: Any) -> list[str]:
+    if not isinstance(value, str) or not value.strip():
+        return []
+    return [part.strip() for part in value.split(";") if part.strip()]
+
+
+def _place_context(row: pd.Series, *, max_streets: int = 6) -> dict[str, Any] | None:
+    """Orientation-only OSM labels for one LSOA; None when nothing is available."""
+    locality = row.get("locality_label")
+    streets = _split(row.get("major_streets"))[:max_streets]
+    nearby = _split(row.get("nearby_localities"))
+    if not (isinstance(locality, str) and locality) and not streets:
+        return None
+    return {
+        "lsoa_code": str(row[LSOA_ID]),
+        "locality_label": locality if isinstance(locality, str) and locality else None,
+        "recognisable_places": nearby,
+        "major_streets": streets,
+        "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+        "use": "orientation only",
+    }
+
+
+def _geo_extremes(lsoa: pd.DataFrame, k: int, *, highest: bool) -> list[dict[str, Any]]:
+    # Area-data design: rank by the signed coefficient (geo_rank 1 = highest).
+    frame = lsoa.sort_values("geo_rank", ascending=highest, kind="mergesort")
+    out = []
+    for _, row in frame.head(k).iterrows():
+        rec = {
+            "id": str(row[LSOA_ID]),
+            "name": str(row[LSOA_NAME]),
+            "geo_sensitivity": _num(row["geo_sensitivity"]),
+            "geo_rank": int(row["geo_rank"]),
+            "lisa_class": str(row["lisa_class"]),
+        }
+        place = _place_context(row, max_streets=3)
+        if place:
+            rec["place_context"] = place
+        out.append(rec)
+    return out
+
+
+def _global_geo(lsoa: pd.DataFrame, k: int = 5) -> dict[str, Any]:
     abs_vals = lsoa["geo_sensitivity_abs"].to_numpy(dtype=float)
+    signed = lsoa["geo_sensitivity"].to_numpy(dtype=float)
     return {
         "n_lsoas": int(len(lsoa)),
+        "geo_sensitivity_median": _num(float(np.median(signed))),
+        "geo_sensitivity_p90": _num(float(np.quantile(signed, 0.9))),
+        "n_negative": int((signed < 0).sum()),
         "geo_sensitivity_mean_abs": _num(float(np.mean(abs_vals))),
         "geo_sensitivity_median_abs": _num(float(np.median(abs_vals))),
         "geo_sensitivity_p90_abs": _num(float(np.quantile(abs_vals, 0.9))),
         "geo_sensitivity_max_abs": _num(float(np.max(abs_vals))),
         "geo_sensitivity_min_abs": _num(float(np.min(abs_vals))),
+        "highest_geo_sensitivity_lsoas": _geo_extremes(lsoa, k, highest=True),
+        "lowest_geo_sensitivity_lsoas": _geo_extremes(lsoa, k, highest=False),
+        "ranking": "signed coefficient (rank 1 = highest GeoSensitivity)",
         "note": (
-            "GeoSensitivity is the Geo-branch location-masking SMILE coefficient, "
-            "not latitude or longitude feature attribution."
+            "GeoSensitivity is the Geo-branch area-data SMILE coefficient: masking an "
+            "LSOA replaces all of its model inputs with Hull training medians, and the "
+            "coefficient attributes the resulting prediction shift to that LSOA. "
+            "It is not latitude or longitude feature attribution."
         ),
     }
 
@@ -57,7 +116,7 @@ def _spatial_global(pattern: dict) -> dict[str, Any]:
         "lisa_counts": local.get("counts"),
         "pattern_scale": "not established",
         "note": (
-            "LISA classes describe clustering of |GeoSensitivity|. "
+            "LISA classes describe clustering of signed GeoSensitivity (area-data design). "
             "They are not crime hotspots and not latitude/longitude effects."
         ),
     }
@@ -78,13 +137,18 @@ def _cluster_extent(row: pd.Series, lsoa: pd.DataFrame) -> dict[str, Any] | None
     }
 
 
-def _top_global_features(bundle: HullBundle, k: int = 10) -> list[dict[str, Any]]:
+def _top_global_features(
+    bundle: HullBundle, k: int = 10, *, lowest: bool = False
+) -> list[dict[str, Any]]:
     frame = bundle.global_features.copy()
     if "abs_coefficient" not in frame.columns:
         frame["abs_coefficient"] = frame["coefficient"].abs()
     frame = frame.sort_values("abs_coefficient", ascending=False, kind="mergesort")
+    frame["rank"] = np.arange(1, len(frame) + 1)
+    chosen = frame.tail(k).iloc[::-1] if lowest else frame.head(k)
     out = []
-    for i, rec in enumerate(frame.head(k).itertuples(index=False), start=1):
+    for rec in chosen.itertuples(index=False):
+        i = int(getattr(rec, "rank"))
         name = str(getattr(rec, "feature"))
         out.append(
             {
@@ -107,7 +171,15 @@ def build_evidence(
     scope: str,
     selected_lsoa: str | None,
     user_question: str | None = None,
+    output_mode: str = "dashboard_mode",
 ) -> dict[str, Any]:
+    """`scope` only decides whether selected-LSOA evidence is attached.
+
+    The package itself has no binary scope field: `selected_lsoa` is optional
+    and the prompt writes one continuous narrative either way.
+    """
+    if output_mode not in OUTPUT_MODES:
+        raise ValueError(f"Unknown output_mode: {output_mode}")
     lsoa = bundle.lsoa
     geo_stats = _global_geo(lsoa)
     spatial = _spatial_global(bundle.spatial_pattern)
@@ -126,14 +198,14 @@ def build_evidence(
             "label": STAKEHOLDERS[stakeholder_id],
         },
         "current_map_view": current_map_view,
+        "output_mode": output_mode,
         "current_map_view_label": MAP_VIEWS[current_map_view],
-        "scope": scope,
         "prompt_version": SYSTEM_PROMPT_VERSION,
         "semantic_separation": {
-            "geo_sensitivity": "Geo branch location-masking SMILE",
+            "geo_sensitivity": "Geo branch area-data masking SMILE (all inputs of an LSOA set to Hull medians)",
             "latitude_effect": "latitude as a Feature SMILE player",
             "longitude_effect": "longitude as a Feature SMILE player",
-            "spatial_pattern": "LISA/Moran on |GeoSensitivity|",
+            "spatial_pattern": "LISA/Moran on signed GeoSensitivity",
             "not_equivalent": [
                 "GeoSensitivity != latitude feature effect",
                 "GeoSensitivity != longitude feature effect",
@@ -146,6 +218,7 @@ def build_evidence(
         "global_geo": geo_stats,
         "global_spatial_pattern": spatial,
         "top_global_features": _top_global_features(bundle),
+        "lowest_global_features": _top_global_features(bundle, k=3, lowest=True),
         "evaluation": compact_evaluation(bundle.evaluation),
         "limitations": [
             "Not causal.",
@@ -189,7 +262,26 @@ def build_evidence(
                 "pattern_scale": "not established",
             },
             "top_features": top_features_for_lsoa(bundle.local_features, str(row[LSOA_ID])),
+            "lowest_features": top_features_for_lsoa(
+                bundle.local_features, str(row[LSOA_ID]), k=None
+            )[-3:][::-1],
         }
+        place = _place_context(row)
+        if place:
+            evidence["place_context"] = place
+        neighbours = row.get("cluster_members")
+        if isinstance(neighbours, (list, tuple)) and len(neighbours) > 1:
+            members = lsoa[lsoa[LSOA_ID].isin([str(c) for c in neighbours])]
+            selected["cluster_members"] = [
+                {
+                    "id": str(m[LSOA_ID]),
+                    "geo_rank": int(m["geo_rank"]),
+                    "locality_label": m.get("locality_label") or None,
+                    "major_streets": _split(m.get("major_streets"))[:3],
+                }
+                for _, m in members.sort_values("geo_rank").iterrows()
+                if str(m[LSOA_ID]) != str(row[LSOA_ID])
+            ]
         extent = _cluster_extent(row, lsoa)
         if extent:
             selected["cluster_extent"] = extent

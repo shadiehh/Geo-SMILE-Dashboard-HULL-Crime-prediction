@@ -1,0 +1,144 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788560810.553251   11916 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788560812.891829   11916 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [xgboost] === Feature: run, Geo: SKIPPED
+[xgboost] Feature pool (n=512, all 3 response metrics)...
+[xgboost] Feature(n=512)/wasserstein: R2=0.9772 MAE=0.3487 RMSE=0.4111
+[xgboost] Feature(n=512)/l1_mean_abs_diff: R2=0.9820 MAE=0.3038 RMSE=0.3658
+[xgboost] Feature(n=512)/l2_mean_sq_diff: R2=0.9731 MAE=13.3599 RMSE=16.9002
+[xgboost] Feature pool (n=1024, all 3 response metrics)...
+[xgboost] Feature(n=1024)/wasserstein: R2=0.9780 MAE=0.3475 RMSE=0.3994
+[xgboost] Feature(n=1024)/l1_mean_abs_diff: R2=0.9837 MAE=0.2893 RMSE=0.3418
+[xgboost] Feature(n=1024)/l2_mean_sq_diff: R2=0.9763 MAE=12.8179 RMSE=15.6353
+[xgboost] Feature pool (n=2048, all 3 response metrics)...
+[xgboost] Feature(n=2048)/wasserstein: R2=0.9780 MAE=0.3553 RMSE=0.4113
+[xgboost] Feature(n=2048)/l1_mean_abs_diff: R2=0.9847 MAE=0.2863 RMSE=0.3450
+[xgboost] Feature(n=2048)/l2_mean_sq_diff: R2=0.9782 MAE=12.6558 RMSE=15.7885
+[xgboost] Feature pool (n=4096, all 3 response metrics)...
+[xgboost] Feature(n=4096)/wasserstein: R2=0.9768 MAE=0.3609 RMSE=0.4142
+[xgboost] Feature(n=4096)/l1_mean_abs_diff: R2=0.9834 MAE=0.2928 RMSE=0.3511
+[xgboost] Feature(n=4096)/l2_mean_sq_diff: R2=0.9763 MAE=12.7984 RMSE=15.9660
+[xgboost] done in 1.1 min
+
+=== [lightgbm] === Feature: run, Geo: SKIPPED
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+[lightgbm] Feature pool (n=512, all 3 response metrics)...
+[lightgbm] Feature(n=512)/wasserstein: R2=0.9826 MAE=0.3299 RMSE=0.3878
+[lightgbm] Feature(n=512)/l1_mean_abs_diff: R2=0.9871 MAE=0.2777 RMSE=0.3340
+[lightgbm] Feature(n=512)/l2_mean_sq_diff: R2=0.9899 MAE=11.0900 RMSE=12.5641
+[lightgbm] Feature pool (n=1024, all 3 response metrics)...
+[lightgbm] Feature(n=1024)/wasserstein: R2=0.9833 MAE=0.3201 RMSE=0.3799
+[lightgbm] Feature(n=1024)/l1_mean_abs_diff: R2=0.9883 MAE=0.2670 RMSE=0.3168
+[lightgbm] Feature(n=1024)/l2_mean_sq_diff: R2=0.9890 MAE=10.8992 RMSE=12.9029
+[lightgbm] Feature pool (n=2048, all 3 response metrics)...
+[lightgbm] Feature(n=2048)/wasserstein: R2=0.9839 MAE=0.3261 RMSE=0.3801
+[lightgbm] Feature(n=2048)/l1_mean_abs_diff: R2=0.9893 MAE=0.2537 RMSE=0.3103
+[lightgbm] Feature(n=2048)/l2_mean_sq_diff: R2=0.9904 MAE=10.5054 RMSE=12.4718
+[lightgbm] Feature pool (n=4096, all 3 response metrics)...
+[lightgbm] Feature(n=4096)/wasserstein: R2=0.9839 MAE=0.3222 RMSE=0.3724
+[lightgbm] Feature(n=4096)/l1_mean_abs_diff: R2=0.9890 MAE=0.2572 RMSE=0.3069
+[lightgbm] Feature(n=4096)/l2_mean_sq_diff: R2=0.9906 MAE=10.0574 RMSE=12.0358
+[lightgbm] done in 1.8 min
+
+=== [catboost] === Feature: run, Geo: SKIPPED
+[catboost] Feature pool (n=512, all 3 response metrics)...
+[catboost] Feature(n=512)/wasserstein: R2=0.9833 MAE=0.1708 RMSE=0.2232
+[catboost] Feature(n=512)/l1_mean_abs_diff: R2=0.9891 MAE=0.1435 RMSE=0.1842
+[catboost] Feature(n=512)/l2_mean_sq_diff: R2=0.9488 MAE=8.9678 RMSE=11.6284
+[catboost] Feature pool (n=1024, all 3 response metrics)...
+[catboost] Feature(n=1024)/wasserstein: R2=0.9849 MAE=0.1654 RMSE=0.2173
+[catboost] Feature(n=1024)/l1_mean_abs_diff: R2=0.9908 MAE=0.1373 RMSE=0.1721
+[catboost] Feature(n=1024)/l2_mean_sq_diff: R2=0.9481 MAE=9.0958 RMSE=12.2194
+[catboost] Feature pool (n=2048, all 3 response metrics)...
+[catboost] Feature(n=2048)/wasserstein: R2=0.9826 MAE=0.1750 RMSE=0.2433
+[catboost] Feature(n=2048)/l1_mean_abs_diff: R2=0.9888 MAE=0.1418 RMSE=0.1961
+[catboost] Feature(n=2048)/l2_mean_sq_diff: R2=0.9283 MAE=9.6268 RMSE=15.1243
+[catboost] Feature pool (n=4096, all 3 response metrics)...
+[catboost] Feature(n=4096)/wasserstein: R2=0.9821 MAE=0.1767 RMSE=0.2345
+[catboost] Feature(n=4096)/l1_mean_abs_diff: R2=0.9890 MAE=0.1424 RMSE=0.1860
+[catboost] Feature(n=4096)/l2_mean_sq_diff: R2=0.9452 MAE=9.0691 RMSE=12.5756
+[catboost] done in 0.8 min
+
+=== [mlp] === Feature: run, Geo: SKIPPED
+[mlp] Feature pool (n=512, all 3 response metrics)...
+[mlp] Feature(n=512)/wasserstein: R2=0.1342 MAE=21845.7890 RMSE=40103.5817
+[mlp] Feature(n=512)/l1_mean_abs_diff: R2=0.1342 MAE=21845.8180 RMSE=40103.5995
+[mlp] Feature(n=512)/l2_mean_sq_diff: R2=0.0606 MAE=1121093143431.8354 RMSE=2375820905230.9932
+[mlp] Feature pool (n=1024, all 3 response metrics)...
+[mlp] Feature(n=1024)/wasserstein: R2=0.0905 MAE=27741.6389 RMSE=85602.3324
+[mlp] Feature(n=1024)/l1_mean_abs_diff: R2=0.0905 MAE=27741.5399 RMSE=85602.1779
+[mlp] Feature(n=1024)/l2_mean_sq_diff: R2=0.0164 MAE=3325754465433.4409 RMSE=16313981976086.9375
+[mlp] Feature pool (n=2048, all 3 response metrics)...
+[mlp] Feature(n=2048)/wasserstein: R2=0.0365 MAE=36173.0764 RMSE=54671.3583
+[mlp] Feature(n=2048)/l1_mean_abs_diff: R2=0.0365 MAE=36172.9851 RMSE=54671.2208
+[mlp] Feature(n=2048)/l2_mean_sq_diff: R2=-6.2836 MAE=8569633102160.5107 RMSE=10661694535247.0137
+[mlp] Feature pool (n=4096, all 3 response metrics)...
+[mlp] Feature(n=4096)/wasserstein: R2=0.0747 MAE=46883.9677 RMSE=182153.5358
+[mlp] Feature(n=4096)/l1_mean_abs_diff: R2=0.0747 MAE=46883.8672 RMSE=182153.4629
+[mlp] Feature(n=4096)/l2_mean_sq_diff: R2=0.0170 MAE=12107844357222.9805 RMSE=91179756996192.2656
+[mlp] done in 0.5 min
+
+=== [svr] === Feature: run, Geo: SKIPPED
+[svr] Feature pool (n=512, all 3 response metrics)...
+[svr] Feature(n=512)/wasserstein: R2=0.9497 MAE=0.2573 RMSE=0.3410
+[svr] Feature(n=512)/l1_mean_abs_diff: R2=0.9460 MAE=0.2771 RMSE=0.3462
+[svr] Feature(n=512)/l2_mean_sq_diff: R2=0.8875 MAE=7.2730 RMSE=9.3957
+[svr] Feature pool (n=1024, all 3 response metrics)...
+[svr] Feature(n=1024)/wasserstein: R2=0.9366 MAE=0.2984 RMSE=0.3756
+[svr] Feature(n=1024)/l1_mean_abs_diff: R2=0.9347 MAE=0.2967 RMSE=0.3819
+[svr] Feature(n=1024)/l2_mean_sq_diff: R2=0.9054 MAE=6.4034 RMSE=8.4978
+[svr] Feature pool (n=2048, all 3 response metrics)...
+[svr] Feature(n=2048)/wasserstein: R2=0.9315 MAE=0.2901 RMSE=0.3916
+[svr] Feature(n=2048)/l1_mean_abs_diff: R2=0.9329 MAE=0.2925 RMSE=0.3995
+[svr] Feature(n=2048)/l2_mean_sq_diff: R2=0.7937 MAE=6.7561 RMSE=14.7018
+[svr] Feature pool (n=4096, all 3 response metrics)...
+[svr] Feature(n=4096)/wasserstein: R2=0.9421 MAE=0.2705 RMSE=0.3523
+[svr] Feature(n=4096)/l1_mean_abs_diff: R2=0.9466 MAE=0.2563 RMSE=0.3348
+[svr] Feature(n=4096)/l2_mean_sq_diff: R2=0.9265 MAE=5.5117 RMSE=7.2918
+[svr] done in 4.4 min
+
+=== [gp] === Feature: run, Geo: SKIPPED
+[gp] Feature pool (n=512, all 3 response metrics)...
+[gp] Feature(n=512)/wasserstein: R2=0.9959 MAE=0.1288 RMSE=0.1648
+[gp] Feature(n=512)/l1_mean_abs_diff: R2=0.9891 MAE=0.1954 RMSE=0.2415
+[gp] Feature(n=512)/l2_mean_sq_diff: R2=0.8852 MAE=12.5789 RMSE=20.7575
+[gp] Feature pool (n=1024, all 3 response metrics)...
+[gp] Feature(n=1024)/wasserstein: R2=0.9964 MAE=0.1219 RMSE=0.1533
+[gp] Feature(n=1024)/l1_mean_abs_diff: R2=0.9910 MAE=0.1667 RMSE=0.2159
+[gp] Feature(n=1024)/l2_mean_sq_diff: R2=0.8664 MAE=11.4987 RMSE=22.4122
+[gp] Feature pool (n=2048, all 3 response metrics)...
+[gp] Feature(n=2048)/wasserstein: R2=0.9960 MAE=0.1266 RMSE=0.1634
+[gp] Feature(n=2048)/l1_mean_abs_diff: R2=0.9882 MAE=0.1954 RMSE=0.2512
+[gp] Feature(n=2048)/l2_mean_sq_diff: R2=0.8922 MAE=11.6962 RMSE=20.4079
+[gp] Feature pool (n=4096, all 3 response metrics)...
+[gp] Feature(n=4096)/wasserstein: R2=0.9955 MAE=0.1257 RMSE=0.1693
+[gp] Feature(n=4096)/l1_mean_abs_diff: R2=0.9895 MAE=0.1741 RMSE=0.2309
+[gp] Feature(n=4096)/l2_mean_sq_diff: R2=0.8773 MAE=10.9559 RMSE=20.8395
+[gp] done in 25.3 min
+
+=== [dl] === Feature: run, Geo: SKIPPED
+I0000 00:00:1788562852.188008   11916 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[dl] Feature pool (n=512, all 3 response metrics)...
+[dl] Feature(n=512)/wasserstein: R2=0.1583 MAE=4.0691 RMSE=6.5409
+[dl] Feature(n=512)/l1_mean_abs_diff: R2=0.1598 MAE=4.1152 RMSE=6.6211
+[dl] Feature(n=512)/l2_mean_sq_diff: R2=-0.1666 MAE=39798.3197 RMSE=57595.6599
+[dl] Feature pool (n=1024, all 3 response metrics)...
+[dl] Feature(n=1024)/wasserstein: R2=0.1244 MAE=5.7211 RMSE=9.7478
+[dl] Feature(n=1024)/l1_mean_abs_diff: R2=0.1322 MAE=5.7379 RMSE=9.7827
+[dl] Feature(n=1024)/l2_mean_sq_diff: R2=0.0255 MAE=70316.6082 RMSE=179025.6769
+[dl] Feature pool (n=2048, all 3 response metrics)...
+[dl] Feature(n=2048)/wasserstein: R2=0.2309 MAE=4.6824 RMSE=7.7274
+[dl] Feature(n=2048)/l1_mean_abs_diff: R2=0.2365 MAE=4.7119 RMSE=7.7769
+[dl] Feature(n=2048)/l2_mean_sq_diff: R2=0.0749 MAE=49814.3242 RMSE=100184.4317
+[dl] Feature pool (n=4096, all 3 response metrics)...
+[dl] Feature(n=4096)/wasserstein: R2=0.1691 MAE=4.8069 RMSE=7.9519
+[dl] Feature(n=4096)/l1_mean_abs_diff: R2=0.1756 MAE=4.8495 RMSE=7.9892
+[dl] Feature(n=4096)/l2_mean_sq_diff: R2=0.0465 MAE=51129.4293 RMSE=129197.9390
+[dl] done in 9.6 min
+
+Done. 144 rows (84 new/recomputed). Summary: D:\GEO SMILE CODE\hull\outputs\response_metric_comparison\response_metric_comparison_summary.csv

@@ -1,0 +1,29 @@
+{
+  "ok": true,
+  "text": "Across Hull, the leading model signal is [[t:Crime, 6-month average]], carrying most local influence in [[n:144]] of [[n:168]] areas and dominating the top explanatory cluster. Crime history accounts for [[n:61%]] of the explanation citywide (Hull median), with census characteristics at [[n:20%]] and built environment [[n:14%]]. The proportion of reliance on recent months remains low in most LSOAs (median [[n:12%]]), but is much higher in a few units: the model leans most on [[t:recent months]] in [[t:Old Town]] and areas like Dairycoates, Sculcoates, and Marfleet (all in the top 5 for recent share), where over [[n:28%]] to [[n:51%]] of local explanation comes from the last three months\u2014a marked concentration of short-term model reliance compared to the city\u2019s typical reliance on six-month history.\n\nIn recorded trends, Hull overall rose by [[n:4%]] across the last three months versus the six months before, but change is uneven. [[n:25]] of [[n:148]] assessed areas had rises over a quarter, while [[n:25]] fell by more than a quarter. The largest rise\u2014[[t:Bransholme]]\u2014saw crime nearly double, while the sharpest drop was in [[t:East Ella]], where monthly crime fell by over [[n:68%]]. The recent-month model reliance is substantial only in a few higher-crime LSOAs, with almost no overlap between the ten highest-reliance areas and those with the steepest recorded increases, indicating separate patterns rather than a simple direct relationship.\n\nFor [[t:Old Town]] (029E), the local explanation is dominated by \"Crime, 6-month average\" ([[n:48.5]], rank 1/168), with [[n:83%]] of feature importance from crime history and [[n:6%]] from the built environment. Model reliance on the last three months is exceptionally high ([[n:51%]]), far above the Hull norm, and the area\u2019s recorded crime is stable at [[n:217]] per month, just [[n:2%]] above its previous mean. This configuration\u2014reliance on both persistent and recent signals amid stable incident counts\u2014makes Old Town operationally distinctive and worth closer contextual review, though this is not itself a basis for deployment or enforcement.",
+  "provider": "openai",
+  "model": "gpt-4.1",
+  "timestamp": "2026-10-10T10:54:04.472894+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 16129,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 513,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 16642,
+    "checks": {
+      "ok": false,
+      "problems": [
+        "text: 314 words > 260",
+        "figure not in evidence: '68' (in '68%')",
+        "text: unmarked figure"
+      ]
+    }
+  },
+  "prompt_version": "geosmile-hull-v8+police-comprehensive-v2"
+}

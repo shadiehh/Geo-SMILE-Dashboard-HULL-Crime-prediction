@@ -1,15 +1,21 @@
 """Global Moran and Local Moran/LISA on published Hull GeoSMILE geosensitivity.
 
-Value field: geo_abs_coefficient (magnitude of geographic sensitivity).
+Value field: geo_abs_coefficient (magnitude of geographic sensitivity) by
+default; --signed uses geo_coefficient (the area-data design ranks by the
+signed coefficient).
 Weights: Queen contiguity, row-standardised. Classical spatial statistics only.
 
 Outputs under outputs/spatial_patterns/ are structured for another project's LLM:
 the model should cite Moran I / LISA labels, not visual impressions of the map.
 Not causal.
+
+    python compute_geo_spatial_patterns.py
+    python compute_geo_spatial_patterns.py --signed         --coef outputs/geo_area_data_eval/n_4000/geo_coefficients.csv         --out-dir outputs/geo_area_data_eval/spatial_patterns
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 from collections import deque
 from pathlib import Path
@@ -58,8 +64,9 @@ def load_geo_frame() -> pd.DataFrame:
         geo[VALUE_FIELD] = geo["geo_coefficient"].abs()
     geo["lsoa21cd"] = geo["lsoa21cd"].astype(str)
     if "lsoa21nm" not in geo.columns:
-        geo["lsoa21nm"] = geo["lsoa21cd"]
-    return geo[["lsoa21cd", "lsoa21nm", "geo_coefficient", VALUE_FIELD]].copy()
+        names = gpd.read_file(ROOT / "data" / "hull_lsoa_2021_official.geojson", ignore_geometry=True)
+        geo["lsoa21nm"] = geo["lsoa21cd"].map(names.set_index("lsoa21cd")["lsoa21nm"]).fillna(geo["lsoa21cd"])
+    return geo[list(dict.fromkeys(["lsoa21cd", "lsoa21nm", "geo_coefficient", VALUE_FIELD]))].copy()
 
 
 def attach_boundaries(geo: pd.DataFrame) -> gpd.GeoDataFrame:
@@ -185,7 +192,7 @@ def build_payload(
         "n_permutations": N_PERMUTATIONS,
         "seed": SEED,
         "notes": (
-            "Association of |Geo SMILE coefficient| in space. "
+            f"Association of {VALUE_FIELD} in space. "
             "HH = high geosensitivity surrounded by high; HL = high surrounded by low "
             "(localised anomaly). Not a causal crime effect."
         ),
@@ -207,7 +214,7 @@ def build_payload(
                 {
                     "lsoa21cd": str(r.lsoa21cd),
                     "lsoa21nm": str(r.lsoa21nm),
-                    "geo_abs_coefficient": float(r.geo_abs_coefficient),
+                    VALUE_FIELD: float(getattr(r, VALUE_FIELD)),
                     "geo_sensitivity": str(r.geo_sensitivity),
                     "lisa": str(r.lisa),
                     "local_I": float(r.local_I),
@@ -225,7 +232,7 @@ def build_payload(
             {
                 "lsoa21cd": str(r.lsoa21cd),
                 "lsoa21nm": str(r.lsoa21nm),
-                "geo_abs_coefficient": float(getattr(r, VALUE_FIELD)),
+                VALUE_FIELD: float(getattr(r, VALUE_FIELD)),
                 "geo_sensitivity": "NA",
                 "lisa": "ISLAND",
                 "local_I": None,
@@ -233,11 +240,11 @@ def build_payload(
             }
         )
     payload["LOCAL_SPATIAL_PATTERN"]["example_HH"] = [
-        {"lsoa21cd": str(r.lsoa21cd), "lsoa21nm": str(r.lsoa21nm), VALUE_FIELD: float(r.geo_abs_coefficient)}
+        {"lsoa21cd": str(r.lsoa21cd), "lsoa21nm": str(r.lsoa21nm), VALUE_FIELD: float(getattr(r, VALUE_FIELD))}
         for r in hh.sort_values(VALUE_FIELD, ascending=False).head(8).itertuples()
     ]
     payload["LOCAL_SPATIAL_PATTERN"]["example_HIGH_HL"] = [
-        {"lsoa21cd": str(r.lsoa21cd), "lsoa21nm": str(r.lsoa21nm), VALUE_FIELD: float(r.geo_abs_coefficient)}
+        {"lsoa21cd": str(r.lsoa21cd), "lsoa21nm": str(r.lsoa21nm), VALUE_FIELD: float(getattr(r, VALUE_FIELD))}
         for r in hl_high.sort_values(VALUE_FIELD, ascending=False).head(8).itertuples()
     ]
     return payload
@@ -271,7 +278,7 @@ def plot_lisa_map(gdf: gpd.GeoDataFrame, path: Path) -> None:
         )
     ax.set_axis_off()
     ax.set_title(
-        "LISA of GeoSMILE geosensitivity (|coefficient|)",
+        f"LISA of GeoSMILE geosensitivity ({VALUE_FIELD})",
         fontsize=12,
         fontweight="bold",
         color=INK,
@@ -317,7 +324,7 @@ def write_markdown(payload: dict, path: Path) -> None:
         if c["n"] >= 2
     ) or "- none with 2+ contiguous HH units"
     hl_lines = "\n".join(
-        f"- {e['lsoa21cd']} {e.get('lsoa21nm', '')} |coef|={e[VALUE_FIELD]:.3f}"
+        f"- {e['lsoa21cd']} {e.get('lsoa21nm', '')} {VALUE_FIELD}={e[VALUE_FIELD]:.3f}"
         for e in loc["example_HIGH_HL"]
     ) or "- none"
     path.write_text(
@@ -360,6 +367,18 @@ HL = high surrounded by low (localised anomaly, not a regional pattern).
 
 
 def main() -> None:
+    global COEF_PATH, PATTERN_DIR, VALUE_FIELD
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--coef", type=Path, default=COEF_PATH)
+    parser.add_argument("--out-dir", type=Path, default=PATTERN_DIR)
+    parser.add_argument("--signed", action="store_true",
+                        help="analyse the signed geo_coefficient instead of |coefficient|")
+    args = parser.parse_args()
+    COEF_PATH = args.coef if args.coef.is_absolute() else ROOT / args.coef
+    PATTERN_DIR = args.out_dir if args.out_dir.is_absolute() else ROOT / args.out_dir
+    if args.signed:
+        VALUE_FIELD = "geo_coefficient"
+
     geo = load_geo_frame()
     gdf = attach_boundaries(geo)
     w, islands = queen_weights(gdf)
@@ -370,7 +389,7 @@ def main() -> None:
     analysed = pd.DataFrame(
         {
             "lsoa21cd": order,
-            "geo_abs_coefficient": y,
+            VALUE_FIELD: y,
             "lisa": labels,
             "local_I": local_m.Is,
             "p_value": local_m.p_sim,
@@ -390,7 +409,7 @@ def main() -> None:
     csv_cols = [
         "lsoa21cd",
         "lsoa21nm",
-        "geo_abs_coefficient",
+        VALUE_FIELD,
         "geo_sensitivity",
         "lisa",
         "local_I",

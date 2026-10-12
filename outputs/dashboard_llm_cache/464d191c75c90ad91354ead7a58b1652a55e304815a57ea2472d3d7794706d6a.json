@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "The GeoSensitivity for Kingston upon Hull 015A is **-1.40**, ranked 20th of 168, indicating moderate and comparative geographic influence from the Geo branch's location masking. Its spatial pattern is not statistically significant nearby, with a local Moran p-value of 0.329. This evidence is robust with perfect controlled-input stability in Geo and feature attributions. GeoSensitivity reflects location masking and is distinct from latitude and longitude effects.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-10T21:47:15.816658+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 8422,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 91,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 8513
+  },
+  "prompt_version": "geosmile-hull-v5"
+}

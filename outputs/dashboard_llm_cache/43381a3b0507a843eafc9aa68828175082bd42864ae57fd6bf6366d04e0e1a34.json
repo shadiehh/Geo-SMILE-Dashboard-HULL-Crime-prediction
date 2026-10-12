@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "In Hull's crime prediction model, recent crime-history signals strongly stand out, with the \"Crime roll mean 6\" leading local indicators in 144 of 168 LSOAs. The selected LSOA, Kingston upon Hull 031D in Gipsyville around Boothferry Road and Pickering Road, ranks 136th in geographic sensitivity with a moderate absolute GeoSensitivity of about 1.02, showing its prediction depends modestly on its own area data. Its top local features include recent crime averages and green space percentage, while its GeoSensitivity shows no significant spatial anomaly, and its GeoSensitivity value is negative but not exceptionally low compared to other areas. Across Hull, recent crime-history features and their persistence deserve closer contextual review, especially in areas like Old Town and Dairycoates where geographic sensitivity is much higher.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-10-05T23:23:57.876494+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 13090,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 168,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 13258
+  },
+  "prompt_version": "geosmile-hull-v8"
+}

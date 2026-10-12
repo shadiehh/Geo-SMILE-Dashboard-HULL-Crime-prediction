@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "The selected LSOA, Kingston upon Hull 030C, has a moderate GeoSensitivity of **-1.51**, ranked 14th of 168 in Hull, indicating a notable geographic contribution compared to other areas but not strong in absolute terms. Its GeoSensitivity forms part of a significant high\u2013high spatial cluster (p=0.024). Latitude effect is slightly negative (\u22120.043) and longitude effect positive (0.32). Explanation stability and accuracy are well evaluated, but causation and pattern scale remain unestablished.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-10T21:47:27.539623+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 8482,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 7040
+    },
+    "output_tokens": 111,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 8593
+  },
+  "prompt_version": "geosmile-hull-v5"
+}

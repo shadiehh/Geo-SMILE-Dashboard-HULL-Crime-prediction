@@ -12,10 +12,18 @@ from geosmile_hull_twobranch import FEATURE_LABELS as _FEATURE_LABELS
 LSOA_ID = "lsoa21cd"
 LSOA_NAME = "lsoa21nm"
 
-# Published Geo branch (location-masking SMILE).
-GEO_CSV = "outputs/geo_coefficients.csv"
+# Geo branch, area-data design (Chapter 4): masking an LSOA replaces ALL of
+# its model inputs with the training median; LSOAs are ranked by the SIGNED
+# coefficient. The earlier coordinates-only design (outputs/geo_coefficients.csv)
+# is no longer shown in the dashboard.
+GEO_DESIGN = "area_data"
+GEO_DESIGN_DIR = "outputs/geo_area_data_eval"
+GEO_DESIGN_N = 4000
+GEO_CSV = f"{GEO_DESIGN_DIR}/n_{GEO_DESIGN_N}/geo_coefficients.csv"
+GEO_METRICS_JSON = f"{GEO_DESIGN_DIR}/n_{GEO_DESIGN_N}/metrics.json"
 GEO_SIGNED = "geo_coefficient"
 GEO_ABS = "geo_abs_coefficient"
+GEO_RANK_FIELD = GEO_SIGNED
 
 # Feature SMILE with lon/lat as attribution players (distinct from Geo branch).
 LOCATION_LOCAL_CSV = "outputs/feature_with_location/location_local_coefficients.csv"
@@ -33,10 +41,14 @@ LOCATION_FEATURE_NAMES = (LONGITUDE_EFFECT, LATITUDE_EFFECT)
 FEATURE_LOCAL_PUBLISHED_CSV = "outputs/feature_local_coefficients.csv"
 FEATURE_GLOBAL_PUBLISHED_CSV = "outputs/feature_global_importance.csv"
 
-# LISA on |Geo SMILE coefficient|. The source column named geo_sensitivity
-# is a HIGH/MID/LOW tertile, not the numeric GeoSensitivity value.
-LISA_CSV = "outputs/spatial_patterns/lisa_lsoa.csv"
-LISA_JSON = "outputs/spatial_patterns/llm_spatial_pattern.json"
+# LISA on the signed area-data Geo coefficient (compute_geo_spatial_patterns.py
+# --signed). The source column named geo_sensitivity is a HIGH/MID/LOW
+# tertile, not the numeric GeoSensitivity value.
+LISA_CSV = f"{GEO_DESIGN_DIR}/spatial_patterns/lisa_lsoa.csv"
+LISA_JSON = f"{GEO_DESIGN_DIR}/spatial_patterns/llm_spatial_pattern.json"
+
+# Orientation-only place labels per LSOA (build_lsoa_place_names.py, OSM).
+PLACE_NAMES_CSV = "data/hull_lsoa_place_names.csv"
 LISA_CLASS = "lisa"
 LOCAL_MORAN_I = "local_I"
 LOCAL_P = "p_value"
@@ -54,7 +66,7 @@ GEO_CONSISTENCY_CSV = "outputs/geosmile_hull_geo_consistency.csv"
 # Robustness sweep (Model Diagnostics tab): eval_by_n_perturb.py output.
 EVAL_SWEEP_DIR = "outputs/eval_by_n_perturb"
 EVAL_SWEEP_N_GRID = (1000, 2000, 3000, 4000, 5000, 7500, 10000)
-PUBLISHED_N = {"feature": 1024, "geo": 2000}
+PUBLISHED_N = {"feature": 1024, "geo": GEO_DESIGN_N}
 EXPERT_ALIGNMENT_FEATURE_CSV = "outputs/geosmile_hull_expert_alignment_merged_feature.csv"
 EXPERT_ALIGNMENT_GEO_CSV = "outputs/geosmile_hull_expert_alignment_merged_geo.csv"
 PUBLISHED_FEATURE_FIDELITY_CSV = "outputs/geosmile_hull_feat_fidelity.csv"
@@ -95,20 +107,24 @@ MAP_VIEWS = {
 }
 
 STAKEHOLDERS = {
-    "technical": "Technical / Model Analyst",
-    "domain": "Domain / Operational Expert",
-    "decision": "Decision Maker / Manager",
+    "public": "Resident / Public",
+    "planner": "City Planner / Local Authority",
+    "police": "Police / Community Safety",
+    "manager": "Manager / Strategic Decision Maker",
+    "researcher": "GeoAI Researcher / Model Analyst",
     "governance": "Governance / Assurance",
-    "public": "Public / Affected Stakeholder",
 }
 
 STAKEHOLDER_HELP = {
-    "technical": "Exact values, ranks, signed effects, spatial statistics, and methodological limits.",
-    "domain": "What stands out, where, local non-location features, and what to investigate. Not causal.",
-    "decision": "A few findings, practical magnitude, evidence strength, and a clear limitation.",
-    "governance": "Provenance, geographic dependence, stability, uncertainty, and unsupported-inference risk.",
-    "public": "Plain language. What the result means, and especially what it does not mean.",
+    "public": "Which features matter most and least to the model, in plain words. Not why crime occurs.",
+    "planner": "Where GeoSensitivity is highest and lowest across Hull, and where a place fits in that pattern.",
+    "police": "Crime-history signals and areas that stand out for closer contextual review. No deployment advice.",
+    "manager": "The most decision-relevant findings, their practical magnitude, and an evidence next step.",
+    "researcher": "Exact values, ranks, signed effects, spatial statistics, and explanation-quality diagnostics.",
+    "governance": "Provenance, robustness, stability, unusual behaviour, and unsupported-inference risk.",
 }
+
+OUTPUT_MODES = ("dashboard_mode", "comparison_table_mode")
 
 PROVIDERS = {
     "openai": "OpenAI",

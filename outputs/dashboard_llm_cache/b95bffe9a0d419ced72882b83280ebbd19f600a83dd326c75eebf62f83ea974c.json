@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "text": "Across Hull, the model's [[t:local explanations]] are usually led by crime-history signals: [[t:Crime, 6-month average]] is the top local feature in [[n:144]] of [[n:168]] LSOAs. The median share of the explanation from all recent crime measures is [[n:12%]], but in some areas (notably [[t:Old Town]] and [[t:Dairycoates]]), the model places much more weight on the crime level in the last three months: in Old Town ([[n:029E]]), the recent-month share is [[n:51%]], ranking [[n:1st]] citywide and well above the Hull median, while in Dairycoates ([[n:030B]]), it is [[n:32%]]. This strong recent-month reliance clusters with other centrally located areas, as reflected in the spatial clustering of the [[t:dominant feature attribution]] (Moran's I [[n:0.457]], p = [[n:0.004]]). Overall across Hull, the median share for the long-run signal (6-month mean) is [[n:41%]], but only a minority of LSOAs cross [[n:30%]] reliance on the most recent months.\n\nTurning to [[t:recorded crime change]], Hull as a whole saw a small [[n:4%]] increase in mean monthly crime in the last three months compared to the preceding six, with stability in most areas. Of the [[n:148]] areas assessed, [[n:25]] rose and [[n:25]] fell by more than a quarter. The largest rises occurred in Bransholme (up [[n:91%]]), Sculcoates ([[n:66%]]), and East Ella ([[n:64%]]), while the largest falls happened in East Ella (down [[n:69%]]), Bilton Grange ([[n:44%]]), and Avenues ([[n:42%]]). Only [[n:1]] area with a top-10 recent-month reliance also experienced a substantial recorded rise, showing that high recent reliance does not universally align with the largest recent increases.\n\nIn [[t:Old Town]] (LSOA [[n:029E]], including streets such as Ferensway, Castle Street, and Queens Dock Avenue), the model places [[n:83%]] of its explanation on crime-history variables, with [[n:51%]] specifically from recent months. Crime here remained broadly stable, with a recorded increase of only [[n:2%]]. The leading signals are the [[t:Crime, 6-month average]] and [[t:Crime, 3-month average]]. This area stands out for both recent reliance and overall model sensitivity and is part of a spatial HH cluster, while its crime level is persistently much higher than the city median. These findings support closer contextual review, but neither model reliance nor recorded change is a basis for deployment or enforcement.",
+  "provider": "openai",
+  "model": "gpt-4.1",
+  "timestamp": "2026-10-10T10:53:03.370334+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 16058,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 611,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 16669,
+    "checks": {
+      "ok": false,
+      "problems": [
+        "text: 356 words > 260",
+        "figure not in evidence: '44' (in '44%')",
+        "figure not in evidence: '42' (in '42%')",
+        "text: unmarked figure"
+      ]
+    }
+  },
+  "prompt_version": "geosmile-hull-v8+police-comprehensive-v1"
+}

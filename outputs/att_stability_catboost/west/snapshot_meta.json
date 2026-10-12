@@ -1,0 +1,13 @@
+{
+  "direction": "west",
+  "added_lsoa": "E01013112",
+  "added_name": "East Riding of Yorkshire 025D",
+  "feature_jaccard": 1.0,
+  "feature_spearman": 0.9991101223581758,
+  "geo_jaccard": 1.0,
+  "geo_spearman": 0.9996608642393997,
+  "geo_extra_rank": 147.0,
+  "geo_extra_in_top20": 0.0,
+  "feature_pred_spearman": 1.0,
+  "geo_pred_spearman": 1.0
+}

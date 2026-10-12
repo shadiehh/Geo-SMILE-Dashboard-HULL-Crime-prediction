@@ -1,0 +1,561 @@
+% =========================================================
+% Revised section opening (replaces the old 030C introduction)
+% =========================================================
+\section{Illustrative Stakeholder-Specific Narratives}
+\label{SEC:stakeholder_narrative_examples}
+
+To demonstrate the effect of stakeholder-specific evidence selection, six
+narratives were constructed around the same analytical instance: Kingston upon
+Hull 029E (\texttt{E01033104}), the city-centre and Old Town LSOA, with the
+GeoSensitivity map view active. The planner narrative adds a contrasting
+low-sensitivity case, Kingston upon Hull 003C (\texttt{E01012877}) in Orchard
+Park. The underlying structured evidence is therefore held constant while the
+selection, prioritisation, and communication of that evidence changes
+according to stakeholder needs.
+
+All values come from the final Hull design: one XGBoost model explained by
+the Feature branch (30 non-spatial predictors) and by the area-data Geo branch,
+in which masking an LSOA replaces all of its inputs with training medians
+($N=4{,}000$ perturbations, seed 42). The examples were written manually
+according to the dashboard prompt and are therefore \emph{illustrative
+prompt-conforming narratives rather than API outputs}. Place names and
+streets come from the \texttt{place\_context} supplied to the prompt, built
+from OpenStreetMap features inside the official 2021 LSOA boundaries.
+
+The examples are intended to demonstrate differences in evidence selection,
+rather than merely differences in vocabulary. Each subsection therefore
+presents the same analytical instance through a different stakeholder lens,
+with the dashboard evidence on the left and the narrative on the right.
+
+% ---------------------------------------------------------
+% [Resident / Public and City Planner subsections: unchanged]
+% ---------------------------------------------------------
+
+
+% =========================================================
+\subsection{Police / Community Safety}
+% =========================================================
+
+\begin{tcolorbox}[
+    enhanced,
+    colback=white,
+    colframe=policecol,
+    boxrule=0.6pt,
+    arc=2mm,
+    borderline west={3pt}{0pt}{policecol},
+    left=2.5mm,
+    right=2.5mm,
+    top=2.5mm,
+    bottom=2.5mm,
+    before skip=4pt,
+    after skip=4pt
+]
+
+{\small
+\textbf{Stakeholder question.}
+\emph{Which local signals dominate the explanation here, is the pattern
+persistent or recent, and does the area warrant contextual review?}
+}
+
+\vspace{2mm}
+
+\noindent
+\begin{minipage}[t]{0.41\linewidth}
+\vspace{0pt}
+
+{\scriptsize\bfseries DASHBOARD EVIDENCE}
+
+\vspace{0.8mm}
+
+\centering
+\includegraphics[
+    width=\linewidth,
+    height=0.26\textheight,
+    keepaspectratio
+]{Chapter6/figs/police_E01033104_rm6_reliance_map.png}
+
+\vspace{0.3mm}
+
+\raggedright
+{\scriptsize\color{black!60}
+\textbf{Local feature view.}
+Reliance on the \textbf{six-month crime average} is highest in 029E
+(\textbf{48.5; rank 1 of 168}) and is spatially clustered
+(Moran's $I=\textbf{0.45}$, $p=0.001$).
+}
+
+\vspace{1.5mm}
+
+\centering
+\includegraphics[
+    width=\linewidth,
+    height=0.17\textheight,
+    keepaspectratio
+]{Chapter6/figs/police_E01033104_crime_timeline.png}
+
+\vspace{0.3mm}
+
+\raggedright
+{\scriptsize\color{black!60}
+\textbf{Persistence view.}
+Recorded crime has stayed between \textbf{200 and 226} a month in 2026,
+against a Hull median of about \textbf{14}.
+}
+
+\end{minipage}\hfill%
+\begin{minipage}[t]{0.55\linewidth}
+\vspace{0pt}
+
+{\scriptsize\bfseries STAKEHOLDER-SPECIFIC NARRATIVE}
+
+\vspace{0.8mm}
+
+\footnotesize
+\RaggedRight
+
+Across Hull, the model leans on recent crime history. The six-month crime
+average is the strongest local signal in \textbf{144 of 168 LSOAs}, and areas
+that rely on it heavily tend to sit next to each other.
+
+\vspace{1.2mm}
+
+Kingston upon Hull 029E (\texttt{E01033104}) covers the city centre and Old
+Town around Ferensway, Paragon Square, Carr Lane, Market Place and Castle
+Street. It relies on that signal more than any other area
+(\textbf{rank 1 of 168}). Its top three local signals are the six-month
+average (\textbf{48.5}), the three-month average (\textbf{37.8}) and the count
+from two months earlier (\textbf{16.4}); crime history makes up
+\textbf{83\%} of its local explanation, against a Hull median of
+\textbf{53\%}.
+
+\vspace{1.2mm}
+
+The pattern is \textbf{persistent rather than a recent spike}. The area
+recorded \textbf{217.5} crimes a month on average in January--April 2026,
+\textbf{7.1\%} of all recorded crime in Hull, with every month between
+\textbf{200 and 226} and a six-month average of \textbf{214.5} in April.
+
+\vspace{1.2mm}
+
+The model is also more sensitive to this area's data than to any other
+(\textbf{rank 1 of 168}). 029E sits in a group of \textbf{nine} areas with
+unusually high sensitivity, running through the Old Town, west along Hessle
+Road and Anlaby Road into Dairycoates around Coltman Street, and north-west
+along Spring Bank into Stepney around Argyle Street.
+
+\vspace{1.2mm}
+
+The area is \textbf{worth closer contextual review}; this evidence describes
+how the model uses the data and is \textbf{not a basis for deployment}.
+
+\end{minipage}
+
+\vspace{2mm}
+\hrule
+\vspace{1mm}
+
+{\scriptsize
+\textbf{Stakeholder emphasis.}
+The police narrative prioritises the \textbf{dominant local crime-history
+signals} and adds \textbf{persistence evidence} that the other narratives
+omit. It keeps the spatial context brief and closes by preventing the
+explanation from being read as a deployment recommendation.
+}
+
+\end{tcolorbox}
+
+
+% =========================================================
+\subsection{Manager / Strategic Decision Maker}
+% =========================================================
+
+\begin{tcolorbox}[
+    enhanced,
+    colback=white,
+    colframe=managercol,
+    boxrule=0.6pt,
+    arc=2mm,
+    borderline west={3pt}{0pt}{managercol},
+    left=2.5mm,
+    right=2.5mm,
+    top=2.5mm,
+    bottom=2.5mm,
+    before skip=4pt,
+    after skip=4pt
+]
+
+{\small
+\textbf{Stakeholder question.}
+\emph{What are the main city-wide findings, what is exceptional, can the
+results be trusted, and where should analytical review be concentrated?}
+}
+
+\vspace{2mm}
+
+\noindent
+\begin{minipage}[t]{0.41\linewidth}
+\vspace{0pt}
+
+{\scriptsize\bfseries DASHBOARD EVIDENCE}
+
+\vspace{0.8mm}
+
+\centering
+\includegraphics[
+    width=\linewidth,
+    height=0.17\textheight,
+    keepaspectratio
+]{Chapter6/figs/manager_geo_ranked.png}
+
+\vspace{0.3mm}
+
+\raggedright
+{\scriptsize\color{black!60}
+\textbf{Concentration view.}
+One area stands out (\textbf{22.33}, about three times the next); most
+areas sit just below zero.
+}
+
+\vspace{1.5mm}
+
+\centering
+\includegraphics[
+    width=\linewidth,
+    height=0.25\textheight,
+    keepaspectratio
+]{Chapter6/figs/manager_geo_top20.png}
+
+\vspace{0.3mm}
+
+\raggedright
+{\scriptsize\color{black!60}
+\textbf{Expert agreement.}
+\textbf{18 of the 20} most sensitive areas lie in the regions the expert
+highlighted.
+}
+
+\end{minipage}\hfill%
+\begin{minipage}[t]{0.55\linewidth}
+\vspace{0pt}
+
+{\scriptsize\bfseries STAKEHOLDER-SPECIFIC NARRATIVE}
+
+\vspace{0.8mm}
+
+\footnotesize
+\RaggedRight
+
+\textbf{Main finding.} The model relies overwhelmingly on recent crime
+history: the six-month crime average is the leading local factor in
+\textbf{144 of 168 LSOAs}. Social and built-environment factors play a
+secondary role.
+
+\vspace{1.2mm}
+
+\textbf{What is exceptional.} Geographic sensitivity is concentrated. Only
+\textbf{48 of 168} areas are above the Hull average, and the 20 most
+sensitive account for \textbf{46\%} of the total effect of replacing each
+area's data. The city centre and Old Town, Kingston upon Hull 029E
+(\texttt{E01033104}), is the single exceptional case at \textbf{22.33},
+about \textbf{three times} the next area, 030B in Dairycoates
+(\textbf{7.18}). It also accounts for \textbf{7.1\%} of Hull's recorded
+crime.
+
+\vspace{1.2mm}
+
+\textbf{Can it be trusted?} The results line up with local expertise:
+\textbf{18 of the 20} most sensitive areas fall in the three regions the
+expert highlighted (\textbf{90\%}, against about \textbf{35\%} by chance).
+The rankings are unchanged when neighbouring areas are added in any
+direction, and replacing the data of the top 20 areas moves predictions far
+more than replacing random areas. Across the ten candidate models, however,
+more accurate models did not give closer agreement with the expert, so
+model accuracy alone is not a guarantee of explanation quality.
+
+\vspace{1.2mm}
+
+\textbf{Next step.} Review the evidence for the city-centre cluster, and for
+029E in particular, before relying on the geographic rankings elsewhere.
+None of these findings is causal.
+
+\end{minipage}
+
+\vspace{2mm}
+\hrule
+\vspace{1mm}
+
+{\scriptsize
+\textbf{Stakeholder emphasis.}
+The manager receives a \textbf{strategic synthesis} organised as finding,
+exception, confidence and action. It reports whether the pattern is
+\textbf{typical or exceptional} and how far the evidence can be trusted, and
+it recommends an \textbf{evidence-review action} rather than an operational
+intervention.
+}
+
+\end{tcolorbox}
+
+
+% =========================================================
+\subsection{GeoAI Researcher / Model Analyst}
+% =========================================================
+
+\begin{tcolorbox}[
+    enhanced,
+    colback=white,
+    colframe=researchercol,
+    boxrule=0.6pt,
+    arc=2mm,
+    borderline west={3pt}{0pt}{researchercol},
+    left=2.5mm,
+    right=2.5mm,
+    top=2.5mm,
+    bottom=2.5mm,
+    before skip=4pt,
+    after skip=4pt
+]
+
+{\small
+\textbf{Stakeholder question.}
+\emph{How is Geo-SMILE behaving technically for this instance, and how
+faithful, spatially coherent, and reproducible is the explanation?}
+}
+
+\vspace{2mm}
+
+\noindent
+\begin{minipage}[t]{0.41\linewidth}
+\vspace{0pt}
+
+{\scriptsize\bfseries DASHBOARD EVIDENCE}
+
+\vspace{0.8mm}
+
+\centering
+\includegraphics[
+    width=\linewidth,
+    height=0.2\textheight,
+    keepaspectratio
+]{Chapter6/figs/researcher_beta_vs_exact_shift.png}
+
+\vspace{0.3mm}
+
+\raggedright
+{\scriptsize\color{black!60}
+\textbf{Surrogate check.}
+Signed $\beta$ tracks the exact single-LSOA $W_1$ shift
+($\rho_s=\textbf{0.982}$); 029E is the extreme point.
+}
+
+\vspace{1.5mm}
+
+\centering
+\includegraphics[
+    width=\linewidth,
+    height=0.23\textheight,
+    keepaspectratio
+]{Chapter6/figs/researcher_lisa_map.png}
+
+\vspace{0.3mm}
+
+\raggedright
+{\scriptsize\color{black!60}
+\textbf{Spatial structure.}
+029E is a High--High member (local $I=\textbf{12.08}$, $p=0.003$) of the
+single nine-LSOA HH cluster.
+}
+
+\end{minipage}\hfill%
+\begin{minipage}[t]{0.55\linewidth}
+\vspace{0pt}
+
+{\scriptsize\bfseries STAKEHOLDER-SPECIFIC NARRATIVE}
+
+\vspace{0.8mm}
+
+\footnotesize
+\RaggedRight
+
+Kingston upon Hull 029E (\texttt{E01033104}) has a signed area-data
+Geo-SMILE coefficient of $\beta=\textbf{22.33}$ (intercept \textbf{9.79}),
+\textbf{rank 1/168}. Its single-LSOA Wasserstein prediction shift is
+\textbf{176.7} crimes per month, against a median of \textbf{6.4} and a 90th
+percentile of \textbf{22.0}. The signed ranking tracks this exact shift
+($\rho_s=\textbf{0.982}$); the $|\beta|$ ranking does not
+($\rho_s=\textbf{$-0.29$}$), so the sign marks a relative contribution to the
+coalition $W_1$, not a direction.
+
+\vspace{1.2mm}
+
+Global Moran's $I$ on $\beta$ is \textbf{0.22} ($p=\textbf{0.001}$, queen
+contiguity, \textbf{999 permutations}); \textbf{142 of 168} LSOAs are
+non-significant. 029E is HH (local $I=\textbf{12.08}$, unadjusted
+$p=\textbf{0.003}$) in one contiguous HH cluster of \textbf{nine}; its Old
+Town neighbours 029C, 029H, 029F and 029G rank \textbf{4, 12, 16, 17}.
+
+\vspace{1.2mm}
+
+Locally, \texttt{crime\_rolling\_mean\_6} (\textbf{$-48.52$}) and
+\texttt{crime\_rolling\_mean\_3} (\textbf{$-37.80$}) lead, matching the top
+two of the global Feature ranking ($|\beta|=\textbf{5.14}$, \textbf{1.25});
+total local $|\beta|$ is \textbf{152.4} against a Hull median of
+\textbf{9.8}. A separate joint location player (coordinates added to the
+model) contributes only \textbf{$-0.13$} here and ranks \textbf{26/31}
+globally, so the Geo signal does not reduce to position.
+
+\vspace{1.2mm}
+
+Held-out surrogate $R^2$ is \textbf{0.977} (Feature) and \textbf{0.948}
+(Geo). Geo top-20 ATT accuracy is \textbf{18/20} (AUROC \textbf{0.701}),
+top-20 minus random $\Delta W_1=\textbf{26.22}$ ($p=\textbf{0.001}$), and
+cardinal-addition Jaccard is \textbf{1.0}. Across five seeds 029E has SD
+\textbf{0.65} (\textbf{2.8\%} of its mean); Geo rank Spearman is
+\textbf{0.963}.
+
+\end{minipage}
+
+\vspace{2mm}
+\hrule
+\vspace{1mm}
+
+{\scriptsize
+\textbf{Stakeholder emphasis.}
+This version retains \textbf{exact values}, the sign convention of each
+branch, spatial statistics, the location-player contrast and the
+\textbf{explanation-quality diagnostics}. Its purpose is technical
+interrogation of the framework rather than rapid decision support.
+}
+
+\end{tcolorbox}
+
+
+% =========================================================
+\subsection{Governance / Assurance}
+% =========================================================
+
+\begin{tcolorbox}[
+    enhanced,
+    colback=white,
+    colframe=governancecol,
+    boxrule=0.6pt,
+    arc=2mm,
+    borderline west={3pt}{0pt}{governancecol},
+    left=2.5mm,
+    right=2.5mm,
+    top=2.5mm,
+    bottom=2.5mm,
+    before skip=4pt,
+    after skip=4pt
+]
+
+{\small
+\textbf{Stakeholder question.}
+\emph{Is the explanation traceable and reproducible, and which limitations
+require explicit review before the evidence is relied upon?}
+}
+
+\vspace{2mm}
+
+\noindent
+\begin{minipage}[t]{0.41\linewidth}
+\vspace{0pt}
+
+{\scriptsize\bfseries DASHBOARD EVIDENCE}
+
+\vspace{0.8mm}
+
+\centering
+\includegraphics[
+    width=\linewidth,
+    height=0.18\textheight,
+    keepaspectratio
+]{Chapter6/figs/governance_seed_consistency.png}
+
+\vspace{0.3mm}
+
+\raggedright
+{\scriptsize\color{black!60}
+\textbf{Reproducibility.}
+Five independently seeded runs: 029E varies by \textbf{2.8\%}; lower
+ranks vary more.
+}
+
+\vspace{1.5mm}
+
+\centering
+\includegraphics[
+    width=\linewidth,
+    height=0.24\textheight,
+    keepaspectratio
+]{Chapter6/figs/governance_stability_four_directions.png}
+
+\vspace{0.3mm}
+
+\raggedright
+{\scriptsize\color{black!60}
+\textbf{Stability.}
+The top 20 is unchanged under all four neighbouring-LSOA additions
+(Jaccard \textbf{1.0}).
+}
+
+\end{minipage}\hfill%
+\begin{minipage}[t]{0.55\linewidth}
+\vspace{0pt}
+
+{\scriptsize\bfseries STAKEHOLDER-SPECIFIC NARRATIVE}
+
+\vspace{0.8mm}
+
+\footnotesize
+\RaggedRight
+
+\textbf{Provenance.} Kingston upon Hull 029E (\texttt{E01033104}), the city
+centre and Old Town, has a GeoSensitivity of \textbf{22.33}
+(\textbf{rank 1 of 168}). It was produced by the area-data Geo branch: one
+XGBoost model, \textbf{4,000} perturbations with seed \textbf{42}, each
+replacing all inputs of 5--10 LSOAs with training medians. The expert
+regions and the rule assigning LSOAs to them were fixed before the ranking
+was produced.
+
+\vspace{1.2mm}
+
+\textbf{Reproducibility.} Across five seeds 029E's coefficient varies by
+\textbf{2.8\%} (SD \textbf{0.65}), and the ranking is stable overall (rank
+Spearman \textbf{0.963}). Membership of the top fifth is less stable for Geo
+than for Feature (Jaccard \textbf{0.77} versus \textbf{1.00}), so ranks near
+that boundary should not be over-read. Adding a neighbouring area in any
+direction leaves the top 20 unchanged.
+
+\vspace{1.2mm}
+
+\textbf{Limitations requiring review.}
+\begin{itemize}[leftmargin=*, itemsep=0pt, topsep=1pt]
+\item The coefficient sign is \textbf{not a direction} of predicted crime.
+\item The expert reference is a \textbf{single rater}; LISA $p$-values are
+\textbf{not adjusted} for multiple comparisons.
+\item Across ten models, \textbf{ATT Faithfulness was not demonstrated}
+($r=\textbf{0.15}$ Geo, \textbf{$-0.12$} Feature).
+\item 029E is about \textbf{three times} the next area, so it dominates the
+geographic picture and warrants separate model review.
+\end{itemize}
+
+\vspace{0.8mm}
+
+None of these results is causal.
+
+\end{minipage}
+
+\vspace{2mm}
+\hrule
+\vspace{1mm}
+
+{\scriptsize
+\textbf{Stakeholder emphasis.}
+Although the governance narrative uses technical metrics, its purpose differs
+from the researcher's. It foregrounds \textbf{provenance},
+\textbf{reproducibility} and \textbf{limitations}, including the negative
+ATT Faithfulness result, rather than a comprehensive technical account of
+the selected case.
+}
+
+\end{tcolorbox}

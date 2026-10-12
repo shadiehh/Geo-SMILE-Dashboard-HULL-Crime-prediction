@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "In Kingston upon Hull 035B, GeoSensitivity is modest at 0.617 with a rank of 86 out of 168 LSOAs, indicating a comparative rather than strong geographic influence; spatial clustering evidence shows no significant local pattern nearby. The top local feature, Crime roll mean 6, has a large positive effect of 5.49. The evidence is not causal, and pattern scale is not established. Further investigation of local features may be warranted.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-10T21:47:38.217915+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 8424,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 95,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 8519
+  },
+  "prompt_version": "geosmile-hull-v5"
+}

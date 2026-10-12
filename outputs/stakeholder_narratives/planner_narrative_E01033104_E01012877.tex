@@ -1,0 +1,47 @@
+% City Planner narrative: high case Kingston upon Hull 029E (E01033104) and
+% low case Kingston upon Hull 003C (E01012877), area-data Geo design.
+% Values: outputs/geo_area_data_eval/n_4000/geo_coefficients.csv (identical to
+% outputs/geo_area_data_models/xgboost.json), outputs/geo_area_data_eval/spatial_patterns/,
+% outputs/feature_local_coefficients.csv. Place labels: data/hull_lsoa_place_names.csv
+% (OpenStreetMap within the official ONS LSOA 2021 boundaries).
+% Exact per-LSOA shift: outputs/area_data_sensitivity/area_data_sensitivity.csv (exact_w1).
+% Figures: E01033104_vs_E01012877_planner_map.png, E01033104_vs_E01012877_feature_profiles.png
+GeoSensitivity varies sharply across Hull's \textbf{168 LSOAs} and is
+spatially clustered (Moran's $I$ = \textbf{0.22}, \textbf{$p=0.001$}). In
+this design the value compares how much an area's own data moves the model's
+predictions with a typical Hull area, so the most negative values mark the
+\emph{least} sensitive areas, not a strong effect in the opposite direction.
+Most areas are only modestly sensitive (median \textbf{$-0.48$}). The highest
+values form one
+High--High cluster of \textbf{nine LSOAs} (\textbf{4.1~km$^2$}, 5.7\% of Hull)
+running from the Old Town west along Hessle Road and Anlaby Road into
+Dairycoates, north-west along Spring Bank into Stepney, and north along
+Beverley Road. Low values form smaller Low--Low clusters on the edges of the
+city, in Orchard Park, around Longhill and Bilton Grange, and between Bransholme and Kingswood.
+
+\textbf{High case.} Kingston upon Hull 029E (\texttt{E01033104}), the city
+centre around Queen Victoria Square, Whitefriargate, Ferensway and Market
+Place, ranks \textbf{1st of 168} at \textbf{22.33}, three times the next area
+(030B in Dairycoates, \textbf{7.18}). Replacing this area's data alone with
+typical Hull values moves its predicted monthly crime counts by about
+\textbf{177}, against a Hull median of \textbf{6.4}. It sits at the core of the High--High
+cluster: its Old Town neighbours (029C, 029F, 029G and 029H) all rank in the
+top 17. Here the model relies almost entirely on recent crime history, which
+accounts for \textbf{83\%} of the area's local importance; the six- and
+three-month averages alone account for \textbf{57\%}.
+
+\textbf{Low case.} Kingston upon Hull 003C (\texttt{E01012877}), in Orchard
+Park around Danepark Road, ranks \textbf{146th} at \textbf{$-1.09$}, among
+the least sensitive areas in Hull: replacing its data alone with typical
+values moves its predictions by only about \textbf{1.1}. It
+belongs to a Low--Low cluster of \textbf{four LSOAs} (\textbf{0.94~km$^2$})
+with neighbouring Orchard Park and New Village areas along Hall Road and
+Courtpark Road. Its total local importance is about \textbf{30 times smaller}
+than the city centre's (\textbf{4.9} against \textbf{152.4}) and is spread
+across unemployment (\textbf{16\%}), transit-stop density (\textbf{11\%}),
+time of year and housing tenure; crime history accounts for only
+\textbf{7\%}.
+
+The contrast shows where the model depends on an area's own data, not where
+intervention is needed. These figures describe model behaviour, not planning
+targets or causes of crime.

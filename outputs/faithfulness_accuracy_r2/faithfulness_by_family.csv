@@ -1,0 +1,13 @@
+branch,family,measure,n,n_models,models,pearson_r,pearson_p,pearson_p_one_sided,spearman_rho,spearman_p
+Feature,boosting,att_accuracy,4096,3,"catboost,lightgbm,xgboost",-0.7278627766408556,0.48102754400258535,0.7594862279987074,-0.5,0.6666666666666667
+Feature,boosting,att_auc,4096,3,"catboost,lightgbm,xgboost",-0.9732090623100617,0.14769421066925092,0.9261528946653749,-0.8660254037844387,0.3333333333333332
+Feature,kernel,att_accuracy,4096,2,"gp,svr",-1.0,,,-1.0,
+Feature,kernel,att_auc,4096,2,"gp,svr",-1.0,,,-1.0,
+Feature,neural,att_accuracy,4096,5,"ann,cnn,dl,mlp,transformer",-0.812888319051126,0.09438523561414697,0.9528073821929265,-0.6668859288553501,0.21889398131323168
+Feature,neural,att_auc,4096,5,"ann,cnn,dl,mlp,transformer",-0.7208722188188957,0.16941908604366543,0.9152904569781672,-0.7,0.1881204043741873
+Geo,boosting,att_accuracy,4000,3,"catboost,lightgbm,xgboost",-0.7423351301749207,0.4674365047978004,0.7662817476010999,-0.5,0.6666666666666667
+Geo,boosting,att_auc,4000,3,"catboost,lightgbm,xgboost",-0.9969443932267177,0.0497799551425237,0.9751100224287372,-1.0,0.0
+Geo,kernel,att_accuracy,4000,2,"gp,svr",-1.0,,,-1.0,
+Geo,kernel,att_auc,4000,2,"gp,svr",-1.0,,,-1.0,
+Geo,neural,att_accuracy,4000,4,"ann,dl,mlp,transformer",-0.531376818094407,0.46862318190559304,0.7656884090472035,-0.7999999999999999,0.20000000000000007
+Geo,neural,att_auc,4000,4,"ann,dl,mlp,transformer",0.8339646270643658,0.1660353729356343,0.08301768646781715,0.19999999999999998,0.8

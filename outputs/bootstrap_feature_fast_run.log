@@ -1,0 +1,60 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788777773.703464    8452 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788777776.246647    8452 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [lightgbm] Feature fidelity replicates (R=10) ===
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+[lightgbm] Feature seed=42: R2=0.9833 R2w=0.9834
+[lightgbm] Feature seed=43: R2=0.9839 R2w=0.9840
+[lightgbm] Feature seed=44: R2=0.9841 R2w=0.9842
+[lightgbm] Feature seed=45: R2=0.9817 R2w=0.9816
+[lightgbm] Feature seed=46: R2=0.9838 R2w=0.9840
+[lightgbm] Feature seed=47: R2=0.9818 R2w=0.9818
+[lightgbm] Feature seed=48: R2=0.9830 R2w=0.9832
+[lightgbm] Feature seed=49: R2=0.9815 R2w=0.9813
+[lightgbm] Feature seed=50: R2=0.9821 R2w=0.9823
+[lightgbm] Feature seed=51: R2=0.9828 R2w=0.9829
+[lightgbm] appended to D:\GEO SMILE CODE\hull\outputs\bootstrap_replicates\feature_fidelity_replicates.csv
+
+=== [catboost] Feature fidelity replicates (R=10) ===
+[catboost] Feature seed=42: R2=0.9849 R2w=0.9848
+[catboost] Feature seed=43: R2=0.9836 R2w=0.9834
+[catboost] Feature seed=44: R2=0.9831 R2w=0.9830
+[catboost] Feature seed=45: R2=0.9783 R2w=0.9779
+[catboost] Feature seed=46: R2=0.9825 R2w=0.9822
+[catboost] Feature seed=47: R2=0.9806 R2w=0.9801
+[catboost] Feature seed=48: R2=0.9801 R2w=0.9799
+[catboost] Feature seed=49: R2=0.9850 R2w=0.9850
+[catboost] Feature seed=50: R2=0.9790 R2w=0.9788
+[catboost] Feature seed=51: R2=0.9831 R2w=0.9829
+[catboost] appended to D:\GEO SMILE CODE\hull\outputs\bootstrap_replicates\feature_fidelity_replicates.csv
+
+=== [mlp] Feature fidelity replicates (R=10) ===
+[mlp] Feature seed=42: R2=0.0905 R2w=0.0847
+[mlp] Feature seed=43: R2=0.0778 R2w=0.0840
+[mlp] Feature seed=44: R2=0.1219 R2w=0.1359
+[mlp] Feature seed=45: R2=0.0371 R2w=0.0371
+[mlp] Feature seed=46: R2=0.1558 R2w=0.1393
+[mlp] Feature seed=47: R2=-1.0559 R2w=-0.9304
+[mlp] Feature seed=48: R2=0.1554 R2w=0.1573
+[mlp] Feature seed=49: R2=-0.1864 R2w=-0.3083
+[mlp] Feature seed=50: R2=0.1018 R2w=0.1016
+[mlp] Feature seed=51: R2=0.1603 R2w=0.1624
+[mlp] appended to D:\GEO SMILE CODE\hull\outputs\bootstrap_replicates\feature_fidelity_replicates.csv
+
+=== [svr] Feature fidelity replicates (R=10) ===
+[svr] Feature seed=42: R2=0.9366 R2w=0.9376
+[svr] Feature seed=43: R2=0.9392 R2w=0.9386
+[svr] Feature seed=44: R2=0.9529 R2w=0.9531
+[svr] Feature seed=45: R2=0.9487 R2w=0.9495
+[svr] Feature seed=46: R2=0.9372 R2w=0.9377
+[svr] Feature seed=47: R2=0.9497 R2w=0.9490
+[svr] Feature seed=48: R2=0.9376 R2w=0.9379
+[svr] Feature seed=49: R2=0.9488 R2w=0.9492
+[svr] Feature seed=50: R2=0.9504 R2w=0.9509
+[svr] Feature seed=51: R2=0.9429 R2w=0.9420
+[svr] appended to D:\GEO SMILE CODE\hull\outputs\bootstrap_replicates\feature_fidelity_replicates.csv
+
+Done.

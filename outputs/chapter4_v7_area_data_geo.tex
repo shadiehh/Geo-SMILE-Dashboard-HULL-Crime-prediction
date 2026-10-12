@@ -1,0 +1,1197 @@
+%!TEX root = ../thesis.tex
+%*******************************************************************************
+%****************************** 4th Chapter **********************************
+%*******************************************************************************
+% Geo branch updated to the area-data design (2026-10-04): the Geo branch explains the
+% same 30-predictor XGBoost model as the Feature branch, and masking an LSOA replaces ALL
+% of its inputs with the training median. Geo values from outputs/geo_area_data_eval/n_4000
+% (identical to outputs/geo_area_data_models/xgboost.json) and geo_area_data_models/.
+\chapter{Empirical Validation of Geo-SMILE}
+\label{chap:Empirical Validation}
+% **************************** Define Graphics Path **************************
+\ifpdf
+    \graphicspath{{Chapter4/Figs/Raster/}{Chapter4/Figs/PDF/}{Chapter4/Figs/}}
+\else
+    \graphicspath{{Chapter4/Figs/Vector/}{Chapter4/Figs/}}
+\fi
+
+\section{Introduction}
+\label{SEC:hull_intro}
+
+This chapter presents the first independent empirical evaluation of the unified Geo-SMILE framework introduced in Chapter~3. The framework is evaluated in the context of next-month crime prediction in Kingston upon Hull, using monthly crime observations aggregated to Lower Layer Super Output Areas (LSOAs). The purpose of this experiment is to examine whether Geo-SMILE can generate faithful, stable, and spatially meaningful explanations when applied to a new prediction task, national context, spatial aggregation system, and data infrastructure that were not involved in the development of the framework.
+
+Geo-SMILE extends the SMILE explainability framework of Aslansefat et al.\ \cite{aslansefat2021smile} by retaining its coalition-based perturbation procedure, distance-kernel weighting, and weighted linear surrogate, while introducing an explicit spatial explanation mechanism and distributional responses measured using the first Wasserstein distance. In the Hull experiment, the framework is applied through two complementary explanation branches designed to separate non-spatial feature sensitivity from geographic sensitivity.
+
+The \emph{feature attribution branch} excludes coordinates and other explicit location variables and attributes model sensitivity across 30 non-spatial predictors. This branch is intended to explain how the predictive model responds to changes in the substantive explanatory variables without allowing geographic coordinates to compete directly with them within the attribution process.
+
+The \emph{geo branch} explains the same fitted model from a spatial perspective. Instead of perturbing individual predictors, it perturbs places: in each perturbation, a random set of LSOAs has \emph{all} of its model inputs replaced by baseline values, and one geographic-sensitivity coefficient is estimated for each of the 168 spatial units. The resulting coefficient describes the model's sensitivity to the data it receives from a particular place, rather than treating latitude and longitude as conventional predictive features.
+
+The resulting Feature and Geo rankings are evaluated using both surrogate-based performance criteria and fixed expert-reference sets. These reference sets consist of the ten most important non-spatial predictors and the 58 LSOAs inside the regions of Hull that the expert highlighted as informing their assessment of the city's crime situation. The construction, rationale, and standing of these reference sets are described in Section~\ref{sec:hull_ground_truth}. This provides an additional evaluation perspective beyond surrogate fidelity alone by examining whether Geo-SMILE identifies predictors and locations that are consistent with independently defined domain expectations.
+
+Accordingly, this chapter focuses on the independent application and validation of Geo-SMILE within a crime-prediction setting. Unlike the benchmark experiments presented in the following chapter, the Hull study is not primarily designed as a direct comparison with an existing spatial explainability method. Instead, it investigates how the proposed framework behaves when transferred to a distinct real-world geospatial prediction problem and evaluates the resulting Feature and Geo explanations through complementary quantitative and expert-reference criteria.
+
+\section{GeoSMILE for Next-Month Crime Prediction in Hull}
+\label{sec:hull_first_independent_experiment}
+
+The Kingston upon Hull study was designed as the first independent experiment conducted after the development of GeoSMILE. Its purpose was to determine whether the method could be transferred to a different city, national data infrastructure, spatial unit, and prediction task while retaining a strict separation between non-spatial feature importance and geographic sensitivity. The study was therefore treated as an independent application of the framework rather than as a direct replication of the development experiment.
+
+The experiment addressed four questions. First, could GeoSMILE provide high-fidelity surrogate explanations for next-month crime prediction in a new urban setting? Second, were the resulting feature and geographic rankings reproducible across independently sampled perturbation sets? Third, did the highest-ranked factors exert a greater effect on the prediction model than random or bottom-ranked factors? Fourth, did the GeoSMILE rankings agree with the expert reference for important predictive features and LSOAs?
+
+Only two active branches were evaluated. The \emph{Feature branch} used non-spatial predictors and explicitly excluded coordinates and location identifiers. The \emph{Geo branch} explained the same fitted model by masking the complete data profile of selected LSOAs, estimating one sensitivity coefficient for each of the 168 LSOAs. Legacy Feature-A and Feature-B outputs were not included in this experiment.
+
+\section{Study area, prediction target, and temporal design}
+\label{sec:hull_data}
+
+The observational unit was the LSOA-month. Police.uk street-crime records for Humberside Police were filtered to records assigned to Kingston upon Hull LSOAs \cite{policeuk}. A complete LSOA-by-month panel was constructed so that months without recorded offences were represented by zero counts rather than being omitted. The outcome variable was the total number of crimes recorded in the following month:
+
+\begin{equation}
+y_{i,t+1} = \text{crime count for LSOA } i \text{ in month } t+1.
+\end{equation}
+
+Temporal predictors were generated separately within each LSOA. These comprised one-, two-, and three-month crime lags; three- and six-month rolling means calculated from preceding months; and sine and cosine transformations of calendar month. Static contextual covariates were obtained from the 2021 Census and OpenStreetMap \cite{census2021,openstreetmap}. Official 2021 LSOA boundaries were used for mapping \cite{ons_lsoa2021}. Crime-event coordinates were aggregated to an LSOA location and transformed to British National Grid coordinates.
+
+A chronological split was used to avoid leakage from future observations. Observations up to June 2025 formed the training period, July--December 2025 formed the validation period, and observations from January 2026 onward formed the test period. Training-set medians were used as perturbation baselines in both branches.
+
+\subsection{Feature and geographic factors}
+\label{sec:hull_factors}
+
+The Feature branch contained 30 numeric, non-coordinate predictors. Coordinate fields, latitude, longitude, centroid variables, LSOA identifiers, and fields containing explicit location information were excluded by rule and checked at runtime. The Geo branch used no additional predictive inputs: it explained the same 30-predictor model, and its explanation players were the 168 individual LSOAs. Each Geo coefficient therefore represented the sensitivity of the model to masking the complete data profile of a particular LSOA.
+
+\begin{table}[H]
+\centering
+\caption{Feature and Geo factors included in the Hull experiment.}
+\label{tab:hull_factor_groups}
+\small
+\begin{tabularx}{\textwidth}{p{0.20\textwidth} p{0.09\textwidth} X}
+\toprule
+Factor group & Number & Variables or explanatory units \\
+\midrule
+Crime history & 5 &
+One-, two-, and three-month crime lags; three-month rolling mean; six-month rolling mean. \\
+Seasonality & 2 &
+Sine and cosine transformations of calendar month. \\
+Demographic structure & 3 &
+Population density; percentage aged 15--34; percentage aged 65 and over. \\
+Housing tenure & 3 &
+Social renting; private renting; owner occupation. \\
+Labour, health, and education & 5 &
+Unemployment; economic inactivity; long-term sickness or disability; no qualifications; Level 4 or higher qualifications. \\
+Built environment and exposure & 12 &
+LSOA area; nightlife count and density; retail count and density; public-transport stop count and density; road length and density; intersection count and density; green-space percentage. \\
+Geo factors & 168 &
+One explanation player for each Hull LSOA. Masking an LSOA replaced all 30 of its predictor values, in every month, with the training medians; the estimated coefficients were LSOA-specific. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Selection of the predictive model by family}
+\label{sec}
+
+Geo-SMILE is model agnostic: the predictive model to which the explanation procedure is applied is not fixed by the method itself. This flexibility makes model selection an important part of the experimental design, because the resulting explanations describe the behaviour of a particular fitted predictor rather than the data-generating process independently of that predictor. The predictive model was therefore selected before the main Geo-SMILE analysis by comparing ten candidate models representing three broad model families.
+
+\begin{description}
+
+\item[Tree ensembles (XGBoost, LightGBM, CatBoost)]
+These models represent gradient-boosted decision-tree approaches. They provide flexible non-linear response surfaces and can capture interactions between predictors without requiring them to be specified in advance.
+
+\item[Kernel methods (Gaussian process, support vector regression)]
+The Gaussian process and support vector regression provide a contrasting modelling family in which predictions are determined through kernel-based similarity rather than recursive partitioning of the predictor space.
+
+\item[Neural architectures (ANN, CNN, MLP, Transformer, deep Keras network)]
+Five neural architectures were included to test whether models based on learned distributed representations offered either a predictive or an explainability advantage over the tree and kernel alternatives.
+
+\end{description}
+
+The comparison was conducted in two stages. First, the candidates were compared on held-out predictive performance using the 30 non-spatial predictors, which is the specification explained by both Geo-SMILE branches; the coordinate-inclusive specification is reported alongside it only to show that adding coordinates does not change the ordering. Second, the fitted models were compared according to the fidelity with which the perturbation responses of the Feature and Geo branches could be represented by the surrogate models required by Geo-SMILE.
+
+The purpose of the screening was not to identify a winner from small numerical differences. Instead, it was used to determine whether the candidate models formed clearly different performance groups and, within the strongest predictive group, whether any model also showed a clear advantage in surrogate fidelity.
+
+\subsubsection{Stage 1: predictive adequacy}
+\label{sec}
+
+Table~\ref{tab:sel_pred} reports held-out predictive performance for the ten candidate models on the 30 non-spatial predictors, together with the $R^2$ obtained when the two centroid coordinates are added.
+
+The results show a distinct leading group. On the 30-predictor specification, the Gaussian process achieves the highest predictive $R^2$ at $0.8993$, followed by LightGBM at $0.8968$, CatBoost at $0.8959$ and XGBoost at $0.8957$. The full range across these four models is only $0.0036$, indicating that their predictive performance is effectively identical at the resolution relevant to the present comparison.
+
+A second group is separated from this leading tier. ANN obtains an $R^2$ of $0.8663$, followed by SVR at $0.8629$, the deep Keras network at $0.8574$, MLP at $0.8529$ and CNN at $0.8442$, while the Transformer has the lowest predictive $R^2$ at $0.8135$.
+
+The same separation is visible in the error metrics. The four leading models have MAE values between $4.6924$ and $4.8258$ and RMSE values between $6.7709$ and $6.8908$. The next-best model, ANN, has an MAE of $5.1838$ and an RMSE of $7.8000$.
+
+Adding the coordinates changes $R^2$ for the leading models by at most $0.0077$ (from $-0.0003$ for the Gaussian process to $+0.0077$ for LightGBM) and leaves the same four models in the top tier, so the model selection does not depend on whether coordinates are included. The coordinate-free specification is retained because it is the model explained by both branches: the Feature branch excludes location by design, and the Geo branch measures sensitivity to each place's data through area-data masking rather than through coordinate inputs.
+
+Predictive performance therefore identifies four models;the Gaussian process, LightGBM, CatBoost and XGBoost;as a common top tier. It does not, however, provide a convincing basis for selecting one of these four models over the others. The surrogate analysis therefore examines whether their explainability behaviour provides further separation.
+
+\begin{table}[H]
+\centering
+\caption{Stage 1, held-out predictive performance for candidate models on the 30 non-spatial predictors (the specification explained by both branches), with $R^2$ after adding the two centroid coordinates for comparison.}
+\label{tab:sel_pred}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+& & \multicolumn{3}{c}{30 non-spatial predictors} & + coordinates \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-6}
+Family & Model & MAE & RMSE & $R^2$ & $R^2$ \\
+\midrule
+\multirow{3}{*}{Tree ensemble}
+ & LightGBM          & 4.7821 & 6.8541 & \textbf{0.8968} & 0.9045 \\
+ & XGBoost           & 4.8258 & 6.8908 & \textbf{0.8957} & 0.9000 \\
+ & CatBoost          & 4.8246 & 6.8820 & \textbf{0.8959} & 0.8967 \\
+\midrule
+\multirow{2}{*}{Kernel}
+ & Gaussian process  & 4.6924 & 6.7709 & \textbf{0.8993} & 0.8990 \\
+ & SVR               & 5.3542 & 7.8983 & 0.8629 & 0.8333 \\
+\midrule
+\multirow{5}{*}{Neural}
+ & ANN               & 5.1838 & 7.8000 & 0.8663 & 0.8557 \\
+ & CNN               & 5.4997 & 8.4222 & 0.8442 & 0.8368 \\
+ & MLP               & 5.2752 & 8.1823 & 0.8529 & 0.8342 \\
+ & Transformer       & 5.4485 & 9.2135 & 0.8135 & 0.8079 \\
+ & Keras (deep)      & 5.1573 & 8.0557 & 0.8574 & 0.7837 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Stage 2: surrogate fidelity}
+\label{sec}
+
+Geo-SMILE requires a surrogate representation that produces one signed coefficient for each player. Consequently, the principal surrogate comparison focuses on linear models whose fitted parameters can be interpreted directly as player-level attribution coefficients. Non-linear surrogate models are also evaluated as diagnostic controls: they indicate whether additional response fidelity is available if the coefficient requirement is relaxed, but they cannot replace the linear surrogate in the downstream attribution analysis.
+
+Tables~\ref{tab:fid_feat} and~\ref{tab:fid_geo} report surrogate fidelity for the Feature and Geo branches respectively, using $4{,}000$ perturbations in each case.
+
+On the Feature branch, the principal linear estimators are extremely similar for most candidate predictive models. Weighted OLS, weighted Ridge, Bayesian ridge, ordinary linear regression and unweighted Ridge differ only in the third or fourth decimal place across the well-behaved models. For example, XGBoost obtains a weighted-Ridge $R^2$ of $0.9770$, compared with $0.9769$ for weighted OLS and Bayesian ridge and $0.9770$ for ordinary linear regression and unweighted Ridge. The same pattern occurs for LightGBM, CatBoost, the Gaussian process, the Transformer, ANN, SVR and CNN.
+
+Among these models, Feature fidelity is highest for the Gaussian process ($R^2=0.9960$), followed by the Transformer ($0.9930$), LightGBM ($0.9832$), CatBoost ($0.9826$), XGBoost ($0.9770$), SVR ($0.9650$), CNN ($0.9275$), and ANN ($0.9265$) under weighted Ridge.
+
+The two remaining neural models behave very differently. The deep Keras network produces a Feature weighted-Ridge $R^2$ of only $0.2037$, while the MLP produces $0.2286$. This is not a general failure of linear surrogates across the experiment, because the same surrogate obtains substantially higher fidelity for the other eight predictive models. These two models are therefore poor candidates for Feature-branch explanation under the Geo-SMILE linear-surrogate design.
+
+The non-linear controls clarify the nature of the Feature-branch approximation. Histogram gradient boosting achieves higher Feature fidelity than weighted Ridge for every predictive model. For example, its $R^2$ is $0.9985$ for XGBoost, compared with $0.9770$ for weighted Ridge, and $0.9986$ for LightGBM, compared with $0.9832$. The effect is particularly large for the two poorly represented neural models: histogram gradient boosting raises fidelity to $0.6601$ for the deep Keras model and $0.6776$ for the MLP.
+
+These improvements show that some additional non-linear structure remains in the perturbation response. They do not, however, make the non-linear surrogates suitable replacements for Ridge in Geo-SMILE, because the downstream procedure requires an explicit coefficient for every Feature or Geo player.
+
+The Geo branch produces a different pattern. Linear surrogates dominate the non-linear alternatives across all ten predictive models, and the Geo response is represented almost equally well for every model. Under weighted Ridge, Geo fidelity ranges only from $0.9454$ for the deep Keras network to $0.9485$ for SVR, a spread of $0.0031$ across all ten models. Unlike the Feature branch, the Geo branch therefore does not separate the neural models from the others: the MLP and the deep Keras network, which are poorly represented on the Feature branch, reach Geo fidelities of $0.9474$ and $0.9454$.
+
+Unweighted Ridge has the highest $R^2$ among the reported linear alternatives for each predictive model, but its advantage over weighted Ridge is numerically negligible. The largest difference is approximately $0.0004$, occurring for ANN ($0.9487$ versus $0.9483$). For XGBoost, the corresponding values are $0.9486$ and $0.9484$; for CatBoost, $0.9482$ and $0.9479$; and for LightGBM, $0.9484$ and $0.9482$. Thus, the choice between the closely related linear estimators has essentially no effect on the model ordering.
+
+By contrast, regularisation that induces stronger coefficient shrinkage performs poorly as the number of Geo players increases. The weak elastic net falls to $0.5591$ for XGBoost, $0.5600$ for LightGBM, $0.5605$ for CatBoost and $0.5731$ for the Gaussian process. Kernel ridge also performs substantially below the linear Ridge variants, with Geo $R^2$ values close to $0.62$ for the leading models.
+
+The non-linear controls likewise fail to improve Geo fidelity. For XGBoost, histogram gradient boosting reaches $0.9047$ and random forest $0.8285$, both below the weighted-Ridge value of $0.9484$. The same pattern occurs throughout the table. This contrasts directly with the Feature branch, where histogram gradient boosting generally provides the highest raw fidelity.
+
+Taken together, the two tables show that the principal linear estimators provide almost identical fidelity wherever a linear representation is adequate.\textbf{WeightedRidge} is therefore retained as the common surrogate for the subsequent Geo-SMILE analysis. This choice should not be interpreted as a claim that it achieves the numerically highest $R^2$ in every individual cell; rather, its fidelity is effectively indistinguishable from the other leading linear estimators, while preserving the coefficient-based representation required by the downstream attribution analysis.
+
+\begin{table}[H]
+\centering
+\caption{Feature branch fidelity results for candidate surrogates ($N=4{,}000$ perturbations)}
+\label{tab:fid_feat}
+\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+Surrogate & GP & Trans. & CatB. & LGBM & XGB & ANN & SVR & CNN & Keras & MLP \\
+\midrule
+Weighted OLS       & 0.9961 & 0.9930 & 0.9826 & 0.9832 & 0.9769 & 0.9265 & 0.9651 & 0.9274 & 0.2037 & 0.2286 \\
+Weighted Ridge     & 0.9960 & 0.9930 & 0.9826 & 0.9832 & \textbf{0.9770} & 0.9265 & 0.9650 & 0.9275 & 0.2037 & 0.2286 \\
+Bayesian ridge     & 0.9961 & 0.9930 & 0.9826 & 0.9832 & 0.9769 & 0.9265 & 0.9651 & 0.9274 & 0.2031 & 0.2277 \\
+Linear regression  & 0.9961 & 0.9930 & 0.9827 & 0.9832 & 0.9770 & 0.9265 & 0.9651 & 0.9279 & 0.2042 & 0.2290 \\
+Ridge (unweighted) & 0.9961 & 0.9930 & 0.9827 & 0.9832 & 0.9770 & 0.9265 & 0.9651 & 0.9279 & 0.2042 & 0.2290 \\
+Elastic net (weak) & 0.9403 & 0.9269 & 0.9085 & 0.9383 & 0.9294 & 0.7949 & 0.8564 & 0.7874 & 0.1940 & 0.2205 \\
+Random forest      & 0.9921 & 0.9885 & 0.9933 & 0.9971 & 0.9965 & 0.9160 & 0.9618 & 0.9210 & 0.8012 & 0.7910 \\
+Hist.\ grad.\ boosting & 0.9976 & 0.9967 & 0.9985 & 0.9986 & 0.9985 & 0.9589 & 0.9798 & 0.9761 & 0.6601 & 0.6776 \\
+Kernel ridge (RBF) & 0.9931 & 0.9920 & 0.9854 & 0.9860 & 0.9816 & 0.9369 & 0.9702 & 0.9498 & 0.3156 & 0.3448 \\
+Tweedie GLM        & 0.5674 & 0.5879 & 0.5931 & 0.5752 & 0.5763 & 0.5028 & 0.5433 & 0.6126 & 0.1439 & 0.4596 \\
+Poisson GLM        & 0.7852 & 0.7996 & 0.8020 & 0.7887 & 0.7882 & 0.6908 & 0.7455 & 0.8125 & 0.3293 & 0.7789 \\
+\midrule
+Unweighted OLS     & 0.9961 & 0.9930 & 0.9827 & 0.9832 & 0.9770 & 0.9265 & 0.9651 & 0.9279 & 0.2042 & 0.2290 \\
+Ridge $\alpha=0$   & 0.9961 & 0.9930 & 0.9826 & 0.9832 & 0.9769 & 0.9265 & 0.9651 & 0.9274 & 0.2037 & 0.2286 \\
+Shallow tree       & 0.9717 & 0.9179 & 0.8994 & 0.9877 & 0.9838 & 0.7394 & 0.9100 & 0.6935 & 0.2887 & 0.3332 \\
+\midrule
+Null, SD           & 0.0079 & 0.0075 & 0.0069 & 0.0069 & 0.0069 & 0.0067 & 0.0078 & 0.0078 & 0.0109 & 0.0082 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Geo branch fidelity results for candidate surrogates ($N=4{,}000$ perturbations; area-data Geo design)}
+\label{tab:fid_geo}
+\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+Surrogate & GP & Trans. & CatB. & LGBM & XGB & ANN & SVR & CNN & Keras & MLP \\
+\midrule
+Weighted OLS       & 0.9472 & 0.9475 & 0.9470 & 0.9473 & 0.9475 & 0.9473 & 0.9476 & 0.9472 & 0.9444 & 0.9462 \\
+Weighted Ridge     & 0.9481 & 0.9483 & 0.9479 & 0.9482 & \textbf{0.9484} & 0.9483 & 0.9485 & 0.9481 & 0.9454 & 0.9474 \\
+Bayesian ridge     & 0.9474 & 0.9477 & 0.9472 & 0.9475 & 0.9477 & 0.9476 & 0.9478 & 0.9475 & 0.9447 & 0.9465 \\
+Linear regression  & 0.9482 & 0.9484 & 0.9481 & 0.9483 & 0.9485 & 0.9486 & 0.9486 & 0.9483 & 0.9456 & 0.9478 \\
+Ridge (unweighted) & 0.9483 & 0.9485 & 0.9482 & 0.9484 & 0.9486 & 0.9487 & 0.9487 & 0.9484 & 0.9457 & 0.9480 \\
+Elastic net (weak) & 0.5731 & 0.5430 & 0.5605 & 0.5600 & 0.5591 & 0.5876 & 0.5824 & 0.6150 & 0.4442 & 0.5773 \\
+Random forest      & 0.8407 & 0.8169 & 0.8220 & 0.8254 & 0.8285 & 0.8558 & 0.8655 & 0.8957 & 0.7119 & 0.7976 \\
+Hist.\ grad.\ boosting & 0.9120 & 0.8935 & 0.9064 & 0.9047 & 0.9047 & 0.9151 & 0.9200 & 0.9363 & 0.8390 & 0.8888 \\
+Kernel ridge (RBF) & 0.6173 & 0.6164 & 0.6185 & 0.6184 & 0.6183 & 0.6185 & 0.6141 & 0.6122 & 0.6304 & 0.6246 \\
+Tweedie GLM        & 0.1920 & 0.1908 & 0.1915 & 0.1923 & 0.1929 & 0.1911 & 0.1817 & 0.1945 & 0.1918 & 0.2179 \\
+Poisson GLM        & 0.5116 & 0.4898 & 0.4998 & 0.5037 & 0.5031 & 0.5318 & 0.4931 & 0.5858 & 0.4398 & 0.5946 \\
+\midrule
+Unweighted OLS     & 0.9482 & 0.9484 & 0.9481 & 0.9483 & 0.9485 & 0.9486 & 0.9486 & 0.9483 & 0.9456 & 0.9478 \\
+Ridge $\alpha=0$   & 0.9472 & 0.9475 & 0.9470 & 0.9473 & 0.9475 & 0.9473 & 0.9476 & 0.9472 & 0.9444 & 0.9462 \\
+Shallow tree       & 0.7508 & 0.7243 & 0.7258 & 0.7331 & 0.7332 & 0.7999 & 0.8177 & 0.8533 & 0.4661 & 0.7231 \\
+\midrule
+Null, SD           & 0.0161 & 0.0185 & 0.0163 & 0.0174 & 0.0174 & 0.0159 & 0.0174 & 0.0170 & 0.0164 & 0.0149 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\subsubsection{Comparison under the selected surrogate}
+\label{sec}
+
+Table~\ref{tab:ridge_fidelity_full} brings the two branches together using weighted Ridge for all ten predictive models.
+
+The results reinforce the distinction between predictive-model selection and surrogate fidelity. A model can be highly predictable by the surrogate without being among the strongest predictive models, and strong fidelity on one branch does not guarantee equally strong behaviour on the other.
+
+The Gaussian process has the highest Feature fidelity in the complete comparison, with $R^2=0.9960$, MAE $=0.1203$, and weighted RMSE $=0.1588$. The Transformer is also very strong on Feature, with $R^2=0.9930$, despite having the lowest predictive $R^2$ ($0.8135$) in Stage~1. Conversely, the deep Keras network and MLP show the most pronounced branch imbalance. Their Geo fidelities are $0.9454$ and $0.9474$, respectively, but their Feature fidelities fall to $0.2037$ and $0.2286$.
+
+The four models identified as the predictive top tier remain strong under the surrogate analysis. Their results are:
+
+\begin{itemize}
+
+\item Gaussian process: predictive $R^2=0.8993$, Feature fidelity $R^2=0.9960$, and Geo fidelity $R^2=0.9481$;
+
+\item LightGBM: predictive $R^2=0.8968$, Feature fidelity $R^2=0.9832$, and Geo fidelity $R^2=0.9482$;
+
+\item CatBoost: predictive $R^2=0.8959$, Feature fidelity $R^2=0.9826$, and Geo fidelity $R^2=0.9479$;
+
+\item XGBoost: predictive $R^2=0.8957$, Feature fidelity $R^2=0.9770$, and Geo fidelity $R^2=0.9484$.
+
+\end{itemize}
+
+No member of this group clearly dominates the others. The Gaussian process has marginally the highest predictive $R^2$ and the highest Feature surrogate fidelity, while XGBoost has the highest Geo weighted-Ridge fidelity within the group.
+
+The differences are small. Across the four models, predictive $R^2$ spans only $0.0036$, Feature fidelity spans $0.0190$, and Geo fidelity spans only $0.0005$. The tables therefore support the conclusion that these four models form a high-performing group, but they do not support declaring any one of them the unique empirical winner.
+
+\begin{table}[H]
+\centering
+\caption{Wheighted Ridge surrogate fidelity, all ten models, both branches ($N=4{,}000$ perturbations each; area-data Geo design).}
+\label{tab:ridge_fidelity_full}
+\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrrrrrrrr}
+\toprule
+& & \multicolumn{5}{c}{Feature} & \multicolumn{5}{c}{Geo} \\
+\cmidrule(lr){3-7}\cmidrule(lr){8-12}
+Family & Model & $R^2$ & MAE & WMAE & RMSE & WRMSE & $R^2$ & MAE & WMAE & RMSE & WRMSE \\
+\midrule
+\multirow{3}{*}{Tree ensemble}
+ & XGBoost   & 0.9770 & 0.3591 & 0.3590 & 0.4094 & 0.4095 & 0.9484 & 0.7849 & 0.8007 & 1.3550 & 1.4001 \\
+ & LightGBM  & 0.9832 & 0.3262 & 0.3261 & 0.3742 & 0.3739 & 0.9482 & 0.7950 & 0.8109 & 1.3781 & 1.4239 \\
+ & CatBoost  & 0.9826 & 0.1721 & 0.1737 & 0.2288 & 0.2313 & 0.9479 & 0.7999 & 0.8148 & 1.3779 & 1.4227 \\
+\midrule
+\multirow{2}{*}{Kernel}
+ & Gaussian process & 0.9960 & 0.1203 & 0.1202 & 0.1576 & 0.1588 & 0.9481 & 0.8585 & 0.8740 & 1.5213 & 1.5720 \\
+ & SVR & 0.9650 & 0.2073 & 0.2056 & 0.2667 & 0.2653 & 0.9485 & 0.7712 & 0.7821 & 1.5003 & 1.5506 \\
+\midrule
+\multirow{5}{*}{Neural}
+ & ANN         & 0.9265 & 0.3427 & 0.3426 & 0.4452 & 0.4466 & 0.9483 & 0.9416 & 0.9534 & 1.7660 & 1.8215 \\
+ & CNN         & 0.9275 & 0.2836 & 0.2852 & 0.3683 & 0.3718 & 0.9481 & 1.1968 & 1.2119 & 2.4303 & 2.5130 \\
+ & MLP & 0.2286 & 732.6481 & 730.8138 & 1392.2525 & 1391.9188 & 0.9474 & 1.1014 & 1.1110 & 1.9185 & 1.9729 \\
+ & Transformer & 0.9930 & 0.1468 & 0.1461 & 0.1882 & 0.1862 & 0.9483 & 0.7134 & 0.7287 & 1.2309 & 1.2731 \\
+ & Keras (deep) & 0.2037 & 8.0351 & 8.0713 & 16.6323 & 16.7122 & 0.9454 & 0.5616 & 0.5726 & 0.8164 & 0.8399 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\subsubsection{Selected model}
+\label{sec}
+
+The screening therefore leads to a deliberately limited conclusion. The evidence identifies a top tier consisting of LightGBM, XGBoost, CatBoost and the Gaussian process, rather than a single best model.
+
+Within this group, the numerical differences are negligible. The Gaussian process gives marginally the strongest held-out prediction ($0.8993$) and the strongest Feature-branch Ridge fidelity, and XGBoost gives the strongest Geo-branch Ridge fidelity by a negligible margin. XGBoost remains within $0.0036$ of the best predictive $R^2$ ($0.8957$), has Feature fidelity of $0.9770$ and Geo fidelity of $0.9484$.
+
+Accordingly, XGBoost is adopted as the reference predictive model for the remainder of this chapter, but its selection is not presented as the outcome of a numerical victory over LightGBM, CatBoost or the Gaussian process. It is retained as the reference model among statistically indistinguishable candidates. Rather, the quantitative screening establishes that XGBoost belongs to the same high-performing group and that using it does not require accepting a material loss in either predictive performance or surrogate fidelity.
+
+This distinction is important for the interpretation of the subsequent Geo-SMILE results. The purpose of the screening is to show that the explanations are being generated for a predictor that is both competitively accurate and well represented by the selected surrogate in both branches. The results do not imply that XGBoost is uniquely required by Geo-SMILE, and the numerical evidence presented here would also support LightGBM, CatBoost or the Gaussian process as defensible members of the same top-performing group.
+
+
+
+\subsection{Predictive and explanation models}
+\label{sec:hull_models}
+
+After the model-family and surrogate screening, XGBoost was retained as the reference predictive model and weighted Ridge as the common Geo-SMILE surrogate. A single XGBoost count model $f$ was fitted on the 30 non-spatial predictors, using a Poisson objective, 500 trees, a learning rate of 0.04, maximum depth of five, minimum child weight of three, subsampling and column-subsampling rates of 0.85, an $L_2$ regularisation parameter of 2.0, and random seed 42. This is the Stage~1 specification; the model obtains a held-out $R^2$ of $0.8957$ (MAE $4.83$, RMSE $6.89$). Both branches explain this one model: the Feature branch partitions its sensitivity across predictors, and the Geo branch partitions it across places. The two branches are therefore complementary views of one predictor rather than additive components of a combined prediction.
+
+For the Feature branch, binary masks were generated. A value of one retained a feature, whereas a value of zero replaced that feature with its training-set median. For perturbation $m$, the response was the first Wasserstein distance between the original and perturbed test prediction distributions:
+\begin{equation}
+d_m^{(F)} =
+W_1\left[
+f(X),
+f\left(\widetilde{X}^{(m)}\right)
+\right].
+\label{eq:hull_feature_response}
+\end{equation}
+Geo-SMILE measures the prediction shift induced by perturbation using the first Wasserstein distance. Because this response is non-negative, it measures the magnitude of distributional change rather than the direction of prediction change.
+
+For the Geo branch, the mask coding is reversed: a value of one marks an LSOA as perturbed. Each perturbation selected between five and ten LSOAs without replacement and replaced \emph{all} 30 inputs of every affected LSOA-month observation with the corresponding training medians. The response was calculated only over the affected observations:
+\begin{equation}
+d_m^{(G)} =
+W_1\left[
+f(X_{A_m}),
+f\left(\widetilde{X}^{(m)}_{A_m}\right)
+\right],
+\label{eq:hull_geo_response}
+\end{equation}
+where $A_m$ denotes the LSOA-month observations of the LSOAs selected in perturbation $m$. Because every masked observation receives the same baseline inputs, its perturbed prediction equals a single \emph{typical-area} prediction; an LSOA therefore contributes more to $d_m^{(G)}$ the further its own predictions lie from that typical value. The Geo coefficient of an LSOA consequently summarises the model's sensitivity to the data it receives from that place, relative to the average LSOA.
+
+The final publication design uses $N=4{,}000$ perturbations in \emph{both} branches. Perturbation masks and responses were fitted with kernel-weighted Ridge surrogates with $\alpha=1$. RBF, Laplace and inverse kernels were compared on the validation split, and the mask pool was divided into 60\% surrogate training, 20\% validation and 20\% testing. Feature importance was ranked by the absolute coefficient. Because the Feature response $d_m^{(F)}$ is also a Wasserstein distance, and a mask value of one retains a feature, the sign of a global Feature coefficient is not a direction of prediction change: it indicates only whether retaining the feature is associated with a smaller or a larger coalition $W_1$ response. Geo importance was ranked by the \emph{signed} coefficient. Because the Geo response $d_m^{(G)}$ is a Wasserstein distance and therefore non-negative, the sign of a Geo coefficient is not a direction of prediction change: a higher coefficient marks a higher, and a lower or negative coefficient a lower, relative contribution of that LSOA to the coalition $W_1$ response, measured against the average contribution absorbed by the intercept. A strongly negative coefficient therefore denotes an LSOA that makes a comparatively lower contribution to the coalition $W_1$ response, and taking absolute values would wrongly promote such LSOAs towards the top of the ranking. The signed Geo-SMILE coefficient ranking agrees closely with independently computed single-LSOA Wasserstein prediction shift, obtained by masking each LSOA on its own ($\rho_s=0.982$), whereas the absolute-coefficient ranking does not ($\rho_s=-0.29$).
+
+The move to a common $N=4{,}000$ reporting budget replaces the earlier asymmetric publication design of 1,024 Feature masks and 2,000 Geo perturbations. It also aligns the final Hull reporting design with the $N=4{,}000$ model/surrogate screening reported above.
+
+\begin{table}[H]
+\centering
+\caption{Final research design for the Feature and Geo branches.}
+\label{tab:hull_research_design}
+\small
+\begin{tabularx}{\textwidth}{p{0.24\textwidth} X X}
+\toprule
+Design element & Feature branch & Geo branch \\
+\midrule
+Purpose & Explain non-spatial predictive factors & Explain LSOA-specific sensitivity to each place's data \\
+Predictive inputs & 30 non-coordinate variables & The same 30 variables (same fitted model) \\
+Explanation players & 30 features & 168 LSOAs \\
+Predictive model & XGBoost Poisson count model & The same XGBoost model \\
+Reporting perturbations & 4,000 binary masks & 4,000 LSOA perturbations \\
+Perturbed units & Any binary subset of features & Random sets of 5--10 LSOAs \\
+Masking baseline & Training median of each feature & Training median of all 30 inputs, applied to every observation of the selected LSOAs \\
+Perturbation response & Global $W_1$ between original and perturbed prediction distributions & $W_1$ over predictions for affected LSOA-month observations \\
+Kernel distance & Fraction of features masked & Fraction of LSOAs masked \\
+Kernel candidates & RBF, Laplace, inverse & RBF, Laplace, inverse \\
+Surrogate & Weighted Ridge, $\alpha=1$ & Weighted Ridge, $\alpha=1$ \\
+Surrogate mask split & 60\% training, 20\% validation, 20\% testing & 60\% training, 20\% validation, 20\% testing \\
+Importance score & Absolute feature coefficient & Signed LSOA coefficient (Geo-SMILE geographic sensitivity coefficient) \\
+Expert-reference comparison & Top 10 of 30 & Share of the top 20 inside the 58 expert-highlighted LSOAs \\
+Intervention experiment & Top 10, bottom 10, and 1,000 random sets of 10 & Top 20, bottom 20, and 1,000 random sets of 20 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Results}
+\label{sec:hull_results}
+
+All quantitative evaluation results in the remainder of this section use the $N=4{,}000$ metric-suite run for both branches. The local maps supplied with the final result package are likewise $N=4{,}000$ outputs; the six mapped Feature drivers are the same six leading variables identified by the metric-suite ranking, although small coefficient differences can occur between separately exported perturbation runs.
+
+\subsubsection{Global Feature importance}
+
+Figure~\ref{fig:hull_global_feature_importance} presents the global Feature-SMILE ranking at $N=4{,}000$. Importance is defined by the absolute weighted-Ridge coefficient.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{Chapter4/Figs/top_global_drivers_N4000.png}
+\caption{Leading global Feature-SMILE drivers of next-month crime prediction in Hull}
+\label{fig:hull_global_feature_importance}
+\end{figure}
+
+The ranking remains strongly dominated by recent crime history. The six-month rolling crime mean has the largest coefficient magnitude ($5.1425$), followed by the three-month rolling crime mean ($1.2502$). The one-month crime lag is third ($0.3940$), followed by unemployment ($0.3608$), long-term sickness or disability ($0.2966$), and owner occupation ($0.2179$). Social renting ($0.1206$), road length ($0.1032$), no qualifications ($0.0952$), and private renting ($0.0937$) complete the top ten. All ten coefficients are negative in the fitted surrogate: retaining any of these predictors is associated with a smaller $W_1$ response, equivalently masking it with a larger one. Because the response is a distance, the sign does not indicate whether a predictor raises or lowers predicted crime, and importance is assessed by magnitude.
+
+\subsubsection{Geographic sensitivity}
+\label{subsubsec:geographic_sensitivity}
+
+A key contribution of Geo-SMILE is the explicit separation of
+\emph{geographic sensitivity} from the effects of individual predictors.
+While the Feature branch explains which variables the fitted model relies on,
+the Geo branch identifies \emph{where} the same model is most sensitive to the
+data it receives. At $N=4{,}000$, the resulting Geo attributions show substantial
+spatial heterogeneity across Hull
+(Figure~\ref{fig:hull_geo_sensitivity}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter4/Figs/geo_area_data_map_N4000.pdf}
+    \caption{Geographic sensitivity identified by the Geo-SMILE Geo branch for
+    Hull. (a) Geo-SMILE geographic sensitivity coefficient (signed coefficient
+    on one sequential scale: lighter = lower, darker = higher relative
+    contribution to the coalition $W_1$ response); (b) single-LSOA Wasserstein prediction shift, defined as the $W_1$
+    distance, in crimes per month, between the original predictions and the
+    predictions obtained when that LSOA alone is replaced by the
+    training-median baseline, with the expert-highlighted regions (58 LSOAs)
+    outlined.}
+    \label{fig:hull_geo_sensitivity}
+\end{figure}
+
+Panel (a) presents the Geo-SMILE geographic sensitivity coefficients, which
+define the Geo ranking. Higher values identify LSOAs that make a higher contribution to the
+coalition $W_1$ response than the average LSOA; lower and negative values
+identify LSOAs that make a comparatively lower contribution to that
+response. The coefficients are drawn on one sequential scale
+because their sign is not a direction of prediction change. The signed
+Geo-SMILE coefficient ranking agrees closely with the independently computed
+single-LSOA Wasserstein prediction shift in panel (b) ($\rho_s=0.982$), so the
+coalition-based surrogate reproduces the ordering obtained by masking each
+LSOA on its own.
+
+The distribution is highly skewed. \texttt{E01033104} (Kingston upon Hull 029E,
+the city centre) has by far the largest coefficient ($22.33$) and a single-LSOA Wasserstein prediction shift of $176.7$ crimes per month. It is
+followed by \texttt{E01012889} ($7.18$), \texttt{E01012871} ($4.73$),
+\texttt{E01012854} ($4.27$), and \texttt{E01012852} ($4.13$). The coefficients
+are positively spatially autocorrelated (global Moran's $I=0.22$, $p=0.001$,
+queen contiguity, 999 permutations), and Local Moran's $I$ identifies one
+statistically significant High--High cluster of nine LSOAs extending from the
+Old Town and city centre westwards into Dairycoates and north-westwards into
+Stepney. Further isolated high-sensitivity units occur in the north and east,
+whereas most of the northern, western and eastern suburbs show below-average
+sensitivity. The median single-LSOA Wasserstein prediction shift is $6.4$ crimes
+per month, and the 90th percentile is $22.0$.
+
+Together, the two panels distinguish the surrogate ranking from the
+magnitude of the underlying single-LSOA prediction shift, and they provide a spatially explicit
+account of where the fitted model is most sensitive to local information. As with the
+other Geo-SMILE attributions, these coefficients describe model sensitivity
+and should not be interpreted as causal effects of geographic location.
+
+
+\subsubsection{Local Feature importance}
+
+Local Feature-SMILE coefficients were calculated by LSOA to examine whether the strongest global drivers are spatially homogeneous. At $N=4{,}000$, the six mapped drivers are the six-month rolling crime mean, three-month rolling crime mean, one-month crime lag, unemployment, long-term sickness or disability, and owner occupation. The important correction relative to the earlier publication figure is that \texttt{crime\_lag\_1}, not \texttt{crime\_lag\_2}, belongs in the six-panel figure.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{Chapter4/Figs/Top_drivers_global_importance_N4000.png}
+\caption{Spatial expression of the six leading global Feature-SMILE drivers at $N=4{,}000$. Panels show signed local coefficients for six-month rolling crime mean, three-month rolling crime mean, one-month crime lag, unemployment, long-term sickness or disability, and owner occupation. Unlike the global coefficients, the local coefficients are fitted to signed prediction differences (original minus perturbed prediction for each LSOA-month), so their sign is directional: red and blue denote opposite directions of local model response, and stronger intensity denotes larger coefficient magnitude.}
+\label{fig:hull_top_feature_drivers}
+\end{figure}
+
+The two rolling crime measures remain dominant but vary markedly across neighbourhoods. The local maps also show that the one-month lag and the socioeconomic predictors do not act uniformly across the city. The maps should therefore be read as spatial variation in the fitted model's local sensitivity rather than as neighbourhood-level causal effects.
+
+\subsubsection{Surrogate fidelity and perturbation budget}
+\label{sec:hull_fidelity_n}
+
+The final publication design standardises both branches at $N=4{,}000$. The perturbation sweep shows why this is defensible without claiming that every diagnostic is maximised at exactly the same $N$. Feature fidelity is already saturated throughout the tested range, remaining between approximately $0.975$ and $0.977$. Geo fidelity improves materially between the smaller budgets and reaches its highest held-out value in the sweep at $N=4{,}000$, $R^2=0.9484$. At the same budget, both branches have top-$k$ stability Jaccard equal to $1.000$, while rank consistency rises to $0.831$ for Feature and $0.963$ for Geo.
+
+\begin{table}[H]
+\centering
+\caption{Held-out Geo-SMILE weighted-Ridge fidelity by perturbation count}
+\label{tab:hull_fidelity_by_n}
+\small
+\begin{tabular}{rrrrr}
+\toprule
+$N$ & Feature $R^2$ & Feature weighted $R^2$ & Geo $R^2$ & Geo weighted $R^2$ \\
+\midrule
+1,000 & 0.9764 & 0.9765 & 0.9309 & 0.9297 \\
+2,000 & 0.9774 & 0.9773 & 0.9231 & 0.9365 \\
+3,000 & 0.9768 & 0.9770 & 0.9440 & 0.9414 \\
+\textbf{4,000} & \textbf{0.9770} & \textbf{0.9771} & \textbf{0.9484} & \textbf{0.9461} \\
+5,000 & 0.9766 & 0.9770 & 0.9418 & 0.9427 \\
+7,500 & 0.9771 & 0.9772 & 0.9421 & 0.9428 \\
+10,000 & 0.9753 & 0.9753 & 0.9459 & 0.9456 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+The common $N=4{,}000$ budget is therefore used for the maps and for the quantitative evaluation below. This choice should be interpreted as a reporting standardisation supported by the sweep, not as evidence that $N=4{,}000$ uniquely optimises every criterion.
+
+\subsection{Evaluation metrics}
+\label{sec:hull_quant_results}
+
+The quantitative evaluation follows the five attribution-evaluation headings used for SMILE: ATT fidelity, ATT accuracy, faithfulness, ATT stability and ATT consistency.
+
+\paragraph{Provenance of the expert reference}
+\label{sec:hull_ground_truth}
+
+The Feature reference is the fixed top ten of the 30 ranked predictors. The Geo reference is defined spatially: the expert outlined, on a map of Hull, the regions whose crime events inform their assessment of the city's crime situation, namely the Sculcoates--City Centre--Dairycoates corridor, west and central Bransholme with Sutton and Stoneferry, and the Southcoates--Marfleet strip. An LSOA belongs to the reference if at least 20\% of its area, or at least $0.1$~km$^2$, lies inside a traced region (at least 50\% for the Bransholme--Sutton--Stoneferry region, where the outline crosses large residential LSOAs). This yields 58 of the 168 Hull LSOAs (Figure~\ref{fig:hull_expert_regions}): 22 in Sculcoates--City Centre--Dairycoates, 22 in Bransholme--Sutton--Stoneferry and 14 in Southcoates--Marfleet. Only the Geo-SMILE ranking changes when the perturbation design is rerun.
+
+The three regions and the LSOA inclusion rule, including the 50\% threshold for the northern region, were defined and audited with the expert independently of, and before, the final Geo-SMILE ranking; neither was adjusted in response to the Geo-SMILE results. As an additional check that the agreement does not hinge on the exact inclusion thresholds, Geo accuracy was recomputed under four alternative rules, including a uniform rule without the northern override (Table~\ref{tab:hull_region_rule_robustness}). The number of top-20 LSOAs inside the regions changes with the size of the reference, but the lift over chance remains between $2.2$ and $2.7$ and the agreement is significant under every rule ($p\le0.0014$). Under the uniform 20\% or $0.1$~km$^2$ rule, the top-20 count is unchanged at 18.
+
+\begin{table}[H]
+\centering
+\caption{Robustness of Geo ATT accuracy ($k=20$, XGBoost, $N=4{,}000$) to the rule assigning LSOAs to the expert-highlighted regions. Chance is the reference share of the 168 LSOAs; $p$ is the one-sided hypergeometric probability of at least the observed count.}
+\label{tab:hull_region_rule_robustness}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+Inclusion rule & Reference LSOAs & Top-20 inside & Chance & Lift & $p$ \\
+\midrule
+$\ge20\%$ or $\ge0.1$~km$^2$; northern region $\ge50\%$ (reported) & 58 & 18 & 0.345 & 2.61 & $6.9\times10^{-8}$ \\
+$\ge20\%$ or $\ge0.1$~km$^2$, all regions & 63 & 18 & 0.375 & 2.40 & $3.6\times10^{-7}$ \\
+$\ge10\%$ of LSOA area & 65 & 17 & 0.387 & 2.20 & $8.8\times10^{-6}$ \\
+$\ge50\%$ of LSOA area & 41 & 12 & 0.244 & 2.46 & $3.0\times10^{-4}$ \\
+$\ge75\%$ of LSOA area & 28 & 9  & 0.167 & 2.70 & $1.4\times10^{-3}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Figure: outputs/geo_area_data_models/top50_maps/highlighted_regions_check.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Chapter4/Figs/highlighted_regions_check.png}
+    \caption{Expert-highlighted regions of Hull (dashed outlines) and the 58 LSOAs
+    assigned to them, which form the Geo accuracy reference.}
+    \label{fig:hull_expert_regions}
+\end{figure}
+%; the reference itself is not redefined in response to the new results.
+
+\begin{table}[H]
+\centering
+\caption{Composition of the expert-reference sets used in the Hull experiment.}
+\label{tab:hull_ground_truth_design}
+\small
+\begin{tabularx}{\textwidth}{p{0.24\textwidth} p{0.09\textwidth} X}
+\toprule
+Reference component & Number & Members and rationale \\
+\midrule
+Feature factors, crime and temporal & 4 &
+\texttt{crime\_lag\_1}, \texttt{crime\_rolling\_mean\_3}, \texttt{crime\_lag\_2}, and \texttt{crime\_rolling\_mean\_6}. \\
+Feature factors, economic, labour and tenure & 4 &
+\texttt{unemployed\_pct\_age16plus}, \texttt{economically\_inactive\_pct}, \texttt{social\_rented\_pct}, and \texttt{owner\_occupied\_pct}. \\
+Feature factors, built environment and activity & 2 &
+\texttt{nightlife\_per\_km2} and \texttt{retail\_per\_km2}. \\
+Geo reference LSOAs & 58 &
+LSOAs inside the expert-highlighted regions: Sculcoates--City Centre--Dairycoates (22), Bransholme--Sutton--Stoneferry (22) and Southcoates--Marfleet (14). \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The rating remains a single-rater expert reference. The resulting agreement statistics therefore quantify correspondence with that reference rather than independent validation of causal importance.
+
+
+\subsubsection{ATT fidelity}
+\label{sec:hull_att_fidelity}
+
+At the common $N=4{,}000$ design, the Feature weighted-Ridge surrogate obtains held-out $R^2=0.9770$ and weighted $R^2=0.9771$. The Geo surrogate obtains held-out $R^2=0.9484$ and weighted $R^2=0.9461$. Thus both branches are well approximated by the selected linear surrogate.
+
+\begin{table}[H]
+\centering
+\caption{ATT fidelity at the final $N=4{,}000$ design (seed 42).}
+\label{tab:hull_fidelity_selected}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+Branch &
+Held-out $R^2$ &
+Weighted $R^2$ &
+MAE &
+Weighted MAE &
+RMSE &
+Weighted RMSE \\
+\midrule
+Feature & 0.9770 & 0.9771 & 0.3591 & 0.3590 & 0.4094 & 0.4095 \\
+Geo     & 0.9484 & 0.9461 & 0.7849 & 0.8007 & 1.3550 & 1.4001 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\subsubsection{ATT accuracy}
+\label{sec:hull_att_accuracy}
+
+At $N=4{,}000$, the Feature branch recovers six of the ten reference predictors. Precision and recall at $k=10$ are both $0.60$, Jaccard similarity is $0.4286$, ATT ACC is $0.7333$, ATT F1 is $0.6000$, and ATT AUROC is $0.8300$. The six shared predictors are \nolinkurl{crime_rolling_mean_6}, \nolinkurl{crime_rolling_mean_3}, \nolinkurl{crime_lag_1}, \nolinkurl{unemployed_pct_age16plus}, \nolinkurl{owner_occupied_pct}, and \nolinkurl{social_rented_pct}. The four reference items outside the model top ten are \nolinkurl{crime_lag_2}, \nolinkurl{economically_inactive_pct}, \nolinkurl{nightlife_per_km2}, and \nolinkurl{retail_per_km2}; the four model-only top-ten items are \nolinkurl{long_term_sick_disabled_pct}, \nolinkurl{road_length_km}, \nolinkurl{no_qualifications_pct}, and \nolinkurl{private_rented_pct}.
+
+
+For the Geo branch, accuracy is the share of the 20 most sensitive LSOAs that fall inside the expert-highlighted regions. Eighteen of the top 20 do, giving an accuracy of $0.90$ against a chance level of $58/168=0.345$ for a random set of 20 LSOAs (lift $2.61$; one-sided hypergeometric $p=6.9\times10^{-8}$). Thirteen of the 18 lie in the Sculcoates--City Centre--Dairycoates corridor, three in Southcoates--Marfleet and two in Bransholme--Sutton--Stoneferry (Figure~\ref{fig:hull_geo_top20}). The two exceptions, \texttt{E01012805} (rank 6, Summergangs) and \texttt{E01012809} (rank 13, Drypool), lie just east of the River Hull, adjacent to the highlighted corridor. Recall is necessarily limited by the size of the reference: the top 20 can contain at most 20 of the 58 reference LSOAs, so recall is $0.31$, Jaccard similarity $0.300$, ATT F1 $0.462$ and ATT ACC $0.750$. The threshold-free ATT AUROC, computed from the signed coefficients of all 168 LSOAs, is $0.701$. The result is robust to the choice of $k$: 27 of the top 42 (lift $1.86$) and 31 of the top 50 (lift $1.80$) are reference members, all with $p<0.001$. All ten candidate models place 16--18 of their top 20 in the reference regions, and 14 LSOAs are in the top 20 of every model.
+
+% Figure: outputs/geo_area_data_models/top50_maps/geo_top20_xgboost.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Chapter4/Figs/geo_top20_xgboost.png}
+    \caption{The 20 LSOAs with the highest Geo-SMILE geographic sensitivity
+    coefficients (XGBoost, $N=4{,}000$), labelled by rank. Eighteen of the 20
+    lie inside the expert-highlighted regions shown in
+    Figure~
+ef{fig:hull_expert_regions}.}
+    \label{fig:hull_geo_top20}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Primary ATT accuracy at the final $N=4{,}000$ design. Feature: top 10 against the 10-predictor reference. Geo: top 20 against the 58 LSOAs in the expert-highlighted regions.}
+\label{tab:hull_att_accuracy_primary}
+\small
+\begin{tabular}{lcc}
+\toprule
+Metric & Feature & Geo \\
+\midrule
+$n$             & 30     & 168 \\
+Reference size  & 10     & 58 \\
+$k$             & 10     & 20 \\
+Intersection    & 6      & 18 \\
+Accuracy        & 0.6000 & 0.9000 \\
+Chance accuracy & 0.3333 & 0.3452 \\
+Lift            & 1.80   & 2.61 \\
+ATT ACC         & 0.7333 & 0.7500 \\
+ATT F1          & 0.6000 & 0.4615 \\
+ATT AUROC       & 0.8300 & 0.7013 \\
+Precision@$k$   & 0.6000 & 0.9000 \\
+Recall@$k$      & 0.6000 & 0.3103 \\
+Jaccard@$k$     & 0.4286 & 0.3000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsubsection{ATT Faithfulness}
+\label{sec:hull_faithfulness}
+
+ATT Faithfulness was evaluated across the candidate predictive models using
+the performance--attribution correspondence defined in
+Section~\ref{subsec:faithfulness}. For each branch, the held-out predictive
+$R^2$ associated with each model was paired with the attribution quality
+obtained from that model's Geo-SMILE explanation. Because both branches
+explain the same fitted 30-predictor model, the Geo pairing uses that model's
+predictive $R^2$. Following KG-SMILE, ATT Faithfulness is the Pearson
+correlation, across models, between predictive $R^2$ and ATT accuracy, which is
+the primary attribution-quality measure (Feature: top-10 overlap with the
+reference; Geo: share of the top 20 inside the expert-highlighted regions).
+ATT-AUC is reported as a secondary, threshold-free measure. This cross-model
+definition replaces the earlier per-model intervention definition, which is
+retained only as a supplementary diagnostic
+(Section~\ref{sec:hull_additional_metrics}).
+
+Table~\ref{tab:hull_faithfulness_correlation} and Figure~\ref{fig:hull_att_faithfulness} report the
+correlations. No statistically reliable positive association was detected in
+either branch.
+
+For the Feature branch, predictive $R^2$ showed a weak negative association
+with ATT accuracy (top-10 overlap; $r=-0.12$, two-sided $p=0.74$) and was
+essentially unrelated to ATT-AUC ($r=0.10$, $p=0.79$). The corresponding Spearman
+correlations were also close to zero. Predictive competence therefore did not
+systematically track attribution agreement across the ten Feature models.
+
+For the Geo branch, evaluated for all ten models against the
+expert-highlighted regions, the association between predictive $R^2$ and
+ATT accuracy (the share of the top 20 inside the regions) was $r=0.15$
+($p=0.68$; Spearman $\rho=0.60$, $p=0.065$), and the association with ATT-AUC
+was $r=-0.16$ ($p=0.67$). Neither relationship was statistically significant.
+Excluding the two Keras models, whose predictive $R^2$ is not reproducible
+under a fixed seed (see below), the top-20 association rises to $r=0.78$
+($p=0.023$, $M=8$), but this subset analysis is reported only as a
+sensitivity check.
+
+\begin{table}[H]
+\centering
+\caption{ATT Faithfulness in the Hull experiment: Pearson correlation, across
+the candidate models, between predictive $R^2$ and ATT accuracy (primary), with
+ATT-AUC as a secondary attribution-quality measure.}
+\label{tab:hull_faithfulness_correlation}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+Branch & Attribution measure & $M$ & Pearson $r$ &
+Two-sided $p$ & Spearman $\rho$ \\
+\midrule
+Feature & ATT accuracy (top-10 overlap), primary      & 10 & -0.12 & 0.74 & -0.09 \\
+Feature & ATT-AUC, secondary                            & 10 &  0.10 & 0.79 & -0.09 \\
+Geo     & ATT accuracy (top 20 in regions), primary     & 10 &  0.15 & 0.68 &  0.60 \\
+Geo     & ATT-AUC (expert regions), secondary           & 10 & -0.16 & 0.67 &  0.21 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Figure: outputs/faithfulness_accuracy_r2/att_faithfulness_area_data.png (plot_att_faithfulness_area_data.py)
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter4/Figs/att_faithfulness_area_data.png}
+    \caption{ATT Faithfulness across the ten candidate models ($N=4{,}000$; Feature
+    $N=4{,}096$): predictive $R^2$ against ATT accuracy (top row, primary) and
+    ATT-AUC (bottom row, secondary). Feature accuracy is the top-10 overlap with
+    the expert predictor reference; Geo accuracy is the share of the top 20 inside
+    the 58 expert-highlighted LSOAs. Dashed lines are least-squares fits.}
+    \label{fig:hull_att_faithfulness}
+\end{figure}
+
+The model-level results explain why the aggregate correlations are weak.
+Within the Feature branch, the Transformer combines the lowest predictive
+$R^2$ in the model set with one of the highest ATT-AUC values, whereas the
+deep-learning and MLP models occupy an intermediate predictive range but have
+the lowest ATT-AUC values. Predictive ordering therefore does not translate
+into attribution-quality ordering.
+
+For the Geo branch, attribution quality is uniformly high and varies within
+a narrow band, which leaves little variation for the correlation to detect.
+The boosting models and the Gaussian process, which have the highest predictive
+$R^2$ ($0.896$--$0.899$), each place 18 of their top 20 LSOAs inside the
+expert regions, with ATT-AUC values between $0.698$ and $0.718$. SVR
+($R^2=0.863$) has the lowest count (16/20), and the MLP and ANN 17/20. The
+two weakest predictors in this run, the deep Keras network ($R^2=0.666$) and
+the CNN ($0.635$), place 18 and 17 of 20 inside the regions, which is what
+weakens the all-model correlation. The predictive $R^2$ values of these two Keras models were lower in this
+run than in Stage~1 because Keras training is not fully deterministic under a
+fixed seed; the Geo pairing uses the $R^2$ of the models whose explanations
+were actually evaluated.
+
+The within-family correlations are not used as primary evidence because the
+model counts are too small for stable inference and, for the boosting models,
+predictive $R^2$ differs only minimally between models.
+
+These results do not demonstrate ATT Faithfulness under the
+performance--attribution correspondence criterion. They instead indicate that,
+within the present Hull model set, attribution agreement with the expert
+reference varies substantially for reasons not captured by predictive $R^2$
+alone. The limited number of paired models also restricts statistical power:
+with only ten observations, only comparatively strong correlations would be
+detectable at conventional significance levels. The result is therefore
+interpreted as an absence of positive evidence for this criterion, rather than
+as evidence that Geo-SMILE explanations are intrinsically unfaithful.
+
+
+\subsubsection{ATT stability}
+\label{sec:hull_att_stability}
+
+ATT stability evaluates whether the Geo-SMILE explanation is preserved after a
+small, controlled modification of the explanation input. Stability was tested
+by expanding the Hull explanation reference with one real neighbouring LSOA in
+each cardinal direction (north, east, south, and west), one addition at a time.
+The fitted XGBoost model, Hull observations, surrogate specification,
+perturbation budget ($N=4{,}000$), and SMILE seed (42) were held fixed.
+Consequently, differences between the baseline and expanded explanations can be
+attributed to the controlled spatial addition rather than to a different
+predictive model or perturbation sample.
+
+For each addition, stability was assessed using two complementary quantities.
+First, Jaccard similarity measured preservation of the highest-ranked
+attribution set ($k=10$ for Feature and $k=20$ for Geo). Second, Spearman rank
+correlation measured agreement over the complete coefficient vector (absolute
+coefficients for Feature, signed coefficients for Geo). Prediction Spearman
+correlation was additionally examined to verify that the ordering of the
+original Hull predictions remained unchanged.
+
+\begin{table}[H]
+\centering
+\caption{ATT stability at $N=4{,}000$ (seed 42) under one-LSOA additions in
+the four cardinal directions.}
+\label{tab:hull_att_stability}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcc|cc|cc|cc}
+\toprule
+Branch &
+North Jac. & North $\rho$ &
+East Jac. & East $\rho$ &
+South Jac. & South $\rho$ &
+West Jac. & West $\rho$ \\
+\midrule
+Feature &
+1.000 & 0.9996 &
+1.000 & 0.9996 &
+1.000 & 1.0000 &
+1.000 & 0.9991 \\
+Geo &
+1.000 & 0.9998 &
+1.000 & 0.9998 &
+1.000 & 0.9998 &
+1.000 & 0.9998 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+The highest-ranked attribution sets were unchanged in every cardinal-direction
+trial. Feature top-10 and Geo top-20 Jaccard similarity were both $1.000$ for
+all four additions. Agreement over the complete attribution vectors was also
+extremely high. Mean Spearman correlation was $0.9996$ for the Feature branch
+and $0.9998$ for the Geo branch. Prediction Spearman correlation was $1.000$
+in every Feature and Geo trial, confirming that the controlled reference
+expansions did not alter the ordering of the original Hull predictions.
+
+Figure~\ref{fig:hull_geo_stability_four_directions} visualises the geographic
+stability result. The same twenty Hull LSOAs remain within the highest-ranked
+Geo attribution set under the north, east, south, and west additions, while
+none of the newly introduced neighbouring units enters the top-20 set.
+
+% Figure: outputs/geo_area_data_eval/stability_four_directions_area_data.pdf (plot_area_data_stability_maps.py)
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.96\textwidth]{Chapter4/Figs/stability_four_directions_area_data.pdf}
+    \caption{Geo-SMILE top-20 attribution stability under four cardinal
+    neighbouring-LSOA additions (XGBoost, area-data design, $N=4{,}000$, seed 42).
+    LSOAs are labelled by rank and shaded by the Geo-SMILE geographic sensitivity
+    coefficient; the added unit is shaded yellow and outlined in orange, with its rank.}
+    \label{fig:hull_geo_stability_four_directions}
+\end{figure}
+
+None of the added LSOAs entered the Geo top 20. Their respective ranks were
+82 for the north addition, 57 for east, 101 for south, and 53 for west
+(Table~\ref{tab:hull_att_stability_extra}). All four added units have negative
+coefficients, meaning that their relative contribution to the coalition $W_1$
+response is lower than that of the average Hull LSOA. The west neighbour,
+\texttt{E01013112}, ranked highest of the four and therefore represented the
+strongest perturbation of the four tests. Nevertheless, it ranked only 53rd
+and remained well outside the high-attribution set.
+
+\begin{table}[H]
+\centering
+\caption{Geo-SMILE attribution ranks of the added LSOAs in the cardinal-direction stability experiment.}
+\label{tab:hull_att_stability_extra}
+\small
+\begin{tabular}{llccc}
+\toprule
+Addition & LSOA code & Extra rank & Extra coef. & In top-20 \\
+\midrule
+North & \texttt{E01012953} & 82  & $-0.390$ & No \\
+East  & \texttt{E01013094} & 57  & $-0.112$ & No \\
+South & \texttt{E01013009} & 101 & $-0.694$ & No \\
+West  & \texttt{E01013112} & 53  & $-0.065$ & No \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Figure~\ref{fig:hull_geo_stability_base_vs_west} compares the corresponding Geo-SMILE rankings for the west cardinal neighbourhood.
+
+Under a fixed inverse kernel, all twenty of the baseline-ranked LSOAs remain in
+the top-20 set after the west neighbour is introduced (Jaccard $1.000$,
+$\rho=0.9998$). The additional LSOA itself remains outside the
+high-attribution set, ranking 53rd. Thus, even under the more restrictive
+paired-kernel comparison, the geographic attribution structure is preserved.
+
+% Figure: outputs/geo_area_data_eval/stability_base_vs_west_area_data.pdf (plot_area_data_stability_maps.py)
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.96\textwidth]{Chapter4/Figs/stability_base_vs_west_area_data.pdf}
+    \caption{Geo-SMILE top-20 ranking before and after the west
+    cardinal-neighbour addition under a fixed inverse kernel (XGBoost,
+    area-data design, $N=4{,}000$). All 20 baseline LSOAs are retained and
+    the added unit ranks 53rd.}
+    \label{fig:hull_geo_stability_base_vs_west}
+\end{figure}
+
+The west addition also provides the most conservative Feature illustration,
+because it produced the lowest full-vector Feature rank correlation among the
+four experiments ($\rho=0.9991$).
+Figure~\ref{fig:hull_feature_stability_west} therefore compares the Hull-only
+baseline with the west-addition result using the same top-10 Feature layout.
+The baseline ranking is led by
+\texttt{crime\_rolling\_mean\_6},
+\texttt{crime\_rolling\_mean\_3}, and
+\texttt{crime\_lag\_1}, followed by socioeconomic, tenure, transport, and
+qualification-related predictors. The complete baseline top-10 set is retained
+after adding \texttt{E01013112}, giving Jaccard similarity of $1.000$.
+The full-vector Spearman correlation of $0.9991$ further indicates that
+stability is not confined to top-$k$ membership but extends across the wider
+Feature attribution ordering.
+
+The coefficient values displayed in the paired layout are the baseline
+$N=4{,}000$ coefficients used to identify the retained top-10 set. The archived
+stability output records the west-addition comparison metrics rather than a
+separate complete per-feature coefficient vector for the expanded run.
+
+
+\begin{figure}[H]
+    \centering
+    {\setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{0.6pt}%
+    \fbox{%
+    \includegraphics[
+        width=0.94\textwidth,
+        trim=0cm 0cm 0cm 0cm,
+        clip
+    ]{Chapter4/Figs/feature_stability_west_N4000_corrected.png1.png}}}
+    \caption{Feature attribution stability under the west-neighbour addition.
+    The top-10 set is fully retained (Jaccard $=1.000$), with near-perfect
+    full-vector rank agreement ($\rho=0.9991$).}
+    \label{fig:hull_feature_stability_west}
+\end{figure}
+
+
+Taken together, the stability experiments indicate that the Geo-SMILE
+explanation is highly insensitive to small changes in the spatial explanation
+reference. In the primary four-direction analysis, both Feature and Geo
+top-$k$ attribution sets are preserved completely, while the near-unity
+full-vector Spearman correlations show that stability extends beyond set
+membership to the broader attribution ordering. The supplementary fixed-kernel
+west comparison likewise retains all twenty baseline units, with the newly
+added neighbour remaining outside the high-attribution set. These results
+therefore support the robustness of the Hull Geo-SMILE explanation to modest
+changes in spatial reference composition, while avoiding the stronger claim
+that attribution values are invariant to all possible spatial perturbations.
+
+\subsubsection{ATT consistency}
+\label{sec:hull_att_consistency}
+
+ATT consistency evaluates whether Geo-SMILE produces reproducible attribution coefficients when the same fitted model and the same explanation target are analysed repeatedly. The predictive model, data, surrogate specification, perturbation budget ($N=4{,}000$), and all other experimental settings were held fixed, while independent random seeds were used to generate new perturbation samples for each explanation run. Consequently, variation between runs reflects stochastic variation in the Geo-SMILE explanation procedure.
+
+Following \citet{dehghani_smile_thesis}, consistency was quantified from the run-to-run variance and standard deviation of each attribution coefficient.Lower variance and standard deviation indicate greater consistency because the estimated attribution changes less when the perturbation sample is regenerated.
+%For player $j$, let $\beta_j^{(r)}$ denote its coefficient in explanation run
+%$r$. The mean attribution coefficient is
+
+%\begin{equation}
+%\bar{\beta}_j =
+%\frac{1}{R}
+%\sum_{r=1}^{R}\beta_j^{(r)},
+%\end{equation}
+
+%and its across-run variance and standard deviation are
+
+%\begin{equation}
+%s_j^2 =
+%\frac{1}{R-1}
+%\sum_{r=1}^{R}
+%\left(
+%\beta_j^{(r)}-\bar{\beta}_j
+%\right)^2,
+%\qquad
+%s_j = \sqrt{s_j^2},
+%\end{equation}
+
+%where $R$ denotes the number of independently seeded explanation runs.
+
+
+Table~\ref{tab:hull_consistency_variance} summarises coefficient variability for the Feature and Geo branches. Feature attributions were highly reproducible across perturbation seeds, with a mean coefficient variance of $0.000227$ and a median variance of $0.000192$. The corresponding mean and median standard deviations were $0.01459$ and $0.01386$, and the largest Feature standard deviation was $0.02396$.
+
+\begin{table}[H]
+\centering
+\caption{ATT consistency of Geo-SMILE coefficients across independently
+seeded perturbation runs}
+\label{tab:hull_consistency_variance}
+\small
+\begin{tabular}{l|rrrrr}
+\toprule
+Branch &
+Mean variance &
+Median variance &
+Mean SD &
+Median SD &
+Maximum SD \\
+\midrule
+Feature &
+0.000227 &
+0.000192 &
+0.01459 &
+0.01386 &
+0.02396 \\
+Geo &
+0.01537 &
+0.01087 &
+0.11045 &
+0.10426 &
+0.65069 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The dominant Feature coefficients were similarly reproducible.
+\texttt{crime\_rolling\_mean\_6}, which had the largest absolute mean Feature
+coefficient ($-5.2728$), had an across-run SD of only $0.0140$.
+Likewise, \texttt{crime\_rolling\_mean\_3} had a mean coefficient of
+$-1.3074$ and an SD of $0.0120$. Thus, the large attribution magnitudes of
+the principal temporal predictors were preserved across independently
+generated perturbation samples.
+
+For the Geo branch, the mean coefficient variance was $0.01537$ and the
+median variance was $0.01087$. Mean and median coefficient SDs were
+$0.11045$ and $0.10426$, respectively. Most geographic coefficients
+therefore exhibited relatively small run-to-run variation. The maximum Geo
+SD was $0.65069$ and occurred for LSOA \texttt{E01033104}, which also had by
+far the largest mean Geo coefficient ($22.9761$). Relative to the magnitude of that coefficient, the SD is approximately $2.83\%$, indicating that the large attribution itself is highly reproducible across perturbation seeds.
+
+
+%The comparatively large absolute coefficient for \texttt{E01033104} is also consistent with an extreme characteristic of the underlying crime data. As shown in Figure~\ref{fig:hull_geo_outlier_crime}, this LSOA recorded a mean monthly crime count of approximately $209$, compared with a median of $15$ across the Hull LSOA panel. It therefore represents a pronounced spatial concentration of recorded crime as well as the strongest Geo-SMILE attribution. This correspondence provides substantive context for the coefficient's unusually large magnitude and, together with its low run-to-run variation relative to its size, indicates that its prominence is not readily attributable to perturbation sampling noise. The Geo-SMILE coefficient nevertheless represents model sensitivity rather than a causal effect: it does not imply that the geographic location itself causes crime.
+
+%\begin{figure}[H]
+ %   \centering
+  %  {\setlength{\fboxsep}{0pt}%
+   % \setlength{\fboxrule}{0.6pt}%
+    %\fbox{%
+    %\includegraphics[
+     %   width=0.90\textwidth,
+      %  trim=0cm 4cm 0cm 4cm,
+       % clip]{Chapter4/Figs/outlier_lsoa_choropleth.png}}}
+    %\caption{Mean monthly recorded crime across Hull LSOAs, with
+    %\texttt{E01033104} highlighted as the principal high-crime spatial outlier.}
+    %\label{fig:hull_geo_outlier_crime}
+%\end{figure}
+
+%Absolute coefficient variance is scale-dependent, so the Feature and Geo values in Table~\ref{tab:hull_consistency_variance} should not be compared solely by their raw magnitudes. The Geo branch contains coefficients on a considerably wider numerical scale, particularly the extreme coefficient for \texttt{E01033104}. Consistency is therefore interpreted in relation to the magnitude and distribution of coefficients within each branch.
+
+Across the independently seeded runs, the principal Feature and Geo
+attribution magnitudes remained reproducible. The Feature branch showed
+very small absolute coefficient variability, while the geographic
+attributions remained consistent despite their broader coefficient range.
+The persistence of the dominant temporal Feature effects and of the
+exceptionally large \texttt{E01033104} Geo effect indicates that the main Geo-SMILE explanation patterns are robust to perturbation
+sampling.
+
+
+\subsection{Additional diagnostics}
+\label{sec:hull_additional_metrics}
+
+In addition to the primary evaluation metrics, supplementary diagnostics were
+retained to characterise attribution concentration, ranking reproducibility,
+and sensitivity to the perturbation budget.
+
+\paragraph{Attribution concentration.}
+Feature attribution remains more concentrated than geographic sensitivity.
+Using the $N=4{,}000$ metric-suite coefficient vectors, Feature Hoyer sparsity
+is 0.8491, with a Gini coefficient of 0.7956 and entropy of 1.7747. Because the
+signed Geo coefficients can be negative, Geo concentration is measured on
+the single-LSOA Wasserstein prediction shift, which the signed ranking tracks
+($\rho_s=0.982$): its Hoyer sparsity is 0.5161, Gini coefficient 0.5292,
+and entropy 4.5439. The result indicates that a small group of predictors
+accounts for much of the Feature attribution magnitude, whereas geographic
+sensitivity is spread across a broader set of LSOAs, with one pronounced
+outlier (\texttt{E01033104}).
+
+\paragraph{Intervention-based attribution impact}
+%\label{sec:hull_intervention_impact}
+
+The cross-model ATT Faithfulness analysis evaluates whether attribution quality
+tracks predictive competence, but does not directly test whether the
+highest-ranked players exert a larger effect on the fitted model than other
+players. A complementary intervention experiment was therefore retained for
+the final $N=4{,}000$ XGBoost explanation.
+
+For the Feature branch, neutralising the ten highest-ranked factors produced
+$W_1=8.3161$, compared with a random-set mean of $4.0700$ and a bottom-ten
+response of $0.7733$. The top-minus-random difference was $4.2461$, with an
+empirical randomisation $p=0.018$.
+
+For the Geo branch, replacing the data of the top 20 LSOAs produced
+$W_1=37.8354$, compared with a random-set mean of $11.6143$ and a bottom-20
+response of $1.4153$. The top-minus-random difference was $26.2211$, with
+empirical $p=0.001$, the smallest value attainable with 1,000 random sets.
+The Geo top-set response lies well beyond the upper limit of the random-set
+95\% interval ($21.3625$), so the highest-ranked LSOAs are fully separated
+from random spatial sets.
+
+\begin{table}[H]
+\centering
+\caption{Intervention-based attribution impact for the final
+$N=4{,}000$ XGBoost explanation.}
+\label{tab:hull_intervention_impact}
+\small
+\begin{tabular}{lcc}
+\toprule
+Metric & Feature & Geo \\
+\midrule
+$k$                  & 10             & 20 \\
+Top response         & 8.3161         & 37.8354 \\
+Bottom response      & 0.7733         & 1.4153 \\
+Random mean          & 4.0700         & 11.6143 \\
+Random 95\% interval & 0.8676--8.2044 & 7.1232--21.3625 \\
+Top--random          & 4.2461         & 26.2211 \\
+Top--bottom          & 7.5428         & 36.4201 \\
+Empirical $p$        & 0.0180         & 0.0010 \\
+Random sets          & 1,000          & 1,000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This intervention analysis addresses a different property from ATT
+Faithfulness. It shows that, for the selected XGBoost explanation, the
+highest-ranked players have greater model impact than typical random sets.
+It does not establish that attribution quality increases systematically with
+predictive-model competence across model families.
+\paragraph{Supplementary consistency diagnostics.}
+In addition to coefficient variance and standard deviation, rank- and
+set-based measures were retained as complementary indicators of explanation
+reproducibility. At $N=4{,}000$, mean rank Spearman correlation was 0.831 for
+Feature and 0.963 for Geo, while mean score Pearson correlation was 0.9997 and
+0.9972, respectively. Mean top-20\% Jaccard agreement was 1.000 for Feature and
+0.773 for Geo. These measures describe preservation of attribution ordering,
+relative score patterns, and membership of the highest-ranked set, rather than
+replacing the coefficient-variability definition of ATT consistency.
+
+\paragraph{Behaviour across perturbation budgets.}
+The complete independent sweep is retained as a sensitivity analysis rather
+than as a competition in which the largest value on every metric determines
+the design. Feature fidelity changes little across the whole range, while Geo
+held-out fidelity is highest at $N=4{,}000$. Accuracy fluctuates rather than
+increasing monotonically: Feature reference overlap ranges between 6/10 and
+7/10, while the Geo top 20 places 18 of 20 LSOAs inside the expert regions at
+every budget.
+The intervention impact (top-$k$ minus random-set $W_1$) remains positive
+throughout, and the Geo top-minus-random response is stable at about 26 for
+every budget. ATT Faithfulness itself is a cross-model correlation and is
+therefore reported only for the $N=4{,}000$ model comparison
+(Section~\ref{sec:hull_faithfulness}); it cannot be swept for the single XGBoost model. Coefficient variability
+generally decreases as the perturbation budget increases in both branches,
+while the supplementary rank-consistency measure also increases, particularly
+for Geo.
+
+\begin{table}[H]
+\centering
+\caption{Evaluation diagnostics across independent perturbation budgets for
+the XGBoost Feature and Geo branches. ATT accuracy is the top-10 reference
+overlap for Feature and the top-20 share inside the expert-highlighted regions
+for Geo; Intervention $\Delta W_1$ is the top-$k$ minus random-set response.}
+\label{tab:hull_metrics_by_n}
+\small
+
+\setlength{\tabcolsep}{4pt}
+
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lrcccccc@{}}
+\toprule
+Branch &
+$N$ &
+\shortstack{Fidelity\\$R^2$} &
+\shortstack{ATT\\accuracy} &
+\shortstack{Intervention\\$\Delta W_1$} &
+\shortstack{Stability\\Jaccard} &
+\shortstack{Consistency\\mean variance} &
+\shortstack{Consistency\\mean SD} \\
+\midrule
+
+\multirow{7}{*}{Feature}
+& 1,000  & 0.9764 & 6/10 & 4.229 & 1.000 & 0.000963 & 0.03033 \\
+& 2,000  & 0.9774 & 7/10 & 4.280 & 1.000 & 0.000510 & 0.02183 \\
+& 3,000  & 0.9768 & 7/10 & 4.262 & 1.000 & 0.000264 & 0.01588 \\
+& \textbf{4,000}
+& \textbf{0.9770}
+& \textbf{6/10}
+& \textbf{4.246}
+& \textbf{1.000}
+& \textbf{0.000227}
+& \textbf{0.01459} \\
+& 5,000  & 0.9766 & 7/10 & 4.279 & 1.000 & 0.000180 & 0.01305 \\
+& 7,500  & 0.9771 & 6/10 & 4.389 & 1.000 & 0.000124 & 0.01082 \\
+& 10,000 & 0.9753 & 6/10 & 4.389 & 1.000 & 0.000089 & 0.00914 \\
+
+\midrule
+
+\multirow{7}{*}{Geo}
+& 1,000  & 0.9309 & 18/20 & 25.904 & 1.000 & 0.05969 & 0.22625 \\
+& 2,000  & 0.9231 & 18/20 & 26.127 & 1.000 & 0.02510 & 0.14931 \\
+& 3,000  & 0.9440 & 18/20 & 26.386 & 1.000 & 0.01946 & 0.12320 \\
+& \textbf{4,000}
+& \textbf{0.9484}
+& \textbf{18/20}
+& \textbf{26.221}
+& \textbf{1.000}
+& \textbf{0.01537}
+& \textbf{0.11045} \\
+& 5,000  & 0.9418 & 18/20 & 26.312 & 1.000 & 0.01814 & 0.11061 \\
+& 7,500  & 0.9421 & 18/20 & 26.284 & 1.000 & 0.00831 & 0.08332 \\
+& 10,000 & 0.9459 & 18/20 & 26.244 & 1.000 & 0.00584 & 0.06974 \\
+
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+Figure~\ref{fig:hull_metrics_by_n_updated} summarises the XGBoost evaluation diagnostics across the perturbation-budget sweep in six panels, with consistency shown by both mean coefficient variance and mean SD.
+
+% Figure: outputs/geo_area_data_eval/hull_metrics_n_sweep_area_data.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[
+        width=0.98\textwidth
+    ]{Chapter4/Figs/hull_metrics_n_sweep_area_data.png}
+    \caption{Hull evaluation diagnostics across perturbation budgets for the XGBoost Feature and Geo branches: surrogate fidelity, ATT accuracy (Geo: top-20 share inside the expert-highlighted regions), intervention impact (top-$k$ minus random-set $W_1$), stability, and consistency as mean coefficient variance (log scale) and mean SD. Stars indicate the final $N=4{,}000$ reporting design.}
+    \label{fig:hull_metrics_by_n_updated}
+\end{figure}
+
+\subsection{Conclusion}
+\label{sec:hull_discussion}
+
+The updated Hull experiment uses a common $N=4{,}000$ perturbation budget for both Feature and Geo explanation, and both branches explain one fitted XGBoost model. The weighted-Ridge surrogate retains high fidelity in both branches, with held-out $R^2$ of 0.977 for Feature and 0.948 for Geo. The perturbation sweep shows that Feature fidelity is already saturated at lower budgets, whereas Geo fidelity benefits more clearly from moving to 4,000 perturbations.
+
+Recent crime history remains the dominant non-spatial signal. The two rolling crime means have by far the largest attribution magnitudes, and the one-month crime lag is also among the six leading drivers. Socioeconomic and tenure variables contribute at smaller magnitudes. The updated local-map figure therefore replaces the former two-month-lag panel with the one-month-lag panel. Geographic sensitivity is highest for the city centre (\texttt{E01033104}), within a significant High--High cluster that extends from the Old Town into Dairycoates and Stepney.
+
+Agreement with the expert reference is substantial. The $N=4{,}000$ metric suite recovers 6/10 Feature reference items, and 18 of the 20 most geographically sensitive LSOAs lie inside the regions the expert highlighted, an accuracy of $0.90$ against a chance level of $0.345$, unchanged across every perturbation budget. Variation in Feature overlap across perturbation pools is itself informative and should not be hidden by selecting a budget solely because it maximises reference overlap. The model-internal diagnostics are also strong at \(N=4{,}000\): both branches achieve perfect controlled-input top-\(k\) stability (Jaccard \(=1.000\)), while the consistency analysis shows low run-to-run coefficient variability across independently seeded perturbation samples. The Feature branch has a mean coefficient variance of \(0.000227\) and mean SD of \(0.01459\), whereas the Geo branch has a mean variance of \(0.01537\) and mean SD of \(0.11045\). Because coefficient scales differ between the two branches, these consistency values are interpreted within each branch rather than compared directly across branches.
+
+The intervention analysis is also positive. The top Feature set produces a Wasserstein shift 4.25 above the random-set mean ($p=0.018$), while the top Geo set produces a shift 26.22 above random ($p=0.001$), well beyond the upper limit of the random-set 95\% interval.
+
+Taken together, the $N=4{,}000$ results support Geo-SMILE as a reproducible framework for separating non-spatial predictive sensitivity from LSOA-specific geographic sensitivity in the Hull crime-prediction application.
+
+%chapter 5 content should get determined then edit last sentence here

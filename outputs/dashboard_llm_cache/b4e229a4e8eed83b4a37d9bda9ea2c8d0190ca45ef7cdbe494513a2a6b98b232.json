@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "Across Hull, the model\u2019s crime predictions mainly depend on recent crime history, especially the six-month rolling crime average, which has the strongest influence. Other notable influences include three-month rolling crime averages and unemployment rates, while features like road density and intersection density have comparatively little effect on predictions. Selected areas follow this overall pattern, with recent crime measures dominating how the model predicts crime next month. Geographic location\u2019s direct influence is generally modest and varies widely, with some areas showing higher geographic sensitivity but without clear spatial clustering of strong geographic effects. Latitude and longitude effects are not part of this explanation. This evidence does not mean any factor or area causes crime.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-27T23:44:03.387882+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 10515,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 130,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 10645
+  },
+  "prompt_version": "geosmile-hull-v6"
+}

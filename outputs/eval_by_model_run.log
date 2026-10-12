@@ -1,0 +1,314 @@
+
+[xgboost] predictive performance (Feature + Geo)...
+
+=== [xgboost] running GeoSMILE pipeline (n=2000) ===
+Writing sweep to D:\GEO SMILE CODE\hull\outputs\eval_by_model\xgboost only. Will not replace 7 published tables (1024/2000 Feature/Geo artefacts left untouched).
+[14:58:27] Training Feature and Geo xgboost (seed 42) once with n_jobs=2...
+
+=== [14:58:29] N=2000 Feature masks / Geo perturbations (this N only) ===
+[14:58:29] Feature SMILE n=2000 seed=42
+[14:58:46] Geo SMILE n=2000 seed=42
+[14:58:55] Accuracy Feature=0.8000 (7/10) | Geo=0.9405 (15/20)
+[14:58:55] Fidelity Feature R2=0.9774 | Geo R2=0.9204
+[14:58:55] Faithfulness n_random=1000
+[14:59:54] Faithfulness top-random Feature=4.2799 | Geo=8.0037
+[14:59:54] ATT stability (4 cardinal neighbors), baseline = Hull-only at N=2000
+  [14:59:54] ATT stability north: adding E01012953 East Riding of Yorkshire 023A
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+  [15:00:19] ATT stability east: adding E01013094 East Riding of Yorkshire 029A
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+  [15:00:44] ATT stability south: adding E01013009 East Riding of Yorkshire 034B
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+  [15:01:09] ATT stability west: adding E01013112 East Riding of Yorkshire 025D
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+[15:01:34] ATT stability Jaccard Feature=1.000 | Geo=1.000
+[15:01:34] ATT consistency 5 seeds from 100 at N=2000
+  [15:01:34] consistency seed 100 Feature n=2000
+  [15:01:51] consistency seed 100 Geo n=2000
+  [15:02:00] consistency seed 101 Feature n=2000
+  [15:02:16] consistency seed 101 Geo n=2000
+  [15:02:25] consistency seed 102 Feature n=2000
+  [15:02:42] consistency seed 102 Geo n=2000
+  [15:02:51] consistency seed 103 Feature n=2000
+  [15:03:08] consistency seed 103 Geo n=2000
+  [15:03:17] consistency seed 104 Feature n=2000
+  [15:03:33] consistency seed 104 Geo n=2000
+[15:03:43] Consistency Rank Spearman Feature=0.756 | Geo=0.891
+[15:03:43] N=2000 done in 5.2 min -> D:\GEO SMILE CODE\hull\outputs\eval_by_model\xgboost\n_2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\xgboost\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.800000                      7     0.977435              0.977301                       4.279929                   8.341073                  4.061144                    1.0                0.998109                       0.755595                          1.000000                   0.977392                             2000
+      2000     Geo  0.940476                     15     0.920448              0.935276                       8.003659                  19.938542                 11.934883                    1.0                0.999472                       0.890902                          0.693052                   0.896720                             2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\xgboost\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.800000                      7     0.977435              0.977301                       4.279929                   8.341073                  4.061144                    1.0                0.998109                       0.755595                          1.000000                   0.977392                             2000
+      2000     Geo  0.940476                     15     0.920448              0.935276                       8.003659                  19.938542                 11.934883                    1.0                0.999472                       0.890902                          0.693052                   0.896720                             2000
+
+Done. Published 1024/2000 tables were not modified. Results: D:\GEO SMILE CODE\hull\outputs\eval_by_model\xgboost
+=== [xgboost] done in 5.3 min ===
+
+[lightgbm] predictive performance (Feature + Geo)...
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+
+=== [lightgbm] running GeoSMILE pipeline (n=2000) ===
+Writing sweep to D:\GEO SMILE CODE\hull\outputs\eval_by_model\lightgbm only. Will not replace 7 published tables (1024/2000 Feature/Geo artefacts left untouched).
+[15:03:45] Training Feature and Geo lightgbm (seed 42) once with n_jobs=2...
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+
+=== [15:03:46] N=2000 Feature masks / Geo perturbations (this N only) ===
+[15:03:46] Feature SMILE n=2000 seed=42
+[15:04:13] Geo SMILE n=2000 seed=42
+[15:04:32] Accuracy Feature=0.6667 (5/10) | Geo=0.9048 (12/20)
+[15:04:32] Fidelity Feature R2=0.9844 | Geo R2=0.9186
+[15:04:32] Faithfulness n_random=1000
+[15:05:42] Faithfulness top-random Feature=4.9910 | Geo=4.7295
+[15:05:42] ATT stability (4 cardinal neighbors), baseline = Hull-only at N=2000
+  [15:05:42] ATT stability north: adding E01012953 East Riding of Yorkshire 023A
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+  [15:06:28] ATT stability east: adding E01013094 East Riding of Yorkshire 029A
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+  [15:07:14] ATT stability south: adding E01013009 East Riding of Yorkshire 034B
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+  [15:08:00] ATT stability west: adding E01013112 East Riding of Yorkshire 025D
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+[15:08:46] ATT stability Jaccard Feature=1.000 | Geo=1.000
+[15:08:46] ATT consistency 5 seeds from 100 at N=2000
+  [15:08:46] consistency seed 100 Feature n=2000
+  [15:09:13] consistency seed 100 Geo n=2000
+  [15:09:33] consistency seed 101 Feature n=2000
+  [15:10:00] consistency seed 101 Geo n=2000
+  [15:10:19] consistency seed 102 Feature n=2000
+  [15:10:46] consistency seed 102 Geo n=2000
+  [15:11:05] consistency seed 103 Feature n=2000
+  [15:11:32] consistency seed 103 Geo n=2000
+  [15:11:52] consistency seed 104 Feature n=2000
+  [15:12:19] consistency seed 104 Geo n=2000
+[15:12:38] Consistency Rank Spearman Feature=0.839 | Geo=0.897
+[15:12:38] N=2000 done in 8.9 min -> D:\GEO SMILE CODE\hull\outputs\eval_by_model\lightgbm\n_2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\lightgbm\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.666667                      5     0.984404              0.984523                       4.990966                   8.893565                  3.902599                    1.0                0.999333                       0.838621                          0.828571                   0.985271                             2000
+      2000     Geo  0.904762                     12     0.918558              0.934907                       4.729539                  18.003427                 13.273888                    1.0                0.999517                       0.896619                          0.671781                   0.893607                             2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\lightgbm\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.666667                      5     0.984404              0.984523                       4.990966                   8.893565                  3.902599                    1.0                0.999333                       0.838621                          0.828571                   0.985271                             2000
+      2000     Geo  0.904762                     12     0.918558              0.934907                       4.729539                  18.003427                 13.273888                    1.0                0.999517                       0.896619                          0.671781                   0.893607                             2000
+
+Done. Published 1024/2000 tables were not modified. Results: D:\GEO SMILE CODE\hull\outputs\eval_by_model\lightgbm
+=== [lightgbm] done in 8.9 min ===
+
+[catboost] predictive performance (Feature + Geo)...
+
+=== [catboost] running GeoSMILE pipeline (n=2000) ===
+Writing sweep to D:\GEO SMILE CODE\hull\outputs\eval_by_model\catboost only. Will not replace 7 published tables (1024/2000 Feature/Geo artefacts left untouched).
+[15:12:43] Training Feature and Geo catboost (seed 42) once with n_jobs=2...
+
+=== [15:12:46] N=2000 Feature masks / Geo perturbations (this N only) ===
+[15:12:46] Feature SMILE n=2000 seed=42
+[15:12:57] Geo SMILE n=2000 seed=42
+[15:13:01] Accuracy Feature=0.8000 (7/10) | Geo=0.9286 (14/20)
+[15:13:01] Fidelity Feature R2=0.9826 | Geo R2=0.9200
+[15:13:01] Faithfulness n_random=1000
+[15:13:49] Faithfulness top-random Feature=4.1633 | Geo=7.8469
+[15:13:50] ATT stability (4 cardinal neighbors), baseline = Hull-only at N=2000
+  [15:13:50] ATT stability north: adding E01012953 East Riding of Yorkshire 023A
+    Feature J=1.000 | Geo J=0.905 overlap=19/20
+  [15:14:04] ATT stability east: adding E01013094 East Riding of Yorkshire 029A
+    Feature J=1.000 | Geo J=0.905 overlap=19/20
+  [15:14:18] ATT stability south: adding E01013009 East Riding of Yorkshire 034B
+    Feature J=1.000 | Geo J=0.905 overlap=19/20
+  [15:14:32] ATT stability west: adding E01013112 East Riding of Yorkshire 025D
+    Feature J=1.000 | Geo J=0.905 overlap=19/20
+[15:14:46] ATT stability Jaccard Feature=1.000 | Geo=0.905
+[15:14:46] ATT consistency 5 seeds from 100 at N=2000
+  [15:14:46] consistency seed 100 Feature n=2000
+  [15:14:57] consistency seed 100 Geo n=2000
+  [15:15:01] consistency seed 101 Feature n=2000
+  [15:15:12] consistency seed 101 Geo n=2000
+  [15:15:16] consistency seed 102 Feature n=2000
+  [15:15:26] consistency seed 102 Geo n=2000
+  [15:15:30] consistency seed 103 Feature n=2000
+  [15:15:41] consistency seed 103 Geo n=2000
+  [15:15:45] consistency seed 104 Feature n=2000
+  [15:15:55] consistency seed 104 Geo n=2000
+[15:15:59] Consistency Rank Spearman Feature=0.905 | Geo=0.881
+[15:15:59] N=2000 done in 3.2 min -> D:\GEO SMILE CODE\hull\outputs\eval_by_model\catboost\n_2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\catboost\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.800000                      7     0.982622              0.979021                       4.163254                   8.474053                  4.310799               1.000000                0.998888                       0.904917                          1.000000                   0.981685                             2000
+      2000     Geo  0.928571                     14     0.919970              0.935498                       7.846942                  19.820951                 11.974009               0.904762                0.999391                       0.881458                          0.701719                   0.894472                             2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\catboost\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.800000                      7     0.982622              0.979021                       4.163254                   8.474053                  4.310799               1.000000                0.998888                       0.904917                          1.000000                   0.981685                             2000
+      2000     Geo  0.928571                     14     0.919970              0.935498                       7.846942                  19.820951                 11.974009               0.904762                0.999391                       0.881458                          0.701719                   0.894472                             2000
+
+Done. Published 1024/2000 tables were not modified. Results: D:\GEO SMILE CODE\hull\outputs\eval_by_model\catboost
+=== [catboost] done in 3.3 min ===
+
+[mlp] predictive performance (Feature + Geo)...
+
+=== [mlp] running GeoSMILE pipeline (n=2000) ===
+Writing sweep to D:\GEO SMILE CODE\hull\outputs\eval_by_model\mlp only. Will not replace 7 published tables (1024/2000 Feature/Geo artefacts left untouched).
+[15:16:04] Training Feature and Geo mlp (seed 42) once with n_jobs=2...
+
+=== [15:16:06] N=2000 Feature masks / Geo perturbations (this N only) ===
+[15:16:06] Feature SMILE n=2000 seed=42
+[15:16:14] Geo SMILE n=2000 seed=42
+[15:16:17] Accuracy Feature=0.6667 (5/10) | Geo=0.8929 (11/20)
+[15:16:17] Fidelity Feature R2=0.0309 | Geo R2=0.9382
+[15:16:17] Faithfulness n_random=1000
+[15:17:02] Faithfulness top-random Feature=-12671.7232 | Geo=-3.4514
+[15:17:02] ATT stability (4 cardinal neighbors), baseline = Hull-only at N=2000
+  [15:17:02] ATT stability north: adding E01012953 East Riding of Yorkshire 023A
+    Feature J=1.000 | Geo J=0.905 overlap=19/20
+  [15:17:13] ATT stability east: adding E01013094 East Riding of Yorkshire 029A
+    Feature J=1.000 | Geo J=0.905 overlap=19/20
+  [15:17:23] ATT stability south: adding E01013009 East Riding of Yorkshire 034B
+    Feature J=1.000 | Geo J=0.905 overlap=19/20
+  [15:17:34] ATT stability west: adding E01013112 East Riding of Yorkshire 025D
+    Feature J=1.000 | Geo J=0.905 overlap=19/20
+[15:17:45] ATT stability Jaccard Feature=1.000 | Geo=0.905
+[15:17:45] ATT consistency 5 seeds from 100 at N=2000
+  [15:17:45] consistency seed 100 Feature n=2000
+  [15:17:52] consistency seed 100 Geo n=2000
+  [15:17:56] consistency seed 101 Feature n=2000
+  [15:18:04] consistency seed 101 Geo n=2000
+  [15:18:07] consistency seed 102 Feature n=2000
+  [15:18:15] consistency seed 102 Geo n=2000
+  [15:18:18] consistency seed 103 Feature n=2000
+  [15:18:26] consistency seed 103 Geo n=2000
+  [15:18:29] consistency seed 104 Feature n=2000
+  [15:18:37] consistency seed 104 Geo n=2000
+[15:18:40] Consistency Rank Spearman Feature=0.622 | Geo=0.974
+[15:18:40] N=2000 done in 2.6 min -> D:\GEO SMILE CODE\hull\outputs\eval_by_model\mlp\n_2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\mlp\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.666667                      5     0.030871              0.030536                  -12671.723168                  42.068054              12713.791222               1.000000                1.000000                       0.621669                          0.564286                   0.079460                             2000
+      2000     Geo  0.892857                     11     0.938175              0.937471                      -3.451388                   9.822056                 13.273444               0.904762                0.998398                       0.974154                          0.795571                   0.934732                             2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\mlp\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.666667                      5     0.030871              0.030536                  -12671.723168                  42.068054              12713.791222               1.000000                1.000000                       0.621669                          0.564286                   0.079460                             2000
+      2000     Geo  0.892857                     11     0.938175              0.937471                      -3.451388                   9.822056                 13.273444               0.904762                0.998398                       0.974154                          0.795571                   0.934732                             2000
+
+Done. Published 1024/2000 tables were not modified. Results: D:\GEO SMILE CODE\hull\outputs\eval_by_model\mlp
+=== [mlp] done in 2.6 min ===
+
+[svr] predictive performance (Feature + Geo)...
+
+=== [svr] running GeoSMILE pipeline (n=2000) ===
+Writing sweep to D:\GEO SMILE CODE\hull\outputs\eval_by_model\svr only. Will not replace 7 published tables (1024/2000 Feature/Geo artefacts left untouched).
+[15:18:43] Training Feature and Geo svr (seed 42) once with n_jobs=2...
+
+=== [15:18:43] N=2000 Feature masks / Geo perturbations (this N only) ===
+[15:18:43] Feature SMILE n=2000 seed=42
+[15:19:52] Geo SMILE n=2000 seed=42
+[15:45:29] Accuracy Feature=0.8000 (7/10) | Geo=0.8810 (10/20)
+[15:45:29] Fidelity Feature R2=0.9436 | Geo R2=0.9296
+[15:45:29] Faithfulness n_random=1000
+[15:47:38] Faithfulness top-random Feature=2.5887 | Geo=7.5576
+[15:47:38] ATT stability (4 cardinal neighbors), baseline = Hull-only at N=2000
+  [15:47:38] ATT stability north: adding E01012953 East Riding of Yorkshire 023A
+    Feature J=0.818 | Geo J=0.905 overlap=19/20
+  [15:50:30] ATT stability east: adding E01013094 East Riding of Yorkshire 029A
+    Feature J=0.818 | Geo J=0.905 overlap=19/20
+  [15:53:16] ATT stability south: adding E01013009 East Riding of Yorkshire 034B
+    Feature J=1.000 | Geo J=0.905 overlap=19/20
+  [15:56:04] ATT stability west: adding E01013112 East Riding of Yorkshire 025D
+    Feature J=1.000 | Geo J=0.905 overlap=19/20
+[15:58:50] ATT stability Jaccard Feature=0.909 | Geo=0.905
+[15:58:50] ATT consistency 5 seeds from 100 at N=2000
+  [15:58:50] consistency seed 100 Feature n=2000
+  [15:59:58] consistency seed 100 Geo n=2000
+  [16:01:38] consistency seed 101 Feature n=2000
+  [16:02:46] consistency seed 101 Geo n=2000
+  [16:04:24] consistency seed 102 Feature n=2000
+  [16:05:33] consistency seed 102 Geo n=2000
+  [16:07:12] consistency seed 103 Feature n=2000
+  [16:08:19] consistency seed 103 Geo n=2000
+  [16:09:59] consistency seed 104 Feature n=2000
+  [16:11:10] consistency seed 104 Geo n=2000
+[16:13:04] Consistency Rank Spearman Feature=0.876 | Geo=0.958
+[16:13:04] N=2000 done in 54.3 min -> D:\GEO SMILE CODE\hull\outputs\eval_by_model\svr\n_2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\svr\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.800000                      7     0.943608              0.939621                       2.588745                   6.321478                  3.732733               0.909091                0.994438                       0.875506                          0.800000                   0.930820                             2000
+      2000     Geo  0.880952                     10     0.929615              0.940717                       7.557625                  15.104525                  7.546901               0.904762                0.994743                       0.958148                          0.858819                   0.939338                             2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\svr\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.800000                      7     0.943608              0.939621                       2.588745                   6.321478                  3.732733               0.909091                0.994438                       0.875506                          0.800000                   0.930820                             2000
+      2000     Geo  0.880952                     10     0.929615              0.940717                       7.557625                  15.104525                  7.546901               0.904762                0.994743                       0.958148                          0.858819                   0.939338                             2000
+
+Done. Published 1024/2000 tables were not modified. Results: D:\GEO SMILE CODE\hull\outputs\eval_by_model\svr
+=== [svr] done in 54.4 min ===
+
+[gp] predictive performance (Feature + Geo)...
+
+=== [gp] running GeoSMILE pipeline (n=2000) ===
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788275700.755231    3784 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788275702.864768    3784 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Writing sweep to D:\GEO SMILE CODE\hull\outputs\eval_by_model\gp only. Will not replace 7 published tables (1024/2000 Feature/Geo artefacts left untouched).
+[16:15:03] Training Feature and Geo gp (seed 42) once with n_jobs=2...
+
+=== [16:16:39] N=2000 Feature masks / Geo perturbations (this N only) ===
+[16:16:39] Feature SMILE n=2000 seed=42
+[16:22:59] Geo SMILE n=2000 seed=42
+[16:28:08] Accuracy Feature=0.6667 (5/10) | Geo=0.8333 (6/20)
+[16:28:08] Fidelity Feature R2=0.9967 | Geo R2=0.9172
+[16:28:08] Faithfulness n_random=1000
+[16:34:29] Faithfulness top-random Feature=4.7654 | Geo=1.7672
+[16:34:29] ATT stability (4 cardinal neighbors), baseline = Hull-only at N=2000
+  [16:34:29] ATT stability north: adding E01012953 East Riding of Yorkshire 023A
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+  [16:45:59] ATT stability east: adding E01013094 East Riding of Yorkshire 029A
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+  [16:57:31] ATT stability south: adding E01013009 East Riding of Yorkshire 034B
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+  [17:09:01] ATT stability west: adding E01013112 East Riding of Yorkshire 025D
+    Feature J=1.000 | Geo J=1.000 overlap=20/20
+[17:20:31] ATT stability Jaccard Feature=1.000 | Geo=1.000
+[17:20:31] ATT consistency 5 seeds from 100 at N=2000
+  [17:20:31] consistency seed 100 Feature n=2000
+  [17:26:47] consistency seed 100 Geo n=2000
+  [17:31:58] consistency seed 101 Feature n=2000
+  [17:38:13] consistency seed 101 Geo n=2000
+  [17:43:32] consistency seed 102 Feature n=2000
+  [17:49:46] consistency seed 102 Geo n=2000
+  [17:54:55] consistency seed 103 Feature n=2000
+  [18:01:08] consistency seed 103 Geo n=2000
+  [18:06:18] consistency seed 104 Feature n=2000
+  [18:12:32] consistency seed 104 Geo n=2000
+[18:17:43] Consistency Rank Spearman Feature=0.979 | Geo=0.926
+[18:17:43] N=2000 done in 121.1 min -> D:\GEO SMILE CODE\hull\outputs\eval_by_model\gp\n_2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\gp\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.666667                      5     0.996660              0.996445                       4.765395                   8.404677                  3.639282                    1.0                0.995328                       0.979088                          1.000000                   0.995288                             2000
+      2000     Geo  0.833333                      6     0.917199              0.935589                       1.767223                  19.078248                 17.311026                    1.0                0.999596                       0.926214                          0.640424                   0.896392                             2000
+
+Saved D:\GEO SMILE CODE\hull\outputs\eval_by_model\gp\summary.csv
+ n_perturb  branch  accuracy  accuracy_intersection  fidelity_r2  fidelity_weighted_r2  faithfulness_top_minus_random  faithfulness_top_response  faithfulness_random_mean  att_stability_jaccard  att_stability_spearman  att_consistency_rank_spearman  att_consistency_top20pct_jaccard  smile_diagnostics_test_r2  n_unique_masks_or_perturbations
+      2000 Feature  0.666667                      5     0.996660              0.996445                       4.765395                   8.404677                  3.639282                    1.0                0.995328                       0.979088                          1.000000                   0.995288                             2000
+      2000     Geo  0.833333                      6     0.917199              0.935589                       1.767223                  19.078248                 17.311026                    1.0                0.999596                       0.926214                          0.640424                   0.896392                             2000
+
+Done. Published 1024/2000 tables were not modified. Results: D:\GEO SMILE CODE\hull\outputs\eval_by_model\gp
+=== [gp] done in 122.8 min ===
+
+Done. Summary: D:\GEO SMILE CODE\hull\outputs\eval_by_model\model_comparison_summary.csv

@@ -26,7 +26,7 @@ def test_prompt_forbids_semantic_collapses():
     assert "## 4. INPUT / EVIDENCE CONTRACT" in text
     assert "## 8. SPATIAL-PATTERN SEMANTICS" in text
     assert "Global Moran versus Local Moran" in text
-    assert SYSTEM_PROMPT_VERSION == "geosmile-hull-v4"
+    assert SYSTEM_PROMPT_VERSION == "geosmile-hull-v8"
 
 
 def test_dashboard_prompt_contains_full_policy_not_a_loader():
@@ -57,14 +57,14 @@ def test_openai_and_anthropic_share_identical_master_prompt():
 
 def test_missing_openai_key_does_not_crash(monkeypatch):
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
-    response = OpenAIProvider().generate(GEOSMILE_SYSTEM_PROMPT, {"a": 1}, {"id": "technical"})
+    response = OpenAIProvider().generate(GEOSMILE_SYSTEM_PROMPT, {"a": 1}, {"id": "researcher"})
     assert response.ok is False
     assert "API key is not configured for this provider." in response.error
 
 
 def test_missing_anthropic_key_does_not_crash(monkeypatch):
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
-    response = AnthropicProvider().generate(GEOSMILE_SYSTEM_PROMPT, {"a": 1}, {"id": "technical"})
+    response = AnthropicProvider().generate(GEOSMILE_SYSTEM_PROMPT, {"a": 1}, {"id": "researcher"})
     assert response.ok is False
     assert "API key is not configured for this provider." in response.error
 
@@ -73,7 +73,7 @@ def test_compare_sends_identical_evidence():
     bundle = load_hull_bundle()
     evidence = build_evidence(
         bundle,
-        stakeholder_id="domain",
+        stakeholder_id="planner",
         current_map_view="geo_sensitivity",
         scope="lsoa",
         selected_lsoa="E01012891",
@@ -101,7 +101,7 @@ def test_compare_sends_identical_evidence():
 
     openai = Fake("openai", "gpt-test")
     anthropic = Fake("anthropic", "claude-test")
-    stakeholder = {"id": "domain", "label": "Domain / Operational Expert"}
+    stakeholder = {"id": "planner", "label": "City Planner / Local Authority"}
     for provider in (openai, anthropic):
         provider.generate(GEOSMILE_SYSTEM_PROMPT, evidence, stakeholder, None)
     assert seen[0]["evidence"] == seen[1]["evidence"]
@@ -129,17 +129,33 @@ def test_provider_failure_is_isolated():
     with patch.object(caught, "generate", side_effect=lambda *a, **k: LLMResponse(
         False, "", "openai", "x", "now", error="OpenAI request failed (RuntimeError)."
     )):
-        openai_result = caught.generate("s", {}, {"id": "technical"})
-    anthropic_result = Ok().generate("s", {}, {"id": "technical"})
+        openai_result = caught.generate("s", {}, {"id": "researcher"})
+    anthropic_result = Ok().generate("s", {}, {"id": "researcher"})
     assert openai_result.ok is False
     assert anthropic_result.ok is True
     assert anthropic_result.text == "survived"
 
 
-def test_prompt_requires_bold_titles_and_documents_new_evidence():
+def test_prompt_enforces_word_limit_and_documents_new_evidence():
     text = GEOSMILE_SYSTEM_PROMPT
-    assert "markdown bold title" in text
+    assert "Maximum 70 words" in text
+    assert "comparison_table_mode" in text and "dashboard_mode" in text
+    assert "90–120 words" in text
     assert "local_attribution_patterns" in text
+    assert "place_context" in text
+
+
+def test_prompt_defines_six_role_based_stakeholders():
+    from dashboard.data.schema import STAKEHOLDERS
+
+    text = GEOSMILE_SYSTEM_PROMPT
+    assert "## 9. SIX STAKEHOLDER CONFIGURATIONS" in text
+    assert len(STAKEHOLDERS) == 6
+    for stakeholder_id, label in STAKEHOLDERS.items():
+        assert f"{label} (id: {stakeholder_id})" in text
+    assert "Stakeholder separation rule" in text
+    assert "Selected-area integration rule" in text
+    assert "scope: overall Hull, or selected LSOA" not in text
 
 
 def test_local_attribution_evidence_hull_wide_shape():
@@ -180,7 +196,7 @@ def test_explanation_panel_merges_local_attribution_patterns_into_evidence():
     bundle = load_hull_bundle()
     evidence = build_evidence(
         bundle,
-        stakeholder_id="technical",
+        stakeholder_id="researcher",
         current_map_view="geo_sensitivity",
         scope="overall",
         selected_lsoa=None,
@@ -208,7 +224,7 @@ def test_public_error_does_not_echo_secrets(monkeypatch):
         "invalid api key sk-secret-value-should-not-leak"
     )
     with patch("openai.OpenAI", return_value=fake_client):
-        response = provider.generate("sys", {"k": 1}, {"id": "technical"})
+        response = provider.generate("sys", {"k": 1}, {"id": "researcher"})
     assert response.ok is False
     assert "sk-secret-value-should-not-leak" not in (response.error or "")
     assert "sk-" not in (response.error or "")

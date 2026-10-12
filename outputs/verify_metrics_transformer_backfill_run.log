@@ -1,0 +1,21 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788996164.014962   11600 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788996167.379344   11600 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [transformer] === Feature: run, Geo: run
+I0000 00:00:1788996168.304211   11600 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:From C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:233: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[transformer] Feature SMILE n=1024, seed=42...
+[transformer] Geo SMILE n=4000, seed=42...
+[transformer] ATT accuracy Feature=0.8000 Geo=0.8571
+[transformer] faithfulness (n_random=1000)...
+[transformer] ATT stability (4 cardinal neighbors)...
+[transformer] ATT consistency R=10...
+[transformer] ATT fidelity (weighted-adjusted R2)...
+[transformer] done in 611.9 min
+
+Done. Summary: D:\GEO SMILE CODE\hull\outputs\verify_metrics_all_models\all_models_summary.csv

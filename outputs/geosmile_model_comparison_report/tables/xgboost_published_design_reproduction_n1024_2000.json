@@ -1,0 +1,390 @@
+{
+  "design": {
+    "feature_n_masks": 1024,
+    "geo_n_perturb": 2000,
+    "smile_seed": 42,
+    "consistency_seeds": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "feature_top_k": 10,
+    "geo_top_k": 20
+  },
+  "artefacts": {
+    "panel": {
+      "path": "D:\\GEO SMILE CODE\\hull\\outputs\\hull_lsoa_month_panel_with_covariates.csv",
+      "exists": true,
+      "modified_utc": "2026-08-06T00:59:14.119838+00:00"
+    },
+    "feature_beta0": {
+      "path": "D:\\GEO SMILE CODE\\hull\\outputs\\feature_global_importance.csv",
+      "exists": true,
+      "modified_utc": "2026-08-06T00:59:00.878029+00:00"
+    },
+    "geo_beta0": {
+      "path": "D:\\GEO SMILE CODE\\hull\\outputs\\geo_coefficients.csv",
+      "exists": true,
+      "modified_utc": "2026-08-06T00:59:13.927453+00:00"
+    },
+    "feature_expert_reference": {
+      "path": "D:\\GEO SMILE CODE\\hull\\outputs\\feature_expert_ranking_v2.csv",
+      "exists": true,
+      "modified_utc": "2026-08-16T20:37:44.572931+00:00"
+    },
+    "geo_expert_reference": {
+      "path": "D:\\GEO SMILE CODE\\hull\\outputs\\maps_twobranch\\ranking\\expert_top20.csv",
+      "exists": true,
+      "modified_utc": "2026-08-12T22:24:24.664064+00:00"
+    },
+    "att_stability_archived": {
+      "path": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_att_stability.json",
+      "exists": true,
+      "modified_utc": "2026-08-18T20:29:25.085292+00:00"
+    },
+    "feature_fidelity_archived": {
+      "path": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_feat_fidelity.csv",
+      "exists": true,
+      "modified_utc": "2026-08-06T15:27:59.749836+00:00"
+    },
+    "geo_fidelity_archived": {
+      "path": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_geo_fidelity.csv",
+      "exists": true,
+      "modified_utc": "2026-08-06T15:27:59.757073+00:00"
+    },
+    "feature_consistency_r5_archived": {
+      "path": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_feat_consistency.csv",
+      "exists": true,
+      "modified_utc": "2026-08-06T15:27:59.766274+00:00"
+    },
+    "geo_consistency_r5_archived": {
+      "path": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_geo_consistency.csv",
+      "exists": true,
+      "modified_utc": "2026-08-06T15:27:59.771356+00:00"
+    }
+  },
+  "no_archived_model_exists": true,
+  "model_reconstruction": {
+    "feature_max_abs_coefficient_diff": 8.881784197001252e-16,
+    "feature_exact": false,
+    "feature_kernel_selected": "inverse",
+    "feature_kernel_matches_archived_inverse": true,
+    "geo_max_abs_coefficient_diff": 4.440892098500626e-16,
+    "geo_exact": false,
+    "geo_kernel_selected": "rbf",
+    "geo_kernel_matches_archived_laplace": false
+  },
+  "metric1_att_accuracy": {
+    "feature": {
+      "n": 30,
+      "k": 10,
+      "TP": 7,
+      "FP": 3,
+      "FN": 3,
+      "TN": 17,
+      "ATT_accuracy": 0.8,
+      "ATT_F1": 0.7,
+      "ATT_AUROC_continuous": 0.8250000000000001,
+      "precision_at_k": 0.7,
+      "recall_at_k": 0.7,
+      "jaccard_at_k": 0.5384615384615384,
+      "in_Sk_not_Gk": [
+        "long_term_sick_disabled_pct",
+        "population_density_per_km2",
+        "transit_stop_per_km2"
+      ],
+      "in_Gk_not_Sk": [
+        "economically_inactive_pct",
+        "nightlife_per_km2",
+        "retail_per_km2"
+      ]
+    },
+    "geo": {
+      "n": 168,
+      "k": 20,
+      "TP": 16,
+      "FP": 4,
+      "FN": 4,
+      "TN": 144,
+      "ATT_accuracy": 0.9523809523809523,
+      "ATT_F1": 0.8,
+      "ATT_AUROC_continuous": 0.9081081081081082,
+      "precision_at_k": 0.8,
+      "recall_at_k": 0.8,
+      "jaccard_at_k": 0.6666666666666666,
+      "in_Sk_not_Gk": [
+        "E01012801",
+        "E01012846",
+        "E01012847",
+        "E01033105"
+      ],
+      "in_Gk_not_Sk": [
+        "E01012855",
+        "E01012872",
+        "E01012892",
+        "E01012899"
+      ]
+    }
+  },
+  "metric2_faithfulness": {
+    "feature": {
+      "branch": "Feature",
+      "k": 10,
+      "top_response": 8.354685541774542,
+      "bottom_response": 1.1256431635646584,
+      "random_mean": 3.952749866570388,
+      "random_ci95_low": 0.8240733480258352,
+      "random_ci95_high": 8.238444482038416,
+      "top_minus_random": 4.401935675204154,
+      "top_minus_bottom": 7.229042378209883,
+      "empirical_p_top_vs_random": 0.015984015984015984,
+      "n_random": 1000
+    },
+    "geo": {
+      "branch": "Geo",
+      "k": 20,
+      "top_response": 19.986473107337954,
+      "bottom_response": 11.809427356719972,
+      "random_mean": 12.014508887052537,
+      "random_ci95_low": 8.324434597492218,
+      "random_ci95_high": 20.46952021300793,
+      "top_minus_random": 7.971964220285416,
+      "top_minus_bottom": 8.177045750617982,
+      "empirical_p_top_vs_random": 0.03596403596403597,
+      "n_random": 1000
+    }
+  },
+  "metric3_att_stability": {
+    "source_file": "D:\\GEO SMILE CODE\\hull\\outputs\\geosmile_hull_att_stability.json",
+    "feature": {
+      "top_k_jaccard_vs_beta0": 1.0,
+      "abs_coef_spearman_vs_beta0": 0.9994438264738599,
+      "pred_spearman_vs_beta0": 1.0
+    },
+    "geo": {
+      "top_k_jaccard_vs_beta0": 1.0,
+      "abs_coef_spearman_vs_beta0": 0.999445740809168,
+      "pred_spearman_vs_beta0": 1.0
+    },
+    "cardinal_neighbors": {
+      "north": {
+        "lsoa21cd": "E01012953",
+        "lsoa21nm": "East Riding of Yorkshire 023A",
+        "geo_rank_out_of_169": 120,
+        "geo_extra_abs_coefficient": 0.3165322959309913,
+        "feature_jaccard": 1.0,
+        "feature_spearman": 1.0,
+        "geo_jaccard": 1.0,
+        "geo_spearman": 0.9994811729035592
+      },
+      "east": {
+        "lsoa21cd": "E01013094",
+        "lsoa21nm": "East Riding of Yorkshire 029A",
+        "geo_rank_out_of_169": 110,
+        "geo_extra_abs_coefficient": 0.43255207254726974,
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9991101223581758,
+        "geo_jaccard": 1.0,
+        "geo_spearman": 0.9994457408091679
+      },
+      "south": {
+        "lsoa21cd": "E01013009",
+        "lsoa21nm": "East Riding of Yorkshire 034B",
+        "geo_rank_out_of_169": 112,
+        "geo_extra_abs_coefficient": 0.39570289026545813,
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9995550611790878,
+        "geo_jaccard": 1.0,
+        "geo_spearman": 0.9995140741340651
+      },
+      "west": {
+        "lsoa21cd": "E01013112",
+        "lsoa21nm": "East Riding of Yorkshire 025D",
+        "geo_rank_out_of_169": 46,
+        "geo_extra_abs_coefficient": 0.9452613432552182,
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9991101223581758,
+        "geo_jaccard": 1.0,
+        "geo_spearman": 0.9993419753898797
+      }
+    }
+  },
+  "metric4_att_consistency": {
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "R": 10,
+    "seed_42_reproduces_beta0": {
+      "feature_max_abs_coefficient_diff": 8.881784197001252e-16,
+      "feature_exact": false,
+      "feature_kernel_selected": "inverse",
+      "feature_kernel_matches_archived_inverse": true,
+      "geo_max_abs_coefficient_diff": 4.440892098500626e-16,
+      "geo_exact": false,
+      "geo_kernel_selected": "rbf",
+      "geo_kernel_matches_archived_laplace": false
+    },
+    "feature": {
+      "mean_Var": 0.0010249539523523418,
+      "max_Var": 0.001834773727062383,
+      "max_Var_player": "level4_plus_qualification_pct",
+      "mean_SD": 0.03129932418958014,
+      "max_SD": 0.04283425880136579,
+      "max_SD_player": "level4_plus_qualification_pct",
+      "mean_SD_over_beta0_topk": 0.030940975958739507,
+      "rms_deviation_from_beta0": 0.04880870248341862,
+      "agreement_R10": {
+        "Rank Spearman Mean": 0.6827685082190088,
+        "Rank Spearman Std": 0.07351969773010386,
+        "Score Pearson Mean": 0.9991189609477484,
+        "Score Pearson Std": 0.000249688567918768,
+        "Top-20% Jaccard Mean": 0.8222222222222224,
+        "Top-20% Jaccard Std": 0.13852332843981857,
+        "Fidelity R2 Mean": 0.9807945852917399,
+        "Fidelity R2 Std": 0.0013352223291515715
+      },
+      "agreement_R5_archived": {
+        "Rank Spearman Mean": 0.6935706340378198,
+        "Rank Spearman Std": 0.0960346719933601,
+        "Score Pearson Mean": 0.9989340894046788,
+        "Score Pearson Std": 0.0002709466148649,
+        "Top-20% Jaccard Mean": 0.8285714285714286,
+        "Top-20% Jaccard Std": 0.139970842444753,
+        "Fidelity R2 Mean": 0.9830120451629032,
+        "Fidelity R2 Std": 0.0023511200455071,
+        "branch": "Feature"
+      }
+    },
+    "geo": {
+      "mean_Var": 0.02872957157233261,
+      "max_Var": 1.2842435235948846,
+      "max_Var_player": "E01033104",
+      "mean_SD": 0.14699359893100233,
+      "max_SD": 1.133244688315319,
+      "max_SD_player": "E01033104",
+      "mean_SD_over_beta0_topk": 0.19123758573495872,
+      "rms_deviation_from_beta0": 0.2714526683006934,
+      "agreement_R10": {
+        "Rank Spearman Mean": 0.8971365806004221,
+        "Rank Spearman Std": 0.013327942814326716,
+        "Score Pearson Mean": 0.9940993111170111,
+        "Score Pearson Std": 0.000730964761413456,
+        "Top-20% Jaccard Mean": 0.7645570207316036,
+        "Top-20% Jaccard Std": 0.057928004401003166,
+        "Fidelity R2 Mean": 0.9292073868447526,
+        "Fidelity R2 Std": 0.01431385406332556
+      },
+      "agreement_R5_archived": {
+        "Rank Spearman Mean": 0.7431279452928463,
+        "Rank Spearman Std": 0.0286287373279127,
+        "Score Pearson Mean": 0.9830946685420712,
+        "Score Pearson Std": 0.0025550485659364,
+        "Top-20% Jaccard Mean": 0.6233203175869684,
+        "Top-20% Jaccard Std": 0.0838022201061918,
+        "Fidelity R2 Mean": 0.9204238898435324,
+        "Fidelity R2 Std": 0.0153924633993852,
+        "branch": "Geo"
+      }
+    }
+  },
+  "metric5_att_fidelity": {
+    "feature": {
+      "R2": 0.985325899036498,
+      "Weighted_R2": 0.9851034980432536,
+      "MAE": 0.2856237529185523,
+      "WMAE": 0.2867781057121664,
+      "RMSE": 0.3356910257463809,
+      "WRMSE": 0.3377797920385787,
+      "MSE_check": {
+        "RMSE_squared": 0.11268846476665735,
+        "matches_mean_L2_claim": true,
+        "note": "MSE = RMSE^2 by definition; no independent MSE field exists to compare against, this checks internal consistency"
+      },
+      "WMSE_check": {
+        "WRMSE_squared": 0.11409518790962549
+      },
+      "mean_L1_equals_MAE": true,
+      "mean_L2_equals_MSE": true,
+      "N_p": 205,
+      "N_s": 30,
+      "N_p_minus_N_s_minus_1": 174,
+      "R2_adj_w": 0.982535135636918,
+      "guard_triggered": false
+    },
+    "geo": {
+      "R2": 0.9307547925394968,
+      "Weighted_R2": 0.9282632145290008,
+      "MAE": 0.7072195593454844,
+      "WMAE": 0.738472409154546,
+      "RMSE": 1.3599534508213336,
+      "WRMSE": 1.4802143961721106,
+      "MSE_check": {
+        "RMSE_squared": 1.8494733884008534,
+        "matches_mean_L2_claim": true,
+        "note": "MSE = RMSE^2 by definition; no independent MSE field exists to compare against, this checks internal consistency"
+      },
+      "WMSE_check": {
+        "WRMSE_squared": 2.191034658635166
+      },
+      "mean_L1_equals_MAE": true,
+      "mean_L2_equals_MSE": true,
+      "N_p": 400,
+      "N_s": 168,
+      "N_p_minus_N_s_minus_1": 231,
+      "R2_adj_w": 0.8760910069137288,
+      "guard_triggered": false
+    }
+  },
+  "expected_values_from_prompt": {
+    "feature_att": {
+      "TP": 7,
+      "ACC": 0.8,
+      "F1": 0.7,
+      "AUROC": 0.825
+    },
+    "geo_att": {
+      "TP": 16,
+      "ACC": 0.9524,
+      "F1": 0.8,
+      "AUROC": 0.9081
+    },
+    "feature_faith": {
+      "top": 8.3547,
+      "bottom": 1.1256,
+      "random_mean": 3.9527,
+      "diff": 4.4019,
+      "p": 0.016
+    },
+    "geo_faith": {
+      "top": 19.9865,
+      "bottom": 11.8094,
+      "random_mean": 12.0145,
+      "diff": 7.972,
+      "p": 0.036
+    },
+    "feature_fidelity_r2": 0.9853,
+    "geo_fidelity_r2": 0.9308,
+    "feature_fidelity_r2w": 0.9851,
+    "geo_fidelity_r2w": 0.9283,
+    "feature_mse": 0.1127,
+    "feature_wmse": 0.1141,
+    "geo_mse": 1.8496,
+    "geo_wmse": 2.191
+  }
+}

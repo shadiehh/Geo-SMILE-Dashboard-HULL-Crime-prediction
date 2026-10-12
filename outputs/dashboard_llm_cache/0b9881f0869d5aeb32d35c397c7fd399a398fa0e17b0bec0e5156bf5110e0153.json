@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "Key finding:\nThe GeoSensitivity\u2014measuring how much the crime prediction model\u2019s output shifts when an LSOA\u2019s geographic location is masked\u2014varies across Hull with a maximum absolute value of about 24.2 and a median around 0.62. This indicates that some areas have a relatively larger geographic influence on model predictions, but most areas show modest GeoSensitivity.\n\nWhy it matters:\nGeoSensitivity highlights where geography matters more in the model\u2019s predictions. This helps understand the spatial role without confusing it with simple latitude or longitude effects, which are separate. The evaluation evidence shows that the GeoSensitivity-based explanations are reliable and stable under controlled testing, supporting confidence in interpreting these spatial effects.\n\nWhere it occurs:\nStatistical testing reveals a positive spatial clustering of absolute GeoSensitivity values across Hull (Global Moran I \u2248 0.044, p = 0.027). At the local level, 7 LSOAs form statistically significant High-High (HH) clusters, indicating they and their neighbors have comparatively higher GeoSensitivity, while 6 LSOAs show Low-Low (LL) clustering with neighbors also having low GeoSensitivity. However, the majority of LSOAs (148 out of 168) do not show statistically significant local clustering. Note that these clusters reflect spatial concentration of GeoSensitivity magnitudes, not crime counts or geographic coordinates, and the spatial scale of these patterns is not established.\n\nEvidence strength:\n- The Geo branch surrogate model explains GeoSensitivity reasonably well (surrogate R\u00b2 \u2248 0.90).\n- GeoSensitivity explanations show good controlled-input stability (ATT Jaccard = 1.0).\n- The Global Moran I result indicates statistically significant but modest spatial clustering.\nEvaluation also confirms that both feature-based and GeoSensitivity explanations are faithful and consistent, though these are not causal findings.\n\nImportant limitation:\nThis evidence does not establish that geography causes crime differences, nor does it specify practical impact size beyond attribution. The spatial clustering evidence concerns GeoSensitivity magnitude patterns, not crime incidence. The scale of observed clusters is not established, and multiple-comparison adjustments for local significance are not available. Also, latitude and longitude feature effects are not detailed in this overall summary and remain separate spatial considerations.\n\nNext step:\nFor more actionable insights, consider selecting individual LSOAs to examine their specific GeoSensitivity, latitude and longitude feature effects, local spatial cluster classification, and top local features. This layered view can support understanding where geography and other features most influence the model\u2019s predictions in Hull.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-08-27T20:46:30.180786+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 6421,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 504,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 6925
+  },
+  "prompt_version": "geosmile-hull-v1"
+}

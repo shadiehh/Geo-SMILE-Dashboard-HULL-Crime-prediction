@@ -1,0 +1,75 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788913765.891198   14752 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788913768.746201   14752 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Excluding ['crime_lag_1', 'crime_lag_2', 'crime_lag_3', 'crime_rolling_mean_3']: 30 -> 26 Feature players (+ 2 coordinates = 28 combined inputs)
+
+=== [xgboost] ===
+[xgboost] unified predictive R2=0.9000 MAE=4.6988 RMSE=6.7477
+[xgboost] Feature fidelity: R2=0.9966 kernel=inverse
+[xgboost] Geo fidelity: R2=0.8898 kernel=inverse
+
+=== [lightgbm] ===
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+[lightgbm] unified predictive R2=0.9045 MAE=4.6641 RMSE=6.5913
+[lightgbm] Feature fidelity: R2=0.9952 kernel=inverse
+[lightgbm] Geo fidelity: R2=0.8973 kernel=inverse
+
+=== [catboost] ===
+[catboost] unified predictive R2=0.8967 MAE=4.8249 RMSE=6.8568
+[catboost] Feature fidelity: R2=0.9981 kernel=inverse
+[catboost] Geo fidelity: R2=0.9482 kernel=inverse
+
+=== [mlp] ===
+[mlp] unified predictive R2=0.8342 MAE=5.1680 RMSE=8.6864
+[mlp] Feature fidelity: R2=0.2606 kernel=rbf
+[mlp] Geo fidelity: R2=0.8969 kernel=inverse
+
+=== [svr] ===
+[svr] unified predictive R2=0.8333 MAE=5.5525 RMSE=8.7112
+[svr] Feature fidelity: R2=0.9655 kernel=laplace
+[svr] Geo fidelity: R2=0.8356 kernel=inverse
+
+=== [gp] ===
+[gp] unified predictive R2=0.8990 MAE=4.7461 RMSE=6.7784
+[gp] Feature fidelity: R2=0.9921 kernel=inverse
+[gp] Geo fidelity: R2=0.8786 kernel=inverse
+
+=== [dl] ===
+I0000 00:00:1788915273.314112   14752 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[dl] unified predictive R2=0.7837 MAE=5.4330 RMSE=9.9225
+[dl] Feature fidelity: R2=0.4201 kernel=inverse
+[dl] Geo fidelity: R2=0.9108 kernel=inverse
+
+=== [ann] ===
+[ann] unified predictive R2=0.8557 MAE=5.4571 RMSE=8.1037
+[ann] Feature fidelity: R2=0.9709 kernel=inverse
+[ann] Geo fidelity: R2=0.8351 kernel=inverse
+
+=== [cnn] ===
+[cnn] unified predictive R2=0.8368 MAE=5.3410 RMSE=8.6173
+[cnn] Feature fidelity: R2=0.2188 kernel=inverse
+[cnn] Geo fidelity: R2=0.9142 kernel=inverse
+
+=== [transformer] ===
+WARNING:tensorflow:From C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:233: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[transformer] unified predictive R2=0.8079 MAE=5.5237 RMSE=9.3500
+[transformer] Feature fidelity: R2=0.9897 kernel=rbf
+[transformer] Geo fidelity: R2=0.9192 kernel=inverse
+
+Done. D:\GEO SMILE CODE\hull\outputs\feature_fidelity_excl_dominant\combined_model_26feat_summary.csv
+      model  predictive_r2_unified  predictive_mae  predictive_rmse  feature_fidelity_r2  feature_fidelity_weighted_r2 feature_kernel  geo_fidelity_r2  geo_fidelity_weighted_r2 geo_kernel
+   lightgbm               0.904546        4.664134         6.591286             0.995176                      0.995173        inverse         0.897338                  0.898340    inverse
+    xgboost               0.899961        4.698825         6.747732             0.996570                      0.996606        inverse         0.889777                  0.889449    inverse
+         gp               0.899049        4.746133         6.778425             0.992088                      0.992062        inverse         0.878629                  0.878331    inverse
+   catboost               0.896700        4.824866         6.856808             0.998061                      0.998080        inverse         0.948244                  0.945674    inverse
+        ann               0.855714        5.457086         8.103717             0.970887                      0.970644        inverse         0.835089                  0.838733    inverse
+        cnn               0.836845        5.341027         8.617337             0.218781                      0.234734        inverse         0.914243                  0.913542    inverse
+        mlp               0.834221        5.168014         8.686355             0.260600                      0.253042            rbf         0.896857                  0.896793    inverse
+        svr               0.833270        5.552484         8.711227             0.965453                      0.965410        laplace         0.835646                  0.837825    inverse
+transformer               0.807923        5.523743         9.349974             0.989704                      0.990775            rbf         0.919204                  0.919672    inverse
+         dl               0.783678        5.432985         9.922536             0.420116                      0.420954        inverse         0.910841                  0.910986    inverse

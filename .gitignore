@@ -3,8 +3,11 @@
 __pycache__/
 *.pyc
 .pytest_cache/
-outputs/dashboard_llm_cache/
+outputs/eval_by_model/
+outputs/eval_combined_model/
 Police.uk.zip
 *.egg-info/
 .DS_Store
 
+# Archive duplicate of outputs/xgboost_n4000_results/
+outputs/xgboost_n4000_results.rar

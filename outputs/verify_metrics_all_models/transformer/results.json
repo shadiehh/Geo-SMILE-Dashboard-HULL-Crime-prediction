@@ -1,0 +1,222 @@
+{
+  "model": "transformer",
+  "elapsed_sec": 36711.01310944557,
+  "do_feature": true,
+  "do_geo": true,
+  "feature_kernel": "inverse",
+  "geo_kernel": "rbf",
+  "metric1_att_accuracy": {
+    "feature": {
+      "n": 30,
+      "k": 10,
+      "TP": 7,
+      "FP": 3,
+      "FN": 3,
+      "TN": 17,
+      "ATT_accuracy": 0.8,
+      "ATT_F1": 0.7,
+      "ATT_AUROC_continuous": 0.78,
+      "precision_at_k": 0.7,
+      "recall_at_k": 0.7,
+      "jaccard_at_k": 0.5384615384615384
+    },
+    "geo": {
+      "n": 168,
+      "k": 20,
+      "TP": 8,
+      "FP": 12,
+      "FN": 12,
+      "TN": 136,
+      "ATT_accuracy": 0.8571428571428571,
+      "ATT_F1": 0.4,
+      "ATT_AUROC_continuous": 0.7773648648648648,
+      "precision_at_k": 0.4,
+      "recall_at_k": 0.4,
+      "jaccard_at_k": 0.25
+    }
+  },
+  "metric2_faithfulness": {
+    "feature": {
+      "branch": "Feature",
+      "k": 10,
+      "top_response": 8.287303575194697,
+      "bottom_response": 0.6669082104900594,
+      "random_mean": 3.7740706605493646,
+      "random_ci95_low": 0.9895307413790365,
+      "random_ci95_high": 7.649139853141206,
+      "top_minus_random": 4.513232914645332,
+      "top_minus_bottom": 7.620395364704637,
+      "empirical_p_top_vs_random": 0.001998001998001998,
+      "n_random": 1000
+    },
+    "geo": {
+      "branch": "Geo",
+      "k": 20,
+      "top_response": 14.00517722333019,
+      "bottom_response": 17.752910499712307,
+      "random_mean": 17.067814911875562,
+      "random_ci95_low": 13.528760234966942,
+      "random_ci95_high": 23.32109625266277,
+      "top_minus_random": -3.0626376885453723,
+      "top_minus_bottom": -3.7477332763821174,
+      "empirical_p_top_vs_random": 0.957042957042957,
+      "n_random": 1000
+    }
+  },
+  "metric3_att_stability": {
+    "n_feat": 1024,
+    "n_geo": 4000,
+    "smile_seed": 42,
+    "neighbors": {
+      "north": {
+        "lsoa21cd": "E01012953",
+        "lsoa21nm": "East Riding of Yorkshire 023A",
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9986651835372636,
+        "geo_jaccard": 0.9047619047619048,
+        "geo_spearman": 0.9998354938474701,
+        "geo_top20_overlap_n": 19.0,
+        "geo_top19_jaccard": 1.0,
+        "geo_top19_overlap_n": 19.0,
+        "geo_extra_rank": 93.0,
+        "geo_extra_abs_coefficient": 0.5629883164321726,
+        "geo_extra_in_top20": 0.0,
+        "feature_pred_spearman": 1.0,
+        "geo_pred_spearman": 1.0
+      },
+      "east": {
+        "lsoa21cd": "E01013094",
+        "lsoa21nm": "East Riding of Yorkshire 029A",
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9964404894327029,
+        "geo_jaccard": 0.9047619047619048,
+        "geo_spearman": 0.999802592616964,
+        "geo_top20_overlap_n": 19.0,
+        "geo_top19_jaccard": 1.0,
+        "geo_top19_overlap_n": 19.0,
+        "geo_extra_rank": 56.0,
+        "geo_extra_abs_coefficient": 1.081989085439164,
+        "geo_extra_in_top20": 0.0,
+        "feature_pred_spearman": 1.0,
+        "geo_pred_spearman": 1.0
+      },
+      "south": {
+        "lsoa21cd": "E01013009",
+        "lsoa21nm": "East Riding of Yorkshire 034B",
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9995550611790878,
+        "geo_jaccard": 0.9047619047619048,
+        "geo_spearman": 0.9997519753392625,
+        "geo_top20_overlap_n": 19.0,
+        "geo_top19_jaccard": 1.0,
+        "geo_top19_overlap_n": 19.0,
+        "geo_extra_rank": 137.0,
+        "geo_extra_abs_coefficient": 0.270530885790907,
+        "geo_extra_in_top20": 0.0,
+        "feature_pred_spearman": 1.0,
+        "geo_pred_spearman": 1.0
+      },
+      "west": {
+        "lsoa21cd": "E01013112",
+        "lsoa21nm": "East Riding of Yorkshire 025D",
+        "feature_jaccard": 1.0,
+        "feature_spearman": 0.9986651835372636,
+        "geo_jaccard": 0.9047619047619048,
+        "geo_spearman": 0.9998228395280446,
+        "geo_top20_overlap_n": 19.0,
+        "geo_top19_jaccard": 1.0,
+        "geo_top19_overlap_n": 19.0,
+        "geo_extra_rank": 107.0,
+        "geo_extra_abs_coefficient": 0.4428267893281333,
+        "geo_extra_in_top20": 0.0,
+        "feature_pred_spearman": 1.0,
+        "geo_pred_spearman": 1.0
+      }
+    },
+    "feature": {
+      "top_k_jaccard_mean": 1.0,
+      "abs_coef_spearman_mean": 0.9983314794215794
+    },
+    "geo": {
+      "top_k_jaccard_mean": 0.9047619047619048,
+      "abs_coef_spearman_mean": 0.9998032253329352,
+      "mean_geo_extra_rank_out_of_169": 98.25
+    }
+  },
+  "metric4_att_consistency": {
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "feature": {
+      "Rank Spearman Mean": 0.9154517364973427,
+      "Rank Spearman Std": 0.03149441807270701,
+      "Score Pearson Mean": 0.9994472984389481,
+      "Score Pearson Std": 0.0001574175144670126,
+      "Top-20% Jaccard Mean": 1.0,
+      "Top-20% Jaccard Std": 0.0,
+      "Fidelity R2 Mean": 0.9915631940463319
+    },
+    "geo": {
+      "Rank Spearman Mean": 0.9720980130468847,
+      "Rank Spearman Std": 0.003949160554930321,
+      "Score Pearson Mean": 0.9959196820599653,
+      "Score Pearson Std": 0.0004844894189795393,
+      "Top-20% Jaccard Mean": 0.843815413639975,
+      "Top-20% Jaccard Std": 0.05349291675754842,
+      "Fidelity R2 Mean": 0.9389769895064951
+    }
+  },
+  "metric5_att_fidelity": {
+    "feature": {
+      "R2": 0.9912644422939306,
+      "Weighted R2": 0.9922160856162098,
+      "MAE": 0.16989578737058497,
+      "WMAE": 0.1659686105751849,
+      "RMSE": 0.2162878439306609,
+      "WRMSE": 0.20762462467465134,
+      "best_kernel": "rbf",
+      "validation_r2_by_kernel": {
+        "rbf": 0.9924504574358884,
+        "laplace": 0.9923878013973542,
+        "inverse": 0.9923761451949896
+      },
+      "n_masks": 1024,
+      "n_test": 205,
+      "N_p": 205,
+      "N_s": 30,
+      "N_p_minus_N_s_minus_1": 174,
+      "R2_adj_w": 0.9908740314121081,
+      "guard_triggered": false
+    },
+    "geo": {
+      "R2": 0.9445144550490181,
+      "Weighted R2": 0.9431282750336819,
+      "MAE": 0.6102805949559308,
+      "WMAE": 0.6168106466864813,
+      "RMSE": 1.015881252998113,
+      "WRMSE": 1.0425197682802587,
+      "best_kernel": "inverse",
+      "validation_r2_by_kernel": {
+        "rbf": 0.9314408612495896,
+        "laplace": 0.9396969610617353,
+        "inverse": 0.9412078876198718
+      },
+      "n_masks": 4000,
+      "n_test": 800,
+      "N_p": 800,
+      "N_s": 168,
+      "N_p_minus_N_s_minus_1": 631,
+      "R2_adj_w": 0.927986516247087,
+      "guard_triggered": false
+    }
+  }
+}

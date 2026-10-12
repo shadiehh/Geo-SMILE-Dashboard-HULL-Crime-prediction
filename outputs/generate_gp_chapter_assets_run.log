@@ -1,0 +1,39 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788884061.568789   16500 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788884064.988677   16500 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Fitting GP Feature model and running fresh Feature SMILE (N=1024, seed=42)...
+Global Feature coefficient reproduction check (vs. saved verify_metrics_all_models): True
+Computing local (per-LSOA) Feature coefficients...
+Top-6 global drivers: ['crime_rolling_mean_6', 'crime_lag_1', 'unemployed_pct_age16plus', 'crime_rolling_mean_3', 'transit_stop_count', 'crime_lag_2']
+Saved: D:\GEO SMILE CODE\hull\outputs\hull_chapter4_gp_assets\local_top6_drivers_gp.png
+Building full signed Geo map (all 168 LSOAs)...
+Saved: D:\GEO SMILE CODE\hull\outputs\hull_chapter4_gp_assets\geo_signed_full_map_gp.png
+Computing concentration/entropy diagnostics...
+{
+  "feature": {
+    "hoyer": 0.8313235922916882,
+    "gini": 0.749653335818188,
+    "entropy": 1.9708750187286463,
+    "n_nonzero": 30,
+    "n_total": 30
+  },
+  "geo": {
+    "hoyer": 0.5266316706782226,
+    "gini": 0.4377811969125479,
+    "entropy": 4.648298613084541,
+    "n_nonzero": 168,
+    "n_total": 168
+  },
+  "feature_global_reproduction_check": true,
+  "top6_global_drivers": [
+    "crime_rolling_mean_6",
+    "crime_lag_1",
+    "unemployed_pct_age16plus",
+    "crime_rolling_mean_3",
+    "transit_stop_count",
+    "crime_lag_2"
+  ]
+}
+
+Done. Assets in D:\GEO SMILE CODE\hull\outputs\hull_chapter4_gp_assets

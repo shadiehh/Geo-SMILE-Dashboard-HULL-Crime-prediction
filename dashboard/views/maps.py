@@ -23,18 +23,27 @@ LISA_COLOURS = {
 }
 
 VIEW_FIELDS = {
-    "geo_sensitivity": ("geo_sensitivity", "GeoSensitivity (signed)"),
+    "geo_sensitivity": ("geo_sensitivity", "GeoSensitivity (signed; darker = more sensitive)"),
     "latitude_effect": ("latitude_effect", "Latitude feature effect"),
     "longitude_effect": ("longitude_effect", "Longitude feature effect"),
     "overlay": ("overlay_index", "Lat / lon / GeoSensitivity overlay"),
     "top50_rank": ("geo_rank_shade", "GeoSensitivity top 50 + lat/lon overlay"),
-    "spatial_pattern": ("lisa_class", "Spatial pattern (LISA of |GeoSensitivity|)"),
+    "spatial_pattern": ("lisa_class", "Spatial pattern (LISA of GeoSensitivity)"),
 }
 
 DIVERGING = [
     [0.0, "#1E88E5"],
     [0.5, "#FFFFFF"],
     [1.0, "#FF0051"],
+]
+
+# Signed GeoSensitivity on ONE sequential scale (higher = more sensitive). The
+# sign is not a prediction direction (W1 response), so no diverging midpoint.
+# Same ramp as geosmile_hull_twobranch.SEQUENTIAL used in the thesis maps.
+SEQUENTIAL = [
+    [0.0, "#FFFFFF"],
+    [0.5, "#FF0051"],
+    [1.0, "#8A0033"],
 ]
 
 RANK_SCALE = [
@@ -60,7 +69,6 @@ def _hover(row: pd.Series, view: str) -> str:
         return (
             f"{name}<br>"
             f"GeoSensitivity: {row['geo_sensitivity']:.4f}<br>"
-            f"|GeoSensitivity|: {row['geo_sensitivity_abs']:.4f}<br>"
             f"Geo rank: {int(row['geo_rank'])} of 168<br>"
             f"LISA: {LISA_LABELS.get(str(row['lisa_class']), row['lisa_class'])}"
         )
@@ -88,7 +96,7 @@ def _hover(row: pd.Series, view: str) -> str:
             return (
                 f"{name}<br>"
                 f"Not in the GeoSensitivity top 50, so not treated as important.<br>"
-                f"Geo |rank|: {int(row['geo_rank_abs'])}<br>"
+                f"Geo rank: {int(row['geo_rank_abs'])}<br>"
                 f"Latitude |rank|: {int(row['lat_rank_abs'])}<br>"
                 f"Longitude |rank|: {int(row['lon_rank_abs'])}"
             )
@@ -100,7 +108,7 @@ def _hover(row: pd.Series, view: str) -> str:
         overlay_txt = ", ".join(overlays) if overlays else "none"
         return (
             f"{name}<br>"
-            f"|GeoSensitivity| rank: {int(row['geo_rank_abs'])} of 50<br>"
+            f"GeoSensitivity rank: {int(row['geo_rank_abs'])} of 50<br>"
             f"Coordinate overlay on this GeoSensitivity set: {overlay_txt}<br>"
             f"Latitude |rank|: {int(row['lat_rank_abs'])}<br>"
             f"Longitude |rank|: {int(row['lon_rank_abs'])}"
@@ -145,7 +153,11 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
             pd.DataFrame(
                 {
                     "lsoa21cd": gdf[LSOA_ID].astype(str),
-                    "geo_coefficient": gdf["geo_sensitivity"].to_numpy(),
+                    # Area-data design ranks by the SIGNED coefficient; shifting
+                    # to strictly positive makes the helper's |value| rank equal it.
+                    "geo_coefficient": (
+                        gdf["geo_sensitivity"] - gdf["geo_sensitivity"].min() + 1.0
+                    ).to_numpy(),
                     "centroid_latitude": gdf["latitude_effect"].to_numpy(),
                     "centroid_longitude": gdf["longitude_effect"].to_numpy(),
                 }
@@ -238,7 +250,7 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
                     zmax=50,
                     colorscale=RANK_SCALE,
                     colorbar=dict(
-                        title="|GeoSensitivity| rank (1 = highest)",
+                        title="GeoSensitivity rank (1 = highest)",
                         thickness=12,
                         len=0.72,
                     ),
@@ -287,16 +299,17 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
     else:
         z = gdf[field].to_numpy(dtype=float)
         vmax = _limit(z)
+        if view == "geo_sensitivity":
+            scale = dict(zmin=float(np.nanmin(z)), zmax=vmax, colorscale=SEQUENTIAL)
+        else:
+            scale = dict(zmid=0.0, zmin=-vmax, zmax=vmax, colorscale=DIVERGING)
         fig.add_trace(
             go.Choroplethmapbox(
                 geojson=geojson,
                 locations=gdf[LSOA_ID],
                 z=z,
                 featureidkey="properties.lsoa21cd",
-                zmid=0.0,
-                zmin=-vmax,
-                zmax=vmax,
-                colorscale=DIVERGING,
+                **scale,
                 colorbar=dict(title=legend, thickness=12, len=0.72),
                 hovertext=hover,
                 hoverinfo="text",

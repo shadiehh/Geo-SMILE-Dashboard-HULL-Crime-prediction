@@ -1,0 +1,100 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788648018.226053   17316 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788648020.418972   17316 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [ann] === Feature: run, Geo: run
+I0000 00:00:1788648021.002852   17316 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[ann] Feature pool (n=512, all 3 response metrics)...
+[ann] Feature(n=512)/wasserstein: R2=0.9412 MAE=0.3221 RMSE=0.3994
+[ann] Feature(n=512)/l1_mean_abs_diff: R2=0.9084 MAE=0.3924 RMSE=0.4987
+[ann] Feature(n=512)/l2_mean_sq_diff: R2=0.7905 MAE=40.4130 RMSE=52.9424
+[ann] Feature pool (n=1024, all 3 response metrics)...
+[ann] Feature(n=1024)/wasserstein: R2=0.9551 MAE=0.2793 RMSE=0.3610
+[ann] Feature(n=1024)/l1_mean_abs_diff: R2=0.9265 MAE=0.3484 RMSE=0.4363
+[ann] Feature(n=1024)/l2_mean_sq_diff: R2=0.8512 MAE=35.9529 RMSE=44.2285
+[ann] Feature pool (n=2048, all 3 response metrics)...
+[ann] Feature(n=2048)/wasserstein: R2=0.9270 MAE=0.3642 RMSE=0.4648
+[ann] Feature(n=2048)/l1_mean_abs_diff: R2=0.9018 MAE=0.3970 RMSE=0.5128
+[ann] Feature(n=2048)/l2_mean_sq_diff: R2=0.8015 MAE=37.4318 RMSE=48.9756
+[ann] Feature pool (n=4096, all 3 response metrics)...
+[ann] Feature(n=4096)/wasserstein: R2=0.9216 MAE=0.3510 RMSE=0.4608
+[ann] Feature(n=4096)/l1_mean_abs_diff: R2=0.8928 MAE=0.3821 RMSE=0.4978
+[ann] Feature(n=4096)/l2_mean_sq_diff: R2=0.8129 MAE=37.3113 RMSE=46.4875
+[ann] Geo pool (n=2000, all 3 response metrics)...
+[ann] Geo(n=2000)/wasserstein: R2=0.9329 MAE=0.7628 RMSE=1.1448
+[ann] Geo(n=2000)/l1_mean_abs_diff: R2=0.9329 MAE=0.7628 RMSE=1.1448
+[ann] Geo(n=2000)/l2_mean_sq_diff: R2=0.9173 MAE=67.5556 RMSE=118.6486
+[ann] Geo pool (n=4000, all 3 response metrics)...
+[ann] Geo(n=4000)/wasserstein: R2=0.9426 MAE=0.7233 RMSE=1.0607
+[ann] Geo(n=4000)/l1_mean_abs_diff: R2=0.9426 MAE=0.7233 RMSE=1.0607
+[ann] Geo(n=4000)/l2_mean_sq_diff: R2=0.9460 MAE=53.7622 RMSE=96.9879
+[ann] Geo pool (n=6000, all 3 response metrics)...
+[ann] Geo(n=6000)/wasserstein: R2=0.9466 MAE=0.6736 RMSE=0.9820
+[ann] Geo(n=6000)/l1_mean_abs_diff: R2=0.9466 MAE=0.6736 RMSE=0.9820
+[ann] Geo(n=6000)/l2_mean_sq_diff: R2=0.9480 MAE=49.0839 RMSE=85.3668
+[ann] Geo pool (n=8000, all 3 response metrics)...
+[ann] Geo(n=8000)/wasserstein: R2=0.9479 MAE=0.6804 RMSE=0.9888
+[ann] Geo(n=8000)/l1_mean_abs_diff: R2=0.9479 MAE=0.6804 RMSE=0.9888
+[ann] Geo(n=8000)/l2_mean_sq_diff: R2=0.9480 MAE=51.4420 RMSE=91.1324
+[ann] done in 34.2 min
+
+=== [cnn] === Feature: run, Geo: SKIPPED
+[cnn] Feature pool (n=512, all 3 response metrics)...
+[cnn] Feature(n=512)/wasserstein: R2=0.9247 MAE=0.3059 RMSE=0.4001
+[cnn] Feature(n=512)/l1_mean_abs_diff: R2=0.9503 MAE=0.2655 RMSE=0.3354
+[cnn] Feature(n=512)/l2_mean_sq_diff: R2=0.7625 MAE=45.4812 RMSE=55.6576
+[cnn] Feature pool (n=1024, all 3 response metrics)...
+[cnn] Feature(n=1024)/wasserstein: R2=0.9148 MAE=0.2920 RMSE=0.3932
+[cnn] Feature(n=1024)/l1_mean_abs_diff: R2=0.9363 MAE=0.2756 RMSE=0.3510
+[cnn] Feature(n=1024)/l2_mean_sq_diff: R2=0.6834 MAE=48.2552 RMSE=65.2489
+[cnn] Feature pool (n=2048, all 3 response metrics)...
+[cnn] Feature(n=2048)/wasserstein: R2=0.9078 MAE=0.3040 RMSE=0.4166
+[cnn] Feature(n=2048)/l1_mean_abs_diff: R2=0.9297 MAE=0.2655 RMSE=0.3794
+[cnn] Feature(n=2048)/l2_mean_sq_diff: R2=0.7277 MAE=44.8180 RMSE=63.5875
+[cnn] Feature pool (n=4096, all 3 response metrics)...
+[cnn] Feature(n=4096)/wasserstein: R2=0.9253 MAE=0.2914 RMSE=0.3805
+[cnn] Feature(n=4096)/l1_mean_abs_diff: R2=0.9473 MAE=0.2538 RMSE=0.3278
+[cnn] Feature(n=4096)/l2_mean_sq_diff: R2=0.7381 MAE=46.3361 RMSE=63.7938
+[cnn] done in 10.6 min
+
+=== [transformer] === Feature: run, Geo: run
+WARNING:tensorflow:From C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:233: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[transformer] Feature pool (n=512, all 3 response metrics)...
+[transformer] Feature(n=512)/wasserstein: R2=0.9908 MAE=0.1712 RMSE=0.2158
+[transformer] Feature(n=512)/l1_mean_abs_diff: R2=0.9943 MAE=0.1302 RMSE=0.1706
+[transformer] Feature(n=512)/l2_mean_sq_diff: R2=0.9890 MAE=6.2366 RMSE=8.3015
+[transformer] Feature pool (n=1024, all 3 response metrics)...
+[transformer] Feature(n=1024)/wasserstein: R2=0.9913 MAE=0.1699 RMSE=0.2163
+[transformer] Feature(n=1024)/l1_mean_abs_diff: R2=0.9946 MAE=0.1357 RMSE=0.1722
+[transformer] Feature(n=1024)/l2_mean_sq_diff: R2=0.9910 MAE=6.3957 RMSE=7.8577
+[transformer] Feature pool (n=2048, all 3 response metrics)...
+[transformer] Feature(n=2048)/wasserstein: R2=0.9927 MAE=0.1497 RMSE=0.1975
+[transformer] Feature(n=2048)/l1_mean_abs_diff: R2=0.9953 MAE=0.1226 RMSE=0.1602
+[transformer] Feature(n=2048)/l2_mean_sq_diff: R2=0.9911 MAE=6.1236 RMSE=7.7517
+[transformer] Feature pool (n=4096, all 3 response metrics)...
+[transformer] Feature(n=4096)/wasserstein: R2=0.9937 MAE=0.1422 RMSE=0.1810
+[transformer] Feature(n=4096)/l1_mean_abs_diff: R2=0.9957 MAE=0.1170 RMSE=0.1490
+[transformer] Feature(n=4096)/l2_mean_sq_diff: R2=0.9917 MAE=5.8628 RMSE=7.2641
+[transformer] Geo pool (n=2000, all 3 response metrics)...
+[transformer] Geo(n=2000)/wasserstein: R2=0.9200 MAE=0.7598 RMSE=1.2194
+[transformer] Geo(n=2000)/l1_mean_abs_diff: R2=0.9200 MAE=0.7598 RMSE=1.2194
+[transformer] Geo(n=2000)/l2_mean_sq_diff: R2=0.9174 MAE=65.5031 RMSE=139.2063
+[transformer] Geo pool (n=4000, all 3 response metrics)...
+[transformer] Geo(n=4000)/wasserstein: R2=0.9445 MAE=0.6103 RMSE=1.0159
+[transformer] Geo(n=4000)/l1_mean_abs_diff: R2=0.9445 MAE=0.6103 RMSE=1.0159
+[transformer] Geo(n=4000)/l2_mean_sq_diff: R2=0.9476 MAE=46.6930 RMSE=112.6452
+[transformer] Geo pool (n=6000, all 3 response metrics)...
+[transformer] Geo(n=6000)/wasserstein: R2=0.9485 MAE=0.5546 RMSE=0.8836
+[transformer] Geo(n=6000)/l1_mean_abs_diff: R2=0.9485 MAE=0.5546 RMSE=0.8836
+[transformer] Geo(n=6000)/l2_mean_sq_diff: R2=0.9487 MAE=41.5201 RMSE=95.3665
+[transformer] Geo pool (n=8000, all 3 response metrics)...
+[transformer] Geo(n=8000)/wasserstein: R2=0.9481 MAE=0.5811 RMSE=0.9481
+[transformer] Geo(n=8000)/l1_mean_abs_diff: R2=0.9481 MAE=0.5811 RMSE=0.9481
+[transformer] Geo(n=8000)/l2_mean_sq_diff: R2=0.9476 MAE=45.4023 RMSE=106.6186
+[transformer] done in 48.7 min
+
+Done. 204 rows (60 new/recomputed). Summary: D:\GEO SMILE CODE\hull\outputs\response_metric_comparison\response_metric_comparison_summary.csv

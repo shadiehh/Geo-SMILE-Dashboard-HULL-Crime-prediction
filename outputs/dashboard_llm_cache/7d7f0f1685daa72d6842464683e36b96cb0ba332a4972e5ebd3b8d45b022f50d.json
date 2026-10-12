@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "Across Hull, the model's crime predictions most depend on recent crime history, especially the six-month and three-month rolling crime averages, which dominate local feature influence. Less influential features include nightlife density and road density. In the selected area, Kingston upon Hull 016D in Stoneferry around Holwell Road and Stoneferry Road, the main influences align with Hull\u2019s pattern, led by the six-month crime rolling mean, though its effect is negative there. This area ranks 20th of 168 in geographic sensitivity, indicating a moderate but comparatively notable dependence of predictions on its own data; however, this is modest in absolute terms. There is no statistically significant pattern in geographic sensitivity near this area. The model's explanations are stable and consistent, but these findings do not imply causes of crime or justify assumptions about the area.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-10-05T23:20:23.957451+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 13074,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 167,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 13241
+  },
+  "prompt_version": "geosmile-hull-v8"
+}

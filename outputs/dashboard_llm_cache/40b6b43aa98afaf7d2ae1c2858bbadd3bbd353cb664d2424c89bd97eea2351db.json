@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "The selected LSOA, Kingston upon Hull 029E, has the highest GeoSensitivity in Hull at **24.22**, indicating a large geographic attribution in the model\u2019s location-masking analysis. Its spatial clustering of GeoSensitivity is not statistically significant. Latitude and longitude effects are positive but comparatively modest. One limitation is that spatial pattern scale is not established. Inspecting GeoSensitivity across other LSOAs would help assess geographic attribution variability.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-10T21:10:00.284990+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 8420,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 89,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 8509
+  },
+  "prompt_version": "geosmile-hull-v5"
+}

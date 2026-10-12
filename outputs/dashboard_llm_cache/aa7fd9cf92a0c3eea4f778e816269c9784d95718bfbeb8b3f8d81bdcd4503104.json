@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "The GeoSensitivity for Kingston upon Hull 035B is modest at **0.62**, ranking 86th of 168 LSOAs, with no significant spatial clustering nearby. Latitude and longitude effects are small but positive and negative respectively. The global spatial analysis finds Hull\u2019s GeoSensitivity shows weak clustering overall, not implying causation. Explanation stability is high, but pattern scale and adjusted local spatial significance are not established.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-10T21:47:46.391461+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 8426,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 7040
+    },
+    "output_tokens": 85,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 8511
+  },
+  "prompt_version": "geosmile-hull-v5"
+}

@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "Main finding:\nFor the selected LSOA, Kingston upon Hull 020B, the latitude feature effect is positive at 0.2845, indicating a moderate positive contribution from latitude as a predictive feature in the model. This is distinct from the GeoSensitivity and longitude feature effect.\n\nQuantitative evidence:\n- GeoSensitivity for this LSOA is 0.489 (modest magnitude) and ranks 101 out of 168 LSOAs, indicating a mid-range geographic influence compared to the rest of Hull.\n- The longitude feature effect is negative at -0.1509, showing a moderate but smaller opposing contribution compared to latitude.\n- Spatial pattern classification of GeoSensitivity magnitude for this LSOA is \"Not significant\" (p = 0.286), meaning no statistically significant spatial clustering was detected locally.\n- The top local non-location features include \"Crime roll mean 6\" with a large negative coefficient (-20.54) and \"Crime roll mean 3\" (-8.05), which are much larger in magnitude than other features, highlighting their dominant predictive weight here.\n\nSpatial structure:\nOn the global scale, GeoSensitivity across Hull shows positive spatial clustering as indicated by a Global Moran I of 0.044 with p = 0.027, but pattern scale is not established. Local Indicator of Spatial Association (LISA) counts reveal few clustered LSOAs: 7 high-high (HH), 6 low-high (LH), 6 low-low (LL), and 1 high-low (HL), with most LSOAs (148) not significantly clustered. Kingston upon Hull 020B is not part of any significant local cluster.\n\nReliability:\nThe explanation fidelity is high: surrogate R\u00b2 for latitude/feature branch is about 0.98, and for Geo branch about 0.92, indicating that the SMILE explanations closely approximate the model\u2019s behaviour. Controlled-input ATT stability Jaccard scores are 1.0 for both feature and Geo branches, showing very stable attribution rankings under perturbations. Feature and Geo attribution faithfulness tests report significant empirical p-values (approximately 0.016 and 0.036), supporting the meaningfulness of top feature attributions under the tested interventions. Holdout predictive performance R\u00b2 values are also strong (>0.87 for both Geo and feature branches).\n\nInterpretation boundary:\n- GeoSensitivity is a Geo branch output that measures prediction shifts due to location masking; it is conceptually separate from latitude and longitude feature effects, which are direct model feature attributions.\n- The local GeoSensitivity magnitude here is modest and mid-ranked, so geographic influence is present but not strong in absolute terms.\n- Latitude and longitude effects are model features treated separately; their signed values indicate direction of influence but not causation.\n- The selected LSOA\u2019s GeoSensitivity is not part of a statistically significant local spatial cluster.\n- The top local non-location features are strong numerical predictors but do not imply causation.\n- The spatial pattern scale is not established in the provided evidence.\n- All attribution and spatial statistics relate to the model explanation, not causal statements about crime.\n\nIn summary, for Kingston upon Hull 020B, the latitude feature effect is moderately positive, the longitude effect is modestly negative, and the geographical location's contribution (GeoSensitivity) is modest and not clustered. The explanation quality and stability metrics indicate reliable attribution results within the scope of the predictive model.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-08-27T21:11:40.341402+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 7094,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 691,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 7785
+  },
+  "prompt_version": "geosmile-hull-v1"
+}

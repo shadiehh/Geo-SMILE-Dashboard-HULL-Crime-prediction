@@ -1,0 +1,208 @@
+% Requires \usepackage{booktabs} in the preamble.
+\subsection{SMILE Design Robustness: Perturbation Budget, Response Metric, and Surrogate Choice}
+\label{sec:hull_smile_design_experiments}
+
+Every fidelity figure reported in \S\ref{sec:hull_model_screening} comes from
+one fixed SMILE design: perturbation counts of 1{,}024 (Feature) and 4{,}000
+(Geo), a Wasserstein-1 response metric, and a single kernel-weighted Ridge
+surrogate. That design was tuned against XGBoost and never independently
+re-justified for the other six candidates -- in particular, it is not obvious
+that a linear surrogate is the right choice for a model whose own
+prediction surface is non-linear. This section tests three design axes
+independently and in combination -- perturbation budget $N$, response metric,
+and surrogate choice -- to establish which parts of the published design are
+robust and which are specific to gradient-boosted trees. All experiments
+reuse the same seed (42), temporal split, and $R^2>0.7$ predictive guard as
+\S\ref{sec:hull_model_screening}; full results (989 rows across the three
+experiments below) are in
+\texttt{outputs/design\_experiments/design\_experiments\_summary.csv}.
+
+\paragraph{Perturbation budget and response metric (both branches, Ridge
+surrogate fixed).} Perturbation count was swept over $N\in\{512, 1{,}024,
+2{,}048, 4{,}096\}$ (Feature) and $N\in\{2{,}000, 4{,}000, 6{,}000, 8{,}000\}$
+(Geo), and the Wasserstein-1 response was compared against two LIME-style
+point-wise alternatives (mean absolute difference, L1; mean squared
+difference, L2), all computed from the same predict-loop per perturbation.
+On the Geo branch, Wasserstein and L1 are exactly numerically identical at
+every $N$ for every model -- a structural property of this branch's masking
+scheme (perturbing a small subset of LSOAs never reorders the original and
+perturbed prediction vectors relative to each other), not a model-specific
+coincidence. Every model that clears the Geo $R^2>0.7$ guard plateaus by
+$N=4{,}000$, with no gain from testing further to $8{,}000$. On the Feature
+branch, gradient-boosted trees, SVR, and GP are flat and near-ceiling
+($R^2\ge0.93$) across the entire grid and across all three response metrics;
+MLP and DL never leave a low band ($R^2\in[0.03,0.29]$) at \emph{any} tested
+$N$ or metric, and L2 is uniformly worse and less stable for both (MLP
+reaches $R^2=-6.28$ at $N{=}2{,}048$ under L2). Neither more perturbations nor
+a different response metric, on their own, changes the Feature-branch
+picture for the neural candidates.
+
+\paragraph{Full surrogate menu at fixed $N$ (both branches).} A
+category-tailored menu -- weighted OLS, Bayesian Ridge, and the incumbent
+kernel-weighted Ridge for every model; Huber and Elastic Net added for
+boosting; ARD added for SVR/GP; narrow-bandwidth weighted OLS and Huber added
+for MLP/DL -- plus six diagnostic controls (unweighted OLS, Ridge at both
+regularisation extremes, an untuned strong Lasso, a shallow decision tree,
+and a 20-repeat permuted-response null) was fit on the same mask/response
+pools used for the published design. For boosting, SVR, and GP, every
+candidate in the menu lands within a few points of the incumbent Ridge --
+there is no surrogate that meaningfully outperforms it, and the permuted-null
+control confirms the real fit is far above chance ($R^2\approx0$) for all of
+these. For MLP and DL, by contrast, every linear or robust-regression
+candidate stays inside the same low band the Ridge-only sweep found (MLP
+best: $R^2=0.161$, Bayesian Ridge; DL best: $R^2=0.236$, Bayesian Ridge).
+Bayesian Ridge is consistently the single best candidate for both neural
+models, but the gain over the incumbent Ridge is marginal, not
+transformative. Huber actively \emph{hurts} both neural models at every $N$
+(near-zero or negative $R^2$), and the narrow-bandwidth variant is unstable,
+occasionally catastrophically so ($R^2=-2.64$ for DL at $N{=}512$). Critically,
+the gap between the best linear surrogate and the permuted-null baseline is
+small for MLP/DL ($\sim$0.1--0.3 vs.\ a null near 0) where it is large
+($\sim$0.9+) for every other model -- evidence the Feature-branch ablation
+response itself carries little signal a \emph{linear} surrogate can extract,
+not that the incumbent Ridge is simply a poor fit among linear alternatives.
+
+\paragraph{Surrogate $\times$ perturbation-budget interaction, non-linear
+surrogates (Feature branch, MLP/DL only).} The diagnostic-only shallow
+decision tree in the menu above hinted at non-linearity (occasionally
+beating every linear candidate despite being deliberately under-capacity, at
+max depth 3). Random Forest and HistGradientBoosting -- fit both unweighted
+and with the same kernel-distance sample weights as the linear
+candidates -- were therefore tried across the full Feature $N$ grid,
+extended to $N=8{,}192$ for MLP. The result overturns the "hard ceiling"
+reading of the neural-network fidelity collapse for DL specifically: Random
+Forest's $R^2$ climbs monotonically with $N$ (0.395 $\to$ 0.760 $\to$ 0.825
+$\to$ 0.848 at $N=512,1{,}024,2{,}048,4{,}096$) -- the classic
+more-perturbations-help signature that never appeared under any linear
+surrogate. DL's Feature-branch ablation response is real, learnable signal;
+the collapse reported in \S\ref{sec:hull_model_screening} is an artefact of
+forcing a linear surrogate onto a non-linear response surface, not a
+property of DL's predictions themselves. MLP shows the same qualitative
+climb (0.176 $\to$ 0.261 $\to$ 0.428 $\to$ 0.474 at $N=512,1{,}024,4{,}096,
+8{,}192$, unweighted Random Forest) but at a markedly lower ceiling than DL,
+and with one reseed-sensitive dip at $N=2{,}048$ ($R^2=-0.747$) confirmed, by
+refitting the same pool under five different train/validation/test split
+seeds, to be a fold-specific artefact rather than evidence against the
+trend (every other seed gives $R^2\in[0.04,0.27]$ at that same $N$).
+Kernel-weighting the tree surrogates gives a small, consistent edge
+(typically $+0.01$ to $+0.05$) but does not change the shape of either
+model's trend. Pushing $N$ further for MLP shows visibly diminishing
+returns ($+0.25$ from $N{=}512\to4{,}096$; only $+0.05$ from
+$N{=}4{,}096\to8{,}192$).
+
+\paragraph{Is the neural-network collapse architecture-general? Three further
+candidates.} The MLP/DL result above raises an obvious question: is a
+mask-based linear surrogate fundamentally mismatched to neural networks as a
+model class, or specific to those two particular configurations? Three
+further candidates were added and run through the same fidelity-only
+protocol (N-sweep, full surrogate menu, surrogate$\times N$ interaction --
+not the full five-metric suite of \S\ref{sec:hull_model_screening}, so these
+three are not yet comparable to Table~\ref{tab:hull_model_screening} on ATT
+accuracy, faithfulness, stability, or consistency): a second, deliberately
+distinct feedforward ANN (wider than "dl", 256/128 vs.\ 128/64, with
+LayerNormalization in place of dropout-only regularisation); a 1D-convolutional
+adaptation for flat tabular input (each of the 30 features treated as a
+length-30 single-channel sequence); and a lightweight per-feature
+self-attention model (each feature linearly projected to a 16-dimensional
+token with a learned positional embedding, one transformer-encoder block,
+then pooled). All three pass the Feature-branch $R^2>0.7$ guard (0.866,
+0.844, 0.814); on Geo, the ANN and transformer pass (0.721, 0.838) but the
+CNN does not (0.661) -- its Geo branch was run anyway, forced past the
+guard, specifically to check whether SMILE fidelity tracks predictive
+quality or is independent of it.
+
+None of the three reproduce the MLP/DL collapse. All three sit in the
+$R^2\in[0.91,0.99]$ band on \emph{both} branches with the plain incumbent
+Ridge surrogate at every tested $N$ -- squarely in the boosting/kernel/GP
+tier, not the MLP/DL tier (Feature: ANN 0.955, CNN 0.915, Transformer 0.991
+at $N{=}1{,}024$; Geo: ANN 0.943, CNN 0.943, Transformer 0.945 at
+$N{=}4{,}000$). The full surrogate menu changes nothing: every candidate
+clusters within a few points of Ridge for all three, exactly the pattern
+already seen for boosting/kernel/GP, and unlike MLP/DL, tree-based
+surrogates give no rescue because there is nothing to rescue --
+HistGradientBoosting gives only a marginal edge (e.g.\ ANN Feature $0.965$ vs.\
+Ridge's $0.955$ at $N{=}1{,}024$), and unweighted Random Forest actually
+\emph{underperforms} Ridge on the Geo branch for all three ($R^2\in
+[0.56,0.68]$ vs.\ $\approx0.94$) -- the reverse of what tree surrogates did
+for MLP/DL's broken Feature branch, where they were the only thing that
+worked. Fidelity is flat across the entire $N$ grid on both branches for all
+three, with no plateau-then-jump signature -- these were never
+under-sampled to begin with.
+
+CNN's forced Geo result is itself informative: despite a mediocre predictive
+$R^2=0.661$ that fails the guard everywhere else in this project, GeoSMILE's
+fidelity there ($0.943$ at $N{=}4{,}000$) is indistinguishable from ANN's and
+the transformer's gate-passing Geo branches. Surrogate fidelity measures how
+well a linear model can reconstruct a black-box model's own masking
+response, not how good that black-box model's predictions are -- a mediocre
+predictor can still have a highly linear, easily-explained ablation
+response, and this is a direct empirical case of it. It does not license
+dropping the predictive guard in general (a mediocre model is still not
+worth explaining for its own sake), but it confirms fidelity and predictive
+quality are separate axes, not a package deal.
+
+Taken together, these three results overturn the working explanation offered
+after the original MLP/DL finding: the collapse is not a property of "neural
+networks" as a class presenting a harder ablation surface to a linear
+surrogate. The ANN candidate here is architecturally close to "dl" (same
+dense feedforward family, deeper and wider, differing mainly in
+normalization choice) and shows none of its collapse; CNN and the
+transformer are structurally further from either failing model and also
+show none of it. Whatever made the sklearn MLP and the original Keras "dl"
+configuration collapse is specific to those two configurations -- plausibly
+their comparatively narrow capacity (64--32 and 128--64--32 respectively,
+against 256--128--64--32 for the ANN here) or their particular
+regularisation choices, both directions this section does not attempt to
+isolate further -- rather than a general obstacle to explaining deep models
+with GeoSMILE.
+
+\paragraph{Combined-model architecture check.} The same three-surrogate
+comparison (Ridge, Random Forest, HistGradientBoosting), repeated for the
+combined-model architecture in which a single model trained on all 32 inputs
+is explained along both branches rather than two independently-trained
+per-branch models (\texttt{outputs/design\_experiments/combined\_model\_
+surrogate\_comparison.csv}), shows the same qualitative pattern: no
+surrogate meaningfully beats Ridge for the boosting/kernel candidates, while
+tree-based surrogates outperform Ridge for the neural candidates' Feature
+branch. This rules out "the two-branch architecture specifically causes the
+neural-network collapse" as an explanation -- the effect is a property of
+the model class and the linear surrogate, not of which architecture explains
+it.
+
+\paragraph{Correction to \S\ref{sec:hull_model_screening}.} While tracing
+these results, MLP's Geo-branch predictive $R^2$ was confirmed at $0.444$
+(\texttt{outputs/eval\_by\_model/predictive\_performance.csv}), below the
+$0.7$ guard applied everywhere else in this project. The published values
+this section is correcting had been computed before that guard was
+introduced and were never re-screened against it; Table
+\ref{tab:hull_model_screening} and the accompanying prose have been updated
+to exclude MLP's Geo branch on the same terms as SVR's, and a stray
+comparison citing MLP's now-invalid Geo consistency figure has been removed.
+
+\paragraph{Implications.} These experiments justify keeping the published
+design (kernel-weighted Ridge, $N=1{,}024$/$4{,}000$) for every model in the
+boosting and kernel/GP categories: no tested surrogate, response metric, or
+budget improves on it, and the permuted-null control confirms the fit
+reflects real signal rather than surrogate overfitting. For MLP and DL, the
+published Feature-branch exclusion remains the correct call under a linear
+surrogate at any tested budget -- but the surrogate, not the budget or
+response metric, was the actual bottleneck: a tree-based surrogate very
+nearly closes DL's Feature-branch fidelity gap ($R^2=0.848$ at $N{=}4{,}096$,
+against $\ge0.93$ for every boosting/kernel model) and substantially narrows
+MLP's ($R^2=0.474$ at $N{=}8{,}192$, against a linear-surrogate ceiling of
+$0.161$). Adopting a tree surrogate for these two models is not, however, a
+drop-in fix: GeoSMILE's reported per-feature attribution is the Ridge
+surrogate's linear coefficient, which Random Forest and HistGradientBoosting
+have no equivalent of, so realising this fidelity gain as an actual
+attribution ranking would require a separate importance method (e.g.\
+permutation or SHAP importance computed on the tree surrogate) layered on
+top -- a natural direction for follow-up work, not pursued here. Finally,
+the ANN/CNN/transformer results reframe what "the neural-network problem"
+actually is: it is not that GeoSMILE struggles with deep or non-linear
+predictors in general -- three further architectures, one of them
+attention-based, show fidelity indistinguishable from gradient-boosted
+trees -- but that two specific, comparatively narrow configurations (the
+screened MLP and DL) happen to produce a masking response a linear
+surrogate cannot capture. This matters for how the published exclusion of
+MLP/DL should be described: not as a limitation of GeoSMILE against neural
+networks, but as a property of those two trained models.

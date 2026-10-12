@@ -1,0 +1,82 @@
+% =====================================================================
+% City Planner stakeholder card (Chapter 6), area-data Geo design, N=4,000, seed 42.
+% High case: Kingston upon Hull 029E (E01033104); low case: 003C (E01012877).
+% Values: outputs/geo_area_data_eval/geo_coefficients_N4000.csv (signed beta, exact_w1),
+%         outputs/geo_area_data_eval/spatial_patterns/ (Moran / LISA on signed beta),
+%         outputs/feature_local_coefficients.csv (local Feature importance shares).
+% "30x" is the ratio of TOTAL LOCAL FEATURE IMPORTANCE (152.4 vs 4.9), not of
+% GeoSensitivity; the direct own-data measure is the exact single-LSOA shift (177 vs 1.1).
+%
+% Preamble requirements:
+%   \usepackage[most]{tcolorbox}   \usepackage{xcolor}   \usepackage{graphicx}
+% Copy into Chapter6/figs/: geo_area_data_map_N4000_plain.png (outputs/geo_area_data_eval/),
+%   E01033104_feature_importance.png, E01012877_feature_importance.png
+% =====================================================================
+
+\definecolor{cardInk}{HTML}{12171C}
+\definecolor{cardMuted}{HTML}{57646D}
+\definecolor{cardTeal}{HTML}{1F4E5F}
+\definecolor{cardPink}{HTML}{FCE4EC}
+\definecolor{cardWine}{HTML}{8A0033}
+\definecolor{cardRule}{HTML}{D9DEE2}
+
+% Highlighted value, e.g. \pv{22.33}
+\newcommand{\pv}[1]{\begingroup\setlength{\fboxsep}{1.5pt}\colorbox{cardPink}{\textcolor{cardWine}{\ttfamily\bfseries #1}}\endgroup}
+% Role tag
+\newcommand{\roletag}[1]{\tcbox[on line, colback=cardTeal, colframe=cardTeal, arc=2.5mm,
+  boxsep=0pt, left=6pt, right=6pt, top=3pt, bottom=3pt]{\color{white}\sffamily\bfseries\small #1}}
+% Section kicker, e.g. 01 · WHERE
+\newcommand{\kicker}[1]{{\color{cardMuted}\sffamily\bfseries\footnotesize\MakeUppercase{#1}}}
+
+\begin{figure}[htbp]
+\begin{tcolorbox}[enhanced, colback=white, colframe=cardRule, arc=3mm, boxrule=0.6pt,
+                  left=5mm, right=5mm, top=4mm, bottom=4mm, fontupper=\sffamily\small\color{cardInk}]
+
+\roletag{CITY PLANNER}\par\medskip
+{\large\itshape Where is the model most and least sensitive to local data?}\par\medskip
+
+GeoSensitivity across Hull's \pv{168 LSOAs} is spatially clustered
+(Moran's $I$ \pv{0.22}, $p = 0.001$).
+
+\medskip
+\begin{minipage}[c]{0.52\linewidth}
+  \includegraphics[width=\linewidth]{Chapter6/figs/geo_area_data_map_N4000_plain.png}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.44\linewidth}
+  \kicker{01 \textperiodcentered{} Where}\par\smallskip
+  One High--High cluster of \pv{9 LSOAs} (\pv{5.7\%} of Hull's area) runs from the
+  Old Town along Hessle, Anlaby and Beverley Roads. Low--Low clusters sit on the edges,
+  including Orchard Park.
+\end{minipage}
+
+\bigskip
+\begin{minipage}[t]{0.485\linewidth}
+  \kicker{02 \textperiodcentered{} High \textperiodcentered{} 029E, city centre}\par\smallskip
+  \includegraphics[width=\linewidth]{Chapter6/figs/E01033104_feature_importance.png}\par\smallskip
+  Rank \pv{1/168}, GeoSensitivity \pv{22.33}. Replacing its data with typical values
+  shifts predictions by about \pv{177} crimes/month. Recent crime drives \pv{83\%} of
+  local importance (6-month \pv{48.5}, 3-month \pv{37.8}).
+\end{minipage}\hfill
+\begin{minipage}[t]{0.485\linewidth}
+  \kicker{03 \textperiodcentered{} Low \textperiodcentered{} 003C, Orchard Park}\par\smallskip
+  \includegraphics[width=\linewidth]{Chapter6/figs/E01012877_feature_importance.png}\par\smallskip
+  Rank \pv{146/168}, GeoSensitivity \pv{$-1.09$}. The same replacement shifts
+  predictions by only about \pv{1.1}. Importance is spread: unemployment \pv{16\%},
+  transit \pv{11\%}, crime history \pv{7\%}.
+\end{minipage}
+
+\bigskip
+Total local Feature importance is \pv{30$\times$} larger in the city centre
+(\pv{152.4} vs \pv{4.9}).
+
+\medskip
+{\color{cardRule}\rule{\linewidth}{0.4pt}}\par\smallskip
+{\color{cardMuted}\footnotesize Higher GeoSensitivity = larger relative contribution to the model's
+response; its sign is not a direction of predicted crime. Model behaviour, not planning targets or
+causes of crime.}
+
+\end{tcolorbox}
+\caption{City Planner narrative: the most and a low GeoSensitivity area in Hull, with the
+local Feature importance behind each.}
+\label{fig:stakeholder-planner}
+\end{figure}

@@ -320,16 +320,16 @@ def _render_fidelity_stage(bundle: SweepBundle) -> None:
 
 
 def render_diagnostics_section(stakeholder_id: str) -> None:
-    """Model Diagnostics / Robustness tab. Visible by default for technical/governance."""
+    """Model Diagnostics / Robustness tab. Visible by default for researcher/governance."""
     show = persona_gated(
         stakeholder_id,
-        default_personas={"technical", "governance"},
+        default_personas={"researcher", "governance"},
         toggle_label="Show diagnostics (Model Diagnostics / Robustness)",
         toggle_key="show_diagnostics_toggle",
         help_text=(
             "Robustness diagnostics — fidelity, faithfulness, ATT stability, ATT "
             "consistency, and expert-reference overlap — across the swept "
-            "perturbation counts. Shown by default for Technical/Model Analyst and "
+            "perturbation counts. Shown by default for GeoAI Researcher/Model Analyst and "
             "Governance/Assurance."
         ),
     )

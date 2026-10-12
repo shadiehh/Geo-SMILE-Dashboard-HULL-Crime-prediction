@@ -1,0 +1,19 @@
+model,branch,predictive_r2,source
+xgboost,Feature,0.8956733279339549,saved (verify_metrics_all_models)
+xgboost,Geo,0.875167871949448,saved (verify_metrics_all_models)
+lightgbm,Feature,0.8967830225728478,saved (verify_metrics_all_models)
+lightgbm,Geo,0.8798243828401342,saved (verify_metrics_all_models)
+catboost,Feature,0.8959397168009859,saved (verify_metrics_all_models)
+catboost,Geo,0.8738562672822037,saved (verify_metrics_all_models)
+svr,Feature,0.8629371250471533,saved (verify_metrics_all_models)
+gp,Feature,0.8992713539589827,saved (verify_metrics_all_models)
+gp,Geo,0.8776707425199887,saved (verify_metrics_all_models)
+mlp,Feature,0.852902860199105,rf_surrogate
+dl,Feature,0.8574200915414827,rf_surrogate
+dl,Geo,0.8235480724596611,saved (verify_metrics_all_models)
+ann,Feature,0.8663277237038551,fresh Ridge SMILE fit
+ann,Geo,0.7211040717156678,fresh Ridge SMILE fit
+cnn,Feature,0.8441507405659138,fresh Ridge SMILE fit
+cnn,Geo,0.6607235697992832,fresh Ridge SMILE fit
+transformer,Feature,0.8134894685331775,fresh Ridge SMILE fit
+transformer,Geo,0.8384011207771733,fresh Ridge SMILE fit

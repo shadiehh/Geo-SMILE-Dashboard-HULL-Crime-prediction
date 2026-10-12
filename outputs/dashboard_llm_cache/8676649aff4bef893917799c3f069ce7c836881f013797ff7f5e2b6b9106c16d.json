@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "Across Hull, the model\u2019s next-month crime predictions depend most on recent crime history, especially a 6-month rolling average of crime, which is the strongest influence overall, followed by a 3-month rolling average and unemployment rate; in contrast, features like LSOA area, road density, and intersection density matter much less. The pattern seen citywide in influential features also holds for the selected area, showing consistent dependence on recent crime levels. Geographic sensitivity to location differences is mostly modest, with the highest-ranked areas having much larger effects than typical, but these areas are not statistically clustered broadly\u2014only a small number form significant local groupings, while most show no significant spatial association. This means that geography\u2019s role varies by place but is generally limited, and the model\u2019s explanations are faithful though not causal.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-10-05T22:52:43.573891+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 10515,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 163,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 10678
+  },
+  "prompt_version": "geosmile-hull-v6"
+}

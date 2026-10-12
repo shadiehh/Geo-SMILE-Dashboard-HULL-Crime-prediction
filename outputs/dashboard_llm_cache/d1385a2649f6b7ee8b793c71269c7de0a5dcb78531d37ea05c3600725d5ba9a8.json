@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "Finding:\nThe GeoSensitivity for the selected area, Kingston upon Hull 015D, is moderate in absolute magnitude at 1.79, ranking 5th out of 168 LSOAs in Hull. This indicates that, relative to most areas in Hull, the model\u2019s explanation depends moderately on geographic context here according to the Geo branch location-masking SMILE. However, this GeoSensitivity value is not extremely large in absolute terms but is in the upper range for Hull. The latitude feature effect is positive at 0.21, while the longitude feature effect is negative at -0.08; these two coordinate-based effects are separate from GeoSensitivity. The spatial-pattern analysis labels Kingston upon Hull 015D as \u201cNot significant\u201d (NS) for local spatial clustering of GeoSensitivity, with a Local Moran I of -0.072 and p-value of 0.325, meaning there is no statistically detected spatial clustering or outlier status of GeoSensitivity at this location.\n\nEvidence source:\nThese findings come from the Geo branch location-masking SMILE for GeoSensitivity, Feature SMILE for latitude and longitude effects, and Local Moran/I (LISA) statistics computed on the absolute GeoSensitivity values. The evaluation shows that the GeoSensitivity attribution and feature attributions have been well evaluated: stability Jaccard indices for GeoSensitivity and features are both 1.0, showing high stability; surrogate R\u00b2 values are high (0.90 and above), indicating good explanation fidelity; and empirical p-values for GeoSensitivity and features\u2019 top-vs-random faithfulness contrasts are statistically significant (0.036 and 0.016 respectively), supporting the relevance of the attributions. None of this indicates causality, only explanation quality.\n\nReliability:\nThe local GeoSensitivity and feature attributions are stable and faithful to the model predictions based on the supplied evaluation metrics. The spatial clustering analysis uses a 999-permutation test and a standard spatial weights matrix (\u201cqueen contiguity, row-standardised\u201d), giving reliable statistical evidence for no local cluster at the selected LSOA. However, global pattern analysis of GeoSensitivity shows positive spatial clustering across Hull (Global Moran\u2019s I = 0.044, p = 0.027), so some geographic patterning exists at the city-wide level, even if not locally here.\n\nGeographic-dependence consideration:\nGeographic contribution to the model explanation for Kingston upon Hull 015D is modest relative to other areas but comparatively ranked high. Latitude and longitude effects should not be conflated with GeoSensitivity, as they represent different model components. The lack of local spatial significance means the GeoSensitivity here is not spatially clustered with similar values, so this location does not form part of a detected GeoSensitivity cluster.\n\nLimitation:\nCausality is explicitly not supported\u2014neither GeoSensitivity nor coordinate effects indicate that geography causes crime. Pattern scale for spatial clustering is not established in the outputs and local multiple-testing-adjusted p-values are not available. No local context or deprivation data are incorporated. The explanations reflect the model\u2019s internal attribution structure only.\n\nAssurance implication:\nFrom a governance perspective, the explanation evidence for this area is based on well-evaluated, stable attribution methods but remains inherently limited in geographic causal interpretation and local spatial pattern certainty. Distinguishing GeoSensitivity from latitude/longitude effects and recognizing that spatial clustering significance is not detected locally are essential to prevent over-interpretation. Users should continue to treat these attributions as model explanation tools, not crime causes or policy directives.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-08-20T15:21:11.172749+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 6571,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 710,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 7281
+  },
+  "prompt_version": "geosmile-hull-v1"
+}

@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "text": "Across [[t:Hull]], the model is most sensitive to an area's own data \u2014 that is, shows the highest [[t:GeoSensitivity]] \u2014 in [[t:Old Town]] ([[n:22.33]], Kingston upon Hull 029E), with other high-sensitivity areas in Dairycoates and Sculcoates. The lowest values are found in [[t:Gipsyville]] ([[n:-1.33]]), East Ella, and Bilton Grange. Overall, GeoSensitivity is in the upper tail for these high-ranked LSOAs. [[t:Spatial clustering]] is present: [[n:9]] LSOAs are classed High\u2013High, forming a contiguous pattern (Moran's I [[n:0.22]], p = [[n:0.001]]; pattern scale is not established). 142 LSOAs show no significant local clustering. These results describe sensitivity to area data, not crime counts or location features.\n\nCitywide, the model relies most on [[t:crime history features]] ([[n:61%]] of total attribution), followed by census population variables ([[n:20%]]) and [[t:built environment features]] ([[n:14%]]). Within the built-environment share, [[t:retail]] ([[n:2.7%]]) and [[t:green space]] ([[n:2.6%]]) lead overall. The areas where the model relies most heavily on built-environment features are Longhill ([[n:45%]], led by green space), Avenues (green space), Bilton Grange (intersections), Sculcoates (green space), and Orchard Park (transit stops). In contrast, the Old Town\u2019s built-environment share is low at [[n:6%]], ranked 158th, with retail as its main built feature.\n\nThe dashboard highlights Kingston upon Hull 029E ([[t:Old Town]], rank 1, [[n:22.33]]) as the most geo-sensitive LSOA (local explanation dominated by [[t:crime history]], built-environment share [[n:6%]], led by retail), compared with a low-sensitivity LSOA (003C, [[n:-1.09]]). These attribution shares describe model reliance, not planning targets or causes.",
+  "provider": "openai",
+  "model": "gpt-4.1",
+  "timestamp": "2026-10-10T10:38:13.767928+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 14664,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 470,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 15134,
+    "checks": {
+      "ok": false,
+      "problems": [
+        "text: 11 key terms, expected 4-10",
+        "text: unmarked figure"
+      ]
+    }
+  },
+  "prompt_version": "geosmile-hull-v8+comprehensive-v2"
+}

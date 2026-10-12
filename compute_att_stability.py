@@ -170,8 +170,18 @@ def save_geo_rank_map(
     footer: str,
     name_lookup: dict[str, str] | None = None,
     added_codes: list[str] | set[str] | None = None,
+    vmin: float | None = None,
+    vmax: float | None = None,
+    show_colorbar: bool = True,
 ) -> Path:
-    """Top-k LSOA importance map (same style as map_geo_importance_ranks)."""
+    """Top-k LSOA importance map (same style as map_geo_importance_ranks).
+
+    vmin/vmax/show_colorbar default to per-map auto-scaling with its own
+    colorbar (unchanged behavior for every existing caller); pass a shared
+    vmax (and show_colorbar=False) when rendering one map as part of a
+    small-multiple panel that shares a single external colorbar, so relative
+    intensity across the panel's maps stays comparable.
+    """
     coef = geo_coef.copy()
     if "lsoa21nm" not in coef.columns and name_lookup:
         coef["lsoa21nm"] = coef["lsoa21cd"].map(name_lookup).fillna(coef["lsoa21cd"])
@@ -191,6 +201,9 @@ def save_geo_rank_map(
         path=path,
         footer_note=footer,
         added_codes=added_codes,
+        vmin=vmin,
+        vmax=vmax,
+        show_colorbar=show_colorbar,
     )
     return path
 
@@ -281,12 +294,7 @@ def save_neighbor_locator_map(hull, neighbors, path: Path) -> Path:
     from matplotlib.patches import Patch
     from hull_boundaries import hull_outline
 
-    colors = {
-        "north": "#C62828",
-        "east": "#1565C0",
-        "south": "#2E7D32",
-        "west": "#6A1B9A",
-    }
+    NEIGHBOR_COLOR = PINK
     fig, ax = plt.subplots(figsize=(8.5, 9.0))
     hull.plot(ax=ax, color="#E8ECF0", edgecolor="white", linewidth=0.15, zorder=1)
     gpd.GeoSeries([hull_outline(hull)], crs=hull.crs).plot(
@@ -296,7 +304,7 @@ def save_neighbor_locator_map(hull, neighbors, path: Path) -> Path:
         direction = str(row["direction"])
         gpd.GeoSeries([row.geometry], crs=neighbors.crs).plot(
             ax=ax,
-            color=colors.get(direction, PINK),
+            color=NEIGHBOR_COLOR,
             edgecolor=INK,
             linewidth=1.6,
             zorder=4,
@@ -321,11 +329,7 @@ def save_neighbor_locator_map(hull, neighbors, path: Path) -> Path:
         color=INK,
         pad=8,
     )
-    handles = [
-        Patch(facecolor=colors[d], edgecolor="white", label=d.title())
-        for d in DIRECTIONS
-        if d in set(neighbors["direction"].astype(str))
-    ]
+    handles = [Patch(facecolor=NEIGHBOR_COLOR, edgecolor="white", label="Added neighbour LSOA")]
     ax.legend(handles=handles, loc="lower left", frameon=False, fontsize=8)
     fig.text(
         0.5,

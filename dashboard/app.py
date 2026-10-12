@@ -29,7 +29,11 @@ from dashboard.data.loader import load_hull_bundle
 from dashboard.data.schema import LSOA_ID, LSOA_NAME, MAP_VIEWS, PROVIDERS
 from dashboard.views.attribution_patterns import render_attribution_patterns_section
 from dashboard.views.diagnostics import render_diagnostics_section
-from dashboard.views.explanation_panel import render_explanation_panel, stakeholder_selector
+from dashboard.views.explanation_panel import (
+    render_explanation_panel,
+    render_stakeholder_table_section,
+    stakeholder_selector,
+)
 from dashboard.views.feature_panel import (
     render_evaluation,
     render_feature_panel,
@@ -66,8 +70,10 @@ def main() -> None:
         st.markdown(
             """
 **GeoSensitivity**
-Measures how sensitive the Geo-branch explanation is to geographic context
-(location-masking SMILE). This is not latitude or longitude attribution.
+How much the model's predictions depend on each area's own data
+(area-data masking SMILE: all of an LSOA's inputs are replaced with Hull
+training medians). Ranked by the signed coefficient, rank 1 = highest.
+This is not latitude or longitude attribution.
 
 **Latitude / Longitude feature effects**
 Show the contribution associated with coordinate features included in the
@@ -79,13 +85,13 @@ RGB composite of independently scaled absolute values: red =
 This is a visualisation only. It does not merge the three quantities.
 
 **GeoSensitivity top 50 + lat/lon overlay**
-The importance set is the top 50 |GeoSensitivity| LSOAs. Shade is
+The importance set is the top 50 GeoSensitivity LSOAs. Shade is
 GeoSensitivity rank (darker = rank 1). Latitude and longitude overlay
 only on that set. An LSOA that is top-50 lat/lon but not top-50
 GeoSensitivity is not treated as important.
 
 **Spatial pattern**
-Tests whether |GeoSensitivity| values form spatial clusters or outliers
+Tests whether GeoSensitivity values form spatial clusters or outliers
 (Queen-contiguity LISA). A cluster is not the same as a large effect.
 
 **Top features**
@@ -149,7 +155,7 @@ LSOA's Feature SMILE explanation. Rank is not the same as strength.
             )
         if map_view == "top50_rank":
             st.caption(
-                "Importance = top 50 |GeoSensitivity|. Shade = that rank. "
+                "Importance = top 50 GeoSensitivity. Shade = that rank. "
                 "Outline = also top-50 latitude and/or longitude. "
                 "Lat/lon-only LSOAs stay grey. Not causal."
             )
@@ -168,6 +174,14 @@ LSOA's Feature SMILE explanation. Rank is not the same as strength.
         bundle,
         stakeholder_id=stakeholder_id,
         provider_choice=provider_choice,
+        scope=scope,
+        current_map_view=map_view,
+        selected_lsoa=st.session_state.selected_lsoa,
+    )
+
+    st.divider()
+    render_stakeholder_table_section(
+        bundle,
         scope=scope,
         current_map_view=map_view,
         selected_lsoa=st.session_state.selected_lsoa,

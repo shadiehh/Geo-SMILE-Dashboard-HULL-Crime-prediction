@@ -46,12 +46,12 @@ def test_metrics_has_both_branches_never_merged(bundle: SweepBundle):
 
 
 def test_published_n_markers(bundle: SweepBundle):
-    assert bundle.published_n == {"feature": 1024, "geo": 2000}
+    assert bundle.published_n == {"feature": 1024, "geo": 4000}  # area-data Geo design
     pub = bundle.metrics[bundle.metrics["is_published"]]
     feat_n = pub.loc[pub["branch"] == "Feature", "n_perturb"].iloc[0]
     geo_n = pub.loc[pub["branch"] == "Geo", "n_perturb"].iloc[0]
     assert int(feat_n) == 1024
-    assert int(geo_n) == 2000
+    assert int(geo_n) == 4000
 
 
 def test_three_fidelity_figures_are_distinct_columns(bundle: SweepBundle):
@@ -66,7 +66,7 @@ def test_expert_overlap_matches_manual_verification_at_published_n(bundle: Sweep
     feat = bundle.published_rankings["feature"]
     geo = bundle.published_rankings["geo"]
     assert expert_overlap_count(feat, k=FEATURE_TOP_K) == 7
-    assert expert_overlap_count(geo, k=GEO_TOP_K) == 16
+    assert expert_overlap_count(geo, k=GEO_TOP_K) == 9  # area-data design, signed rank
 
 
 def test_topk_ranking_sizes(bundle: SweepBundle):

@@ -1,0 +1,63 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788777782.202180    1680 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788777785.204255    1680 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [dl] Feature fidelity replicates (R=10) ===
+I0000 00:00:1788777786.140494    1680 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[dl] Feature seed=42: R2=0.1397 R2w=0.1471
+[dl] Feature seed=43: R2=0.1255 R2w=0.1299
+[dl] Feature seed=44: R2=0.0921 R2w=0.0921
+[dl] Feature seed=45: R2=0.1381 R2w=0.1469
+[dl] Feature seed=46: R2=-0.4437 R2w=-0.4198
+[dl] Feature seed=47: R2=-0.1086 R2w=-0.1043
+[dl] Feature seed=48: R2=0.1796 R2w=0.1799
+[dl] Feature seed=49: R2=0.2516 R2w=0.2584
+[dl] Feature seed=50: R2=-0.2571 R2w=-0.2270
+[dl] Feature seed=51: R2=0.1456 R2w=0.1645
+[dl] appended to D:\GEO SMILE CODE\hull\outputs\bootstrap_replicates\feature_fidelity_replicates.csv
+
+=== [ann] Feature fidelity replicates (R=10) ===
+[ann] Feature seed=42: R2=0.9551 R2w=0.9547
+[ann] Feature seed=43: R2=0.9016 R2w=0.8997
+[ann] Feature seed=44: R2=0.9218 R2w=0.9215
+[ann] Feature seed=45: R2=0.9114 R2w=0.9104
+[ann] Feature seed=46: R2=0.9265 R2w=0.9229
+[ann] Feature seed=47: R2=0.9374 R2w=0.9363
+[ann] Feature seed=48: R2=0.9090 R2w=0.9093
+[ann] Feature seed=49: R2=0.9229 R2w=0.9225
+[ann] Feature seed=50: R2=0.9270 R2w=0.9268
+[ann] Feature seed=51: R2=0.9193 R2w=0.9186
+[ann] appended to D:\GEO SMILE CODE\hull\outputs\bootstrap_replicates\feature_fidelity_replicates.csv
+
+=== [cnn] Feature fidelity replicates (R=10) ===
+[cnn] Feature seed=42: R2=0.9148 R2w=0.9156
+[cnn] Feature seed=43: R2=0.9377 R2w=0.9380
+[cnn] Feature seed=44: R2=0.9234 R2w=0.9229
+[cnn] Feature seed=45: R2=0.9190 R2w=0.9214
+[cnn] Feature seed=46: R2=0.9076 R2w=0.9156
+[cnn] Feature seed=47: R2=0.9069 R2w=0.9076
+[cnn] Feature seed=48: R2=0.9059 R2w=0.9062
+[cnn] Feature seed=49: R2=0.9188 R2w=0.9266
+[cnn] Feature seed=50: R2=0.9055 R2w=0.9089
+[cnn] Feature seed=51: R2=0.8914 R2w=0.8974
+[cnn] appended to D:\GEO SMILE CODE\hull\outputs\bootstrap_replicates\feature_fidelity_replicates.csv
+
+=== [transformer] Feature fidelity replicates (R=10) ===
+WARNING:tensorflow:From C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:233: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[transformer] Feature seed=42: R2=0.9913 R2w=0.9922
+[transformer] Feature seed=43: R2=0.9931 R2w=0.9933
+[transformer] Feature seed=44: R2=0.9925 R2w=0.9928
+[transformer] Feature seed=45: R2=0.9922 R2w=0.9922
+[transformer] Feature seed=46: R2=0.9926 R2w=0.9943
+[transformer] Feature seed=47: R2=0.9920 R2w=0.9926
+[transformer] Feature seed=48: R2=0.9923 R2w=0.9923
+[transformer] Feature seed=49: R2=0.9908 R2w=0.9913
+[transformer] Feature seed=50: R2=0.9908 R2w=0.9916
+[transformer] Feature seed=51: R2=0.9915 R2w=0.9920
+[transformer] appended to D:\GEO SMILE CODE\hull\outputs\bootstrap_replicates\feature_fidelity_replicates.csv
+
+Done.

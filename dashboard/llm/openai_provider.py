@@ -41,8 +41,13 @@ class OpenAIProvider:
         evidence: dict,
         stakeholder: dict,
         user_question: str | None = None,
+        *,
+        addendum: str | None = None,
+        user_suffix: str | None = None,
     ) -> LLMResponse:
-        system_prompt = GEOSMILE_SYSTEM_PROMPT
+        # The master prompt is always sent first and unchanged; a mode addendum
+        # (dashboard.llm.card_mode) may follow it.
+        system_prompt = GEOSMILE_SYSTEM_PROMPT + ("\n" + addendum if addendum else "")
         key = _secret("OPENAI_API_KEY")
         stamp = datetime.now(timezone.utc).isoformat()
         if not key:
@@ -55,7 +60,7 @@ class OpenAIProvider:
                 error="API key is not configured for this provider.",
                 prompt_version=SYSTEM_PROMPT_VERSION,
             )
-        user_content = user_payload(evidence, user_question)
+        user_content = user_payload(evidence, user_question) + (user_suffix or "")
         try:
             from openai import OpenAI
 

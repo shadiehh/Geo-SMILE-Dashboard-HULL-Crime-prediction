@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "The maximum absolute GeoSensitivity in Hull is **24.22**, with a mean of 0.86, showing some areas contribute comparatively more to prediction shifts. The global spatial pattern reveals statistically significant positive clustering of GeoSensitivity (Moran's I = 0.044, p = 0.027), with seven high-high and six low-low clusters detected. GeoSensitivity stability is strong (ATT Jaccard = 1.0), but pattern scale is not established in the outputs.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-10T21:08:07.500680+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 7668,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 100,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 7768
+  },
+  "prompt_version": "geosmile-hull-v5"
+}

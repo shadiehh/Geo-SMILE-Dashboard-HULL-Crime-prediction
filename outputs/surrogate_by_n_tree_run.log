@@ -1,0 +1,135 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788639229.512212   14636 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788639232.434578   14636 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [mlp] === category=neural
+[mlp] Feature pool (n=512)...
+[mlp] n=512 candidate/weighted_ols: R2=0.1292
+[mlp] n=512 candidate/ridge_kernel_weighted: R2=0.1342
+[mlp] n=512 candidate/bayesian_ridge: R2=0.1608
+[mlp] n=512 candidate/narrow_bandwidth_weighted_ols: R2=0.1273
+[mlp] n=512 candidate/huber: R2=-0.0361
+[mlp] n=512 control/unweighted_ols: R2=0.1316
+[mlp] n=512 control/ridge_alpha_zero: R2=0.1292
+[mlp] n=512 control/ridge_alpha_large: R2=-0.0001
+[mlp] n=512 control/strong_lasso: R2=0.1293
+[mlp] n=512 control/shallow_tree: R2=-0.0189
+[mlp] n=512 control/permuted_null_mean: R2=-0.1556
+[mlp] n=512 control/permuted_null_sd: R2=0.1997
+[mlp] n=512 candidate/random_forest: R2=0.1756
+[mlp] n=512 candidate/hist_gradient_boosting: R2=0.2673
+[mlp] Feature pool (n=1024)...
+[mlp] n=1024 candidate/weighted_ols: R2=0.0905
+[mlp] n=1024 candidate/ridge_kernel_weighted: R2=0.0905
+[mlp] n=1024 candidate/bayesian_ridge: R2=0.0858
+[mlp] n=1024 candidate/narrow_bandwidth_weighted_ols: R2=0.0277
+[mlp] n=1024 candidate/huber: R2=-0.0180
+[mlp] n=1024 control/unweighted_ols: R2=0.0782
+[mlp] n=1024 control/ridge_alpha_zero: R2=0.0905
+[mlp] n=1024 control/ridge_alpha_large: R2=-0.0014
+[mlp] n=1024 control/strong_lasso: R2=0.0905
+[mlp] n=1024 control/shallow_tree: R2=0.1338
+[mlp] n=1024 control/permuted_null_mean: R2=-0.2581
+[mlp] n=1024 control/permuted_null_sd: R2=0.2606
+[mlp] n=1024 candidate/random_forest: R2=0.2608
+[mlp] n=1024 candidate/hist_gradient_boosting: R2=0.2674
+[mlp] Feature pool (n=2048)...
+[mlp] n=2048 candidate/weighted_ols: R2=0.0329
+[mlp] n=2048 candidate/ridge_kernel_weighted: R2=0.0365
+[mlp] n=2048 candidate/bayesian_ridge: R2=0.1168
+[mlp] n=2048 candidate/narrow_bandwidth_weighted_ols: R2=-0.7448
+[mlp] n=2048 candidate/huber: R2=-0.0356
+[mlp] n=2048 control/unweighted_ols: R2=0.0058
+[mlp] n=2048 control/ridge_alpha_zero: R2=0.0329
+[mlp] n=2048 control/ridge_alpha_large: R2=-0.0113
+[mlp] n=2048 control/strong_lasso: R2=0.0330
+[mlp] n=2048 control/shallow_tree: R2=0.1107
+[mlp] n=2048 control/permuted_null_mean: R2=-0.0587
+[mlp] n=2048 control/permuted_null_sd: R2=0.0750
+[mlp] n=2048 candidate/random_forest: R2=-0.7471
+[mlp] n=2048 candidate/hist_gradient_boosting: R2=0.1975
+[mlp] Feature pool (n=4096)...
+[mlp] n=4096 candidate/weighted_ols: R2=0.0748
+[mlp] n=4096 candidate/ridge_kernel_weighted: R2=0.0747
+[mlp] n=4096 candidate/bayesian_ridge: R2=0.0714
+[mlp] n=4096 candidate/narrow_bandwidth_weighted_ols: R2=0.0743
+[mlp] n=4096 candidate/huber: R2=-0.0171
+[mlp] n=4096 control/unweighted_ols: R2=0.0756
+[mlp] n=4096 control/ridge_alpha_zero: R2=0.0748
+[mlp] n=4096 control/ridge_alpha_large: R2=-0.0028
+[mlp] n=4096 control/strong_lasso: R2=0.0748
+[mlp] n=4096 control/shallow_tree: R2=0.0909
+[mlp] n=4096 control/permuted_null_mean: R2=-0.0225
+[mlp] n=4096 control/permuted_null_sd: R2=0.0206
+[mlp] n=4096 candidate/random_forest: R2=0.4283
+[mlp] n=4096 candidate/hist_gradient_boosting: R2=0.2778
+[mlp] done in 0.7 min
+
+=== [dl] === category=neural
+I0000 00:00:1788639274.099612   14636 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[dl] Feature pool (n=512)...
+[dl] n=512 candidate/weighted_ols: R2=0.1505
+[dl] n=512 candidate/ridge_kernel_weighted: R2=0.1583
+[dl] n=512 candidate/bayesian_ridge: R2=0.1867
+[dl] n=512 candidate/narrow_bandwidth_weighted_ols: R2=-2.6354
+[dl] n=512 candidate/huber: R2=-0.0253
+[dl] n=512 control/unweighted_ols: R2=0.1805
+[dl] n=512 control/ridge_alpha_zero: R2=0.1505
+[dl] n=512 control/ridge_alpha_large: R2=-0.0018
+[dl] n=512 control/strong_lasso: R2=0.0494
+[dl] n=512 control/shallow_tree: R2=0.1747
+[dl] n=512 control/permuted_null_mean: R2=-0.2077
+[dl] n=512 control/permuted_null_sd: R2=0.2491
+[dl] n=512 candidate/random_forest: R2=0.3951
+[dl] n=512 candidate/hist_gradient_boosting: R2=0.6605
+[dl] Feature pool (n=1024)...
+[dl] n=1024 candidate/weighted_ols: R2=0.1217
+[dl] n=1024 candidate/ridge_kernel_weighted: R2=0.1244
+[dl] n=1024 candidate/bayesian_ridge: R2=0.1431
+[dl] n=1024 candidate/narrow_bandwidth_weighted_ols: R2=0.1168
+[dl] n=1024 candidate/huber: R2=0.0301
+[dl] n=1024 control/unweighted_ols: R2=0.1280
+[dl] n=1024 control/ridge_alpha_zero: R2=0.1217
+[dl] n=1024 control/ridge_alpha_large: R2=-0.0075
+[dl] n=1024 control/strong_lasso: R2=0.0578
+[dl] n=1024 control/shallow_tree: R2=0.2882
+[dl] n=1024 control/permuted_null_mean: R2=-0.0592
+[dl] n=1024 control/permuted_null_sd: R2=0.0442
+[dl] n=1024 candidate/random_forest: R2=0.7600
+[dl] n=1024 candidate/hist_gradient_boosting: R2=0.6670
+[dl] Feature pool (n=2048)...
+[dl] n=2048 candidate/weighted_ols: R2=0.2304
+[dl] n=2048 candidate/ridge_kernel_weighted: R2=0.2309
+[dl] n=2048 candidate/bayesian_ridge: R2=0.2355
+[dl] n=2048 candidate/narrow_bandwidth_weighted_ols: R2=0.2300
+[dl] n=2048 candidate/huber: R2=0.0399
+[dl] n=2048 control/unweighted_ols: R2=0.2313
+[dl] n=2048 control/ridge_alpha_zero: R2=0.2304
+[dl] n=2048 control/ridge_alpha_large: R2=-0.0003
+[dl] n=2048 control/strong_lasso: R2=0.0408
+[dl] n=2048 control/shallow_tree: R2=0.2845
+[dl] n=2048 control/permuted_null_mean: R2=-0.0168
+[dl] n=2048 control/permuted_null_sd: R2=0.0165
+[dl] n=2048 candidate/random_forest: R2=0.8249
+[dl] n=2048 candidate/hist_gradient_boosting: R2=0.7702
+[dl] Feature pool (n=4096)...
+[dl] n=4096 candidate/weighted_ols: R2=0.1685
+[dl] n=4096 candidate/ridge_kernel_weighted: R2=0.1691
+[dl] n=4096 candidate/bayesian_ridge: R2=0.1734
+[dl] n=4096 candidate/narrow_bandwidth_weighted_ols: R2=0.0658
+[dl] n=4096 candidate/huber: R2=0.0424
+[dl] n=4096 control/unweighted_ols: R2=0.1748
+[dl] n=4096 control/ridge_alpha_zero: R2=0.1685
+[dl] n=4096 control/ridge_alpha_large: R2=-0.0051
+[dl] n=4096 control/strong_lasso: R2=0.0486
+[dl] n=4096 control/shallow_tree: R2=0.2700
+[dl] n=4096 control/permuted_null_mean: R2=-0.0108
+[dl] n=4096 control/permuted_null_sd: R2=0.0089
+[dl] n=4096 candidate/random_forest: R2=0.8478
+[dl] n=4096 candidate/hist_gradient_boosting: R2=0.7134
+[dl] done in 10.1 min
+
+Done. 344 rows. Summary: D:\GEO SMILE CODE\hull\outputs\surrogate_by_n\surrogate_by_n_summary.csv

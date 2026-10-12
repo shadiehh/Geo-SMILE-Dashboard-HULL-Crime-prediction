@@ -1,0 +1,94 @@
+{
+  "design": "Same panel, split, XGBoost settings, seed, perturbations, baselines and LSOA mask draws; only difference is whether the model also sees the 30 Feature inputs.",
+  "perturbations": 4000,
+  "seed": 42,
+  "noise_seeds": [
+    43,
+    44
+  ],
+  "holdout": {
+    "geo_only": {
+      "mae": 5.510922834986732,
+      "rmse": 7.537649303622581,
+      "r2": 0.875167871949448
+    },
+    "combined": {
+      "mae": 4.831365756690502,
+      "rmse": 6.906991039191308,
+      "r2": 0.8951828603615944
+    }
+  },
+  "surrogate_test_r2": {
+    "geo_only": 0.9389537619761674,
+    "combined": 0.9021396874138244
+  },
+  "abs_distribution": {
+    "geo_only": {
+      "mean": 0.8600389852481375,
+      "median": 0.6477915213730722,
+      "p90": 1.402473047465486,
+      "max": 23.11424299564831,
+      "sum": 144.4865495216871
+    },
+    "combined": {
+      "mean": 0.026966555692577502,
+      "median": 0.0229728261833534,
+      "p90": 0.04454082786601814,
+      "max": 0.18310676329329661,
+      "sum": 4.53038135635302
+    }
+  },
+  "median_ratio_combined_to_geo_only": 0.03593528706301098,
+  "rank_spearman": 0.017052960857659158,
+  "signed_pearson": 0.2616743993277801,
+  "noise_floor_rank_spearman_geo_only": [
+    0.9454927845070638,
+    0.952943647784735
+  ],
+  "noise_floor_rank_spearman_combined": [
+    0.5666857325079343,
+    0.6742930031737034
+  ],
+  "noise_top1_combined": [
+    "E01033104",
+    "E01033104"
+  ],
+  "noise_max_abs_combined": [
+    0.7204225193332001,
+    0.35576739561411663
+  ],
+  "top20_overlap": 5,
+  "top20_jaccard": 0.14285714285714285,
+  "top1": {
+    "geo_only": "E01033104",
+    "combined": "E01012832"
+  },
+  "n_sign_flips": 90,
+  "n_change_exceeds_noise": 143,
+  "moran": {
+    "geo_only": {
+      "moran_i": 0.04441808067767084,
+      "p_value": 0.029,
+      "lisa_counts": {
+        "HH": 7,
+        "LL": 7,
+        "HL": 2,
+        "LH": 5,
+        "NS": 147
+      }
+    },
+    "combined": {
+      "moran_i": 0.07137062804000256,
+      "p_value": 0.049,
+      "lisa_counts": {
+        "HH": 7,
+        "LL": 6,
+        "HL": 3,
+        "LH": 9,
+        "NS": 143
+      }
+    }
+  },
+  "lisa_class_changed": 35,
+  "note": "Not causal. Combined-model GeoSensitivity is conditional on true feature values."
+}

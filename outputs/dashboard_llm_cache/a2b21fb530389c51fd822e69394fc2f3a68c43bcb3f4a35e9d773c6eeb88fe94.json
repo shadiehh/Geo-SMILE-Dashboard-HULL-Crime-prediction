@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "text": "The most consequential finding across Hull is that geographic sensitivity varies substantially, with the selected LSOA, Kingston upon Hull 029C, ranking 4th in GeoSensitivity magnitude at 2.32, classified as moderate. This area is part of a high\u2013high cluster of GeoSensitivity, indicating nearby LSOAs also have elevated geographic influence, though the overall pattern of spatial clustering in Hull is modest (Moran's I is 0.044, p = 0.029). The selected LSOA\u2019s latitude and longitude effects are distinct and negative, separate from its GeoSensitivity. The top non-location feature across Hull and in this LSOA is \"Crime roll mean 6,\" notably with a strong negative coefficient locally, marking it as a key driver of predicted crime counts beyond geographic factors. Evaluation shows explanation stability and fidelity are high, supporting confidence in these patterns. Limitations include that GeoSensitivity is not causal and that spatial pattern scale is not established. Further evidence review should consider both geographic sensitivity and feature attribution for strategic decisions.",
+  "provider": "openai",
+  "model": "gpt-4.1-mini",
+  "timestamp": "2026-09-27T23:53:50.482308+00:00",
+  "error": null,
+  "usage": {
+    "input_tokens": 11480,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 212,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 11692
+  },
+  "prompt_version": "geosmile-hull-v6"
+}

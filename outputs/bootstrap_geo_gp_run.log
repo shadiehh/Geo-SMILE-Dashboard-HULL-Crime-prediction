@@ -1,0 +1,18 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788819226.778780   12276 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788819229.601466   12276 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+
+=== [gp] Geo top-20 replicates (R=10, 0 already done) ===
+[gp] Geo seed=42: top-20 captured
+[gp] Geo seed=43: top-20 captured
+[gp] Geo seed=44: top-20 captured
+[gp] Geo seed=45: top-20 captured
+[gp] Geo seed=46: top-20 captured
+[gp] Geo seed=47: top-20 captured
+[gp] Geo seed=48: top-20 captured
+[gp] Geo seed=49: top-20 captured
+[gp] Geo seed=50: top-20 captured
+[gp] Geo seed=51: top-20 captured
+
+Done.
