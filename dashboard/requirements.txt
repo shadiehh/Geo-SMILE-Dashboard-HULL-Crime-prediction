@@ -1,18 +1,22 @@
 # Streamlit Community Cloud installs this file (entrypoint: dashboard/app.py).
-# Dashboard-only dependencies; the full research pipeline uses ../requirements.txt.
-streamlit>=1.40
-numpy>=1.26
-pandas>=2.1
-scipy>=1.11
-scikit-learn>=1.4
-geopandas>=1.0
-shapely>=2.0
-pyproj>=3.6
-matplotlib>=3.8
-plotly>=5.20
-libpysal>=4.10
-esda>=2.5
-requests>=2.31
-openai>=1.40
-anthropic>=0.40
-python-dotenv>=1.0
+# Dashboard-only dependencies, pinned to the versions the dashboard was built and tested with
+# (Python 3.13). The full research pipeline uses ../requirements.txt.
+# plotly must stay below 7: plotly 7 removed go.Choroplethmapbox, used by the dashboard map.
+streamlit==1.60.0
+numpy==2.2.2
+pandas==3.0.5
+scipy==1.15.1
+scikit-learn==1.6.1
+xgboost==3.3.0
+geopandas==1.1.4
+pyogrio==0.13.0
+shapely==2.1.2
+pyproj==3.7.2
+matplotlib==3.10.3
+plotly==6.9.0
+libpysal==4.15.0
+esda==2.10.0
+requests==2.34.2
+openai==3.3.1
+anthropic==0.125.0
+python-dotenv==1.2.3
