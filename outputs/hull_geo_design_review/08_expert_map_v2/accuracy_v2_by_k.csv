@@ -1,0 +1,7 @@
+design,top20,top30,top42
+Area-data (published),"12/20 (0.60, lift 1.77, p=0.0102)","13/30 (0.43, lift 1.28, p=0.161)","18/42 (0.43, lift 1.26, p=0.111)"
+Coordinates -> median point (aligned),"10/20 (0.50, lift 1.47, p=0.088)","12/30 (0.40, lift 1.18, p=0.284)","18/42 (0.43, lift 1.26, p=0.111)"
+Coordinates -> median point (lon/lat model),"10/20 (0.50, lift 1.47, p=0.088)","11/30 (0.37, lift 1.08, p=0.44)","16/42 (0.38, lift 1.12, p=0.316)"
+"Random donor, absolute (K=10)","10/20 (0.50, lift 1.47, p=0.088)","13/30 (0.43, lift 1.28, p=0.161)","18/42 (0.43, lift 1.26, p=0.111)"
+"Random donor, log scale (K=100)","8/20 (0.40, lift 1.18, p=0.353)","12/30 (0.40, lift 1.18, p=0.284)","15/42 (0.36, lift 1.05, p=0.459)"
+Crime level (baseline),"11/20 (0.55, lift 1.62, p=0.0332)","16/30 (0.53, lift 1.57, p=0.0131)","22/42 (0.52, lift 1.54, p=0.0036)"

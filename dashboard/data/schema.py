@@ -12,12 +12,14 @@ from geosmile_hull_twobranch import FEATURE_LABELS as _FEATURE_LABELS
 LSOA_ID = "lsoa21cd"
 LSOA_NAME = "lsoa21nm"
 
-# Geo branch, area-data design (Chapter 4): masking an LSOA replaces ALL of
-# its model inputs with the training median; LSOAs are ranked by the SIGNED
-# coefficient. The earlier coordinates-only design (outputs/geo_coefficients.csv)
-# is no longer shown in the dashboard.
-GEO_DESIGN = "area_data"
-GEO_DESIGN_DIR = "outputs/geo_area_data_eval"
+# Geo branch, random-donor design (Chapter 4): the Geo branch explains XGBoost on the 30
+# predictors + BNG centroid easting/northing; masking an LSOA moves the coordinates of its
+# rows to the centroid of a random other Hull LSOA (K = 50 draws), all other inputs kept.
+# LSOAs are ranked by the SIGNED coefficient. Files written in the dashboard layout by
+# build_random_donor_dashboard_files.py. The earlier area-data design
+# (outputs/geo_area_data_eval) and coordinates-only design are no longer shown.
+GEO_DESIGN = "random_donor"
+GEO_DESIGN_DIR = "outputs/geo_random_donor_eval"
 GEO_DESIGN_N = 4000
 GEO_CSV = f"{GEO_DESIGN_DIR}/n_{GEO_DESIGN_N}/geo_coefficients.csv"
 GEO_METRICS_JSON = f"{GEO_DESIGN_DIR}/n_{GEO_DESIGN_N}/metrics.json"
@@ -41,7 +43,7 @@ LOCATION_FEATURE_NAMES = (LONGITUDE_EFFECT, LATITUDE_EFFECT)
 FEATURE_LOCAL_PUBLISHED_CSV = "outputs/feature_local_coefficients.csv"
 FEATURE_GLOBAL_PUBLISHED_CSV = "outputs/feature_global_importance.csv"
 
-# LISA on the signed area-data Geo coefficient (compute_geo_spatial_patterns.py
+# LISA on the signed random-donor Geo coefficient (compute_geo_spatial_patterns.py
 # --signed). The source column named geo_sensitivity is a HIGH/MID/LOW
 # tertile, not the numeric GeoSensitivity value.
 LISA_CSV = f"{GEO_DESIGN_DIR}/spatial_patterns/lisa_lsoa.csv"

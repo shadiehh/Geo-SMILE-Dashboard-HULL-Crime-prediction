@@ -93,9 +93,10 @@ def _global_geo(lsoa: pd.DataFrame, k: int = 5) -> dict[str, Any]:
         "lowest_geo_sensitivity_lsoas": _geo_extremes(lsoa, k, highest=False),
         "ranking": "signed coefficient (rank 1 = highest GeoSensitivity)",
         "note": (
-            "GeoSensitivity is the Geo-branch area-data SMILE coefficient: masking an "
-            "LSOA replaces all of its model inputs with Hull training medians, and the "
-            "coefficient attributes the resulting prediction shift to that LSOA. "
+            "GeoSensitivity is the Geo-branch random-donor SMILE coefficient: masking an "
+            "LSOA moves its rows to the centroids of random other Hull LSOAs (50 draws, all "
+            "other inputs kept), and the coefficient attributes the resulting prediction shift to "
+            "that LSOA. Absolute shifts are larger where predicted crime is higher. "
             "It is not latitude or longitude feature attribution."
         ),
     }
@@ -116,7 +117,7 @@ def _spatial_global(pattern: dict) -> dict[str, Any]:
         "lisa_counts": local.get("counts"),
         "pattern_scale": "not established",
         "note": (
-            "LISA classes describe clustering of signed GeoSensitivity (area-data design). "
+            "LISA classes describe clustering of signed GeoSensitivity (random-donor design). "
             "They are not crime hotspots and not latitude/longitude effects."
         ),
     }
@@ -202,7 +203,7 @@ def build_evidence(
         "current_map_view_label": MAP_VIEWS[current_map_view],
         "prompt_version": SYSTEM_PROMPT_VERSION,
         "semantic_separation": {
-            "geo_sensitivity": "Geo branch area-data masking SMILE (all inputs of an LSOA set to Hull medians)",
+            "geo_sensitivity": "Geo branch random-donor location masking SMILE (an LSOA's rows moved to random other Hull LSOA centroids)",
             "latitude_effect": "latitude as a Feature SMILE player",
             "longitude_effect": "longitude as a Feature SMILE player",
             "spatial_pattern": "LISA/Moran on signed GeoSensitivity",

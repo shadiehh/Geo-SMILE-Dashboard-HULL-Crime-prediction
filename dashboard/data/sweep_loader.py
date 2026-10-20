@@ -1,7 +1,7 @@
 """Load the robustness sweep for the dashboard diagnostics tab.
 
-Feature branch: eval_by_n_perturb. Geo branch: the area-data design sweep
-(hull_geo_area_data_eval.py, outputs/geo_area_data_eval/n_*/metrics.json),
+Feature branch: eval_by_n_perturb. Geo branch: the random-donor design sweep
+(geo_random_donor_eval.py via build_random_donor_dashboard_files.py, outputs/geo_random_donor_eval/n_*/metrics.json),
 ranked by the signed coefficient; its published N is GEO_DESIGN_N.
 
 Expert-reference overlap is always computed here from the raw exported

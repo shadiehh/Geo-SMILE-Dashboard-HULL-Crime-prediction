@@ -1,0 +1,86 @@
+{
+  "chosen_K": 100,
+  "selection_rule": "smallest K with fidelity and consistency within 0.005 of the best K and Spearman >= 0.99 with K=100",
+  "rho_with_crime_level": 0.1973528452257906,
+  "top20_shared_with_highest_crime": 7,
+  "rho_with_distance_from_median_point": 0.06479770804966568,
+  "moran_I": 0.1372189110742365,
+  "moran_p": 0.004,
+  "old_town_rank": 6,
+  "agreement": {
+    "area_data": {
+      "spearman": 0.548916537170798,
+      "top20_overlap": 9
+    },
+    "median_point": {
+      "spearman": 0.4592784000890865,
+      "top20_overlap": 9
+    },
+    "random_donor_absolute_K10": {
+      "spearman": 0.6207930715070283,
+      "top20_overlap": 11
+    }
+  },
+  "top10": [
+    {
+      "geo_rank": 1,
+      "lsoa21cd": "E01012845",
+      "lsoa21nm": "Kingston upon Hull 021C",
+      "geo_coefficient": 0.004908422947318531
+    },
+    {
+      "geo_rank": 2,
+      "lsoa21cd": "E01012871",
+      "lsoa21nm": "Kingston upon Hull 015D",
+      "geo_coefficient": 0.003762804465147084
+    },
+    {
+      "geo_rank": 3,
+      "lsoa21cd": "E01012832",
+      "lsoa21nm": "Kingston upon Hull 034E",
+      "geo_coefficient": 0.0035721454408976236
+    },
+    {
+      "geo_rank": 4,
+      "lsoa21cd": "E01012835",
+      "lsoa21nm": "Kingston upon Hull 009B",
+      "geo_coefficient": 0.003569346600191271
+    },
+    {
+      "geo_rank": 5,
+      "lsoa21cd": "E01012889",
+      "lsoa21nm": "Kingston upon Hull 030B",
+      "geo_coefficient": 0.003198298035587407
+    },
+    {
+      "geo_rank": 6,
+      "lsoa21cd": "E01033104",
+      "lsoa21nm": "Kingston upon Hull 029E",
+      "geo_coefficient": 0.002640117181464523
+    },
+    {
+      "geo_rank": 7,
+      "lsoa21cd": "E01012801",
+      "lsoa21nm": "Kingston upon Hull 019E",
+      "geo_coefficient": 0.0025314559511098443
+    },
+    {
+      "geo_rank": 8,
+      "lsoa21cd": "E01012852",
+      "lsoa21nm": "Kingston upon Hull 024B",
+      "geo_coefficient": 0.0024763994033762432
+    },
+    {
+      "geo_rank": 9,
+      "lsoa21cd": "E01012775",
+      "lsoa21nm": "Kingston upon Hull 028D",
+      "geo_coefficient": 0.0023267656617181978
+    },
+    {
+      "geo_rank": 10,
+      "lsoa21cd": "E01012855",
+      "lsoa21nm": "Kingston upon Hull 029D",
+      "geo_coefficient": 0.002302759115751379
+    }
+  ]
+}

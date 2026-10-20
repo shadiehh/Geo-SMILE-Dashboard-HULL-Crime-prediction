@@ -1,0 +1,8 @@
+reference,lon,lat,inside_training_range,test_R2,mean_W1,rho_signed_vs_exact,old_town_rank,top20_in_expert_regions,rho_with_area_data,rho_with_median_point,top20_overlap_with_median_point
+median_point,-0.3489,53.7638,True,0.917,0.322,0.984,1,7,0.028,1.0,20
+border_north,-0.3161,53.8133,False,0.944,1.449,0.95,1,17,0.403,0.529,7
+border_south,-0.4192,53.7196,False,0.94,0.722,0.943,1,15,0.292,0.284,6
+border_east,-0.2414,53.755,False,0.943,1.112,0.957,1,14,0.183,0.269,4
+border_west,-0.4223,53.7505,False,0.942,0.701,0.957,1,17,0.133,0.253,5
+outside_west_5km,-0.4981,53.7515,False,0.942,0.702,0.959,1,17,0.121,0.247,5
+far_outside_leeds,-1.55,53.8,False,0.945,1.418,0.941,1,17,0.283,0.415,7

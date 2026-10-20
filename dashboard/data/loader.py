@@ -373,10 +373,11 @@ def compact_evaluation(evaluation: dict) -> dict:
         out["geo_design"] = {
             "name": GEO_DESIGN,
             "definition": (
-                "Area-data design: masking an LSOA replaces ALL of its model inputs "
-                "with the training median; response is Wasserstein-1 on the affected "
-                "LSOA-month predictions of the 30-feature model; LSOAs ranked by the "
-                "signed Geo-SMILE coefficient."
+                "Random-donor design: masking an LSOA moves the coordinates of its rows "
+                "to the centroid of a random other Hull LSOA (K = 50 draws), all other "
+                "inputs kept; response is Wasserstein-1 on the affected LSOA-month "
+                "predictions of the XGBoost model on 30 predictors + easting/northing; "
+                "LSOAs ranked by the signed Geo-SMILE coefficient."
             ),
             "n_perturbations": geo_ad.get("n", GEO_DESIGN_N),
         }

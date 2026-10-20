@@ -1,0 +1,22 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792366410.024646    7284 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792366415.655790    7284 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[00:34:59]   base_inverse: saved
+[00:36:03]   west_inverse: saved
+[00:37:11]   north: saved
+[00:38:24]   east: saved
+[00:39:34]   south: saved
+[00:40:39]   west: saved
+[00:41:17]   feature_west: saved
+  check north         rho 0.9782 (json 0.9782)  added rank 80 (json 80)  kept 20  OK
+  check east          rho 0.9786 (json 0.9786)  added rank 73 (json 73)  kept 20  OK
+  check south         rho 0.9784 (json 0.9784)  added rank 52 (json 52)  kept 20  OK
+  check west          rho 0.9790 (json 0.9790)  added rank 80 (json 80)  kept 20  OK
+  check west_inverse  rho 0.9788 (json 0.9788)  added rank 80 (json 80)  kept 20  OK
+Saved D:\GEO SMILE CODE\hull\outputs\geo_random_donor_design\report\geo_top20_random_donor.png
+Saved D:\GEO SMILE CODE\hull\outputs\geo_random_donor_design\report\stability_four_directions_random_donor.png
+Saved D:\GEO SMILE CODE\hull\outputs\geo_random_donor_design\report\stability_base_vs_west_random_donor.png
+Saved D:\GEO SMILE CODE\hull\outputs\geo_random_donor_design\report\feature_stability_west_random_donor.png
+  feature west: kept 10/10, rho 0.9996 (aligned-design json: 0.9996)
+Copied 9 figures to D:\GEO SMILE CODE\hull\outputs\geo_random_donor_design\chapter4_figs

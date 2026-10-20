@@ -1,0 +1,440 @@
+{
+  "n": 1000,
+  "model": "xgboost",
+  "predictive": {
+    "r2": 0.8951828603615944,
+    "mae": 4.831365756690502,
+    "rmse": 6.906991039191308
+  },
+  "feature": {
+    "fidelity": {
+      "R2": 0.9836970688476423,
+      "Weighted R2": 0.9835988565182727,
+      "MAE": 0.3166235164228955,
+      "WMAE": 0.317901194423132,
+      "RMSE": 0.3606734583936899,
+      "WRMSE": 0.3620100426355194,
+      "best_kernel": "inverse",
+      "validation_r2_by_kernel": {
+        "rbf": 0.9850124551983125,
+        "laplace": 0.9851600298987941,
+        "inverse": 0.9852309810633612
+      },
+      "n_masks": 1000,
+      "n_test": 200
+    },
+    "smile_diagnostics": {
+      "best_kernel": "inverse",
+      "validation_r2_by_kernel": {
+        "rbf": 0.9813356300440845,
+        "laplace": 0.9820278360255108,
+        "inverse": 0.9823351157792976
+      },
+      "test_r2": 0.9841156488067987,
+      "n_unique_masks": 1000,
+      "response": "wasserstein_1_prediction_distribution",
+      "kernel_distance": "hamming_fraction_features_masked"
+    },
+    "accuracy": {
+      "accuracy": 0.8,
+      "balanced_accuracy": 0.7749999999999999,
+      "precision": 0.7,
+      "recall": 0.7,
+      "f1": 0.7,
+      "auroc": 0.6999999999999998,
+      "auprc": 0.7190476190476189,
+      "intersection": 7,
+      "overlap_ratio": 0.7,
+      "jaccard_at_k": 0.5384615384615384,
+      "k": 10,
+      "n": 30,
+      "model_ids": [
+        "crime_lag_1",
+        "crime_lag_2",
+        "crime_rolling_mean_3",
+        "crime_rolling_mean_6",
+        "long_term_sick_disabled_pct",
+        "owner_occupied_pct",
+        "private_rented_pct",
+        "road_length_km",
+        "social_rented_pct",
+        "unemployed_pct_age16plus"
+      ]
+    },
+    "intervention": {
+      "k": 10,
+      "top_response": 8.46854861328999,
+      "bottom_response": 0.8652647098615054,
+      "random_mean": 3.963315601708277,
+      "random_ci95_low": 0.7239476615829122,
+      "random_ci95_high": 8.253436537051483,
+      "top_minus_random": 4.505233011581712,
+      "top_minus_bottom": 7.603283903428484,
+      "empirical_p_top_vs_random": 0.002997002997002997,
+      "n_random": 1000
+    },
+    "stability": {
+      "directions": {
+        "north": {
+          "lsoa21cd": "E01012953",
+          "jaccard": 1.0,
+          "spearman_abs": 0.9991101223581758,
+          "top10_retained": 10,
+          "prediction_spearman": 1.0
+        },
+        "east": {
+          "lsoa21cd": "E01013094",
+          "jaccard": 1.0,
+          "spearman_abs": 1.0,
+          "top10_retained": 10,
+          "prediction_spearman": 1.0
+        },
+        "south": {
+          "lsoa21cd": "E01013009",
+          "jaccard": 1.0,
+          "spearman_abs": 0.9991101223581758,
+          "top10_retained": 10,
+          "prediction_spearman": 1.0
+        },
+        "west": {
+          "lsoa21cd": "E01013112",
+          "jaccard": 1.0,
+          "spearman_abs": 0.9995550611790878,
+          "top10_retained": 10,
+          "prediction_spearman": 1.0
+        }
+      },
+      "jaccard_mean": 1.0,
+      "spearman_mean": 0.9994438264738599
+    },
+    "consistency": {
+      "seeds": [
+        100,
+        101,
+        102,
+        103,
+        104
+      ],
+      "mean_variance": 0.0009153269282555445,
+      "median_variance": 0.0006810004299900043,
+      "mean_sd": 0.028535973861398167,
+      "median_sd": 0.026090500120107406,
+      "max_sd": 0.05125150714839851,
+      "max_sd_feature": "economically_inactive_pct",
+      "rank_spearman_mean": 0.7995995550611791,
+      "score_pearson_mean": 0.9992556633346075,
+      "top20pct_jaccard_mean": 0.7714285714285715,
+      "leading_features_mean_sd": {
+        "crime_rolling_mean_6": {
+          "mean_coefficient": -5.288291994708057,
+          "sd": 0.0329804604629695
+        },
+        "crime_rolling_mean_3": {
+          "mean_coefficient": -1.348635976978602,
+          "sd": 0.04390825218717908
+        },
+        "unemployed_pct_age16plus": {
+          "mean_coefficient": -0.3688799291489379,
+          "sd": 0.04787332181741775
+        }
+      }
+    },
+    "importance": [
+      {
+        "feature": "crime_rolling_mean_6",
+        "coefficient": -5.295249654675957,
+        "abs_coefficient": 5.295249654675957
+      },
+      {
+        "feature": "crime_rolling_mean_3",
+        "coefficient": -1.3313983309805824,
+        "abs_coefficient": 1.3313983309805824
+      },
+      {
+        "feature": "unemployed_pct_age16plus",
+        "coefficient": -0.46391498881463006,
+        "abs_coefficient": 0.46391498881463006
+      },
+      {
+        "feature": "long_term_sick_disabled_pct",
+        "coefficient": -0.3029396878782605,
+        "abs_coefficient": 0.3029396878782605
+      },
+      {
+        "feature": "owner_occupied_pct",
+        "coefficient": -0.2235501345689821,
+        "abs_coefficient": 0.2235501345689821
+      },
+      {
+        "feature": "crime_lag_2",
+        "coefficient": -0.2210584035407219,
+        "abs_coefficient": 0.2210584035407219
+      },
+      {
+        "feature": "crime_lag_1",
+        "coefficient": -0.20087707204036984,
+        "abs_coefficient": 0.20087707204036984
+      },
+      {
+        "feature": "private_rented_pct",
+        "coefficient": -0.15045716786734245,
+        "abs_coefficient": 0.15045716786734245
+      },
+      {
+        "feature": "road_length_km",
+        "coefficient": -0.1334644982586442,
+        "abs_coefficient": 0.1334644982586442
+      },
+      {
+        "feature": "social_rented_pct",
+        "coefficient": -0.1190574713500923,
+        "abs_coefficient": 0.1190574713500923
+      },
+      {
+        "feature": "nightlife_count",
+        "coefficient": -0.10903804612397643,
+        "abs_coefficient": 0.10903804612397643
+      },
+      {
+        "feature": "no_qualifications_pct",
+        "coefficient": -0.08814036581492907,
+        "abs_coefficient": 0.08814036581492907
+      },
+      {
+        "feature": "young_adult_15_34_pct",
+        "coefficient": -0.08699644899862106,
+        "abs_coefficient": 0.08699644899862106
+      },
+      {
+        "feature": "intersection_count",
+        "coefficient": 0.07259605156916142,
+        "abs_coefficient": 0.07259605156916142
+      },
+      {
+        "feature": "transit_stop_count",
+        "coefficient": -0.06778945144448655,
+        "abs_coefficient": 0.06778945144448655
+      },
+      {
+        "feature": "green_space_pct",
+        "coefficient": -0.05886469467166652,
+        "abs_coefficient": 0.05886469467166652
+      },
+      {
+        "feature": "intersection_per_km2",
+        "coefficient": 0.058043049702505685,
+        "abs_coefficient": 0.058043049702505685
+      },
+      {
+        "feature": "population_density_per_km2",
+        "coefficient": -0.048032508402452566,
+        "abs_coefficient": 0.048032508402452566
+      },
+      {
+        "feature": "transit_stop_per_km2",
+        "coefficient": -0.04046027943648493,
+        "abs_coefficient": 0.04046027943648493
+      },
+      {
+        "feature": "crime_lag_3",
+        "coefficient": -0.036173183922600584,
+        "abs_coefficient": 0.036173183922600584
+      },
+      {
+        "feature": "month_sin",
+        "coefficient": -0.02962314785193287,
+        "abs_coefficient": 0.02962314785193287
+      },
+      {
+        "feature": "older_adult_65_plus_pct",
+        "coefficient": 0.02798053474365816,
+        "abs_coefficient": 0.02798053474365816
+      },
+      {
+        "feature": "lsoa_area_km2",
+        "coefficient": -0.027324389549110487,
+        "abs_coefficient": 0.027324389549110487
+      },
+      {
+        "feature": "nightlife_per_km2",
+        "coefficient": -0.020767975050279476,
+        "abs_coefficient": 0.020767975050279476
+      },
+      {
+        "feature": "level4_plus_qualification_pct",
+        "coefficient": -0.017803298941410712,
+        "abs_coefficient": 0.017803298941410712
+      },
+      {
+        "feature": "retail_count",
+        "coefficient": -0.015640933984736316,
+        "abs_coefficient": 0.015640933984736316
+      },
+      {
+        "feature": "economically_inactive_pct",
+        "coefficient": 0.011048592128163167,
+        "abs_coefficient": 0.011048592128163167
+      },
+      {
+        "feature": "month_cos",
+        "coefficient": 0.004918984288126853,
+        "abs_coefficient": 0.004918984288126853
+      },
+      {
+        "feature": "road_length_km_per_km2",
+        "coefficient": -0.002030057316793198,
+        "abs_coefficient": 0.002030057316793198
+      },
+      {
+        "feature": "retail_per_km2",
+        "coefficient": 0.0015347501272865726,
+        "abs_coefficient": 0.0015347501272865726
+      }
+    ]
+  },
+  "geo": {
+    "fidelity": {
+      "R2": 0.8641165199818878,
+      "Weighted R2": 0.8689533985510363,
+      "MAE": 0.025695006973960585,
+      "WMAE": 0.025811989853808785,
+      "RMSE": 0.033974670985076214,
+      "WRMSE": 0.03388578387695627,
+      "best_kernel": "inverse",
+      "validation_r2_by_kernel": {
+        "rbf": 0.8577118682814706,
+        "laplace": 0.8551531333952199,
+        "inverse": 0.8584990609026247
+      },
+      "n_masks": 1000,
+      "n_test": 200
+    },
+    "smile_diagnostics": {
+      "method": "per_lsoa_area_data_masking",
+      "n_spatial_units": 168,
+      "n_perturbations": 1000,
+      "n_sampled_lsoas": 168,
+      "n_extra_lsoas": 0,
+      "min_lsoas_per_perturbation": 5,
+      "max_lsoas_per_perturbation": 10,
+      "best_kernel": "inverse",
+      "kernel_fixed": false,
+      "validation_r2_by_kernel": {
+        "rbf": 0.8885461930488816,
+        "laplace": 0.8880463949238518,
+        "inverse": 0.8892212164065124
+      },
+      "test_r2": 0.8802015687311462,
+      "intercept": 0.3087295641520045,
+      "response": "wasserstein_1_on_affected_lsoa_month_predictions",
+      "perturbation": "replace ALL model inputs of selected LSOAs with training median",
+      "ranking": "signed coefficient (geo_score); |coefficient| folds the ordering"
+    },
+    "mean_W1_response": 0.2967921653881906,
+    "accuracy": {
+      "k": 20,
+      "reference_size": 58,
+      "intersection": 9,
+      "accuracy": 0.45,
+      "chance": 0.34523809523809523,
+      "lift": 1.3034482758620691,
+      "p_hypergeom": 0.21016102520012653,
+      "att_acc": 0.6428571428571429,
+      "att_f1": 0.23076923076923078,
+      "att_auroc": 0.5098746081504703,
+      "precision": 0.45,
+      "recall": 0.15517241379310345,
+      "jaccard": 0.13043478260869565,
+      "top_k_outside_reference": [
+        "E01012775",
+        "E01012781",
+        "E01012795",
+        "E01012800",
+        "E01012809",
+        "E01012832",
+        "E01012845",
+        "E01012858",
+        "E01012875",
+        "E01012882",
+        "E01012888"
+      ]
+    },
+    "intervention": {
+      "k": 20,
+      "top_response": 0.883767831325531,
+      "bottom_response": 0.0717500686645508,
+      "random_mean": 0.30703432250916957,
+      "random_ci95_low": 0.208770476207137,
+      "random_ci95_high": 0.42857480376958856,
+      "top_minus_random": 0.5767335088163614,
+      "top_minus_bottom": 0.8120177626609802,
+      "empirical_p_top_vs_random": 0.000999000999000999,
+      "n_random": 1000
+    },
+    "stability": {
+      "kernel_fixed": null,
+      "directions": {
+        "north": {
+          "lsoa21cd": "E01012953",
+          "jaccard": 1.0,
+          "spearman": 0.9993951235314664,
+          "top20_retained": 20,
+          "added_rank": 120,
+          "added_coefficient": -0.022405994022129345,
+          "added_in_top20": false
+        },
+        "east": {
+          "lsoa21cd": "E01013094",
+          "jaccard": 1.0,
+          "spearman": 0.999415370442547,
+          "top20_retained": 20,
+          "added_rank": 65,
+          "added_coefficient": -0.005299424587280407,
+          "added_in_top20": false
+        },
+        "south": {
+          "lsoa21cd": "E01013009",
+          "jaccard": 1.0,
+          "spearman": 0.9984207409357112,
+          "top20_retained": 20,
+          "added_rank": 40,
+          "added_coefficient": 0.009604252592323058,
+          "added_in_top20": false
+        },
+        "west": {
+          "lsoa21cd": "E01013112",
+          "jaccard": 1.0,
+          "spearman": 0.9995748148673069,
+          "top20_retained": 20,
+          "added_rank": 105,
+          "added_coefficient": -0.018687271150310103,
+          "added_in_top20": false
+        }
+      },
+      "jaccard_mean": 1.0,
+      "spearman_mean": 0.9992015124442579
+    },
+    "consistency": {
+      "seeds": [
+        100,
+        101,
+        102,
+        103,
+        104
+      ],
+      "mean_variance": 2.6788296820119015e-05,
+      "median_variance": 2.2703699954674573e-05,
+      "mean_sd": 0.004808708862867588,
+      "median_sd": 0.004764825616560912,
+      "max_sd": 0.010543032588543775,
+      "max_sd_lsoa": "E01012848",
+      "max_sd_lsoa_name": "Kingston upon Hull 020B",
+      "max_sd_lsoa_mean_coefficient": 0.049987537528800155,
+      "max_sd_pct_of_mean": 21.091322176991497,
+      "rank_spearman_mean": 0.9273887558779317,
+      "score_pearson_mean": 0.9791761001608215,
+      "top20pct_jaccard_mean": 0.8437490121700648
+    }
+  },
+  "elapsed_min": 4.283127192656199
+}

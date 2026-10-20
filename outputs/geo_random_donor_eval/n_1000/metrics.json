@@ -1,0 +1,183 @@
+{
+  "n": 1000,
+  "smile_diagnostics": {
+    "method": "per_lsoa_random_donor_coordinate_masking",
+    "n_spatial_units": 168,
+    "n_perturbations": 1000,
+    "n_sampled_lsoas": 168,
+    "n_extra_lsoas": 0,
+    "min_lsoas_per_perturbation": 5,
+    "max_lsoas_per_perturbation": 10,
+    "donor_draws_K": 50,
+    "best_kernel": "inverse",
+    "validation_r2_by_kernel": {
+      "rbf": 0.8787970322631107,
+      "laplace": 0.8891182110664685,
+      "inverse": 0.8916912297277174
+    },
+    "response": "mean over K donor draws of wasserstein_1 on affected lsoa_month predictions",
+    "perturbation": "move the coordinates of selected LSOAs' rows to the centroid of a random other Hull LSOA; all predictors kept",
+    "model": "XGBoost on 30 predictors + BNG centroid easting/northing",
+    "ranking": "signed coefficient (geo_score)"
+  },
+  "fidelity": {
+    "R2": 0.9104283617979597,
+    "Weighted R2": 0.9095980238594857,
+    "MAE": 0.05410600241043882,
+    "WMAE": 0.05581989024541643,
+    "RMSE": 0.08354749502314829,
+    "WRMSE": 0.08704830872391275,
+    "best_kernel": "inverse",
+    "validation_r2_by_kernel": {
+      "rbf": 0.8567486323636829,
+      "laplace": 0.8531398404870112,
+      "inverse": 0.8621554268986754
+    },
+    "n_masks": 1000,
+    "n_test": 200
+  },
+  "accuracy": {
+    "n": 168,
+    "k": 20,
+    "intersection": 10,
+    "accuracy": 0.5,
+    "att_acc": 0.8809523809523809,
+    "att_f1": 0.5,
+    "att_auroc": 0.7983108108108108,
+    "precision": 0.5,
+    "recall": 0.5,
+    "jaccard": 0.3333333333333333,
+    "shared": [
+      "E01012763",
+      "E01012805",
+      "E01012852",
+      "E01012854",
+      "E01012855",
+      "E01012868",
+      "E01012871",
+      "E01012889",
+      "E01012891",
+      "E01033104"
+    ],
+    "reference_only": [
+      "E01012757",
+      "E01012761",
+      "E01012856",
+      "E01012867",
+      "E01012872",
+      "E01012892",
+      "E01012893",
+      "E01012894",
+      "E01012899",
+      "E01012900"
+    ],
+    "model_only": [
+      "E01012787",
+      "E01012809",
+      "E01012827",
+      "E01012832",
+      "E01012843",
+      "E01012848",
+      "E01012850",
+      "E01035464",
+      "E01035465",
+      "E01035466"
+    ]
+  },
+  "accuracy_expert_regions": {
+    "k": 20,
+    "reference_size": 58,
+    "intersection": 16,
+    "accuracy": 0.8,
+    "chance": 0.34523809523809523,
+    "lift": 2.317241379310345,
+    "p_hypergeom": 1.248407869482926e-05,
+    "att_acc": 0.7261904761904762,
+    "att_f1": 0.41025641025641024,
+    "att_auroc": 0.6263322884012539,
+    "precision": 0.8,
+    "recall": 0.27586206896551724,
+    "jaccard": 0.25806451612903225,
+    "top_k_outside_reference": [
+      "E01012805",
+      "E01012809",
+      "E01012827",
+      "E01012832"
+    ]
+  },
+  "faithfulness": {
+    "k": 20,
+    "top_response": 1.7816067104339603,
+    "bottom_response": 0.12502514976263046,
+    "random_mean": 0.5673255761091114,
+    "random_ci95_low": 0.3210291312739253,
+    "random_ci95_high": 1.0547791480362416,
+    "top_minus_random": 1.214281134324849,
+    "top_minus_bottom": 1.65658156067133,
+    "empirical_p_top_vs_random": 0.000999000999000999,
+    "n_random": 1000
+  },
+  "stability": {
+    "directions": {
+      "north": {
+        "lsoa21cd": "E01012953",
+        "jaccard": 0.9047619047619048,
+        "spearman": 0.9475807472122535,
+        "top20_retained": 19,
+        "added_rank": 141,
+        "added_coefficient": -0.05601204457189273,
+        "added_in_top20": false
+      },
+      "east": {
+        "lsoa21cd": "E01013094",
+        "jaccard": 0.9047619047619048,
+        "spearman": 0.9474137101958384,
+        "top20_retained": 19,
+        "added_rank": 129,
+        "added_coefficient": -0.05139435445898641,
+        "added_in_top20": false
+      },
+      "south": {
+        "lsoa21cd": "E01013009",
+        "jaccard": 0.9047619047619048,
+        "spearman": 0.9475731546205983,
+        "top20_retained": 19,
+        "added_rank": 93,
+        "added_coefficient": -0.03754111574791086,
+        "added_in_top20": false
+      },
+      "west": {
+        "lsoa21cd": "E01013112",
+        "jaccard": 0.9047619047619048,
+        "spearman": 0.947813586689681,
+        "top20_retained": 19,
+        "added_rank": 141,
+        "added_coefficient": -0.05541010450151505,
+        "added_in_top20": false
+      }
+    },
+    "jaccard_mean": 0.9047619047619048,
+    "spearman_mean": 0.9475952996795928
+  },
+  "consistency": {
+    "seeds": [
+      100,
+      101,
+      102,
+      103,
+      104
+    ],
+    "mean_variance": 0.00019141882608363973,
+    "median_variance": 0.0001612138871333846,
+    "mean_sd": 0.012934773892759549,
+    "median_sd": 0.012697002569441618,
+    "max_sd": 0.03894944831884964,
+    "max_sd_lsoa": "E01033104",
+    "max_sd_lsoa_name": "Kingston upon Hull 029E",
+    "max_sd_lsoa_mean_coefficient": 1.0501134678439652,
+    "max_sd_pct_of_mean": 3.7090704491980744,
+    "rank_spearman_mean": 0.7752848487302658,
+    "score_pearson_mean": 0.9835705465705379,
+    "top20pct_jaccard_mean": 0.7541448647225284
+  }
+}

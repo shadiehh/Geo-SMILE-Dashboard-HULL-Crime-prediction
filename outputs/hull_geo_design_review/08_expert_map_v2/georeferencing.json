@@ -1,0 +1,23 @@
+{
+  "control_point_residuals_m": {
+    "west extreme": 173.0,
+    "east extreme": 93.0,
+    "north extreme": 63.0,
+    "south-west extreme": 286.0,
+    "River Hull mouth": 270.0
+  },
+  "reference_size": 57,
+  "per_region": {
+    "Bransholme": 12,
+    "City centre, Old Town and Beverley Road": 9,
+    "Greatfield": 4,
+    "Hessle Road corridor": 11,
+    "Longhill and Bilton Grange": 8,
+    "Orchard Park": 10,
+    "Preston Road": 3
+  },
+  "overlap_with_first_expert_map": {
+    "first_map_size": 58,
+    "shared": 27
+  }
+}

@@ -1,6 +1,6 @@
 """Evidence for the stakeholder figure panels (Chapter 6 design), for ANY selected LSOA.
 
-Loads the published area-data Geo results and the published Feature branch once, and
+Loads the published random-donor Geo results and the published Feature branch once, and
 exposes per-LSOA facts used by the figure captions. Every number shown next to a
 stakeholder narrative comes from here, so the dashboard and the thesis agree.
 """
@@ -21,7 +21,7 @@ HULL_ROOT = Path(__file__).resolve().parents[2]
 GEO_RANKED_CSV = f"{GEO_DESIGN_DIR}/geo_coefficients_N{GEO_DESIGN_N}.csv"  # signed beta + exact single-LSOA W1
 GEO_CONSISTENCY_CSV = f"{GEO_DESIGN_DIR}/n_{GEO_DESIGN_N}/consistency_per_lsoa.csv"
 GEO_METRICS_JSON = f"{GEO_DESIGN_DIR}/n_{GEO_DESIGN_N}/metrics.json"
-STABILITY_FIGURE = f"{GEO_DESIGN_DIR}/stability_four_directions_area_data.png"
+STABILITY_FIGURE = f"{GEO_DESIGN_DIR}/stability_four_directions_random_donor.png"
 FEATURE_LOCAL_CSV = "outputs/feature_local_coefficients.csv"  # published Feature branch (no coordinates)
 FEATURE_GLOBAL_CSV = "outputs/feature_global_importance.csv"
 PANEL_CSV = "outputs/hull_lsoa_month_panel_with_covariates.csv"

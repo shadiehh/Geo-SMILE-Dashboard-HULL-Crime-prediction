@@ -144,7 +144,7 @@ Write THREE short paragraphs separated by a blank line, with no headers or bulle
 Hard limit: at most 260 words in total. Count the words before answering and cut detail
 (street names first) until the count is within the limit.
 
-1. Where the model is most and least sensitive to an area's own data (the highest and lowest
+1. Where the model is most and least sensitive to an area's location (the highest and lowest
    GeoSensitivity LSOAs by locality name, at most three of each, no street names) and how that
    pattern clusters: cite Moran's I and its p-value and the LISA class counts from
    global_spatial_pattern. Each LISA count is a number of LSOAs in that class, never a number
@@ -305,7 +305,7 @@ prohibited claims, the no-deployment rule and the self-check, still applies.
 Plain language for this reader: do not cite Moran's I, p-values, LISA class names,
 coefficients, GeoSensitivity values or other test statistics. Shares, percentages, counts of
 areas and ranks (including the GeoSensitivity rank) are fine. GeoSensitivity means the model is
-sensitive to an area's own data; never write that the model "relies on" or "depends on" an area.
+sensitive to an area's location; never write that the model "relies on" or "depends on" an area.
 Refer to the two windows as "the last three months" and "the six months before", without dates.
 
 Return ONLY one JSON object with exactly these keys:
@@ -316,7 +316,7 @@ Return ONLY one JSON object with exactly these keys:
   evidence (at most 8 characters, e.g. "51%", "25"); label is at most 6 words saying what the
   figure is and where. Choose the four figures this reader should remember.
 - "section_01": at most 70 words, about panel 01: open with how sensitive the model is to
-  the focus area's own data (focus_lsoa.geo_rank of geo_rank_of), then how much the model leans
+  the focus area's location (focus_lsoa.geo_rank of geo_rank_of), then how much the model leans
   on recent months against the long-run (six-month) level across Hull (hull medians), and the
   areas where recent months carry the most (highest_recent_share_lsoas, by locality name).
 - "section_02": at most 70 words, about panel 02: the Hull-wide recorded change, how many
@@ -379,7 +379,7 @@ POLICE_ILLUSTRATIVE_NARRATIVE = {
         {"value": "25", "label": "Areas with crime up >25%"},
         {"value": "+38%", "label": "Dairycoates, recorded change"},
     ],
-    "section_01": "The model is [[t:most sensitive]] to [[t:Old Town]]'s own data (rank [[n:1/168]]). "
+    "section_01": "The model is [[t:most sensitive]] to [[t:Old Town]]'s location (rank [[n:1/168]]). "
                   "It reads most areas through their [[t:long-run crime level]]: the six-month "
                   "average is a median [[n:41%]] of local explanations, recent months [[n:12%]]. "
                   "Old Town is the exception, with [[n:51%]] from [[t:recent months]], ahead of "
@@ -480,9 +480,9 @@ def police_block(d: StakeholderData) -> dict:
 MANAGER_QUESTION = ("What drives the model's predictions across Hull, what is exceptional, what can be set aside, "
                     "and how far can the results be trusted?")
 TOP_K = 20
-MANAGER_CONTRAST = "E01012916"  # Newland 012D: most sensitive of the areas not led by crime history
+MANAGER_CONTRAST = "E01012825"  # Bilton Grange 010B: most sensitive (random-donor GeoSensitivity, rank 28) of the areas not led by crime history
 SET_ASIDE_SHARE = 0.01          # a feature is a set-aside candidate below 1% of pooled local importance
-ATT_FAITHFULNESS_CSV = "outputs/faithfulness_accuracy_r2/att_faithfulness_area_data.csv"
+ATT_FAITHFULNESS_CSV = "outputs/faithfulness_accuracy_r2/att_faithfulness_random_donor.csv"
 
 MANAGER_CARD_ADDENDUM = """
 ---
@@ -498,12 +498,12 @@ bolding rule. Every other section, including prohibited claims, the evidence-rev
 rule and the self-check, still applies.
 
 The card combines both branches: the Feature branch says WHAT the model relies on, the Geo
-branch says WHERE it is most sensitive to an area's own data. Keep the two apart in wording.
+branch says WHERE it is most sensitive to an area's location. Keep the two apart in wording.
 
 Plain language for this reader: do not cite Moran's I, p-values, LISA class names, coefficients,
 correlation values or other test statistics. GeoSensitivity values, ranks, shares, counts and
 "N times" ratios are fine. Never write that the model "relies on" or "depends on" an area; it is
-sensitive to an area's own data. Name areas by locality; no street names.
+sensitive to an area's location. Name areas by locality; no street names.
 
 Return ONLY one JSON object with exactly these keys:
 
@@ -574,15 +574,15 @@ MANAGER_ILLUSTRATIVE_NARRATIVE = {
                 "can be [[t:set aside]].",
     "tiles": [
         {"value": "144/168", "label": "areas where the six-month crime average leads"},
-        {"value": "3.1x", "label": "Old Town's sensitivity against the next area"},
+        {"value": "2.6x", "label": "Old Town's sensitivity against the next area"},
         {"value": "10/30", "label": "features the model barely uses"},
         {"value": "20/20", "label": "top areas kept when neighbouring areas are added"},
     ],
     "section_01": "As panel 02 shows, the model reads Hull mainly through [[t:crime history]], then "
-                  "census characteristics. [[t:Newland]] is the reverse: census characteristics lead, "
-                  "with long-term sickness alone [[n:21%]] of its reasoning. It is one of [[n:24]] "
-                  "areas not led by crime history, and these are [[t:not where the model is most "
-                  "sensitive]]: none ranks above [[n:116]]. Old Town remains the sensitivity exception.",
+                  "census characteristics. [[t:Bilton Grange]] is the reverse: census and built-environment "
+                  "features lead, with green space alone [[n:15%]] of its reasoning. It is one of [[n:24]] "
+                  "areas not led by crime history, and these are [[t:rarely where the model is most "
+                  "sensitive]]: the highest of them ranks [[n:28]]. Old Town remains the sensitivity exception.",
     "section_02": "Road density, intersection density and nightlife count are among the "
                   "[[t:candidates to set aside]]: each carries under [[n:1%]], all of them together "
                   "[[n:7%]] of local importance. Related count and "
@@ -778,19 +778,19 @@ RESEARCHER_ILLUSTRATIVE_NARRATIVE = {
     "headline": "Geo-SMILE's [[t:signed ranking]] tracks exact masking; locally, [[t:six-month crime]] "
                 "dominates almost everywhere.",
     "tiles": [
-        {"value": "0.948", "label": "Geo surrogate held-out R2"},
-        {"value": "18/20", "label": "Geo top-20 in expert regions"},
+        {"value": "0.93", "label": "Geo surrogate held-out R2"},
+        {"value": "16/20", "label": "Geo top-20 in expert regions"},
         {"value": "1.0", "label": "Top-20 Jaccard, neighbour additions"},
-        {"value": "0.963", "label": "Geo rank Spearman across seeds"},
+        {"value": "0.904", "label": "Geo rank Spearman across seeds"},
     ],
     "section_01": "The [[t:signed coefficient]] tracks the exact shift (panel 01); its absolute value does not "
-                  "([[n:-0.29]]), so the sign marks a relative contribution to the coalition W1. Shifts are "
-                  "skewed: median [[n:6.4]], maximum [[n:176.7]]. In the Feature branch, the "
+                  "([[n:-0.27]]), so the sign marks a relative contribution to the coalition W1. Shifts are "
+                  "skewed: median [[n:0.3]], maximum [[n:8.6]]. In the Feature branch, the "
                   "[[t:six-month crime average]] leads in [[n:144]] LSOAs; its local effect (panel 02) has a "
                   "median of [[n:3.9]] but reaches [[n:48.5]] in Old Town. Location players rank only "
                   "[[n:20]] and [[n:23]] of [[n:32]].",
     "section_02": "Feature surrogate fidelity is [[n:0.983]]. Masking the Geo top 20 shifts predictions "
-                  "[[n:26.22]] more than random sets ([[n:0.001]]), an [[t:intervention impact]]. Feature ranks "
+                  "[[n:1.27]] more than random sets ([[n:0.001]]), an [[t:intervention impact]]. Feature ranks "
                   "are [[t:less reproducible]] across seeds ([[n:0.69]]) than Geo ranks. Attributions remain "
                   "associational.",
     "footer": "Attributions are associational; local LISA p-values are unadjusted.",
@@ -877,7 +877,7 @@ PUBLIC_CARD_ADDENDUM = """
 
 output_mode is card_mode: the text fills a short card for a Resident / Public reader, shown with
 four stat tiles and two dashboard panels (01: Hull map of how strongly the model's predictions
-depend on each area's own data, the example area outlined; 02: the example area's most
+depend on knowing each area's location, the example area outlined; 02: the example area's most
 influential features). The example area is public_overview.example_area, chosen as a typical
 place, not an extreme one. This section replaces section 14 "Length and form" and its bolding
 rule. Every other section, including prohibited claims and the self-check, still applies.
@@ -897,7 +897,7 @@ Return ONLY one JSON object with exactly these keys:
   (its share, naming that same feature).
 - "section_01": at most 65 words, across Hull (panel 01): what the model mostly pays attention
   to, what matters comparatively little, and the places (by locality) where predictions depend
-  most on the area's own data. Do not cite any tile value.
+  most on knowing where the area is. Do not cite any tile value.
 - "section_02": at most 65 words, the example area (panel 02) by locality and its main streets:
   its most influential features and whether its pattern is like Hull's or different. Do not
   cite any tile value or panel figure.
@@ -930,7 +930,7 @@ Hard limit: at most 230 words in total. Plain language only (section 9, Resident
 1. What the model mostly pays attention to across Hull, and what matters comparatively little.
 2. The selected area (or public_overview.example_area if none), by locality and streets: its
    most and least influential features and whether its pattern is like Hull's.
-3. Where predictions depend most on an area's own data (by locality), said plainly, and one
+3. Where predictions depend most on knowing an area's location (by locality), said plainly, and one
    non-causal limitation.
 
 Key terms: 4-8 [[t:...]] spans in the whole text. Every figure is wrapped in [[n:...]].
@@ -948,11 +948,11 @@ PUBLIC_ILLUSTRATIVE_NARRATIVE = {
     "section_01": "Across Hull the model pays most attention to [[t:recent crime levels]]. Census "
                   "characteristics such as unemployment come next ([[n:20%]]), then streets, shops "
                   "and green space. [[t:Road and junction density]] matter very little. "
-                  "Predictions depend most on an area's own data in [[t:Old Town]], Dairycoates and "
+                  "Predictions depend most on knowing where an area is in [[t:Old Town]], Dairycoates and "
                   "Sculcoates.",
     "section_02": "In [[t:Stoneferry]], around Stoneferry Road, the model also leans on the six-month "
                   "crime average, then the three-month average and private renting. Its pattern is "
-                  "[[t:much like Hull's]], and its predictions depend on its own data about as much as "
+                  "[[t:much like Hull's]], and its predictions depend on its location about as much as "
                   "a [[t:typical area]].",
     "footer": "Shows what the model pays attention to, not why crime happens.",
 }
@@ -1048,8 +1048,9 @@ Return ONLY one JSON object with exactly these keys:
   variable area and of the Feature branch. Do not cite any tile value.
 - "section_02": at most 75 words, limitations requiring review: the sign is not a direction of
   crime; the single provisional expert; unadjusted local LISA p-values; ATT Faithfulness not
-  demonstrated (describe in words, its value is on a tile); the rank-1 area's dominance as a
-  case for separate model review. Do not cite any tile value.
+  demonstrated (describe in words, its value is on a tile); the most sensitive area's dominance
+  (name it by locality only, never by its rank) as a case for separate model review; that
+  GeoSensitivity partly reflects predicted crime level. Do not cite any tile value.
 - "footer": one limitation, at most 15 words.
 
 Key-term counts: 1-2 in the headline and 2-4 in EACH section. Tiles and footer carry no
@@ -1091,15 +1092,15 @@ GOVERNANCE_ILLUSTRATIVE_NARRATIVE = {
     "headline": "The explanation is [[t:traceable and reproducible]]; four limitations need review before "
                 "reliance.",
     "tiles": [
-        {"value": "0.963", "label": "Geo rank Spearman across seeds"},
-        {"value": "0.77", "label": "Geo top-fifth Jaccard across seeds"},
-        {"value": "3.1x", "label": "Rank-1 to rank-2 GeoSensitivity ratio"},
-        {"value": "0.15", "label": "Geo ATT Faithfulness r, ten models"},
+        {"value": "0.904", "label": "Geo rank Spearman across seeds"},
+        {"value": "0.86", "label": "Geo top-fifth Jaccard across seeds"},
+        {"value": "2.6x", "label": "Rank-1 to rank-2 GeoSensitivity ratio"},
+        {"value": "0.32", "label": "Geo ATT Faithfulness r, ten models"},
     ],
-    "section_01": "GeoSensitivity comes from one XGBoost model under [[t:area-data masking]] (panel 02 gives "
+    "section_01": "GeoSensitivity comes from one XGBoost model under [[t:random-donor location masking]] (panel 02 gives "
                   "the count and seed); each perturbation masks [[n:5]] to [[n:10]] areas. The expert "
                   "reference is a [[t:provisional single expert]], intended to be blind to the outputs. Old "
-                  "Town varies most across seeds ([[n:2.8%]] of its mean); Feature ranks are [[t:less "
+                  "Town varies most across seeds ([[n:3.4%]] of its mean); Feature ranks are [[t:less "
                   "reproducible]] ([[n:0.69]]).",
     "section_02": "The coefficient [[t:sign is not a direction]] of crime. The expert view comes from one "
                   "person, and local LISA p-values are unadjusted. Across models, accuracy does not track "
@@ -1151,6 +1152,7 @@ def governance_block(d: StakeholderData) -> dict:
                   "The expert reference is a single provisional rater.",
                   "Local LISA p-values are unadjusted for multiple testing.",
                   "ATT Faithfulness was not demonstrated across models.",
+                  "Absolute GeoSensitivity grows with predicted crime level, so it partly reflects crime level.",
                   "Census characteristics can act as proxies for protected groups.",
                   "Attributions are associational, not causal."],
         "shown_on_panels": {

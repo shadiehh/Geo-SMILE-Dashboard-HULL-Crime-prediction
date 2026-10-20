@@ -1,0 +1,111 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792108310.202007   18988 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792108312.122734   18988 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[00:51:52] rule check (area-data): published (>=20% or >=0.1 km2; >=50% north): 58 LSOAs, top-20 inside 18
+[00:51:52] rule check (area-data): >=20% or >=0.1 km2, all regions: 63 LSOAs, top-20 inside 18
+[00:51:52] rule check (area-data): >=10% of LSOA area: 65 LSOAs, top-20 inside 17
+[00:51:52] rule check (area-data): >=50% of LSOA area: 41 LSOAs, top-20 inside 12
+[00:51:52] rule check (area-data): >=75% of LSOA area: 28 LSOAs, top-20 inside 9
+[00:51:53] XGBoost (30 + coordinates) holdout: {'r2': 0.8951828603615944, 'mae': 4.831365756690502, 'rmse': 6.906991039191308}
+[00:51:53] === Part A, N=4000
+[00:53:24]     Feature stability north: J=1.000 rho=0.9987
+[00:54:02]     Feature stability east: J=1.000 rho=0.9991
+[00:54:41]     Feature stability south: J=1.000 rho=0.9991
+[00:55:20]     Feature stability west: J=1.000 rho=0.9996
+[01:00:53]     stability north (E01012953): J=1.000 rho=0.9999 added rank 99
+[01:01:23]     stability east (E01013094): J=1.000 rho=0.9999 added rank 56
+[01:01:54]     stability south (E01013009): J=1.000 rho=0.9996 added rank 32
+[01:02:24]     stability west (E01013112): J=1.000 rho=0.9999 added rank 91
+[01:06:04]     stability north (E01012953): J=1.000 rho=0.9999 added rank 99
+[01:06:35]     stability east (E01013094): J=1.000 rho=0.9999 added rank 56
+[01:07:06]     stability south (E01013009): J=1.000 rho=0.9996 added rank 32
+[01:07:37]     stability west (E01013112): J=1.000 rho=0.9999 added rank 91
+[01:08:02] N=4000 done (16.1 min): Feature R2=0.9850 acc=7/10 | Geo R2=0.9083 acc=10/20
+[01:08:02] === Part A, N=1000
+[01:08:33]     Feature stability north: J=1.000 rho=0.9991
+[01:08:43]     Feature stability east: J=1.000 rho=1.0000
+[01:08:52]     Feature stability south: J=1.000 rho=0.9991
+[01:09:02]     Feature stability west: J=1.000 rho=0.9996
+[01:11:16]     stability north (E01012953): J=1.000 rho=0.9994 added rank 120
+[01:11:24]     stability east (E01013094): J=1.000 rho=0.9994 added rank 65
+[01:11:32]     stability south (E01013009): J=1.000 rho=0.9984 added rank 40
+[01:11:40]     stability west (E01013112): J=1.000 rho=0.9996 added rank 105
+[01:12:19] N=1000 done (4.3 min): Feature R2=0.9837 acc=7/10 | Geo R2=0.8641 acc=9/20
+[01:12:19] === Part A, N=2000
+[01:13:10]     Feature stability north: J=1.000 rho=0.9982
+[01:13:30]     Feature stability east: J=1.000 rho=0.9982
+[01:13:49]     Feature stability south: J=1.000 rho=0.9987
+[01:14:09]     Feature stability west: J=1.000 rho=0.9973
+[01:17:30]     stability north (E01012953): J=1.000 rho=0.9998 added rank 97
+[01:17:46]     stability east (E01013094): J=1.000 rho=0.9998 added rank 53
+[01:18:02]     stability south (E01013009): J=1.000 rho=0.9992 added rank 33
+[01:18:17]     stability west (E01013112): J=1.000 rho=0.9999 added rank 92
+[01:19:34] N=2000 done (7.3 min): Feature R2=0.9851 acc=7/10 | Geo R2=0.9030 acc=10/20
+[01:19:34] === Part A, N=3000
+[01:20:45]     Feature stability north: J=1.000 rho=0.9991
+[01:21:15]     Feature stability east: J=1.000 rho=0.9991
+[01:21:44]     Feature stability south: J=1.000 rho=0.9996
+[01:22:14]     Feature stability west: J=1.000 rho=0.9996
+[01:26:43]     stability north (E01012953): J=1.000 rho=0.9998 added rank 100
+[01:27:06]     stability east (E01013094): J=1.000 rho=0.9998 added rank 55
+[01:27:29]     stability south (E01013009): J=1.000 rho=0.9994 added rank 34
+[01:27:53]     stability west (E01013112): J=1.000 rho=0.9999 added rank 94
+[01:29:49] N=3000 done (10.2 min): Feature R2=0.9845 acc=7/10 | Geo R2=0.9028 acc=10/20
+[01:29:49] === Part A, N=5000
+[01:31:40]     Feature stability north: J=1.000 rho=0.9982
+[01:32:30]     Feature stability east: J=1.000 rho=0.9978
+[01:33:19]     Feature stability south: J=1.000 rho=0.9973
+[01:34:08]     Feature stability west: J=1.000 rho=0.9991
+[01:40:53]     stability north (E01012953): J=1.000 rho=0.9998 added rank 100
+[01:41:32]     stability east (E01013094): J=1.000 rho=0.9998 added rank 55
+[01:42:11]     stability south (E01013009): J=1.000 rho=0.9995 added rank 31
+[01:42:49]     stability west (E01013112): J=1.000 rho=0.9999 added rank 83
+[01:46:03] N=5000 done (16.2 min): Feature R2=0.9850 acc=7/10 | Geo R2=0.9080 acc=10/20
+[01:46:03] === Part A, N=7500
+[01:48:47]     Feature stability north: J=1.000 rho=0.9991
+[01:50:01]     Feature stability east: J=1.000 rho=0.9982
+[01:51:15]     Feature stability south: J=1.000 rho=0.9982
+[01:52:29]     Feature stability west: J=1.000 rho=0.9982
+[02:02:02]     stability north (E01012953): J=1.000 rho=0.9999 added rank 103
+[02:03:00]     stability east (E01013094): J=1.000 rho=0.9999 added rank 56
+[02:03:58]     stability south (E01013009): J=1.000 rho=0.9997 added rank 31
+[02:04:57]     stability west (E01013112): J=1.000 rho=0.9999 added rank 91
+[02:09:46] N=7500 done (23.7 min): Feature R2=0.9852 acc=7/10 | Geo R2=0.9088 acc=10/20
+[02:09:46] === Part A, N=10000
+[02:13:21]     Feature stability north: J=1.000 rho=0.9964
+[02:15:00]     Feature stability east: J=1.000 rho=0.9960
+[02:16:39]     Feature stability south: J=1.000 rho=0.9969
+[02:18:17]     Feature stability west: J=1.000 rho=0.9969
+[02:30:39]     stability north (E01012953): J=1.000 rho=0.9999 added rank 98
+[02:31:57]     stability east (E01013094): J=1.000 rho=0.9999 added rank 53
+[02:33:15]     stability south (E01013009): J=0.905 rho=0.9998 added rank 32
+[02:34:32]     stability west (E01013112): J=1.000 rho=0.9999 added rank 89
+[02:41:00] N=10000 done (31.2 min): Feature R2=0.9842 acc=7/10 | Geo R2=0.9183 acc=10/20
+[02:41:01] [xgboost] predictive R2 (30 + coordinates) = 0.8952
+[02:42:21] [xgboost] Feature top-10 7/10 | Geo top-20 in regions 10/20 (1.4 min)
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+[02:42:22] [lightgbm] predictive R2 (30 + coordinates) = 0.8934
+[02:44:03] [lightgbm] Feature top-10 5/10 | Geo top-20 in regions 6/20 (1.7 min)
+[02:44:06] [catboost] predictive R2 (30 + coordinates) = 0.8936
+[02:44:55] [catboost] Feature top-10 6/10 | Geo top-20 in regions 8/20 (0.9 min)
+[02:44:56] [mlp] predictive R2 (30 + coordinates) = 0.5273
+[02:45:34] [mlp] Feature top-10 6/10 | Geo top-20 in regions 11/20 (0.7 min)
+[02:45:35] [svr] predictive R2 (30 + coordinates) = 0.8675
+[02:50:20] [svr] Feature top-10 6/10 | Geo top-20 in regions 7/20 (4.8 min)
+[02:51:00] [gp] predictive R2 (30 + coordinates) = 0.8992
+[05:51:19] [gp] Feature top-10 5/10 | Geo top-20 in regions 7/20 (181.0 min)
+I0000 00:00:1792126280.267561   18988 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[05:51:30] [dl] predictive R2 (30 + coordinates) = 0.7884
+[06:01:39] [dl] Feature top-10 3/10 | Geo top-20 in regions 8/20 (10.3 min)
+[06:01:51] [ann] predictive R2 (30 + coordinates) = 0.8780
+[06:12:44] [ann] Feature top-10 5/10 | Geo top-20 in regions 9/20 (11.1 min)
+[06:13:09] [cnn] predictive R2 (30 + coordinates) = 0.8610
+[06:24:38] [cnn] Feature top-10 6/10 | Geo top-20 in regions 11/20 (11.9 min)
+WARNING:tensorflow:From C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:233: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[06:24:56] [transformer] predictive R2 (30 + coordinates) = 0.7534
+[06:38:55] [transformer] Feature top-10 6/10 | Geo top-20 in regions 2/20 (14.3 min)

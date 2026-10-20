@@ -1,0 +1,108 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792248054.237001   13088 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792248056.856359   13088 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[15:41:00] exact single-LSOA expectation done
+[15:42:37] K=1: R2=0.2078 cons rho=0.794 rho exact=0.867 (1.6 min)
+[15:44:22] K=2: R2=0.3581 cons rho=0.859 rho exact=0.904 (1.8 min)
+[15:46:23] K=5: R2=0.5646 cons rho=0.929 rho exact=0.942 (2.0 min)
+[15:48:56] K=10: R2=0.6620 cons rho=0.955 rho exact=0.945 (2.6 min)
+[15:52:17] K=20: R2=0.7416 cons rho=0.967 rho exact=0.959 (3.3 min)
+[15:56:28] K=30: R2=0.7611 cons rho=0.969 rho exact=0.961 (4.2 min)
+[16:02:25] K=50: R2=0.7976 cons rho=0.975 rho exact=0.964 (6.0 min)
+[16:12:44] K=100: R2=0.8040 cons rho=0.975 rho exact=0.965 (10.3 min)
+  K  fidelity_R2  fidelity_wR2  consistency_rank_rho  consistency_mean_sd  rho_with_exact  top20_jaccard_with_exact  mean_response  minutes  rho_with_Kmax  top20_jaccard_with_Kmax  chosen
+  1       0.2078        0.2069                0.7940               0.0005          0.8666                    0.6667         0.0231   1.6055         0.8847                   0.8182   False
+  2       0.3581        0.3592                0.8588               0.0004          0.9043                    0.8182         0.0230   1.7617         0.9357                   0.7391   False
+  5       0.5646        0.5613                0.9294               0.0002          0.9425                    0.8182         0.0230   2.0044         0.9702                   0.9048   False
+ 10       0.6620        0.6652                0.9555               0.0002          0.9451                    0.8182         0.0230   2.5604         0.9851                   0.9048   False
+ 20       0.7416        0.7451                0.9674               0.0002          0.9591                    0.8182         0.0230   3.3401         0.9894                   0.8182   False
+ 30       0.7611        0.7622                0.9687               0.0002          0.9614                    0.7391         0.0230   4.1864         0.9932                   0.9048   False
+ 50       0.7976        0.7975                0.9751               0.0001          0.9642                    0.7391         0.0230   5.9577         0.9943                   1.0000   False
+100       0.8040        0.8055                0.9753               0.0001          0.9653                    0.7391         0.0230  10.3200         1.0000                   1.0000    True
+{
+ "chosen_K": 100,
+ "selection_rule": "smallest K with fidelity and consistency within 0.005 of the best K and Spearman >= 0.99 with K=100",
+ "rho_with_crime_level": 0.1973528452257906,
+ "top20_shared_with_highest_crime": 7,
+ "rho_with_distance_from_median_point": 0.06479770804966568,
+ "moran_I": 0.1372189110742365,
+ "moran_p": 0.004,
+ "old_town_rank": 6,
+ "agreement": {
+  "area_data": {
+   "spearman": 0.548916537170798,
+   "top20_overlap": 9
+  },
+  "median_point": {
+   "spearman": 0.4592784000890865,
+   "top20_overlap": 9
+  },
+  "random_donor_absolute_K10": {
+   "spearman": 0.6207930715070283,
+   "top20_overlap": 11
+  }
+ },
+ "top10": [
+  {
+   "geo_rank": 1,
+   "lsoa21cd": "E01012845",
+   "lsoa21nm": "Kingston upon Hull 021C",
+   "geo_coefficient": 0.004908422947318531
+  },
+  {
+   "geo_rank": 2,
+   "lsoa21cd": "E01012871",
+   "lsoa21nm": "Kingston upon Hull 015D",
+   "geo_coefficient": 0.003762804465147084
+  },
+  {
+   "geo_rank": 3,
+   "lsoa21cd": "E01012832",
+   "lsoa21nm": "Kingston upon Hull 034E",
+   "geo_coefficient": 0.0035721454408976236
+  },
+  {
+   "geo_rank": 4,
+   "lsoa21cd": "E01012835",
+   "lsoa21nm": "Kingston upon Hull 009B",
+   "geo_coefficient": 0.003569346600191271
+  },
+  {
+   "geo_rank": 5,
+   "lsoa21cd": "E01012889",
+   "lsoa21nm": "Kingston upon Hull 030B",
+   "geo_coefficient": 0.003198298035587407
+  },
+  {
+   "geo_rank": 6,
+   "lsoa21cd": "E01033104",
+   "lsoa21nm": "Kingston upon Hull 029E",
+   "geo_coefficient": 0.002640117181464523
+  },
+  {
+   "geo_rank": 7,
+   "lsoa21cd": "E01012801",
+   "lsoa21nm": "Kingston upon Hull 019E",
+   "geo_coefficient": 0.0025314559511098443
+  },
+  {
+   "geo_rank": 8,
+   "lsoa21cd": "E01012852",
+   "lsoa21nm": "Kingston upon Hull 024B",
+   "geo_coefficient": 0.0024763994033762432
+  },
+  {
+   "geo_rank": 9,
+   "lsoa21cd": "E01012775",
+   "lsoa21nm": "Kingston upon Hull 028D",
+   "geo_coefficient": 0.0023267656617181978
+  },
+  {
+   "geo_rank": 10,
+   "lsoa21cd": "E01012855",
+   "lsoa21nm": "Kingston upon Hull 029D",
+   "geo_coefficient": 0.002302759115751379
+  }
+ ]
+}

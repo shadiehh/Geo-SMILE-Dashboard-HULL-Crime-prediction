@@ -1,0 +1,25 @@
+design,rule,reference_size,top20_inside,p
+Area-data (published),>=20% or >=0.1 km2 (primary),57,12,0.01024374581681646
+Area-data (published),>=10%,59,11,0.04361189904792809
+Area-data (published),>=50%,44,10,0.013329572749197306
+Area-data (published),>=75%,28,6,0.08823948999972421
+Coordinates -> median point (aligned),>=20% or >=0.1 km2 (primary),57,10,0.0879954488660851
+Coordinates -> median point (aligned),>=10%,59,10,0.10956088188671809
+Coordinates -> median point (aligned),>=50%,44,6,0.4308265329768974
+Coordinates -> median point (aligned),>=75%,28,3,0.6872234974338309
+Coordinates -> median point (lon/lat model),>=20% or >=0.1 km2 (primary),57,10,0.0879954488660851
+Coordinates -> median point (lon/lat model),>=10%,59,11,0.04361189904792809
+Coordinates -> median point (lon/lat model),>=50%,44,7,0.24177493158252836
+Coordinates -> median point (lon/lat model),>=75%,28,3,0.6872234974338309
+"Random donor, absolute (K=10)",>=20% or >=0.1 km2 (primary),57,10,0.0879954488660851
+"Random donor, absolute (K=10)",>=10%,59,9,0.22826905099654005
+"Random donor, absolute (K=10)",>=50%,44,8,0.11233419549269011
+"Random donor, absolute (K=10)",>=75%,28,5,0.22054983414515264
+"Random donor, log scale (K=100)",>=20% or >=0.1 km2 (primary),57,8,0.35325605663730225
+"Random donor, log scale (K=100)",>=10%,59,9,0.22826905099654005
+"Random donor, log scale (K=100)",>=50%,44,8,0.11233419549269011
+"Random donor, log scale (K=100)",>=75%,28,5,0.22054983414515264
+Crime level (baseline),>=20% or >=0.1 km2 (primary),57,11,0.03319808025975381
+Crime level (baseline),>=10%,59,10,0.10956088188671809
+Crime level (baseline),>=50%,44,8,0.11233419549269011
+Crime level (baseline),>=75%,28,5,0.22054983414515264

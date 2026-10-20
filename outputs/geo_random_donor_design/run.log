@@ -1,0 +1,53 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792276782.189441   15764 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792276784.571431   15764 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[23:41:56] K=5: {'K': 5, 'fidelity_R2': 0.8436252503448387, 'consistency_rank_rho': 0.8167297695395348, 'consistency_mean_sd': 0.010997247073050326, 'minutes': 2.1553236405054728}
+[23:44:28] K=10: {'K': 10, 'fidelity_R2': 0.8711984878604542, 'consistency_rank_rho': 0.8678382879211991, 'consistency_mean_sd': 0.008498610760073633, 'minutes': 2.523979914188385}
+[23:47:41] K=20: {'K': 20, 'fidelity_R2': 0.9179506463216833, 'consistency_rank_rho': 0.8923459083523572, 'consistency_mean_sd': 0.007539476690920802, 'minutes': 3.2164915839831036}
+[23:53:28] K=50: {'K': 50, 'fidelity_R2': 0.9295843061280951, 'consistency_rank_rho': 0.904457610560789, 'consistency_mean_sd': 0.006681089537592441, 'minutes': 5.789604067802429}
+[23:53:28] chosen K = 50
+[23:53:30] === Stage A, N=4000, K=50
+[23:57:07]     stability north: J=1.000 rho=0.9782 added rank 80
+[23:58:11]     stability east: J=1.000 rho=0.9786 added rank 73
+[23:59:14]     stability south: J=1.000 rho=0.9784 added rank 52
+[00:00:17]     stability west: J=1.000 rho=0.9790 added rank 80
+Traceback (most recent call last):
+  File "D:\GEO SMILE CODE\hull\geo_random_donor_eval.py", line 360, in <module>
+    main()
+    ~~~~^^
+  File "D:\GEO SMILE CODE\hull\geo_random_donor_eval.py", line 354, in main
+    stage_a(panel, cols, split, hull, names, refs, rules, k, a.n_grid)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GEO SMILE CODE\hull\geo_random_donor_eval.py", line 261, in stage_a
+    r.to_csv(DEST / "xgboost" / "geo_coefficients_N4000.csv", index=False)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\generic.py", line 3976, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        path_or_buf,
+        ^^^^^^^^^^^^
+    ...<14 lines>...
+        storage_options=storage_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\io\formats\format.py", line 1025, in to_csv
+    csv_formatter.save()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\io\formats\csvs.py", line 251, in save
+    with get_handle(
+         ~~~~~~~~~~^
+        self.filepath_or_buffer,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        storage_options=self.storage_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ) as handles:
+    ^
+  File "C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\io\common.py", line 797, in get_handle
+    check_parent_directory(str(handle))
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\io\common.py", line 656, in check_parent_directory
+    raise OSError(rf"Cannot save file into a non-existent directory: '{parent}'")
+OSError: Cannot save file into a non-existent directory: 'D:\GEO SMILE CODE\hull\outputs\geo_random_donor_design\xgboost'

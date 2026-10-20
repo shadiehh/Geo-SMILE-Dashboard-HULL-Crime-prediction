@@ -2,33 +2,35 @@
   "previous_attempts": [
     "governance_card_llm_attempt1.json",
     "governance_card_llm_attempt2.json",
-    "governance_card_llm_attempt3.json"
+    "governance_card_llm_attempt3.json",
+    "governance_card_llm_attempt4.json",
+    "governance_card_llm_attempt5.json"
   ],
   "stakeholder": "governance",
   "question": "Is the explanation traceable and reproducible, and which limitations require explicit review before the evidence is relied upon?",
-  "prompt_version": "geosmile-hull-v8",
-  "card_mode_addendum": "\n---\n\n## 17. CARD MODE ADDENDUM\n\noutput_mode is card_mode: the text fills a short card for a Governance / Assurance reader,\nshown with four stat tiles and two Hull-wide dashboard panels (01: GeoSensitivity of the top 20\nareas across five perturbation seeds; 02: the top 20 under a neighbouring-area addition in each\nof four directions, titled with the model, design, perturbation count and seed). The card is\nCITY-WIDE: system-level provenance, reproducibility and limitations, not one LSOA's story; an\nunusual area appears only as a case for review. This section replaces section 14 \"Length and\nform\" and its bolding rule. Every other section, including prohibited claims and the\nself-check, still applies.\n\nAssurance language: exact metric names and values are allowed; keep each metric's definition\nexact. ATT Faithfulness (across-model r between predictive R2 and ATT accuracy) and\nintervention impact (top 20 against random masking) are different measures: never conclude one\nfrom the other.\n\nNo repetition: every figure appears ONCE on the card. The panels already print the figures in\ngovernance_assurance.shown_on_panels (perturbation count, seed, \"20/20 retained\"), so neither\ntiles nor sections cite them; refer to the panel instead (\"panel 02\").\n\nReturn ONLY one JSON object with exactly these keys:\n\n- \"headline\": one sentence, at most 20 words.\n- \"tiles\": exactly 4 objects {\"value\": ..., \"label\": ...}. value is one figure from the\n  evidence (at most 8 characters); label is at most 8 words naming the measure exactly. Use\n  exactly these four, in this order: Geo rank Spearman across seeds, Geo top-fifth Jaccard\n  across seeds, rank-1 to rank-2 ratio, Geo ATT Faithfulness r.\n- \"section_01\": at most 75 words, provenance and reproducibility (panels 01-02): which model and\n  design produced the explanation (point to panel 02 for count and seed), how many areas each\n  perturbation masks, the expert reference's status, and seed reproducibility of the most\n  variable area and of the Feature branch. Do not cite any tile value.\n- \"section_02\": at most 75 words, limitations requiring review: the sign is not a direction of\n  crime; the single provisional expert; unadjusted local LISA p-values; ATT Faithfulness not\n  demonstrated (describe in words, its value is on a tile); the rank-1 area's dominance as a\n  case for separate model review. Do not cite any tile value.\n- \"footer\": one limitation, at most 15 words.\n\nKey-term counts: 1-2 in the headline and 2-4 in EACH section. Tiles and footer carry no\nmarkup.\n\nHighlighting markup (you choose what to mark):\n\n- wrap every figure you cite as [[n:...]], e.g. [[n:14%]];\n- wrap the key terms a planner should catch when scanning as [[t:...]]. This is required,\n  not optional: keep to the counts given above, each at most 4 words (the finding phrase\n  itself, the leading feature names, or the key place names). Before answering, count the\n  [[t:...]] spans and fix any count outside the range;\n- no other markup and no markdown bold.\n\nEvery figure must be copied or rounded from EVIDENCE_JSON (shares as percentages:\n0.139 -> 14%). Do not compute new figures and do not cite a figure that is not supplied.\n\nILLUSTRATIVE_NARRATIVE in the user message shows the expected structure, order, tone and\nmarkup density. It is an example of wording, not evidence: take every figure from\nEVIDENCE_JSON, and write your own sentences.",
+  "prompt_version": "geosmile-hull-v9",
+  "card_mode_addendum": "\n---\n\n## 17. CARD MODE ADDENDUM\n\noutput_mode is card_mode: the text fills a short card for a Governance / Assurance reader,\nshown with four stat tiles and two Hull-wide dashboard panels (01: GeoSensitivity of the top 20\nareas across five perturbation seeds; 02: the top 20 under a neighbouring-area addition in each\nof four directions, titled with the model, design, perturbation count and seed). The card is\nCITY-WIDE: system-level provenance, reproducibility and limitations, not one LSOA's story; an\nunusual area appears only as a case for review. This section replaces section 14 \"Length and\nform\" and its bolding rule. Every other section, including prohibited claims and the\nself-check, still applies.\n\nAssurance language: exact metric names and values are allowed; keep each metric's definition\nexact. ATT Faithfulness (across-model r between predictive R2 and ATT accuracy) and\nintervention impact (top 20 against random masking) are different measures: never conclude one\nfrom the other.\n\nNo repetition: every figure appears ONCE on the card. The panels already print the figures in\ngovernance_assurance.shown_on_panels (perturbation count, seed, \"20/20 retained\"), so neither\ntiles nor sections cite them; refer to the panel instead (\"panel 02\").\n\nReturn ONLY one JSON object with exactly these keys:\n\n- \"headline\": one sentence, at most 20 words.\n- \"tiles\": exactly 4 objects {\"value\": ..., \"label\": ...}. value is one figure from the\n  evidence (at most 8 characters); label is at most 8 words naming the measure exactly. Use\n  exactly these four, in this order: Geo rank Spearman across seeds, Geo top-fifth Jaccard\n  across seeds, rank-1 to rank-2 ratio, Geo ATT Faithfulness r.\n- \"section_01\": at most 75 words, provenance and reproducibility (panels 01-02): which model and\n  design produced the explanation (point to panel 02 for count and seed), how many areas each\n  perturbation masks, the expert reference's status, and seed reproducibility of the most\n  variable area and of the Feature branch. Do not cite any tile value.\n- \"section_02\": at most 75 words, limitations requiring review: the sign is not a direction of\n  crime; the single provisional expert; unadjusted local LISA p-values; ATT Faithfulness not\n  demonstrated (describe in words, its value is on a tile); the most sensitive area's dominance\n  (name it by locality only, never by its rank) as a case for separate model review; that\n  GeoSensitivity partly reflects predicted crime level. Do not cite any tile value.\n- \"footer\": one limitation, at most 15 words.\n\nKey-term counts: 1-2 in the headline and 2-4 in EACH section. Tiles and footer carry no\nmarkup.\n\nHighlighting markup (you choose what to mark):\n\n- wrap every figure you cite as [[n:...]], e.g. [[n:14%]];\n- wrap the key terms a planner should catch when scanning as [[t:...]]. This is required,\n  not optional: keep to the counts given above, each at most 4 words (the finding phrase\n  itself, the leading feature names, or the key place names). Before answering, count the\n  [[t:...]] spans and fix any count outside the range;\n- no other markup and no markdown bold.\n\nEvery figure must be copied or rounded from EVIDENCE_JSON (shares as percentages:\n0.139 -> 14%). Do not compute new figures and do not cite a figure that is not supplied.\n\nILLUSTRATIVE_NARRATIVE in the user message shows the expected structure, order, tone and\nmarkup density. It is an example of wording, not evidence: take every figure from\nEVIDENCE_JSON, and write your own sentences.",
   "illustrative_narrative": {
     "headline": "The explanation is [[t:traceable and reproducible]]; four limitations need review before reliance.",
     "tiles": [
       {
-        "value": "0.963",
+        "value": "0.904",
         "label": "Geo rank Spearman across seeds"
       },
       {
-        "value": "0.77",
+        "value": "0.86",
         "label": "Geo top-fifth Jaccard across seeds"
       },
       {
-        "value": "3.1x",
+        "value": "2.6x",
         "label": "Rank-1 to rank-2 GeoSensitivity ratio"
       },
       {
-        "value": "0.15",
+        "value": "0.32",
         "label": "Geo ATT Faithfulness r, ten models"
       }
     ],
-    "section_01": "GeoSensitivity comes from one XGBoost model under [[t:area-data masking]] (panel 02 gives the count and seed); each perturbation masks [[n:5]] to [[n:10]] areas. The expert reference is a [[t:provisional single expert]], intended to be blind to the outputs. Old Town varies most across seeds ([[n:2.8%]] of its mean); Feature ranks are [[t:less reproducible]] ([[n:0.69]]).",
+    "section_01": "GeoSensitivity comes from one XGBoost model under [[t:random-donor location masking]] (panel 02 gives the count and seed); each perturbation masks [[n:5]] to [[n:10]] areas. The expert reference is a [[t:provisional single expert]], intended to be blind to the outputs. Old Town varies most across seeds ([[n:3.4%]] of its mean); Feature ranks are [[t:less reproducible]] ([[n:0.69]]).",
     "section_02": "The coefficient [[t:sign is not a direction]] of crime. The expert view comes from one person, and local LISA p-values are unadjusted. Across models, accuracy does not track expert agreement, so [[t:ATT Faithfulness]] is not demonstrated. Old Town dominates the geographic picture and needs [[t:separate model review]].",
     "footer": "Associational explanation; not a basis for decisions about individuals or communities."
   },
@@ -46,9 +48,9 @@
     "current_map_view": "geo_sensitivity",
     "output_mode": "card_mode",
     "current_map_view_label": "GeoSensitivity",
-    "prompt_version": "geosmile-hull-v8",
+    "prompt_version": "geosmile-hull-v9",
     "semantic_separation": {
-      "geo_sensitivity": "Geo branch area-data masking SMILE (all inputs of an LSOA set to Hull medians)",
+      "geo_sensitivity": "Geo branch random-donor location masking SMILE (an LSOA's rows moved to random other Hull LSOA centroids)",
       "latitude_effect": "latitude as a Feature SMILE player",
       "longitude_effect": "longitude as a Feature SMILE player",
       "spatial_pattern": "LISA/Moran on signed GeoSensitivity",
@@ -63,19 +65,19 @@
     },
     "global_geo": {
       "n_lsoas": 168,
-      "geo_sensitivity_median": -0.47609629327288483,
-      "geo_sensitivity_p90": 1.7228578983121385,
-      "n_negative": 120,
-      "geo_sensitivity_mean_abs": 1.004874251717173,
-      "geo_sensitivity_median_abs": 0.7315152595188347,
-      "geo_sensitivity_p90_abs": 1.7228578983121385,
-      "geo_sensitivity_max_abs": 22.32598125447709,
-      "geo_sensitivity_min_abs": 0.0031728345203483,
+      "geo_sensitivity_median": -0.03788592509494055,
+      "geo_sensitivity_p90": 0.0672244009413169,
+      "n_negative": 128,
+      "geo_sensitivity_mean_abs": 0.05619905519447007,
+      "geo_sensitivity_median_abs": 0.0434990836630174,
+      "geo_sensitivity_p90_abs": 0.07099320837449713,
+      "geo_sensitivity_max_abs": 1.068874023123998,
+      "geo_sensitivity_min_abs": 0.0001520988561432,
       "highest_geo_sensitivity_lsoas": [
         {
           "id": "E01033104",
           "name": "Kingston upon Hull 029E",
-          "geo_sensitivity": 22.32598125447709,
+          "geo_sensitivity": 1.068874023123998,
           "geo_rank": 1,
           "lisa_class": "HH",
           "place_context": {
@@ -96,7 +98,7 @@
         {
           "id": "E01012889",
           "name": "Kingston upon Hull 030B",
-          "geo_sensitivity": 7.176457590623275,
+          "geo_sensitivity": 0.4181766068278902,
           "geo_rank": 2,
           "lisa_class": "NS",
           "place_context": {
@@ -117,7 +119,7 @@
         {
           "id": "E01012871",
           "name": "Kingston upon Hull 015D",
-          "geo_sensitivity": 4.725618919405221,
+          "geo_sensitivity": 0.3289788653232843,
           "geo_rank": 3,
           "lisa_class": "NS",
           "place_context": {
@@ -137,10 +139,29 @@
           }
         },
         {
+          "id": "E01012852",
+          "name": "Kingston upon Hull 024B",
+          "geo_sensitivity": 0.2424935782234082,
+          "geo_rank": 4,
+          "lisa_class": "HH",
+          "place_context": {
+            "lsoa_code": "E01012852",
+            "locality_label": "Stepney",
+            "recognisable_places": [],
+            "major_streets": [
+              "Londesborough Street",
+              "Argyle Street",
+              "Stanley Street"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
           "id": "E01012854",
           "name": "Kingston upon Hull 029C",
-          "geo_sensitivity": 4.26712037699458,
-          "geo_rank": 4,
+          "geo_sensitivity": 0.2245589842945031,
+          "geo_rank": 5,
           "lisa_class": "HH",
           "place_context": {
             "lsoa_code": "E01012854",
@@ -156,118 +177,105 @@
             "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
             "use": "orientation only"
           }
-        },
-        {
-          "id": "E01012852",
-          "name": "Kingston upon Hull 024B",
-          "geo_sensitivity": 4.134116816860071,
-          "geo_rank": 5,
-          "lisa_class": "HH",
-          "place_context": {
-            "lsoa_code": "E01012852",
-            "locality_label": "Stepney",
-            "recognisable_places": [],
-            "major_streets": [
-              "Londesborough Street",
-              "Argyle Street",
-              "Stanley Street"
-            ],
-            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
-            "use": "orientation only"
-          }
         }
       ],
       "lowest_geo_sensitivity_lsoas": [
         {
-          "id": "E01035467",
-          "name": "Kingston upon Hull 031H",
-          "geo_sensitivity": -1.3250807834686087,
+          "id": "E01012910",
+          "name": "Kingston upon Hull 006D",
+          "geo_sensitivity": -0.0723810353882766,
           "geo_rank": 168,
           "lisa_class": "NS",
           "place_context": {
-            "lsoa_code": "E01035467",
-            "locality_label": "Gipsyville",
+            "lsoa_code": "E01012910",
+            "locality_label": "Bransholme",
             "recognisable_places": [],
             "major_streets": [
-              "Hawthorn Avenue",
-              "Chesterton Street",
-              "Brindle Road"
+              "Newtondale",
+              "Marsdale",
+              "Littondale"
             ],
             "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
             "use": "orientation only"
           }
         },
         {
-          "id": "E01012798",
-          "name": "Kingston upon Hull 019D",
-          "geo_sensitivity": -1.307785965296299,
+          "id": "E01012911",
+          "name": "Kingston upon Hull 007E",
+          "geo_sensitivity": -0.0689985628925646,
           "geo_rank": 167,
           "lisa_class": "NS",
           "place_context": {
-            "lsoa_code": "E01012798",
-            "locality_label": "East Ella",
+            "lsoa_code": "E01012911",
+            "locality_label": "Bransholme",
             "recognisable_places": [],
             "major_streets": [
-              "Coronation Road North",
-              "Hotham Road South",
-              "Priory Road"
+              "Robson Way",
+              "Howdale Road",
+              "Langsett Road"
             ],
             "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
             "use": "orientation only"
           }
         },
         {
-          "id": "E01012898",
-          "name": "Kingston upon Hull 017F",
-          "geo_sensitivity": -1.2785758446646298,
+          "id": "E01012901",
+          "name": "Kingston upon Hull 020E",
+          "geo_sensitivity": -0.0681778764716347,
           "geo_rank": 166,
           "lisa_class": "NS",
           "place_context": {
-            "lsoa_code": "E01012898",
-            "locality_label": "Bilton Grange",
-            "recognisable_places": [],
+            "lsoa_code": "E01012901",
+            "locality_label": "Garden Village",
+            "recognisable_places": [
+              "Mile House"
+            ],
             "major_streets": [
-              "Portobello Street",
-              "Kilnsea Grove",
-              "Broadway Drive"
+              "Lodge Street",
+              "Southcoates Lane",
+              "Kelvin Street"
             ],
             "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
             "use": "orientation only"
           }
         },
         {
-          "id": "E01012844",
-          "name": "Kingston upon Hull 017B",
-          "geo_sensitivity": -1.2655537905858425,
+          "id": "E01012760",
+          "name": "Kingston upon Hull 025D",
+          "geo_sensitivity": -0.0670408966825999,
           "geo_rank": 165,
           "lisa_class": "NS",
           "place_context": {
-            "lsoa_code": "E01012844",
-            "locality_label": "Greatfield",
-            "recognisable_places": [],
+            "lsoa_code": "E01012760",
+            "locality_label": "Avenues",
+            "recognisable_places": [
+              "Avenues"
+            ],
             "major_streets": [
-              "Marfleet Lane",
-              "Burdale Close",
-              "Swanfield Road"
+              "Hardwick Street",
+              "Blenheim Street",
+              "Thoresby Street"
             ],
             "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
             "use": "orientation only"
           }
         },
         {
-          "id": "E01012825",
-          "name": "Kingston upon Hull 010B",
-          "geo_sensitivity": -1.2423417459404944,
+          "id": "E01012820",
+          "name": "Kingston upon Hull 022A",
+          "geo_sensitivity": -0.0641898382102716,
           "geo_rank": 164,
-          "lisa_class": "NS",
+          "lisa_class": "LL",
           "place_context": {
-            "lsoa_code": "E01012825",
-            "locality_label": "Bilton Grange",
-            "recognisable_places": [],
+            "lsoa_code": "E01012820",
+            "locality_label": "Garden Village",
+            "recognisable_places": [
+              "Mile House"
+            ],
             "major_streets": [
-              "Holderness Road",
-              "Winchester Avenue",
-              "East Mount Avenue"
+              "Summergangs Road",
+              "Lee Street",
+              "Westcott Street"
             ],
             "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
             "use": "orientation only"
@@ -275,11 +283,11 @@
         }
       ],
       "ranking": "signed coefficient (rank 1 = highest GeoSensitivity)",
-      "note": "GeoSensitivity is the Geo-branch area-data SMILE coefficient: masking an LSOA replaces all of its model inputs with Hull training medians, and the coefficient attributes the resulting prediction shift to that LSOA. It is not latitude or longitude feature attribution."
+      "note": "GeoSensitivity is the Geo-branch random-donor SMILE coefficient: masking an LSOA moves its rows to the centroids of random other Hull LSOAs (50 draws, all other inputs kept), and the coefficient attributes the resulting prediction shift to that LSOA. Absolute shifts are larger where predicted crime is higher. It is not latitude or longitude feature attribution."
     },
     "global_spatial_pattern": {
       "global_pattern": {
-        "moran_i": 0.21914394974096335,
+        "moran_i": 0.24175215347144025,
         "p_value": 0.001,
         "interpretation": "positive spatial clustering of geosensitivity",
         "n_permutations": 999,
@@ -287,15 +295,15 @@
         "value_field": "geo_coefficient"
       },
       "lisa_counts": {
-        "HH": 9,
-        "LL": 9,
-        "HL": 3,
-        "LH": 5,
-        "NS": 142,
+        "HH": 12,
+        "LL": 10,
+        "HL": 0,
+        "LH": 3,
+        "NS": 143,
         "ISLAND": 0
       },
       "pattern_scale": "not established",
-      "note": "LISA classes describe clustering of signed GeoSensitivity (area-data design). They are not crime hotspots and not latitude/longitude effects.",
+      "note": "LISA classes describe clustering of signed GeoSensitivity (random-donor design). They are not crime hotspots and not latitude/longitude effects.",
       "lisa_counts_unit": "number of LSOAs in each LISA class, not number of clusters"
     },
     "top_global_features": [
@@ -410,7 +418,6 @@
       "not_causal": true,
       "feature_holdout_r2": 0.8956733279339549,
       "feature_surrogate_test_r2": 0.9825149947049138,
-      "geo_surrogate_test_r2": 0.9438938633357984,
       "att_stability_feature_jaccard": 1.0,
       "att_stability_geo_jaccard": 1.0,
       "att_stability_status": "Evaluated",
@@ -429,9 +436,9 @@
           "branch": "Feature"
         },
         "geo": {
-          "rank_spearman_mean": 0.9634948193216273,
-          "score_pearson_mean": 0.997200874311862,
-          "top20pct_jaccard_mean": 0.7728397223134065,
+          "rank_spearman_mean": 0.904457610560789,
+          "score_pearson_mean": 0.9963791501210253,
+          "top20pct_jaccard_mean": 0.8590873580347264,
           "seeds": [
             100,
             101,
@@ -442,16 +449,16 @@
         }
       },
       "geo_design": {
-        "name": "area_data",
-        "definition": "Area-data design: masking an LSOA replaces ALL of its model inputs with the training median; response is Wasserstein-1 on the affected LSOA-month predictions of the 30-feature model; LSOAs ranked by the signed Geo-SMILE coefficient.",
+        "name": "random_donor",
+        "definition": "Random-donor design: masking an LSOA moves the coordinates of its rows to the centroid of a random other Hull LSOA (K = 50 draws), all other inputs kept; response is Wasserstein-1 on the affected LSOA-month predictions of the XGBoost model on 30 predictors + easting/northing; LSOAs ranked by the signed Geo-SMILE coefficient.",
         "n_perturbations": 4000
       },
-      "geo_fidelity_r2": 0.9483618579283803,
+      "geo_fidelity_r2": 0.9295843061280951,
       "geo_att_stability_jaccard_mean": 1.0,
-      "geo_att_stability_spearman_mean": 0.9997798148419983,
+      "geo_att_stability_spearman_mean": 0.9785287835149652,
       "feature_faithfulness_top_minus_random": 4.401935675204154,
       "feature_faithfulness_empirical_p": 0.015984015984015984,
-      "geo_faithfulness_top_minus_random": 26.22110278113186,
+      "geo_faithfulness_top_minus_random": 1.2728430531426076,
       "geo_faithfulness_empirical_p": 0.000999000999000999
     },
     "limitations": [
@@ -464,8 +471,8 @@
     "governance_assurance": {
       "provenance": {
         "model": "XGBoost",
-        "geo_design": "replace ALL model inputs of selected LSOAs with training median",
-        "geo_response": "wasserstein_1_on_affected_lsoa_month_predictions",
+        "geo_design": "move the coordinates of selected LSOAs' rows to the centroid of a random other Hull LSOA; all predictors kept",
+        "geo_response": "mean over K donor draws of wasserstein_1 on affected lsoa_month predictions",
         "geo_perturbations": 4000,
         "base_seed": 42,
         "consistency_seeds": [
@@ -484,16 +491,16 @@
         "expert_reference": "provisional single-expert reference; annotators intended to be blinded to GeoSMILE outputs"
       },
       "reproducibility": {
-        "geo_seed_rank_spearman": 0.963,
-        "geo_seed_top20pct_jaccard": 0.77,
+        "geo_seed_rank_spearman": 0.904,
+        "geo_seed_top20pct_jaccard": 0.86,
         "feature_seed_rank_spearman": "see evaluation.consistency.feature",
         "neighbour_addition_jaccard_mean": 1.0,
-        "geo_surrogate_r2": 0.948,
-        "intervention_top20_minus_random_w1": 26.22,
+        "geo_surrogate_r2": 0.93,
+        "intervention_top20_minus_random_w1": 1.27,
         "intervention_note": "supplementary intervention impact, not ATT Faithfulness",
         "att_faithfulness_pearson_r": {
           "Feature": -0.12,
-          "Geo": 0.15,
+          "Geo": 0.32,
           "n_models": 10,
           "definition": "across-model Pearson r between predictive R2 and ATT accuracy"
         }
@@ -503,16 +510,17 @@
           "id": "E01033104",
           "name": "Kingston upon Hull 029E",
           "locality_label": "Old Town",
-          "sd": 0.65,
-          "sd_pct_of_mean": 2.8
+          "sd": 0.04,
+          "sd_pct_of_mean": 3.4
         },
-        "rank1_to_rank2_ratio": 3.1
+        "rank1_to_rank2_ratio": 2.6
       },
       "risks": [
         "The signed coefficient is a relative contribution to the coalition W1, not a direction of crime.",
         "The expert reference is a single provisional rater.",
         "Local LISA p-values are unadjusted for multiple testing.",
         "ATT Faithfulness was not demonstrated across models.",
+        "Absolute GeoSensitivity grows with predicted crime level, so it partly reflects crime level.",
         "Census characteristics can act as proxies for protected groups.",
         "Attributions are associational, not causal."
       ],
@@ -539,32 +547,32 @@
       "ok": true,
       "provider": "openai",
       "model": "gpt-4.1",
-      "timestamp": "2026-10-11T00:16:37.061546+00:00",
-      "prompt_version": "geosmile-hull-v8",
-      "raw": "{\n \"headline\": \"The explanation is [[t:traceable and reproducible]], but key [[t:limitations]] require explicit review.\",\n \"tiles\": [\n  {\n   \"value\": \"0.963\",\n   \"label\": \"Geo rank Spearman across seeds\"\n  },\n  {\n   \"value\": \"0.77\",\n   \"label\": \"Geo top-fifth Jaccard across seeds\"\n  },\n  {\n   \"value\": \"3.1x\",\n   \"label\": \"Rank-1 to rank-2 GeoSensitivity ratio\"\n  },\n  {\n   \"value\": \"0.15\",\n   \"label\": \"Geo ATT Faithfulness r, ten models\"\n  }\n ],\n \"section_01\": \"GeoSensitivity is from [[t:area-data masking]] in an XGBoost model; see panel 02 for perturbation count and seed. Each masking step replaces [[n:5]]–[[n:10]] LSOAs’ data. The expert reference is a [[t:provisional single expert]], intended to be output-blind. The Old Town area is the most variable across seeds ([[n:2.8%]] of its mean); Feature branch ranks are [[t:less reproducible]] ([[n:0.69]]).\",\n \"section_02\": \"The signed coefficient is a [[t:relative contribution]], not a direction of crime. The expert view is single-rater and local LISA p-values are unadjusted. [[t:ATT Faithfulness]] is not demonstrated across models. The dominance of Old Town ([[t:rank-1 area]]) requires [[t:separate model review]].\",\n \"footer\": \"Associational only; not for individual or community-level decisions.\"\n}",
+      "timestamp": "2026-10-19T22:20:47.132258+00:00",
+      "prompt_version": "geosmile-hull-v9",
+      "raw": "{\n \"headline\": \"The explanation is [[t:traceable and reproducible]], but explicit [[t:limitations]] require review before reliance.\",\n \"tiles\": [\n  {\n   \"value\": \"0.904\",\n   \"label\": \"Geo rank Spearman across seeds\"\n  },\n  {\n   \"value\": \"0.86\",\n   \"label\": \"Geo top-fifth Jaccard across seeds\"\n  },\n  {\n   \"value\": \"2.6x\",\n   \"label\": \"Rank-1 to rank-2 GeoSensitivity ratio\"\n  },\n  {\n   \"value\": \"0.32\",\n   \"label\": \"Geo ATT Faithfulness r, ten models\"\n  }\n ],\n \"section_01\": \"GeoSensitivity is derived from [[t:random-donor location masking]] in an XGBoost model (panel 02: count and seed); each perturbation masks [[n:5]] to [[n:10]] LSOAs. The expert reference is a [[t:provisional single expert]], intended to be output-blind. The Old Town area is the most variable across seeds ([[n:3.4%]] of its mean); Feature branch ranks are [[t:less reproducible]] ([[n:0.69]]).\",\n \"section_02\": \"The coefficient [[t:sign is not a direction]] of crime. The expert reference is single and provisional; local LISA p-values are unadjusted. [[t:ATT Faithfulness]] is not demonstrated across models. Old Town's dominance in GeoSensitivity warrants [[t:separate model review]]. GeoSensitivity partly reflects predicted crime level.\",\n \"footer\": \"Associational attribution; not a basis for individual or community decisions.\"\n}",
       "content": {
-        "headline": "The explanation is [[t:traceable and reproducible]], but key [[t:limitations]] require explicit review.",
+        "headline": "The explanation is [[t:traceable and reproducible]], but explicit [[t:limitations]] require review before reliance.",
         "tiles": [
           {
-            "value": "0.963",
+            "value": "0.904",
             "label": "Geo rank Spearman across seeds"
           },
           {
-            "value": "0.77",
+            "value": "0.86",
             "label": "Geo top-fifth Jaccard across seeds"
           },
           {
-            "value": "3.1x",
+            "value": "2.6x",
             "label": "Rank-1 to rank-2 GeoSensitivity ratio"
           },
           {
-            "value": "0.15",
+            "value": "0.32",
             "label": "Geo ATT Faithfulness r, ten models"
           }
         ],
-        "section_01": "GeoSensitivity is from [[t:area-data masking]] in an XGBoost model; see panel 02 for perturbation count and seed. Each masking step replaces [[n:5]]–[[n:10]] LSOAs’ data. The expert reference is a [[t:provisional single expert]], intended to be output-blind. The Old Town area is the most variable across seeds ([[n:2.8%]] of its mean); Feature branch ranks are [[t:less reproducible]] ([[n:0.69]]).",
-        "section_02": "The signed coefficient is a [[t:relative contribution]], not a direction of crime. The expert view is single-rater and local LISA p-values are unadjusted. [[t:ATT Faithfulness]] is not demonstrated across models. The dominance of Old Town ([[t:rank-1 area]]) requires [[t:separate model review]].",
-        "footer": "Associational only; not for individual or community-level decisions."
+        "section_01": "GeoSensitivity is derived from [[t:random-donor location masking]] in an XGBoost model (panel 02: count and seed); each perturbation masks [[n:5]] to [[n:10]] LSOAs. The expert reference is a [[t:provisional single expert]], intended to be output-blind. The Old Town area is the most variable across seeds ([[n:3.4%]] of its mean); Feature branch ranks are [[t:less reproducible]] ([[n:0.69]]).",
+        "section_02": "The coefficient [[t:sign is not a direction]] of crime. The expert reference is single and provisional; local LISA p-values are unadjusted. [[t:ATT Faithfulness]] is not demonstrated across models. Old Town's dominance in GeoSensitivity warrants [[t:separate model review]]. GeoSensitivity partly reflects predicted crime level.",
+        "footer": "Associational attribution; not a basis for individual or community decisions."
       },
       "checks": {
         "ok": true,
@@ -574,8 +582,8 @@
     "anthropic": {
       "ok": false,
       "provider": "anthropic",
-      "timestamp": "2026-10-11T00:16:42.673410+00:00",
-      "error": "BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfuVFJSTnqqFxRpaXSS2s'}"
+      "timestamp": "2026-10-19T22:20:51.959719+00:00",
+      "error": "BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CgCNhFLuDyVTqGPMQkYzy'}"
     }
   }
 }

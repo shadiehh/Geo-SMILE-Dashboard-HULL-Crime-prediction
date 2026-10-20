@@ -70,9 +70,9 @@ def main() -> None:
         st.markdown(
             """
 **GeoSensitivity**
-How much the model's predictions depend on each area's own data
-(area-data masking SMILE: all of an LSOA's inputs are replaced with Hull
-training medians). Ranked by the signed coefficient, rank 1 = highest.
+How much the model's predictions depend on knowing where each area is
+(random-donor location masking SMILE: an LSOA's rows are moved to the centroids of
+random other Hull LSOAs, all other inputs kept). Ranked by the signed coefficient, rank 1 = highest.
 This is not latitude or longitude attribution.
 
 **Latitude / Longitude feature effects**

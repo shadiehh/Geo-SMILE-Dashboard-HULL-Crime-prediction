@@ -1,0 +1,49 @@
+{
+  "players": [
+    "crime_lag_1",
+    "crime_lag_2",
+    "crime_lag_3",
+    "crime_rolling_mean_3",
+    "crime_rolling_mean_6",
+    "month_sin",
+    "month_cos",
+    "population_density_per_km2",
+    "young_adult_15_34_pct",
+    "older_adult_65_plus_pct",
+    "social_rented_pct",
+    "private_rented_pct",
+    "owner_occupied_pct",
+    "unemployed_pct_age16plus",
+    "economically_inactive_pct",
+    "long_term_sick_disabled_pct",
+    "no_qualifications_pct",
+    "level4_plus_qualification_pct",
+    "lsoa_area_km2",
+    "nightlife_count",
+    "nightlife_per_km2",
+    "retail_count",
+    "retail_per_km2",
+    "transit_stop_count",
+    "transit_stop_per_km2",
+    "road_length_km",
+    "road_length_km_per_km2",
+    "intersection_count",
+    "intersection_per_km2",
+    "green_space_pct"
+  ],
+  "coordinates": [
+    "centroid_easting",
+    "centroid_northing"
+  ],
+  "median_coordinate": {
+    "centroid_easting": 508935.8175190912,
+    "centroid_northing": 431032.77727845666
+  },
+  "rule_set_sizes": {
+    "published (>=20% or >=0.1 km2; >=50% north)": 58,
+    ">=20% or >=0.1 km2, all regions": 63,
+    ">=10% of LSOA area": 65,
+    ">=50% of LSOA area": 41,
+    ">=75% of LSOA area": 28
+  }
+}

@@ -1,0 +1,67 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792278488.995510   12144 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792278491.504101   12144 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[00:08:13] === Stage A, N=4000, K=50
+[00:11:56]     stability north: J=1.000 rho=0.9782 added rank 80
+[00:13:00]     stability east: J=1.000 rho=0.9786 added rank 73
+[00:14:06]     stability south: J=1.000 rho=0.9784 added rank 52
+[00:15:10]     stability west: J=1.000 rho=0.9790 added rank 80
+[00:22:40]     stability north: J=1.000 rho=0.9787 added rank 80
+[00:23:44]     stability east: J=1.000 rho=0.9789 added rank 73
+[00:24:48]     stability south: J=1.000 rho=0.9783 added rank 50
+[00:25:52]     stability west: J=1.000 rho=0.9788 added rank 80
+[00:26:26] N=4000 done (18.2 min): R2=0.9296 acc=16/20 interv=1.273 stabJ=1.000 cons rho=0.904
+[00:26:26] === Stage A, N=1000, K=50
+[00:28:35]     stability north: J=0.905 rho=0.9476 added rank 141
+[00:28:51]     stability east: J=0.905 rho=0.9474 added rank 129
+[00:29:08]     stability south: J=0.905 rho=0.9476 added rank 93
+[00:29:24]     stability west: J=0.905 rho=0.9478 added rank 141
+[00:30:45] N=1000 done (4.3 min): R2=0.9104 acc=16/20 interv=1.214 stabJ=0.905 cons rho=0.775
+[00:30:45] === Stage A, N=2000, K=50
+[00:33:28]     stability north: J=0.905 rho=0.9596 added rank 89
+[00:34:01]     stability east: J=0.905 rho=0.9596 added rank 80
+[00:34:33]     stability south: J=0.905 rho=0.9608 added rank 58
+[00:35:07]     stability west: J=0.905 rho=0.9609 added rank 91
+[00:37:49] N=2000 done (7.1 min): R2=0.9135 acc=16/20 interv=1.263 stabJ=0.905 cons rho=0.854
+[00:37:49] === Stage A, N=3000, K=50
+[00:41:04]     stability north: J=1.000 rho=0.9734 added rank 81
+[00:41:52]     stability east: J=1.000 rho=0.9721 added rank 75
+[00:42:41]     stability south: J=1.000 rho=0.9741 added rank 54
+[00:43:29]     stability west: J=1.000 rho=0.9746 added rank 81
+[00:47:19] N=3000 done (9.5 min): R2=0.9247 acc=16/20 interv=1.264 stabJ=1.000 cons rho=0.874
+[00:47:19] === Stage A, N=5000, K=50
+[00:51:19]     stability north: J=1.000 rho=0.9876 added rank 73
+[00:52:34]     stability east: J=1.000 rho=0.9876 added rank 68
+[00:53:50]     stability south: J=1.000 rho=0.9875 added rank 48
+[00:55:05]     stability west: J=1.000 rho=0.9883 added rank 73
+[01:01:20] N=5000 done (14.0 min): R2=0.9286 acc=16/20 interv=1.312 stabJ=1.000 cons rho=0.914
+[01:01:20] === Stage A, N=7500, K=50
+[01:06:36]     stability north: J=1.000 rho=0.9908 added rank 70
+[01:08:29]     stability east: J=1.000 rho=0.9910 added rank 64
+[01:10:21]     stability south: J=1.000 rho=0.9911 added rank 44
+[01:12:13]     stability west: J=1.000 rho=0.9912 added rank 71
+[01:21:33] N=7500 done (20.2 min): R2=0.9283 acc=16/20 interv=1.315 stabJ=1.000 cons rho=0.935
+[01:21:33] === Stage A, N=10000, K=50
+[01:28:02]     stability north: J=1.000 rho=0.9932 added rank 71
+[01:30:32]     stability east: J=1.000 rho=0.9932 added rank 65
+[01:33:01]     stability south: J=1.000 rho=0.9929 added rank 45
+[01:35:31]     stability west: J=1.000 rho=0.9934 added rank 71
+[01:48:06] N=10000 done (26.6 min): R2=0.9272 acc=16/20 interv=1.300 stabJ=1.000 cons rho=0.948
+[01:49:12] [xgboost] R2=0.8952 Geo map1 16/20 (1.1 min)
+C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\lightgbm\sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+[01:50:53] [lightgbm] R2=0.8934 Geo map1 17/20 (1.7 min)
+[01:51:28] [catboost] R2=0.8936 Geo map1 13/20 (0.6 min)
+[01:51:56] [mlp] R2=0.5273 Geo map1 12/20 (0.5 min)
+[01:56:57] [svr] R2=0.8675 Geo map1 13/20 (5.0 min)
+[02:26:36] [gp] R2=0.8992 Geo map1 12/20 (29.7 min)
+I0000 00:00:1792286797.047567   12144 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[02:33:30] [dl] R2=0.7884 Geo map1 12/20 (6.9 min)
+[02:41:05] [ann] R2=0.8780 Geo map1 9/20 (7.6 min)
+[02:49:27] [cnn] R2=0.8610 Geo map1 16/20 (8.4 min)
+WARNING:tensorflow:From C:\Users\shadi\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:233: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[08:15:47] [transformer] R2=0.7534 Geo map1 3/20 (326.3 min)

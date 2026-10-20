@@ -1,0 +1,62 @@
+{
+  "model_holdout": {
+    "mae": 4.826538517006806,
+    "rmse": 6.91289182560709,
+    "r2": 0.8950036889248726
+  },
+  "median_coordinate": {
+    "centroid_longitude": -0.34888698639000204,
+    "centroid_latitude": 53.76380399723817
+  },
+  "surrogate": {
+    "best_kernel": "inverse",
+    "validation_r2_by_kernel": {
+      "rbf": 0.9206827239842591,
+      "laplace": 0.9241634518768854,
+      "inverse": 0.9247607586659295
+    },
+    "test_r2": 0.9173385363016104,
+    "mean_W1_response": 0.3217505798518303,
+    "max_W1_response": 0.9234026670455935
+  },
+  "surrogate_vs_exact_single_lsoa_shift": {
+    "spearman_signed": 0.9835544464747599,
+    "spearman_abs": -0.13752967437905256
+  },
+  "vs_area_data_geo": {
+    "coord_geo_coefficient__vs__areadata_geo_coefficient": {
+      "spearman": 0.028,
+      "kendall": 0.012,
+      "pearson": 0.469,
+      "top20_overlap": 7,
+      "top20_jaccard": 0.212
+    },
+    "coord_geo_coefficient__vs__areadata_geo_abs_coefficient": {
+      "spearman": 0.378,
+      "kendall": 0.264,
+      "pearson": 0.519,
+      "top20_overlap": 7,
+      "top20_jaccard": 0.212
+    },
+    "coord_geo_abs_coefficient__vs__areadata_geo_coefficient": {
+      "spearman": 0.151,
+      "kendall": 0.11,
+      "pearson": 0.512,
+      "top20_overlap": 7,
+      "top20_jaccard": 0.212
+    },
+    "coord_geo_abs_coefficient__vs__areadata_geo_abs_coefficient": {
+      "spearman": -0.008,
+      "kendall": -0.016,
+      "pearson": 0.533,
+      "top20_overlap": 7,
+      "top20_jaccard": 0.212
+    }
+  },
+  "expert_regions_top20": {
+    "coordinate_signed": 7,
+    "coordinate_abs": 7,
+    "area_data_signed": 18,
+    "chance": 6.9
+  }
+}

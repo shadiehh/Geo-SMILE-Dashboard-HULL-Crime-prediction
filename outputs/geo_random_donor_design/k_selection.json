@@ -1,0 +1,38 @@
+{
+  "chosen_K": 50,
+  "rule": "smallest K with fidelity and consistency within 0.005 of the best and Spearman >= 0.99 with K=50",
+  "table": [
+    {
+      "K": 5,
+      "fidelity_R2": 0.8436252503448387,
+      "consistency_rank_rho": 0.8167297695395348,
+      "consistency_mean_sd": 0.010997247073050326,
+      "minutes": 2.1553236405054728,
+      "rho_with_K50": 0.9101062456658957
+    },
+    {
+      "K": 10,
+      "fidelity_R2": 0.8711984878604542,
+      "consistency_rank_rho": 0.8678382879211991,
+      "consistency_mean_sd": 0.008498610760073633,
+      "minutes": 2.523979914188385,
+      "rho_with_K50": 0.9513871664954118
+    },
+    {
+      "K": 20,
+      "fidelity_R2": 0.9179506463216833,
+      "consistency_rank_rho": 0.8923459083523572,
+      "consistency_mean_sd": 0.007539476690920802,
+      "minutes": 3.2164915839831036,
+      "rho_with_K50": 0.9631506218332567
+    },
+    {
+      "K": 50,
+      "fidelity_R2": 0.9295843061280951,
+      "consistency_rank_rho": 0.904457610560789,
+      "consistency_mean_sd": 0.006681089537592441,
+      "minutes": 5.789604067802429,
+      "rho_with_K50": 1.0
+    }
+  ]
+}

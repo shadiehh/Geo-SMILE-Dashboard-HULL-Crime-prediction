@@ -1,0 +1,13 @@
+rule,reference,design,top20,top30,top42,auroc
+primary (>=20% or >=0.1 km2),102,Area-data (published),18/20 (p=0.00274),23/30 (p=0.0361),29/42 (p=0.137),0.513
+primary (>=20% or >=0.1 km2),102,Coordinates -> median point (aligned),14/20 (p=0.257),21/30 (p=0.173),32/42 (p=0.013),0.612
+primary (>=20% or >=0.1 km2),102,Coordinates -> median point (lon/lat model),14/20 (p=0.257),19/30 (p=0.457),27/42 (p=0.36),0.564
+primary (>=20% or >=0.1 km2),102,"Random donor, absolute (K=10)",16/20 (p=0.0472),22/30 (p=0.086),31/42 (p=0.0325),0.655
+primary (>=20% or >=0.1 km2),102,"Random donor, log scale (K=100)",13/20 (p=0.436),21/30 (p=0.173),26/42 (p=0.503),0.507
+primary (>=20% or >=0.1 km2),102,Crime level (baseline),18/20 (p=0.00274),25/30 (p=0.00357),32/42 (p=0.013),0.674
+>=50%,83,Area-data (published),16/20 (p=0.00314),18/30 (p=0.14),23/42 (p=0.267),0.495
+>=50%,83,Coordinates -> median point (aligned),11/20 (p=0.384),15/30 (p=0.551),24/42 (p=0.164),0.584
+>=50%,83,Coordinates -> median point (lon/lat model),13/20 (p=0.106),14/30 (p=0.702),21/42 (p=0.535),0.547
+>=50%,83,"Random donor, absolute (K=10)",14/20 (p=0.0414),19/30 (p=0.0688),27/42 (p=0.0199),0.605
+>=50%,83,"Random donor, log scale (K=100)",12/20 (p=0.22),18/30 (p=0.14),21/42 (p=0.535),0.483
+>=50%,83,Crime level (baseline),15/20 (p=0.013),21/30 (p=0.0106),27/42 (p=0.0199),0.647

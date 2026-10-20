@@ -1,0 +1,55 @@
+14:44:55 model holdout {'mae': 4.826538517006806, 'rmse': 6.91289182560709, 'r2': 0.8950036889248726}
+14:44:56 === N=4000
+[14:47:10]     stability north (E01012953): J=1.000 rho=0.9999 added rank 82
+[14:47:38]     stability east (E01013094): J=1.000 rho=0.9998 added rank 44
+[14:48:07]     stability south (E01013009): J=1.000 rho=0.9997 added rank 30
+[14:48:35]     stability west (E01013112): J=1.000 rho=0.9999 added rank 83
+[14:51:49]     stability north (E01012953): J=1.000 rho=0.9999 added rank 82
+[14:52:16]     stability east (E01013094): J=1.000 rho=0.9998 added rank 44
+[14:52:42]     stability south (E01013009): J=1.000 rho=0.9997 added rank 30
+[14:53:08]     stability west (E01013112): J=1.000 rho=0.9999 added rank 83
+14:53:32 N=4000: R2=0.9238 interv=0.727 p=0.001 stabJ=1.000 consVar=0.00001 (8.6 min)
+14:53:32 === N=1000
+[14:54:50]     stability north (E01012953): J=1.000 rho=0.9997 added rank 89
+[14:54:57]     stability east (E01013094): J=1.000 rho=0.9996 added rank 52
+[14:55:04]     stability south (E01013009): J=1.000 rho=0.9990 added rank 38
+[14:55:11]     stability west (E01013112): J=1.000 rho=0.9998 added rank 89
+14:55:44 N=1000: R2=0.8985 interv=0.724 p=0.001 stabJ=1.000 consVar=0.00003 (2.2 min)
+14:55:44 === N=2000
+[14:57:16]     stability north (E01012953): J=0.905 rho=0.9998 added rank 77
+[14:57:30]     stability east (E01013094): J=0.905 rho=0.9998 added rank 41
+[14:57:43]     stability south (E01013009): J=0.905 rho=0.9995 added rank 31
+[14:57:57]     stability west (E01013112): J=0.905 rho=0.9998 added rank 78
+14:59:04 N=2000: R2=0.9151 interv=0.724 p=0.001 stabJ=0.905 consVar=0.00002 (3.3 min)
+14:59:04 === N=3000
+[15:00:49]     stability north (E01012953): J=1.000 rho=0.9998 added rank 84
+[15:01:09]     stability east (E01013094): J=1.000 rho=0.9997 added rank 44
+[15:01:29]     stability south (E01013009): J=1.000 rho=0.9994 added rank 31
+[15:01:49]     stability west (E01013112): J=1.000 rho=0.9998 added rank 84
+15:03:28 N=3000: R2=0.9216 interv=0.730 p=0.001 stabJ=1.000 consVar=0.00001 (4.4 min)
+15:03:28 === N=5000
+[15:05:40]     stability north (E01012953): J=1.000 rho=0.9999 added rank 83
+[15:06:13]     stability east (E01013094): J=1.000 rho=0.9998 added rank 45
+[15:06:46]     stability south (E01013009): J=1.000 rho=0.9997 added rank 31
+[15:07:20]     stability west (E01013112): J=1.000 rho=0.9999 added rank 84
+15:10:05 N=5000: R2=0.9200 interv=0.715 p=0.001 stabJ=1.000 consVar=0.00001 (6.6 min)
+15:10:05 === N=7500
+[15:12:50]     stability north (E01012953): J=1.000 rho=0.9999 added rank 87
+[15:13:39]     stability east (E01013094): J=1.000 rho=0.9998 added rank 45
+[15:14:28]     stability south (E01013009): J=1.000 rho=0.9998 added rank 32
+[15:15:18]     stability west (E01013112): J=1.000 rho=0.9999 added rank 88
+15:19:28 N=7500: R2=0.9197 interv=0.729 p=0.001 stabJ=1.000 consVar=0.00000 (9.4 min)
+15:19:28 === N=10000
+[15:22:44]     stability north (E01012953): J=1.000 rho=0.9999 added rank 87
+[15:23:50]     stability east (E01013094): J=1.000 rho=0.9999 added rank 45
+[15:24:56]     stability south (E01013009): J=1.000 rho=0.9998 added rank 32
+[15:26:03]     stability west (E01013112): J=1.000 rho=0.9999 added rank 87
+15:31:32 N=10000: R2=0.9236 interv=0.715 p=0.001 stabJ=1.000 consVar=0.00000 (12.1 min)
+    N  fid_R2  fid_wR2  interv_dW1  interv_p  stab_J  stab_rho  cons_var  cons_sd  cons_rank_rho
+ 1000 0.89851  0.90173     0.72363     0.001 1.00000   0.99952   0.00003  0.00548        0.92553
+ 2000 0.91508  0.91567     0.72371     0.001 0.90476   0.99971   0.00002  0.00386        0.96662
+ 3000 0.92162  0.92214     0.73007     0.001 1.00000   0.99969   0.00001  0.00311        0.97421
+ 4000 0.92377  0.92377     0.72661     0.001 1.00000   0.99980   0.00001  0.00279        0.98015
+ 5000 0.92002  0.91980     0.71532     0.001 1.00000   0.99983   0.00001  0.00250        0.98368
+ 7500 0.91966  0.92056     0.72943     0.001 1.00000   0.99982   0.00000  0.00198        0.98926
+10000 0.92360  0.92391     0.71514     0.001 1.00000   0.99989   0.00000  0.00170        0.99149

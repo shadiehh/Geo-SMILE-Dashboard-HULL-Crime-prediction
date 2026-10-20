@@ -3,12 +3,13 @@
     "public_card_llm_attempt1.json",
     "public_card_llm_attempt2.json",
     "public_card_llm_attempt3.json",
-    "public_card_llm_attempt4.json"
+    "public_card_llm_attempt4.json",
+    "public_card_llm_attempt5.json"
   ],
   "stakeholder": "public",
   "question": "What seems to matter to the model for crime predictions in places like mine?",
-  "prompt_version": "geosmile-hull-v8",
-  "card_mode_addendum": "\n---\n\n## 17. CARD MODE ADDENDUM\n\noutput_mode is card_mode: the text fills a short card for a Resident / Public reader, shown with\nfour stat tiles and two dashboard panels (01: Hull map of how strongly the model's predictions\ndepend on each area's own data, the example area outlined; 02: the example area's most\ninfluential features). The example area is public_overview.example_area, chosen as a typical\nplace, not an extreme one. This section replaces section 14 \"Length and form\" and its bolding\nrule. Every other section, including prohibited claims and the self-check, still applies.\n\nPlain language only: no coefficients, test statistics, GeoSensitivity, LISA or other model\nterms. Shares and \"out of\" counts are fine. Answer what the model pays attention to, never why\ncrime happens, and never describe residents or communities as risky.\n\nReturn ONLY one JSON object with exactly these keys:\n\n- \"headline\": one sentence, at most 20 words.\n- \"tiles\": exactly 4 objects {\"value\": ..., \"label\": ...}. value is one figure from the\n  evidence (at most 8 characters); label is at most 10 everyday words that make the figure\n  meaningful on its own. A count is written as a fraction of its whole. Use exactly these\n  four, in this order, each from the named field: public_overview.tile_figures.crime_history_share,\n  .built_environment_share, .areas_led_by_six_month_average, and .least_influential_feature\n  (its share, naming that same feature).\n- \"section_01\": at most 65 words, across Hull (panel 01): what the model mostly pays attention\n  to, what matters comparatively little, and the places (by locality) where predictions depend\n  most on the area's own data. Do not cite any tile value.\n- \"section_02\": at most 65 words, the example area (panel 02) by locality and its main streets:\n  its most influential features and whether its pattern is like Hull's or different. Do not\n  cite any tile value or panel figure.\n- \"footer\": one non-causal limitation, at most 15 words.\n\nNo repetition: every figure appears ONCE on the card. The panels already print the example\narea's rank and its feature shares (public_overview.shown_on_panels), so neither tiles nor\nsections cite them; say \"panel 02 shows\" instead. A tile figure is not cited again in the\nsections. Key-term counts: 1-2 in the headline and 2-4 in EACH section. Tiles and footer carry\nno markup.\n\nHighlighting markup (you choose what to mark):\n\n- wrap every figure you cite as [[n:...]], e.g. [[n:14%]];\n- wrap the key terms a planner should catch when scanning as [[t:...]]. This is required,\n  not optional: keep to the counts given above, each at most 4 words (the finding phrase\n  itself, the leading feature names, or the key place names). Before answering, count the\n  [[t:...]] spans and fix any count outside the range;\n- no other markup and no markdown bold.\n\nEvery figure must be copied or rounded from EVIDENCE_JSON (shares as percentages:\n0.139 -> 14%). Do not compute new figures and do not cite a figure that is not supplied.\n\nILLUSTRATIVE_NARRATIVE in the user message shows the expected structure, order, tone and\nmarkup density. It is an example of wording, not evidence: take every figure from\nEVIDENCE_JSON, and write your own sentences.",
+  "prompt_version": "geosmile-hull-v9",
+  "card_mode_addendum": "\n---\n\n## 17. CARD MODE ADDENDUM\n\noutput_mode is card_mode: the text fills a short card for a Resident / Public reader, shown with\nfour stat tiles and two dashboard panels (01: Hull map of how strongly the model's predictions\ndepend on knowing each area's location, the example area outlined; 02: the example area's most\ninfluential features). The example area is public_overview.example_area, chosen as a typical\nplace, not an extreme one. This section replaces section 14 \"Length and form\" and its bolding\nrule. Every other section, including prohibited claims and the self-check, still applies.\n\nPlain language only: no coefficients, test statistics, GeoSensitivity, LISA or other model\nterms. Shares and \"out of\" counts are fine. Answer what the model pays attention to, never why\ncrime happens, and never describe residents or communities as risky.\n\nReturn ONLY one JSON object with exactly these keys:\n\n- \"headline\": one sentence, at most 20 words.\n- \"tiles\": exactly 4 objects {\"value\": ..., \"label\": ...}. value is one figure from the\n  evidence (at most 8 characters); label is at most 10 everyday words that make the figure\n  meaningful on its own. A count is written as a fraction of its whole. Use exactly these\n  four, in this order, each from the named field: public_overview.tile_figures.crime_history_share,\n  .built_environment_share, .areas_led_by_six_month_average, and .least_influential_feature\n  (its share, naming that same feature).\n- \"section_01\": at most 65 words, across Hull (panel 01): what the model mostly pays attention\n  to, what matters comparatively little, and the places (by locality) where predictions depend\n  most on knowing where the area is. Do not cite any tile value.\n- \"section_02\": at most 65 words, the example area (panel 02) by locality and its main streets:\n  its most influential features and whether its pattern is like Hull's or different. Do not\n  cite any tile value or panel figure.\n- \"footer\": one non-causal limitation, at most 15 words.\n\nNo repetition: every figure appears ONCE on the card. The panels already print the example\narea's rank and its feature shares (public_overview.shown_on_panels), so neither tiles nor\nsections cite them; say \"panel 02 shows\" instead. A tile figure is not cited again in the\nsections. Key-term counts: 1-2 in the headline and 2-4 in EACH section. Tiles and footer carry\nno markup.\n\nHighlighting markup (you choose what to mark):\n\n- wrap every figure you cite as [[n:...]], e.g. [[n:14%]];\n- wrap the key terms a planner should catch when scanning as [[t:...]]. This is required,\n  not optional: keep to the counts given above, each at most 4 words (the finding phrase\n  itself, the leading feature names, or the key place names). Before answering, count the\n  [[t:...]] spans and fix any count outside the range;\n- no other markup and no markdown bold.\n\nEvery figure must be copied or rounded from EVIDENCE_JSON (shares as percentages:\n0.139 -> 14%). Do not compute new figures and do not cite a figure that is not supplied.\n\nILLUSTRATIVE_NARRATIVE in the user message shows the expected structure, order, tone and\nmarkup density. It is an example of wording, not evidence: take every figure from\nEVIDENCE_JSON, and write your own sentences.",
   "illustrative_narrative": {
     "headline": "The model mostly looks at [[t:recent crime levels]]; local features add a smaller part.",
     "tiles": [
@@ -29,8 +30,8 @@
         "label": "of what it weighs is intersection density"
       }
     ],
-    "section_01": "Across Hull the model pays most attention to [[t:recent crime levels]]. Census characteristics such as unemployment come next ([[n:20%]]), then streets, shops and green space. [[t:Road and junction density]] matter very little. Predictions depend most on an area's own data in [[t:Old Town]], Dairycoates and Sculcoates.",
-    "section_02": "In [[t:Stoneferry]], around Stoneferry Road, the model also leans on the six-month crime average, then the three-month average and private renting. Its pattern is [[t:much like Hull's]], and its predictions depend on its own data about as much as a [[t:typical area]].",
+    "section_01": "Across Hull the model pays most attention to [[t:recent crime levels]]. Census characteristics such as unemployment come next ([[n:20%]]), then streets, shops and green space. [[t:Road and junction density]] matter very little. Predictions depend most on knowing where an area is in [[t:Old Town]], Dairycoates and Sculcoates.",
+    "section_02": "In [[t:Stoneferry]], around Stoneferry Road, the model also leans on the six-month crime average, then the three-month average and private renting. Its pattern is [[t:much like Hull's]], and its predictions depend on its location about as much as a [[t:typical area]].",
     "footer": "Shows what the model pays attention to, not why crime happens."
   },
   "evidence": {
@@ -47,9 +48,9 @@
     "current_map_view": "geo_sensitivity",
     "output_mode": "card_mode",
     "current_map_view_label": "GeoSensitivity",
-    "prompt_version": "geosmile-hull-v8",
+    "prompt_version": "geosmile-hull-v9",
     "semantic_separation": {
-      "geo_sensitivity": "Geo branch area-data masking SMILE (all inputs of an LSOA set to Hull medians)",
+      "geo_sensitivity": "Geo branch random-donor location masking SMILE (an LSOA's rows moved to random other Hull LSOA centroids)",
       "latitude_effect": "latitude as a Feature SMILE player",
       "longitude_effect": "longitude as a Feature SMILE player",
       "spatial_pattern": "LISA/Moran on signed GeoSensitivity",
@@ -64,19 +65,19 @@
     },
     "global_geo": {
       "n_lsoas": 168,
-      "geo_sensitivity_median": -0.47609629327288483,
-      "geo_sensitivity_p90": 1.7228578983121385,
-      "n_negative": 120,
-      "geo_sensitivity_mean_abs": 1.004874251717173,
-      "geo_sensitivity_median_abs": 0.7315152595188347,
-      "geo_sensitivity_p90_abs": 1.7228578983121385,
-      "geo_sensitivity_max_abs": 22.32598125447709,
-      "geo_sensitivity_min_abs": 0.0031728345203483,
+      "geo_sensitivity_median": -0.03788592509494055,
+      "geo_sensitivity_p90": 0.0672244009413169,
+      "n_negative": 128,
+      "geo_sensitivity_mean_abs": 0.05619905519447007,
+      "geo_sensitivity_median_abs": 0.0434990836630174,
+      "geo_sensitivity_p90_abs": 0.07099320837449713,
+      "geo_sensitivity_max_abs": 1.068874023123998,
+      "geo_sensitivity_min_abs": 0.0001520988561432,
       "highest_geo_sensitivity_lsoas": [
         {
           "id": "E01033104",
           "name": "Kingston upon Hull 029E",
-          "geo_sensitivity": 22.32598125447709,
+          "geo_sensitivity": 1.068874023123998,
           "geo_rank": 1,
           "lisa_class": "HH",
           "place_context": {
@@ -97,7 +98,7 @@
         {
           "id": "E01012889",
           "name": "Kingston upon Hull 030B",
-          "geo_sensitivity": 7.176457590623275,
+          "geo_sensitivity": 0.4181766068278902,
           "geo_rank": 2,
           "lisa_class": "NS",
           "place_context": {
@@ -118,7 +119,7 @@
         {
           "id": "E01012871",
           "name": "Kingston upon Hull 015D",
-          "geo_sensitivity": 4.725618919405221,
+          "geo_sensitivity": 0.3289788653232843,
           "geo_rank": 3,
           "lisa_class": "NS",
           "place_context": {
@@ -138,10 +139,29 @@
           }
         },
         {
+          "id": "E01012852",
+          "name": "Kingston upon Hull 024B",
+          "geo_sensitivity": 0.2424935782234082,
+          "geo_rank": 4,
+          "lisa_class": "HH",
+          "place_context": {
+            "lsoa_code": "E01012852",
+            "locality_label": "Stepney",
+            "recognisable_places": [],
+            "major_streets": [
+              "Londesborough Street",
+              "Argyle Street",
+              "Stanley Street"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
           "id": "E01012854",
           "name": "Kingston upon Hull 029C",
-          "geo_sensitivity": 4.26712037699458,
-          "geo_rank": 4,
+          "geo_sensitivity": 0.2245589842945031,
+          "geo_rank": 5,
           "lisa_class": "HH",
           "place_context": {
             "lsoa_code": "E01012854",
@@ -157,118 +177,105 @@
             "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
             "use": "orientation only"
           }
-        },
-        {
-          "id": "E01012852",
-          "name": "Kingston upon Hull 024B",
-          "geo_sensitivity": 4.134116816860071,
-          "geo_rank": 5,
-          "lisa_class": "HH",
-          "place_context": {
-            "lsoa_code": "E01012852",
-            "locality_label": "Stepney",
-            "recognisable_places": [],
-            "major_streets": [
-              "Londesborough Street",
-              "Argyle Street",
-              "Stanley Street"
-            ],
-            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
-            "use": "orientation only"
-          }
         }
       ],
       "lowest_geo_sensitivity_lsoas": [
         {
-          "id": "E01035467",
-          "name": "Kingston upon Hull 031H",
-          "geo_sensitivity": -1.3250807834686087,
+          "id": "E01012910",
+          "name": "Kingston upon Hull 006D",
+          "geo_sensitivity": -0.0723810353882766,
           "geo_rank": 168,
           "lisa_class": "NS",
           "place_context": {
-            "lsoa_code": "E01035467",
-            "locality_label": "Gipsyville",
+            "lsoa_code": "E01012910",
+            "locality_label": "Bransholme",
             "recognisable_places": [],
             "major_streets": [
-              "Hawthorn Avenue",
-              "Chesterton Street",
-              "Brindle Road"
+              "Newtondale",
+              "Marsdale",
+              "Littondale"
             ],
             "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
             "use": "orientation only"
           }
         },
         {
-          "id": "E01012798",
-          "name": "Kingston upon Hull 019D",
-          "geo_sensitivity": -1.307785965296299,
+          "id": "E01012911",
+          "name": "Kingston upon Hull 007E",
+          "geo_sensitivity": -0.0689985628925646,
           "geo_rank": 167,
           "lisa_class": "NS",
           "place_context": {
-            "lsoa_code": "E01012798",
-            "locality_label": "East Ella",
+            "lsoa_code": "E01012911",
+            "locality_label": "Bransholme",
             "recognisable_places": [],
             "major_streets": [
-              "Coronation Road North",
-              "Hotham Road South",
-              "Priory Road"
+              "Robson Way",
+              "Howdale Road",
+              "Langsett Road"
             ],
             "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
             "use": "orientation only"
           }
         },
         {
-          "id": "E01012898",
-          "name": "Kingston upon Hull 017F",
-          "geo_sensitivity": -1.2785758446646298,
+          "id": "E01012901",
+          "name": "Kingston upon Hull 020E",
+          "geo_sensitivity": -0.0681778764716347,
           "geo_rank": 166,
           "lisa_class": "NS",
           "place_context": {
-            "lsoa_code": "E01012898",
-            "locality_label": "Bilton Grange",
-            "recognisable_places": [],
+            "lsoa_code": "E01012901",
+            "locality_label": "Garden Village",
+            "recognisable_places": [
+              "Mile House"
+            ],
             "major_streets": [
-              "Portobello Street",
-              "Kilnsea Grove",
-              "Broadway Drive"
+              "Lodge Street",
+              "Southcoates Lane",
+              "Kelvin Street"
             ],
             "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
             "use": "orientation only"
           }
         },
         {
-          "id": "E01012844",
-          "name": "Kingston upon Hull 017B",
-          "geo_sensitivity": -1.2655537905858425,
+          "id": "E01012760",
+          "name": "Kingston upon Hull 025D",
+          "geo_sensitivity": -0.0670408966825999,
           "geo_rank": 165,
           "lisa_class": "NS",
           "place_context": {
-            "lsoa_code": "E01012844",
-            "locality_label": "Greatfield",
-            "recognisable_places": [],
+            "lsoa_code": "E01012760",
+            "locality_label": "Avenues",
+            "recognisable_places": [
+              "Avenues"
+            ],
             "major_streets": [
-              "Marfleet Lane",
-              "Burdale Close",
-              "Swanfield Road"
+              "Hardwick Street",
+              "Blenheim Street",
+              "Thoresby Street"
             ],
             "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
             "use": "orientation only"
           }
         },
         {
-          "id": "E01012825",
-          "name": "Kingston upon Hull 010B",
-          "geo_sensitivity": -1.2423417459404944,
+          "id": "E01012820",
+          "name": "Kingston upon Hull 022A",
+          "geo_sensitivity": -0.0641898382102716,
           "geo_rank": 164,
-          "lisa_class": "NS",
+          "lisa_class": "LL",
           "place_context": {
-            "lsoa_code": "E01012825",
-            "locality_label": "Bilton Grange",
-            "recognisable_places": [],
+            "lsoa_code": "E01012820",
+            "locality_label": "Garden Village",
+            "recognisable_places": [
+              "Mile House"
+            ],
             "major_streets": [
-              "Holderness Road",
-              "Winchester Avenue",
-              "East Mount Avenue"
+              "Summergangs Road",
+              "Lee Street",
+              "Westcott Street"
             ],
             "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
             "use": "orientation only"
@@ -276,11 +283,11 @@
         }
       ],
       "ranking": "signed coefficient (rank 1 = highest GeoSensitivity)",
-      "note": "GeoSensitivity is the Geo-branch area-data SMILE coefficient: masking an LSOA replaces all of its model inputs with Hull training medians, and the coefficient attributes the resulting prediction shift to that LSOA. It is not latitude or longitude feature attribution."
+      "note": "GeoSensitivity is the Geo-branch random-donor SMILE coefficient: masking an LSOA moves its rows to the centroids of random other Hull LSOAs (50 draws, all other inputs kept), and the coefficient attributes the resulting prediction shift to that LSOA. Absolute shifts are larger where predicted crime is higher. It is not latitude or longitude feature attribution."
     },
     "global_spatial_pattern": {
       "global_pattern": {
-        "moran_i": 0.21914394974096335,
+        "moran_i": 0.24175215347144025,
         "p_value": 0.001,
         "interpretation": "positive spatial clustering of geosensitivity",
         "n_permutations": 999,
@@ -288,15 +295,15 @@
         "value_field": "geo_coefficient"
       },
       "lisa_counts": {
-        "HH": 9,
-        "LL": 9,
-        "HL": 3,
-        "LH": 5,
-        "NS": 142,
+        "HH": 12,
+        "LL": 10,
+        "HL": 0,
+        "LH": 3,
+        "NS": 143,
         "ISLAND": 0
       },
       "pattern_scale": "not established",
-      "note": "LISA classes describe clustering of signed GeoSensitivity (area-data design). They are not crime hotspots and not latitude/longitude effects.",
+      "note": "LISA classes describe clustering of signed GeoSensitivity (random-donor design). They are not crime hotspots and not latitude/longitude effects.",
       "lisa_counts_unit": "number of LSOAs in each LISA class, not number of clusters"
     },
     "top_global_features": [
@@ -411,7 +418,6 @@
       "not_causal": true,
       "feature_holdout_r2": 0.8956733279339549,
       "feature_surrogate_test_r2": 0.9825149947049138,
-      "geo_surrogate_test_r2": 0.9438938633357984,
       "att_stability_feature_jaccard": 1.0,
       "att_stability_geo_jaccard": 1.0,
       "att_stability_status": "Evaluated",
@@ -430,9 +436,9 @@
           "branch": "Feature"
         },
         "geo": {
-          "rank_spearman_mean": 0.9634948193216273,
-          "score_pearson_mean": 0.997200874311862,
-          "top20pct_jaccard_mean": 0.7728397223134065,
+          "rank_spearman_mean": 0.904457610560789,
+          "score_pearson_mean": 0.9963791501210253,
+          "top20pct_jaccard_mean": 0.8590873580347264,
           "seeds": [
             100,
             101,
@@ -443,16 +449,16 @@
         }
       },
       "geo_design": {
-        "name": "area_data",
-        "definition": "Area-data design: masking an LSOA replaces ALL of its model inputs with the training median; response is Wasserstein-1 on the affected LSOA-month predictions of the 30-feature model; LSOAs ranked by the signed Geo-SMILE coefficient.",
+        "name": "random_donor",
+        "definition": "Random-donor design: masking an LSOA moves the coordinates of its rows to the centroid of a random other Hull LSOA (K = 50 draws), all other inputs kept; response is Wasserstein-1 on the affected LSOA-month predictions of the XGBoost model on 30 predictors + easting/northing; LSOAs ranked by the signed Geo-SMILE coefficient.",
         "n_perturbations": 4000
       },
-      "geo_fidelity_r2": 0.9483618579283803,
+      "geo_fidelity_r2": 0.9295843061280951,
       "geo_att_stability_jaccard_mean": 1.0,
-      "geo_att_stability_spearman_mean": 0.9997798148419983,
+      "geo_att_stability_spearman_mean": 0.9785287835149652,
       "feature_faithfulness_top_minus_random": 4.401935675204154,
       "feature_faithfulness_empirical_p": 0.015984015984015984,
-      "geo_faithfulness_top_minus_random": 26.22110278113186,
+      "geo_faithfulness_top_minus_random": 1.2728430531426076,
       "geo_faithfulness_empirical_p": 0.000999000999000999
     },
     "limitations": [
@@ -538,7 +544,7 @@
           "Mersey Street"
         ],
         "why_chosen": "a typical area: mid-ranked, total importance close to the Hull median",
-        "own_data_rank": 81,
+        "own_data_rank": 68,
         "own_data_rank_of": 168,
         "most_influential_features": [
           {
@@ -570,7 +576,7 @@
       "shown_on_panels": {
         "note": "figures the two panels already print; tiles and text must not repeat them",
         "figures": [
-          "81/168",
+          "68/168",
           "48%",
           "12%"
         ]
@@ -579,7 +585,7 @@
     },
     "card_technical": false,
     "card_panel_figures": [
-      "81/168",
+      "68/168",
       "48%",
       "12%"
     ]
@@ -589,11 +595,11 @@
       "ok": true,
       "provider": "openai",
       "model": "gpt-4.1",
-      "timestamp": "2026-10-11T00:28:43.830744+00:00",
-      "prompt_version": "geosmile-hull-v8",
-      "raw": "{\n \"headline\": \"The model mainly focuses on [[t:recent crime levels]] and local census details.\",\n \"tiles\": [\n  {\n   \"value\": \"61%\",\n   \"label\": \"of what the model weighs is past crime\"\n  },\n  {\n   \"value\": \"14%\",\n   \"label\": \"of what it weighs is streets, shops and green space\"\n  },\n  {\n   \"value\": \"144/168\",\n   \"label\": \"areas where the six-month crime average matters most\"\n  },\n  {\n   \"value\": \"0.5%\",\n   \"label\": \"of what it weighs is intersection density\"\n  }\n ],\n \"section_01\": \"Across Hull, the model pays most attention to [[t:recent crime levels]]. Census features like unemployment and health are next, then built environment details. [[t:Road and junction density]] matter very little. Predictions depend most on an area's own data in [[t:Old Town]], Dairycoates, Sculcoates, and Stepney.\",\n \"section_02\": \"In [[t:Stoneferry]], around Foster Street and Stoneferry Road, panel 02 shows the six-month and three-month crime averages and private renting matter most. This pattern is [[t:similar to Hull overall]], and the area is [[t:typical]] in how much its own data shapes predictions.\",\n \"footer\": \"Shows what the model pays attention to, not why crime happens.\"\n}",
+      "timestamp": "2026-10-19T22:19:16.129601+00:00",
+      "prompt_version": "geosmile-hull-v9",
+      "raw": "{\n \"headline\": \"The model mainly focuses on [[t:recent crime history]]; other features play a smaller role.\",\n \"tiles\": [\n  {\n   \"value\": \"61%\",\n   \"label\": \"of what the model weighs is past crime\"\n  },\n  {\n   \"value\": \"14%\",\n   \"label\": \"of what it weighs is streets, shops and green space\"\n  },\n  {\n   \"value\": \"144/168\",\n   \"label\": \"areas where the six-month crime average matters most\"\n  },\n  {\n   \"value\": \"0.5%\",\n   \"label\": \"of what it weighs is intersection density\"\n  }\n ],\n \"section_01\": \"Across Hull, the model pays most attention to [[t:recent crime history]]. Census details like employment and health come next, then built environment features. [[t:Intersection density]] matters very little. Predictions depend most on knowing where an area is in [[t:Old Town]], Dairycoates, Sculcoates, and Stepney.\",\n \"section_02\": \"In [[t:Stoneferry]], around Foster Street and Stoneferry Road, panel 02 shows the six-month and three-month crime averages and private renting matter most. This pattern is [[t:similar to Hull overall]], and the area is typical in how much its location affects predictions.\",\n \"footer\": \"Shows what the model pays attention to, not why crime happens.\"\n}",
       "content": {
-        "headline": "The model mainly focuses on [[t:recent crime levels]] and local census details.",
+        "headline": "The model mainly focuses on [[t:recent crime history]]; other features play a smaller role.",
         "tiles": [
           {
             "value": "61%",
@@ -612,8 +618,8 @@
             "label": "of what it weighs is intersection density"
           }
         ],
-        "section_01": "Across Hull, the model pays most attention to [[t:recent crime levels]]. Census features like unemployment and health are next, then built environment details. [[t:Road and junction density]] matter very little. Predictions depend most on an area's own data in [[t:Old Town]], Dairycoates, Sculcoates, and Stepney.",
-        "section_02": "In [[t:Stoneferry]], around Foster Street and Stoneferry Road, panel 02 shows the six-month and three-month crime averages and private renting matter most. This pattern is [[t:similar to Hull overall]], and the area is [[t:typical]] in how much its own data shapes predictions.",
+        "section_01": "Across Hull, the model pays most attention to [[t:recent crime history]]. Census details like employment and health come next, then built environment features. [[t:Intersection density]] matters very little. Predictions depend most on knowing where an area is in [[t:Old Town]], Dairycoates, Sculcoates, and Stepney.",
+        "section_02": "In [[t:Stoneferry]], around Foster Street and Stoneferry Road, panel 02 shows the six-month and three-month crime averages and private renting matter most. This pattern is [[t:similar to Hull overall]], and the area is typical in how much its location affects predictions.",
         "footer": "Shows what the model pays attention to, not why crime happens."
       },
       "checks": {
@@ -624,8 +630,8 @@
     "anthropic": {
       "ok": false,
       "provider": "anthropic",
-      "timestamp": "2026-10-11T00:28:48.874124+00:00",
-      "error": "BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfuWAo48bQfTBvF6xfM6C'}"
+      "timestamp": "2026-10-19T22:19:22.865081+00:00",
+      "error": "BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CgCNapzGH4q7aV3YPZipe'}"
     }
   }
 }

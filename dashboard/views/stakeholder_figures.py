@@ -121,21 +121,21 @@ def geo_map(d: StakeholderData, lsoa: str, others: tuple[str, ...] = (), plain: 
         _outline(ax, d, code, label, offset=_offset_away(d, code))
     ax.set_axis_off()
     if plain:
-        ax.set_title("Where predictions depend most on an area's own data", loc="left", color=TEXT, fontsize=10)
+        ax.set_title("Where predictions depend most on knowing an area's location", loc="left", color=TEXT, fontsize=10)
         _colourbar(fig, ax, SEQUENTIAL, norm, "Lighter = less, darker = more dependence", extend="max")
         cb_ax = fig.axes[-1]
         cb_ax.set_xticks([])
     else:
         ax.set_title("Geo-SMILE geographic sensitivity across Hull", loc="left", color=TEXT, fontsize=10)
-        _colourbar(fig, ax, SEQUENTIAL, norm, f"Darker = more sensitive to the area's data (cap {cap:.1f})",
+        _colourbar(fig, ax, SEQUENTIAL, norm, f"Darker = more sensitive to the area's location (cap {cap:.1f})",
                    extend="max")
     r = d.row(lsoa)
     rank = int(r["geo_rank"])
     if plain:
         return fig, "Where it matters.", (
-            f"Predictions for {_name(d, lsoa)} depend on its own data about as much as a typical area "
+            f"Predictions for {_name(d, lsoa)} depend on its location about as much as a typical area "
             f"({_ordinal(rank)} of {d.n})." if TOP_K < rank < d.n - TOP_K else
-            f"{_name(d, lsoa)} is {_ordinal(rank)} of {d.n} for how much predictions depend on its own data.")
+            f"{_name(d, lsoa)} is {_ordinal(rank)} of {d.n} for how much predictions depend on knowing where it is.")
     where = "has the highest GeoSensitivity in Hull" if rank == 1 else (
         f"is among the {TOP_K} most sensitive areas" if rank <= TOP_K else
         "has below-average GeoSensitivity" if r["geo_coefficient"] < 0 else "has above-average GeoSensitivity")
@@ -589,7 +589,7 @@ def stability_map(d: StakeholderData, lsoa: str | None = None) -> Panel:
     s = d.metrics["smile_diagnostics"]
     kept = min(v["top20_retained"] for v in stab["directions"].values())
     ax.set_title(f"Top {TOP_K} kept {kept}/{TOP_K} under each neighbouring-LSOA addition\n(XGBoost, "
-                 f"area-data design, N = {int(d.metrics['n']):,}, seed 42)", loc="left", color=TEXT, fontsize=10)
+                 f"random-donor design, N = {int(d.metrics['n']):,}, seed 42)", loc="left", color=TEXT, fontsize=10)
     ax.legend(handles=[Patch(color=PINK, label=f"Top {TOP_K} (darker = higher rank)"),
                        Patch(facecolor="#FFE08A", edgecolor=ORANGE_EDGE, label="Added neighbouring LSOA")],
               frameon=False, fontsize=7.5, loc="upper center", bbox_to_anchor=(0.5, -0.01), ncol=2)
@@ -620,7 +620,7 @@ STAKEHOLDER_PANELS: dict[str, Callable[[StakeholderData, str, str], list[Callabl
     # text and tiles; its map is the dashboard's main view and the planner card's map 01.
     "police_short": lambda d, a, b: [lambda: recent_share_map(d, cm.CENTRE), lambda: trend_map(d, cm.CENTRE)],
     "manager": lambda d, a, b: [lambda: ranked_bars(d, a), lambda: top20_map(d, a), lambda: category_bars(d, a)],
-    # Short manager card: where (top-20 map) and what (feature categories, Hull against Newland,
+    # Short manager card: where (top-20 map) and what (feature categories, Hull against Bilton Grange,
     # the most sensitive area not led by crime history).
     "manager_short": lambda d, a, b: [lambda: top20_map(d, cm.CENTRE),
                                       lambda: category_bars(d, cm.MANAGER_CONTRAST)],

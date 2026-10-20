@@ -1,0 +1,63 @@
+{
+  "spearman_with_signed_geo": {
+    "crime_test": 0.111242672998167,
+    "crime_train": 0.09165668542580432,
+    "dist_crime": 0.9226365527609196,
+    "dist_other": 0.3943642723007072,
+    "dist_all": 0.5873502361296006
+  },
+  "baseline_rankings": {
+    "crime_test": {
+      "top20_in_expert": 10,
+      "auroc": 0.853
+    },
+    "crime_train": {
+      "top20_in_expert": 8,
+      "auroc": 0.855
+    },
+    "dist_crime": {
+      "top20_in_expert": 10,
+      "auroc": 0.719
+    },
+    "dist_all": {
+      "top20_in_expert": 6,
+      "auroc": 0.752
+    }
+  },
+  "published_geo": {
+    "top20_in_expert": 9,
+    "auroc": 0.725
+  },
+  "top20_overlap_geo_vs_crime_test": 17,
+  "expert_regions_vs_crime": {
+    "n_expert_lsoas": 20,
+    "mean_crime_in_expert": 45.7,
+    "mean_crime_outside": 14.403716216216216
+  },
+  "variants": {
+    "all_30": {
+      "test_R2": 0.944,
+      "mean_W1_response": 9.67,
+      "spearman_with_published": 1.0,
+      "spearman_with_crime_test": 0.111,
+      "top20_in_expert": 9,
+      "auroc": 0.725
+    },
+    "crime_history_only": {
+      "test_R2": 0.944,
+      "mean_W1_response": 7.382,
+      "spearman_with_published": 0.958,
+      "spearman_with_crime_test": 0.217,
+      "top20_in_expert": 9,
+      "auroc": 0.734
+    },
+    "non_crime_only": {
+      "test_R2": 0.937,
+      "mean_W1_response": 2.477,
+      "spearman_with_published": 0.699,
+      "spearman_with_crime_test": -0.24,
+      "top20_in_expert": 6,
+      "auroc": 0.541
+    }
+  }
+}

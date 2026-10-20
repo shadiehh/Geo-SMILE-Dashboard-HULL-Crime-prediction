@@ -1,0 +1,93 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792246290.654535   19640 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792246293.635892   19640 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[15:11:35] holdout R2 0.8952
+[15:12:00] pool done (0.4 min): R2=0.8712 kernel=inverse mean W1=0.508
+[15:12:27] consistency seed 100 done
+[15:12:52] consistency seed 101 done
+[15:13:16] consistency seed 102 done
+[15:13:41] consistency seed 103 done
+[15:14:06] consistency seed 104 done
+{
+ "design": "random-donor coordinate masking (K=10 draws per perturbation; exact check over 167 donors)",
+ "best_kernel": "inverse",
+ "mean_W1_response": 0.5079592745056559,
+ "signed_vs_exact_spearman": 0.9143479735372875,
+ "abs_vs_exact_spearman": -0.2223768861263104,
+ "exact_w1_median": 0.3143890353733908,
+ "exact_w1_p90": 1.0956074506222857,
+ "accuracy": {
+  "k": 20,
+  "reference_size": 58,
+  "intersection": 16,
+  "accuracy": 0.8,
+  "chance": 0.34523809523809523,
+  "lift": 2.317241379310345,
+  "p_hypergeom": 1.248407869482926e-05,
+  "att_acc": 0.7261904761904762,
+  "att_f1": 0.41025641025641024,
+  "att_auroc": 0.6090909090909091,
+  "precision": 0.8,
+  "recall": 0.27586206896551724,
+  "jaccard": 0.25806451612903225,
+  "top_k_outside_reference": [
+   "E01012805",
+   "E01012809",
+   "E01012827",
+   "E01012832"
+  ]
+ },
+ "intervention": {
+  "top": 1.955395112037659,
+  "bottom": 0.10896643191576003,
+  "random_mean": 0.45261402973949916,
+  "random_ci95": [
+   0.2343532908260822,
+   0.9006412016451361
+  ],
+  "top_minus_random": 1.5027810822981598,
+  "p": 0.000999000999000999
+ },
+ "consistency": {
+  "mean_variance": 8.888160393622445e-05,
+  "median_variance": 6.404290033804792e-05,
+  "mean_sd": 0.008498610760073633,
+  "max_sd": 0.039272073882357615,
+  "max_sd_lsoa": "E01033104",
+  "rank_spearman_mean": 0.8678382879211991,
+  "spearman_seed42_vs_seed_mean": 0.8918536553267093
+ },
+ "moran": {
+  "I": 0.2466687769233328,
+  "p_sim": 0.001,
+  "lisa_counts": {
+   "NS": 143,
+   "HH": 11,
+   "LL": 10,
+   "LH": 4
+  }
+ },
+ "old_town_rank": 1,
+ "spearman_with_median_point_aligned": 0.7382605878690635,
+ "top20_overlap_with_median_point": 9,
+ "spearman_with_area_data": 0.3138498995247038,
+ "top20_overlap_with_area_data": 18,
+ "distance_bias": {
+  "rho_with_distance_from_median_point": -0.011467344263290834,
+  "rho_with_mean_distance_to_donors": 0.044029439008711244,
+  "median_point_design_rho_with_distance": 0.22374355262425277
+ },
+ "elapsed_min": 3.0868936856587728
+}
+fidelity R2 0.8711984878604542 wR2 0.8708636159666177
+{'geo_rank': 1, 'lsoa21cd': 'E01033104', 'lsoa21nm': 'Kingston upon Hull 029E', 'geo_coefficient': 1.0550628684232362, 'exact_w1': 8.630561623030793}
+{'geo_rank': 2, 'lsoa21cd': 'E01012889', 'lsoa21nm': 'Kingston upon Hull 030B', 'geo_coefficient': 0.40012667448106065, 'exact_w1': 3.5026841020869637}
+{'geo_rank': 3, 'lsoa21cd': 'E01012871', 'lsoa21nm': 'Kingston upon Hull 015D', 'geo_coefficient': 0.3251074858812893, 'exact_w1': 2.9536909742983517}
+{'geo_rank': 4, 'lsoa21cd': 'E01012852', 'lsoa21nm': 'Kingston upon Hull 024B', 'geo_coefficient': 0.216308529115036, 'exact_w1': 2.345201646496436}
+{'geo_rank': 5, 'lsoa21cd': 'E01012854', 'lsoa21nm': 'Kingston upon Hull 029C', 'geo_coefficient': 0.2149211389865665, 'exact_w1': 2.298571375315775}
+{'geo_rank': 6, 'lsoa21cd': 'E01012855', 'lsoa21nm': 'Kingston upon Hull 029D', 'geo_coefficient': 0.19506103329262903, 'exact_w1': 2.041887728753918}
+{'geo_rank': 7, 'lsoa21cd': 'E01012763', 'lsoa21nm': 'Kingston upon Hull 018C', 'geo_coefficient': 0.17518624347191483, 'exact_w1': 1.9607086010321886}
+{'geo_rank': 8, 'lsoa21cd': 'E01012805', 'lsoa21nm': 'Kingston upon Hull 026A', 'geo_coefficient': 0.13036492054534307, 'exact_w1': 1.384639568671495}
+{'geo_rank': 9, 'lsoa21cd': 'E01035465', 'lsoa21nm': 'Kingston upon Hull 029G', 'geo_coefficient': 0.12638081690851952, 'exact_w1': 1.4244256961845352}
+{'geo_rank': 10, 'lsoa21cd': 'E01012843', 'lsoa21nm': 'Kingston upon Hull 021B', 'geo_coefficient': 0.12494118812174405, 'exact_w1': 1.5182195709137145}
