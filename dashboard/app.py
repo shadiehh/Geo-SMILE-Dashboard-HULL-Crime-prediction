@@ -29,7 +29,7 @@ from dashboard.data.schema import LSOA_ID, LSOA_NAME, PROVIDERS, STAKEHOLDERS, h
 from dashboard.llm import card_mode as cm
 from dashboard.views.attribution_patterns import render_attribution_patterns_section
 from dashboard.views.area_panel import render_area_panel
-from dashboard.views.role_banner import render_role_banner, role_image
+from dashboard.views.role_banner import render_role_banner
 from dashboard.views.decision_support import decision_table, export_buttons, render_compare, render_filters, render_shortlist
 from dashboard.views.card_view import render_area_card, render_card, render_comparison, render_detailed
 from dashboard.views.diagnostics import render_diagnostics_section
@@ -147,22 +147,24 @@ def _page_card(bundle, role: str) -> None:
     render_role_banner(role)
     length = st.segmented_control("Length", ["Short card", "Detailed narrative"], default="Short card",
                                   key="narrative_length", label_visibility="collapsed")
-    if length == "Detailed narrative":
-        render_detailed(role)
-        return
-    if role not in cm.AREA_ROLES:
-        st.caption("This role's evidence is city-level, so its card is the archived Hull-wide one.")
-        render_card(role)
-        return
+    area_card = role in cm.AREA_ROLES and length != "Detailed narrative"
     picker, chooser = st.columns([1, 2.4], gap="medium")
     with picker:
         selected = _lsoa_picker(bundle)
         st.caption("Choose an area here or click it on the map. Map: GeoSensitivity; the chosen area is outlined.")
+        if not area_card:
+            st.caption("This card is Hull-wide. Area cards are written for the Resident, Planner and Police short cards.")
     with chooser:
         clicked = render_map(bundle, "geo_sensitivity", selected, show_labels=False, key="card_area_map", height=430)
     if clicked and clicked != selected:
         st.session_state["selected_lsoa"] = clicked
         st.rerun()
+    if length == "Detailed narrative":
+        render_detailed(role)
+        return
+    if role not in cm.AREA_ROLES:
+        render_card(role)
+        return
     if selected and _openai_secret("OPENAI_API_KEY"):
         render_area_card(bundle, role, selected)
         return
@@ -291,7 +293,6 @@ archived runs of GPT-4.1 at temperature 0.
 def _sidebar() -> tuple[str, str]:
     with st.sidebar:
         role = st.selectbox("Select stakeholder view", list(STAKEHOLDERS), format_func=ROLE_LABELS.get, key="role")
-        st.image(role_image(role), width="stretch")
         st.write("")
         page = st.radio("Navigate", PAGES, key="page", label_visibility="collapsed")
         st.divider()
