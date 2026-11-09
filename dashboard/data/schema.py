@@ -108,6 +108,7 @@ LISA_LABELS = {
 }
 
 MAP_VIEWS = {
+    "crime_prediction": "Crime predictions",
     "geo_sensitivity": "GeoSensitivity",
     "feature_local": "Local feature effect",
     "latitude_effect": "Latitude feature effect",

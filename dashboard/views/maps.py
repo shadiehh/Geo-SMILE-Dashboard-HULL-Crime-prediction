@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -11,6 +12,7 @@ import streamlit as st
 
 from dashboard.data.loader import HullBundle
 from dashboard.data.schema import LISA_LABELS, LSOA_ID, LSOA_NAME, MAP_VIEWS, human_label
+from dashboard.views.leaflet_map import render_figure
 from map_lat_lon_geo_overlay import add_top_k_ranks, overlay_channels
 
 LISA_COLOURS = {
@@ -22,7 +24,16 @@ LISA_COLOURS = {
     "ISLAND": "#BDBDBD",
 }
 
+PREDICTIONS_CSV = Path(__file__).resolve().parents[2] / "outputs" / "dashboard_final" / "test_predictions_N4000.csv"
+PREDICTION_AVERAGE = "Test-period average"
+PREDICTION_SCALE = [
+    [0.0, "#FFFFCC"],
+    [0.5, "#FD8D3C"],
+    [1.0, "#B10026"],
+]
+
 VIEW_FIELDS = {
+    "crime_prediction": ("predicted", "Predicted crimes in the month (scale capped at the 98th percentile)"),
     "geo_sensitivity": ("geo_sensitivity", "GeoSensitivity (signed; darker = more sensitive)"),
     "feature_local": ("feature_local", "Local feature effect"),
     "latitude_effect": ("latitude_effect", "Latitude feature effect"),
@@ -62,6 +73,25 @@ BASEMAP_LAYERS = [{
 }]
 
 
+@st.cache_data(show_spinner=False)
+def load_predictions() -> pd.DataFrame:
+    """Predictions of the explained model. A row dated M predicts month M + 1, stored here as target_month."""
+    frame = pd.read_csv(PREDICTIONS_CSV, dtype={LSOA_ID: str})
+    frame["target_month"] = (pd.PeriodIndex(frame["month"], freq="M") + 1).strftime("%Y-%m")
+    return frame
+
+
+def prediction_months() -> list[str]:
+    return [PREDICTION_AVERAGE, *sorted(load_predictions()["target_month"].unique())]
+
+
+def predictions_for(month: str | None) -> pd.DataFrame:
+    frame = load_predictions()
+    if month and month != PREDICTION_AVERAGE:
+        return frame[frame["target_month"] == month].set_index(LSOA_ID)[["predicted", "observed"]]
+    return frame.groupby(LSOA_ID)[["predicted", "observed"]].mean()
+
+
 def _geojson(gdf) -> dict:
     return json.loads(gdf.to_json())
 
@@ -81,6 +111,9 @@ def _hover(row: pd.Series, view: str) -> str:
             f"Geo rank: {int(row['geo_rank'])} of 168<br>"
             f"LISA: {LISA_LABELS.get(str(row['lisa_class']), row['lisa_class'])}"
         )
+    if view == "crime_prediction":
+        return (f"{name}<br>Predicted crimes: {row['predicted']:.1f}<br>Recorded crimes: {row['observed']:.1f}<br>"
+                f"Prediction minus recorded: {row['predicted'] - row['observed']:+.1f}")
     if view == "feature_local":
         return f"{name}<br>{row['feature_label']}: {row['feature_local']:+.3f} (signed local coefficient)"
     if view == "latitude_effect":
@@ -157,8 +190,13 @@ def _overlay_colorscale(rgb: np.ndarray) -> tuple[list, list[float]]:
     return stops, z
 
 
-def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None, feature: str | None = None):
+def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None, feature: str | None = None,
+                     month: str | None = None):
     gdf = bundle.geometry.copy()
+    if view == "crime_prediction":
+        predictions = predictions_for(month)
+        gdf["predicted"] = gdf[LSOA_ID].astype(str).map(predictions["predicted"])
+        gdf["observed"] = gdf[LSOA_ID].astype(str).map(predictions["observed"])
     if view == "feature_local":
         values = bundle.local_features.assign(**{LSOA_ID: bundle.local_features[LSOA_ID].astype(str)}).set_index(LSOA_ID)[feature]
         gdf["feature_local"] = gdf[LSOA_ID].astype(str).map(values)
@@ -316,7 +354,9 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None, f
     else:
         z = gdf[field].to_numpy(dtype=float)
         vmax = _limit(z)
-        if view == "geo_sensitivity":
+        if view == "crime_prediction":
+            scale = dict(zmin=0.0, zmax=vmax, colorscale=PREDICTION_SCALE)
+        elif view == "geo_sensitivity":
             scale = dict(zmin=float(np.nanmin(z)), zmax=vmax, colorscale=SEQUENTIAL)
         else:
             scale = dict(zmid=0.0, zmin=-vmax, zmax=vmax, colorscale=DIVERGING)
@@ -395,18 +435,22 @@ def clicked_lsoa(event) -> str | None:
     return str(loc) if loc else None
 
 
-def render_map(bundle: HullBundle, view: str, selected_lsoa: str | None, feature: str | None = None) -> str | None:
-    fig = build_map_figure(bundle, view, selected_lsoa, feature)
-    try:
-        event = st.plotly_chart(
-            fig,
-            use_container_width=True,
-            on_select="rerun",
-            selection_mode="points",
-            key=f"hull_map_{view}_{feature or ''}",
-            config={"displayModeBar": False},
-        )
-    except TypeError:
-        st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
-        return None
-    return clicked_lsoa(event)
+LABELLED_PLACES = ("Old Town", "Dairycoates", "Sculcoates", "Stoneferry", "Newland", "Bransholme", "East Ella", "Orchard Park")
+
+
+def place_labels(bundle: HullBundle) -> list[tuple[float, float, str]]:
+    """One label per named locality, at the mean position of its LSOAs."""
+    points = bundle.geometry.representative_point()
+    frame = pd.DataFrame({"place": bundle.geometry["locality_label"], "lat": points.y, "lon": points.x})
+    means = frame[frame["place"].isin(LABELLED_PLACES)].groupby("place")[["lat", "lon"]].mean()
+    return [(float(r.lat), float(r.lon), str(place)) for place, r in means.iterrows()]
+
+
+def render_map(bundle: HullBundle, view: str, selected_lsoa: str | None, feature: str | None = None,
+               opacity: float = 0.8, highlight: set[str] | None = None, month: str | None = None,
+               show_labels: bool = True) -> str | None:
+    fig = build_map_figure(bundle, view, selected_lsoa, feature, month)
+    names = {str(code): f"{str(name).replace('Kingston upon Hull ', '')} {place}".strip()
+             for code, name, place in zip(bundle.lsoa[LSOA_ID], bundle.lsoa[LSOA_NAME], bundle.lsoa["locality_label"].fillna(""))}
+    return render_figure(fig, f"hull_map_{view}_{feature or ''}_{month or ''}", opacity=opacity, highlight=highlight, names=names,
+                         tools=True, clickable=True, labels=place_labels(bundle) if show_labels else None)

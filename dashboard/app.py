@@ -25,13 +25,16 @@ except ImportError:
 import streamlit as st
 
 from dashboard.data.loader import compact_evaluation, load_hull_bundle
-from dashboard.data.schema import LSOA_ID, LSOA_NAME, MAP_VIEWS, PROVIDERS, STAKEHOLDERS, human_label
+from dashboard.data.schema import LSOA_ID, LSOA_NAME, PROVIDERS, STAKEHOLDERS, human_label
 from dashboard.llm import card_mode as cm
 from dashboard.views.attribution_patterns import render_attribution_patterns_section
+from dashboard.views.area_panel import render_area_panel
+from dashboard.views.decision_support import decision_table, export_buttons, render_compare, render_filters, render_shortlist
 from dashboard.views.card_view import render_area_card, render_card, render_comparison, render_detailed
 from dashboard.views.diagnostics import render_diagnostics_section
 from dashboard.views.explanation_panel import render_explanation_panel
-from dashboard.views.feature_panel import render_evaluation, render_feature_panel, render_global_features
+from dashboard.views.maps import prediction_months
+from dashboard.views.feature_panel import render_evaluation, render_global_features
 from dashboard.llm.anthropic_provider import _secret as _anthropic_secret
 from dashboard.llm.openai_provider import _secret as _openai_secret
 from dashboard.views.maps import render_map
@@ -46,11 +49,50 @@ ROLE_QUESTIONS = {
     "researcher": "How is Geo-SMILE behaving technically, and how faithful, stable and reproducible is the explanation?",
     "governance": "Is the explanation traceable, robust, appropriately bounded and defensible?",
 }
-PAGES = ("Explore the map", "Stakeholder card", "Compare roles", "Model diagnostics", "How to read this")
+PAGES = ("Map & Analysis", "Stakeholder Cards", "Area Comparison", "Role Comparison", "Spatial Patterns",
+         "Model & Explanations", "Data & Governance")
+LAYERS = {"geo_sensitivity": "GeoSensitivity", "feature_local": "Local features", "top50_rank": "Top 50"}
 
 STYLE = """
 <style>
-.block-container {max-width: 1240px; padding-top: 2.2rem;}
+[data-testid="stHeader"] {display: none;}
+.block-container {max-width: 1640px; padding: 0 1.4rem 2rem 1.4rem;}
+[data-testid="stSidebar"] {background: #1F2A44;}
+[data-testid="stSidebar"] p, [data-testid="stSidebar"] label, [data-testid="stSidebar"] span {color: #F2F4F8;}
+[data-testid="stSidebar"] [data-baseweb="select"] > div {background: #2B3858; border-color: #4A5778;}
+[data-testid="stSidebar"] [role="radiogroup"] {gap: .25rem;}
+[data-testid="stSidebar"] [role="radiogroup"] label {padding: .5rem .7rem; border-radius: 8px; width: 100%;}
+[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) {background: #4F4FA8;}
+[data-testid="stSidebar"] [data-testid="stRadioOption"] div:has(> [data-testid="stMarkdownContainer"]) > div:first-child:not([data-testid]) {display: none !important;}
+[data-testid="stSidebar"] summary, [data-testid="stSidebar"] summary:hover {background: #2B3858 !important;}
+[data-testid="stSidebar"] summary p, [data-testid="stSidebar"] summary svg {color: #F2F4F8 !important; fill: #F2F4F8;}
+[data-testid="stSidebar"] button {background: #2B3858; border-color: #4A5778; color: #F2F4F8;}
+[data-testid="stSidebar"] [data-testid="stExpander"] details {border-color: #4A5778;}
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p {color: #C9D0DE;}
+[data-testid="stSidebar"] [data-baseweb="select"] span, [data-testid="stSidebar"] [data-baseweb="select"] div {color: #12171C;}
+[data-testid="stMainBlockContainer"] {padding-top: 0 !important;}
+.gs-top {background: #1F2A44; color: #fff; margin: -1.1rem -1.4rem .9rem -1.4rem; padding: .85rem 1.4rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem;}
+.gs-top h1 {color: #fff; font-size: 1.55rem; font-weight: 700; margin: 0; padding: 0;}
+.gs-top p {color: #D5DAE5; margin: .1rem 0 0 0; font-size: .92rem;}
+.gs-pill {border: 1px solid #5A6788; background: #2B3858; border-radius: 999px; padding: .3rem .85rem; font-size: .85rem; margin-left: .4rem; color: #fff;}
+.gs-kpis {display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .7rem; margin-bottom: .9rem;}
+.gs-kpi {border: 1px solid #DDE1E8; border-radius: 10px; padding: .55rem .9rem; background: #F8F9FB;}
+.gs-kpi span {font-size: .8rem; color: #57646D; display: block;}
+.gs-kpi b {font-size: 1.28rem; color: #12171C;}
+.gs-area {font-size: 1.3rem; font-weight: 700; color: #12171C;}
+.gs-area span {font-size: .9rem; font-weight: 400; color: #57646D;}
+.gs-card-row {display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; margin-bottom: .6rem;}
+.gs-card {border: 1px solid #DDE1E8; border-radius: 10px; padding: .6rem .75rem; background: #fff; height: 100%;}
+.gs-card-title {font-weight: 650; font-size: .86rem; color: #12171C;}
+.gs-card-value {font-weight: 700; font-size: 1.22rem; color: #12171C; line-height: 1.35;}
+.gs-card-note {font-size: .74rem; color: #57646D; line-height: 1.3;}
+.gs-chip {background: #ECEBFA; color: #3B37A8; border-radius: 5px; font-size: .72rem; padding: .08rem .35rem; font-weight: 700; white-space: nowrap;}
+.gs-bar-row {display: grid; grid-template-columns: minmax(0, 1.5fr) 1fr 2.4rem; gap: .35rem; align-items: center; font-size: .78rem; margin-top: .3rem;}
+.gs-bar {background: #EEF0F5; border-radius: 3px; height: .6rem;}
+.gs-bar div {background: #7C78DA; height: 100%; border-radius: 3px;}
+.gs-insight {background: #F0EFFB; border: 1px solid #DCDAF5; border-radius: 10px; padding: .6rem .85rem; margin: .55rem 0; font-size: .86rem;}
+.gs-insight ul {margin: .25rem 0 0 0; padding-left: 1.1rem;}
+.gs-insight li {margin-bottom: .1rem;}
 .gs-hero h1 {font-size: 1.9rem; font-weight: 700; margin: 0; padding: 0; letter-spacing: -0.01em;}
 .gs-hero p {color: #57646D; margin: 0.25rem 0 0 0; max-width: 62rem; line-height: 1.5;}
 .gs-stats {display: flex; flex-wrap: wrap; gap: 0.5rem 2.25rem; margin: 0.9rem 0 0.4rem 0;}
@@ -89,29 +131,15 @@ def _bundle():
 
 def _header(bundle) -> None:
     ev = compact_evaluation(bundle.evaluation)
-    stats = [
-        (f"{len(bundle.lsoa)}", "Hull LSOAs explained"),
-        (f"{ev['feature_holdout_r2']:.3f}", "held-out R² of the XGBoost model"),
-        (f"{ev['feature_surrogate_test_r2']:.3f}", "Feature surrogate fidelity"),
-        (f"{ev['geo_fidelity_r2']:.3f}", "Geo surrogate fidelity"),
-        ("4,000", "perturbations per branch"),
-    ]
-    cells = "".join(f"<div class='gs-stat'><b>{v}</b><span>{k}</span></div>" for v, k in stats)
     st.markdown(
-        "<div class='gs-hero'><h1>Geo-SMILE for Hull crime prediction</h1>"
-        "<p>How one next-month crime model behaves across Kingston upon Hull, explained for six stakeholder "
-        "roles. These are attributions of a fitted model, not causes of crime and not advice on where to "
-        f"deploy resources.</p></div><div class='gs-stats'>{cells}</div>", unsafe_allow_html=True)
-
-
-def _selector(key: str, options, labels: dict, default: str):
-    """A segmented control that cannot be left empty."""
-    choice = st.segmented_control(" ", options, format_func=labels.get, default=default, key=key,
-                                  label_visibility="collapsed")
-    if choice is None:
-        choice = st.session_state.get(f"{key}_last", default)
-    st.session_state[f"{key}_last"] = choice
-    return choice
+        "<div class='gs-top'><div><h1>Geo-SMILE | Hull Urban Safety</h1>"
+        "<p>Crime prediction · Geographic explainability · Stakeholder decision support</p></div>"
+        "<div><span class='gs-pill'>Web GIS (Leaflet)</span><span class='gs-pill'>Hull, UK</span></div></div>",
+        unsafe_allow_html=True)
+    kpis = [("Hull LSOAs", f"{len(bundle.lsoa)}"), ("Prediction horizon", "Next month"),
+            ("Model", f"XGBoost · R² {ev['feature_holdout_r2']:.3f}"), ("Explanation", "Geo-SMILE · 4,000 perturbations")]
+    cells = "".join(f"<div class='gs-kpi'><span>{k}</span><b>{v}</b></div>" for k, v in kpis)
+    st.markdown(f"<div class='gs-kpis'>{cells}</div>", unsafe_allow_html=True)
 
 
 def _page_card(bundle, role: str) -> None:
@@ -152,41 +180,63 @@ def _lsoa_picker(bundle) -> str | None:
     return st.session_state.get("selected_lsoa")
 
 
+def _layer_picker() -> str:
+    st.session_state.setdefault("map_view", "geo_sensitivity")
+    if st.session_state["map_view"] not in LAYERS:
+        st.session_state["map_view"] = "geo_sensitivity"
+    choice = st.segmented_control("Map layer", list(LAYERS), format_func=LAYERS.get, key="map_view", label_visibility="collapsed")
+    if choice is None:
+        choice = st.session_state.get("map_view_last", "geo_sensitivity")
+    st.session_state["map_view_last"] = choice
+    return choice
+
+
 def _page_map(bundle, role: str) -> None:
-    controls, mapper, detail = st.columns([0.95, 3.1, 1.55], gap="medium")
-    with controls:
-        map_view = st.radio("Map layer", list(MAP_VIEWS), format_func=MAP_VIEWS.get, key="map_view")
-        feature = None
-        if map_view == "feature_local":
-            names = sorted(bundle.feature_names, key=human_label)
-            st.session_state.setdefault("map_feature", "crime_rolling_mean_6")
-            feature = st.selectbox("Feature", names, format_func=human_label, key="map_feature")
-        selected = _lsoa_picker(bundle)
-        provider = None
-        if _live_briefings():
-            provider = st.radio("Briefing model", list(PROVIDERS), format_func=PROVIDERS.get, key="provider_choice")
+    table = decision_table(bundle)
+    mapper, panel = st.columns([1.15, 1], gap="medium")
     with mapper:
+        map_view = _layer_picker()
+        map_slot = st.container()
+    bar = st.columns([1.4, 1.4, 1.1, 1, 1], gap="small", vertical_alignment="bottom")
+    month = feature = None
+    with bar[0]:
+        if map_view == "crime_prediction":
+            month = st.selectbox("Time (prediction)", prediction_months(), key="map_month")
+        elif map_view == "feature_local":
+            st.session_state.setdefault("map_feature", "crime_rolling_mean_6")
+            feature = st.selectbox("Feature", sorted(bundle.feature_names, key=human_label), format_func=human_label, key="map_feature")
+    with bar[1]:
+        selected = _lsoa_picker(bundle)
+    opacity = bar[2].slider("Layer opacity", 0.2, 1.0, 0.8, 0.05, key="map_opacity")
+    show_labels = bar[3].toggle("Show area labels", True, key="map_labels")
+    with st.sidebar:
+        matches = render_filters(table)
+    with bar[4], st.popover("Export", width="stretch"):
+        export_buttons(bundle, table, matches, "bar")
+    code = selected or str(table.index[0])
+    with map_slot:
         if map_view in ("latitude_effect", "longitude_effect", "overlay", "top50_rank"):
             st.caption("Coordinate-inclusive diagnostic run. Latitude and longitude effects are not GeoSensitivity.")
-        if map_view == "feature_local":
-            st.caption("Pink raises and blue lowers the prediction relative to the masking reference. "
-                       "The colour scale is truncated at the 98th percentile, so the most extreme areas saturate. "
-                       "Model attribution, not causes of crime.")
-        clicked = render_map(bundle, map_view, selected, feature)
-        if clicked and clicked != selected:
-            st.session_state["selected_lsoa"] = clicked
-            st.rerun()
-    with detail:
-        render_feature_panel(bundle, selected)
-        render_global_features(bundle)
-        render_evaluation(bundle)
-    if provider is None:
-        return
+        elif map_view == "feature_local":
+            st.caption("Pink raises and blue lowers the prediction relative to the masking reference. Model attribution, not causes of crime.")
+        elif map_view == "crime_prediction":
+            st.caption("Hold-out predictions of the model Geo-SMILE explains. For evaluation, not an operational forecast.")
+        if matches is not None:
+            st.caption(f"{len(matches)} areas meet the filters; the others are dimmed.")
+        clicked = render_map(bundle, map_view, code, feature, opacity, matches, month, show_labels)
+    if clicked and clicked != selected:
+        st.session_state["selected_lsoa"] = clicked
+        st.rerun()
+    with panel:
+        render_area_panel(bundle, table, code, role, ROLE_LABELS[role], month)
+    if not selected:
+        st.caption("Showing the highest-GeoSensitivity area until you choose one.")
     st.divider()
-    render_explanation_panel(
-        bundle, stakeholder_id=role, provider_choice=provider, scope="lsoa" if selected else "overall",
-        current_map_view=map_view, selected_lsoa=selected, force_mode="comprehensive",
-    )
+    render_shortlist(table, matches)
+    if role in cm.AREA_ROLES and _live_briefings() and st.toggle("Detailed AI briefing for this area", key="map_briefing"):
+        provider = st.radio("Briefing model", list(PROVIDERS), format_func=PROVIDERS.get, key="provider_choice", horizontal=True)
+        render_explanation_panel(bundle, stakeholder_id=role, provider_choice=provider, scope="lsoa", current_map_view=map_view,
+                                 selected_lsoa=code, force_mode="comprehensive")
 
 
 def _page_about() -> None:
@@ -231,33 +281,38 @@ archived runs of GPT-4.1 at temperature 0.
         )
 
 
+def _sidebar() -> tuple[str, str]:
+    with st.sidebar:
+        role = st.selectbox("Select stakeholder view", list(STAKEHOLDERS), format_func=ROLE_LABELS.get, key="role")
+        st.write("")
+        page = st.radio("Navigate", PAGES, key="page", label_visibility="collapsed")
+        st.divider()
+        st.caption("Hull Geo-SMILE. XGBoost + Geo-SMILE, LSOA (2021), monthly prediction. Model attributions, not causes of "
+                   "crime and not advice on where to deploy resources.")
+    return role, page
+
+
 def main() -> None:
-    st.set_page_config(page_title="Geo-SMILE · Hull crime prediction", page_icon="🗺️", layout="wide",
-                       initial_sidebar_state="collapsed")
+    st.set_page_config(page_title="Geo-SMILE · Hull Urban Safety", page_icon="🗺️", layout="wide", initial_sidebar_state="expanded")
     st.markdown(STYLE, unsafe_allow_html=True)
     st.session_state.setdefault("selected_lsoa", None)
-    st.session_state.setdefault("map_view", "geo_sensitivity")
     bundle = _bundle()
-
+    role, page = _sidebar()
     _header(bundle)
-    page = _selector("page", list(PAGES), {p: p for p in PAGES}, PAGES[0])
-    role = "public"
-    if page == "Stakeholder card":
-        st.markdown("<div class='gs-kicker'>Explain for</div>", unsafe_allow_html=True)
-        role = _selector("role", list(STAKEHOLDERS), ROLE_LABELS, "public")
-    elif page == "Explore the map" and _live_briefings():
-        st.markdown("<div class='gs-kicker'>Explain for</div>", unsafe_allow_html=True)
-        role = _selector("map_role", list(cm.AREA_ROLES), ROLE_LABELS, "public")
-
-    if page == "Stakeholder card":
-        _page_card(bundle, role)
-    elif page == "Explore the map":
+    if page == "Map & Analysis":
         _page_map(bundle, role)
-    elif page == "Compare roles":
+    elif page == "Stakeholder Cards":
+        _page_card(bundle, role)
+    elif page == "Area Comparison":
+        render_compare(decision_table(bundle))
+    elif page == "Role Comparison":
         render_comparison()
-    elif page == "Model diagnostics":
-        render_diagnostics_section("researcher")
+    elif page == "Spatial Patterns":
         render_attribution_patterns_section(bundle, "researcher")
+    elif page == "Model & Explanations":
+        render_diagnostics_section("researcher")
+        render_global_features(bundle)
+        render_evaluation(bundle)
     else:
         _page_about()
 

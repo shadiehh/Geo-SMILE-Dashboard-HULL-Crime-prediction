@@ -32,6 +32,7 @@ from dashboard.data.loader import HullBundle
 from dashboard.data.schema import LSOA_ID, LSOA_NAME, human_label
 from dashboard.data.spatial_stats import build_queen_weights, local_moran
 from dashboard.views.gating import persona_gated
+from dashboard.views.leaflet_map import render_figure
 from dashboard.views.maps import BASEMAP_LAYERS, DIVERGING, LISA_COLOURS
 
 GLOBAL_TOP_N = 10
@@ -317,7 +318,7 @@ def _render_dominant_feature_map(gdf: pd.DataFrame) -> None:
         + work["dominant_signed_value"].round(4).astype(str)
     )
     fig, colors = build_categorical_choropleth(work, value_col="category", hover_col="hover")
-    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+    render_figure(fig, "attr_dominant", height=560, legend=False)
     st.markdown(_swatch_legend_html(colors), unsafe_allow_html=True)
 
     counts = (
@@ -364,7 +365,7 @@ def _render_archetypes(bundle: HullBundle, gdf: pd.DataFrame) -> None:
     fig, colors = build_categorical_choropleth(work, value_col="archetype_label", hover_col="hover")
     map_col, table_col = st.columns([1.3, 1], gap="medium")
     with map_col:
-        st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+        render_figure(fig, "attr_archetypes", height=560, legend=False)
         st.markdown(_swatch_legend_html(colors), unsafe_allow_html=True)
 
     display = profiles[["cluster", "n_lsoas", "label"]].rename(
@@ -401,7 +402,7 @@ def _render_concentration_map(gdf: pd.DataFrame) -> None:
     fig = build_sequential_choropleth(
         work, value_col="entropy_norm", hover_col="hover", legend_title="Concentration (entropy)"
     )
-    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+    render_figure(fig, "attr_concentration", height=560)
 
 
 def _render_dominant_global_features(bundle: HullBundle, gdf: pd.DataFrame) -> None:
@@ -466,11 +467,11 @@ def _render_dominant_global_features(bundle: HullBundle, gdf: pd.DataFrame) -> N
         fig = build_diverging_choropleth(
             work, value_col="value", hover_col="hover_val", legend_title="Local coefficient"
         )
-        st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+        render_figure(fig, "attr_global_value", height=480)
     with right:
         st.markdown(f"**{chosen_label} — LISA clusters**")
         fig2, lisa_colors = build_lisa_choropleth(work, hover_col="hover_lisa")
-        st.plotly_chart(fig2, use_container_width=True, config={"displayModeBar": False})
+        render_figure(fig2, "attr_global_lisa", height=480, legend=False)
         st.markdown(_swatch_legend_html(lisa_colors), unsafe_allow_html=True)
     st.caption(
         f"Global Moran's I = {g_i:.3f} (p={g_p:.3f}), "
