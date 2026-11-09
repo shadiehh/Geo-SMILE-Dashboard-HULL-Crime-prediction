@@ -18,11 +18,35 @@ def _fmt(value, digits: int = 4) -> str:
     return f"{float(value):.{digits}f}"
 
 
+def _show_feature(feature: str) -> None:
+    st.session_state["map_feature"] = feature
+    st.session_state["map_view"] = "feature_local"
+
+
+def _feature_rows(rows: list[tuple[str, str, str, float | None]], prefix: str) -> None:
+    """One clickable row per feature: name, and its value (pink raises, blue lowers, grey undirected)."""
+    active = st.session_state.get("map_feature") if st.session_state.get("map_view") == "feature_local" else None
+    with st.container(key=f"gs_features_{prefix}"):
+        for feature, label, value, signed in rows:
+            name, number = st.columns([3.4, 1], gap="small", vertical_alignment="center")
+            name.button(label, key=f"feat_{prefix}_{feature}", on_click=_show_feature, args=(feature,),
+                        type="primary" if feature == active else "tertiary", width="stretch")
+            colour = "#57646D" if signed is None else ("#C2003F" if signed >= 0 else "#1565C0")
+            number.markdown(f"<div style='text-align:right; font-size:0.85rem; color:{colour}; "
+                            f"font-variant-numeric:tabular-nums;'>{value}</div>", unsafe_allow_html=True)
+
+
 def render_feature_panel(bundle: HullBundle, selected_lsoa: str | None) -> None:
-    st.subheader("Selected Area")
     if not selected_lsoa:
-        st.info("Click an LSOA on the map, or choose one in the list.")
+        st.subheader("Features across Hull")
+        st.caption("Ranked by global importance. Click a feature to map its local effect. "
+                   "Click an area on the map for that area's own ranking.")
+        frame = bundle.global_features.sort_values("abs_coefficient", ascending=False, kind="mergesort").head(10)
+        _feature_rows([(r["feature"], human_label(r["feature"]), f"{r['abs_coefficient']:.2f}", None)
+                       for _, r in frame.iterrows()], "global")
         return
+
+    st.subheader("Selected Area")
 
     match = bundle.lsoa[bundle.lsoa[LSOA_ID] == selected_lsoa]
     if match.empty:
@@ -52,10 +76,10 @@ def render_feature_panel(bundle: HullBundle, selected_lsoa: str | None) -> None:
             "Rank is comparative, not a claim of strong geographic drive."
         )
 
-    st.markdown("**Top 10 features for this LSOA**")
+    st.markdown("**Top 10 features for this area**")
     st.caption(
-        "Local Feature-SMILE coefficients, perturbed minus original: pink raises and blue lowers "
-        "this area's prediction relative to the masking reference. Model attribution, not causes of crime."
+        "Click a feature to map it. Pink raises and blue lowers this area's prediction relative to the "
+        "masking reference. Model attribution, not causes of crime."
     )
     features = top_features_for_lsoa(bundle.local_features, selected_lsoa, k=10)
     if not features:
@@ -65,36 +89,8 @@ def render_feature_panel(bundle: HullBundle, selected_lsoa: str | None) -> None:
         )
         return
 
-    mode = st.radio("Display", ["Bar chart", "Ranked list"], horizontal=True, key="feat_display")
-    if mode == "Ranked list":
-        for rec in features:
-            st.markdown(
-                f"{rec['feature_rank']}. **{rec['feature_label']}** — "
-                f"signed `{rec['feature_value']:.4f}` · "
-                f"|coef| `{rec['abs_value']:.4f}`"
-            )
-        return
-
-    labels = [r["feature_label"] for r in features][::-1]
-    values = [r["feature_value"] for r in features][::-1]
-    colors = ["#FF0051" if v >= 0 else "#1E88E5" for v in values]
-    fig = go.Figure(
-        go.Bar(
-            x=values,
-            y=labels,
-            orientation="h",
-            marker_color=colors,
-            hovertemplate="%{y}<br>signed: %{x:.4f}<extra></extra>",
-        )
-    )
-    fig.update_layout(
-        height=max(280, 28 * len(features) + 80),
-        margin=dict(l=10, r=10, t=8, b=24),
-        xaxis_title="Signed local coefficient (crimes per month)",
-        yaxis=dict(automargin=True),
-        paper_bgcolor="white",
-    )
-    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+    _feature_rows([(r["feature"], r["feature_label"], f"{r['feature_value']:+.2f}", r["feature_value"])
+                   for r in features], "local")
     if features and features[0]["abs_value"] < 0.25:
         st.caption(
             f"The highest-ranked local feature is {features[0]['feature_label']}, "

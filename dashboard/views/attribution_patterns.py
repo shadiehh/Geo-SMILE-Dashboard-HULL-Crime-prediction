@@ -156,7 +156,7 @@ def build_categorical_choropleth(
     fig.update_layout(
         map_style="white-bg",
         map_layers=BASEMAP_LAYERS,
-        map_zoom=10.6,
+        map_zoom=11.1,
         map_center=MAP_CENTER,
         margin=dict(l=0, r=0, t=8, b=0),
         height=560,
@@ -188,7 +188,7 @@ def build_sequential_choropleth(
     fig.update_layout(
         map_style="white-bg",
         map_layers=BASEMAP_LAYERS,
-        map_zoom=10.6,
+        map_zoom=11.1,
         map_center=MAP_CENTER,
         margin=dict(l=0, r=0, t=8, b=0),
         height=560,
@@ -228,7 +228,7 @@ def build_diverging_choropleth(gdf: pd.DataFrame, *, value_col: str, hover_col: 
     fig.update_layout(
         map_style="white-bg",
         map_layers=BASEMAP_LAYERS,
-        map_zoom=10.6,
+        map_zoom=11.1,
         map_center=MAP_CENTER,
         margin=dict(l=0, r=0, t=8, b=0),
         height=480,
@@ -263,7 +263,7 @@ def build_lisa_choropleth(gdf: pd.DataFrame, *, hover_col: str) -> tuple[go.Figu
     fig.update_layout(
         map_style="white-bg",
         map_layers=BASEMAP_LAYERS,
-        map_zoom=10.6,
+        map_zoom=11.1,
         map_center=MAP_CENTER,
         margin=dict(l=0, r=0, t=8, b=0),
         height=480,
@@ -362,8 +362,10 @@ def _render_archetypes(bundle: HullBundle, gdf: pd.DataFrame) -> None:
     work["archetype_label"] = work["cluster"].map(label_map)
     work["hover"] = work[LSOA_NAME] + "<br>Archetype: " + work["archetype_label"].astype(str)
     fig, colors = build_categorical_choropleth(work, value_col="archetype_label", hover_col="hover")
-    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
-    st.markdown(_swatch_legend_html(colors), unsafe_allow_html=True)
+    map_col, table_col = st.columns([1.3, 1], gap="medium")
+    with map_col:
+        st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+        st.markdown(_swatch_legend_html(colors), unsafe_allow_html=True)
 
     display = profiles[["cluster", "n_lsoas", "label"]].rename(
         columns={
@@ -372,11 +374,12 @@ def _render_archetypes(bundle: HullBundle, gdf: pd.DataFrame) -> None:
             "label": "Top driving features (by mean coefficient)",
         }
     )
-    st.dataframe(display, hide_index=True, use_container_width=True)
-    st.caption(
-        "Unsupervised and re-fit on every k change; cluster numbering is not "
-        "stable across different k."
-    )
+    with table_col:
+        st.dataframe(display, hide_index=True, use_container_width=True)
+        st.caption(
+            "Unsupervised and re-fit on every k change; cluster numbering is not "
+            "stable across different k."
+        )
 
 
 def _render_concentration_map(gdf: pd.DataFrame) -> None:
@@ -509,22 +512,15 @@ def render_attribution_patterns_section(bundle: HullBundle, stakeholder_id: str)
         concentration, on=LSOA_ID, how="left"
     )
 
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(
-        [
-            "Dominant local feature",
-            "GeoSensitivity vs. feature magnitude",
-            "Explanation archetypes",
-            "Explanation concentration",
-            "Dominant global features",
-        ]
+    # One view at a time: a map drawn inside a hidden tab gets a zero-size canvas and stays blank.
+    views = {
+        "Dominant local feature": lambda: _render_dominant_feature_map(gdf),
+        "GeoSensitivity vs. feature magnitude": lambda: _render_scatter(gdf),
+        "Explanation archetypes": lambda: _render_archetypes(bundle, gdf),
+        "Explanation concentration": lambda: _render_concentration_map(gdf),
+        "Dominant global features": lambda: _render_dominant_global_features(bundle, gdf),
+    }
+    choice = st.segmented_control(
+        "Attribution view", list(views), default=next(iter(views)), key="attr_view", label_visibility="collapsed"
     )
-    with tab1:
-        _render_dominant_feature_map(gdf)
-    with tab2:
-        _render_scatter(gdf)
-    with tab3:
-        _render_archetypes(bundle, gdf)
-    with tab4:
-        _render_concentration_map(gdf)
-    with tab5:
-        _render_dominant_global_features(bundle, gdf)
+    views[choice or next(iter(views))]()

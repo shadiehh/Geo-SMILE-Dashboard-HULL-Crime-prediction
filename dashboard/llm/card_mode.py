@@ -1258,6 +1258,15 @@ def add_evidence(evidence: dict, d: StakeholderData, stakeholder: str, mode: str
     return evidence
 
 
+def detailed_focus(d: StakeholderData, stakeholder: str) -> tuple[str, str]:
+    """Focus and contrast areas of a role's Hull-wide detailed narrative, as on its short card."""
+    if stakeholder == "public":
+        return PUBLIC_FOCUS, d.default_contrast(PUBLIC_FOCUS)
+    if stakeholder == "manager":
+        return CENTRE, MANAGER_CONTRAST
+    return CENTRE, d.default_contrast(CENTRE)
+
+
 def user_suffix(mode: str, stakeholder: str = "planner") -> str | None:
     if mode != "short":
         return None

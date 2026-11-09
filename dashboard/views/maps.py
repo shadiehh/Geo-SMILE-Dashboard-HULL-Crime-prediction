@@ -10,7 +10,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from dashboard.data.loader import HullBundle
-from dashboard.data.schema import LISA_LABELS, LSOA_ID, LSOA_NAME, MAP_VIEWS
+from dashboard.data.schema import LISA_LABELS, LSOA_ID, LSOA_NAME, MAP_VIEWS, human_label
 from map_lat_lon_geo_overlay import add_top_k_ranks, overlay_channels
 
 LISA_COLOURS = {
@@ -24,6 +24,7 @@ LISA_COLOURS = {
 
 VIEW_FIELDS = {
     "geo_sensitivity": ("geo_sensitivity", "GeoSensitivity (signed; darker = more sensitive)"),
+    "feature_local": ("feature_local", "Local feature effect"),
     "latitude_effect": ("latitude_effect", "Latitude feature effect"),
     "longitude_effect": ("longitude_effect", "Longitude feature effect"),
     "overlay": ("overlay_index", "Lat / lon / GeoSensitivity overlay"),
@@ -80,6 +81,8 @@ def _hover(row: pd.Series, view: str) -> str:
             f"Geo rank: {int(row['geo_rank'])} of 168<br>"
             f"LISA: {LISA_LABELS.get(str(row['lisa_class']), row['lisa_class'])}"
         )
+    if view == "feature_local":
+        return f"{name}<br>{row['feature_label']}: {row['feature_local']:+.3f} (signed local coefficient)"
     if view == "latitude_effect":
         return (
             f"{name}<br>Latitude feature effect: {row['latitude_effect']:.4f}<br>"
@@ -154,8 +157,12 @@ def _overlay_colorscale(rgb: np.ndarray) -> tuple[list, list[float]]:
     return stops, z
 
 
-def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
+def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None, feature: str | None = None):
     gdf = bundle.geometry.copy()
+    if view == "feature_local":
+        values = bundle.local_features.assign(**{LSOA_ID: bundle.local_features[LSOA_ID].astype(str)}).set_index(LSOA_ID)[feature]
+        gdf["feature_local"] = gdf[LSOA_ID].astype(str).map(values)
+        gdf["feature_label"] = human_label(feature)
     if view == "top50_rank":
         ranks = add_top_k_ranks(
             pd.DataFrame(
@@ -183,6 +190,8 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
         ]
         gdf = gdf.join(ranks.set_index("lsoa21cd")[rank_cols], on=LSOA_ID)
     field, legend = VIEW_FIELDS[view]
+    if view == "feature_local":
+        legend = f"{human_label(feature)} (local effect)"
     geojson = _geojson(gdf[[LSOA_ID, "geometry"]])
     hover = [_hover(row, view) for _, row in gdf.iterrows()]
 
@@ -386,15 +395,15 @@ def clicked_lsoa(event) -> str | None:
     return str(loc) if loc else None
 
 
-def render_map(bundle: HullBundle, view: str, selected_lsoa: str | None) -> str | None:
-    fig = build_map_figure(bundle, view, selected_lsoa)
+def render_map(bundle: HullBundle, view: str, selected_lsoa: str | None, feature: str | None = None) -> str | None:
+    fig = build_map_figure(bundle, view, selected_lsoa, feature)
     try:
         event = st.plotly_chart(
             fig,
             use_container_width=True,
             on_select="rerun",
             selection_mode="points",
-            key=f"hull_map_{view}",
+            key=f"hull_map_{view}_{feature or ''}",
             config={"displayModeBar": False},
         )
     except TypeError:

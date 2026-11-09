@@ -109,6 +109,7 @@ LISA_LABELS = {
 
 MAP_VIEWS = {
     "geo_sensitivity": "GeoSensitivity",
+    "feature_local": "Local feature effect",
     "latitude_effect": "Latitude feature effect",
     "longitude_effect": "Longitude feature effect",
     "overlay": "Lat / lon / GeoSensitivity overlay",

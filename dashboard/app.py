@@ -25,9 +25,9 @@ except ImportError:
 import streamlit as st
 
 from dashboard.data.loader import compact_evaluation, load_hull_bundle
-from dashboard.data.schema import LSOA_ID, LSOA_NAME, MAP_VIEWS, PROVIDERS, STAKEHOLDERS
+from dashboard.data.schema import LSOA_ID, LSOA_NAME, MAP_VIEWS, PROVIDERS, STAKEHOLDERS, human_label
 from dashboard.views.attribution_patterns import render_attribution_patterns_section
-from dashboard.views.card_view import render_card, render_comparison
+from dashboard.views.card_view import render_card, render_comparison, render_detailed
 from dashboard.views.diagnostics import render_diagnostics_section
 from dashboard.views.explanation_panel import render_explanation_panel
 from dashboard.views.feature_panel import render_evaluation, render_feature_panel, render_global_features
@@ -45,7 +45,7 @@ ROLE_QUESTIONS = {
     "researcher": "How is Geo-SMILE behaving technically, and how faithful, stable and reproducible is the explanation?",
     "governance": "Is the explanation traceable, robust, appropriately bounded and defensible?",
 }
-PAGES = ("Stakeholder card", "Explore the map", "Compare roles", "Model diagnostics", "How to read this")
+PAGES = ("Explore the map", "Stakeholder card", "Compare roles", "Model diagnostics", "How to read this")
 
 STYLE = """
 <style>
@@ -67,6 +67,10 @@ STYLE = """
 .gs-tile-label {color: #57646D; font-size: 0.78rem; line-height: 1.3;}
 .gs-foot {border-top: 1px solid #D9DEE2; padding-top: 0.5rem; font-size: 0.8rem; color: #57646D; line-height: 1.45;}
 .gs-meta {font-size: 0.73rem;}
+[class*="st-key-gs_features"] button {justify-content: flex-start; text-align: left; min-height: 1.9rem; padding: 0.1rem 0.4rem;}
+[class*="st-key-gs_features"] button p {font-size: 0.88rem;}
+[class*="st-key-gs_features"] [data-testid="stHorizontalBlock"] {gap: 0.25rem;}
+[class*="st-key-gs_features"] [data-testid="stVerticalBlock"] {gap: 0.1rem;}
 .gs-lede {font-size: 1rem; color: #57646D; margin-bottom: 0.8rem;}
 </style>
 """
@@ -111,7 +115,12 @@ def _selector(key: str, options, labels: dict, default: str):
 
 def _page_card(role: str) -> None:
     st.markdown(f"<div class='gs-question'>{ROLE_QUESTIONS[role]}</div>", unsafe_allow_html=True)
-    render_card(role)
+    length = st.segmented_control("Length", ["Short card", "Detailed narrative"], default="Short card",
+                                  key="narrative_length", label_visibility="collapsed")
+    if length == "Detailed narrative":
+        render_detailed(role)
+    else:
+        render_card(role)
 
 
 def _lsoa_picker(bundle) -> str | None:
@@ -132,6 +141,11 @@ def _page_map(bundle, role: str) -> None:
     controls, mapper, detail = st.columns([0.95, 3.1, 1.55], gap="medium")
     with controls:
         map_view = st.radio("Map layer", list(MAP_VIEWS), format_func=MAP_VIEWS.get, key="map_view")
+        feature = None
+        if map_view == "feature_local":
+            names = sorted(bundle.feature_names, key=human_label)
+            st.session_state.setdefault("map_feature", "crime_rolling_mean_6")
+            feature = st.selectbox("Feature", names, format_func=human_label, key="map_feature")
         selected = _lsoa_picker(bundle)
         provider = None
         if _live_briefings():
@@ -139,7 +153,11 @@ def _page_map(bundle, role: str) -> None:
     with mapper:
         if map_view in ("latitude_effect", "longitude_effect", "overlay", "top50_rank"):
             st.caption("Coordinate-inclusive diagnostic run. Latitude and longitude effects are not GeoSensitivity.")
-        clicked = render_map(bundle, map_view, selected)
+        if map_view == "feature_local":
+            st.caption("Pink raises and blue lowers the prediction relative to the masking reference. "
+                       "The colour scale is truncated at the 98th percentile, so the most extreme areas saturate. "
+                       "Model attribution, not causes of crime.")
+        clicked = render_map(bundle, map_view, selected, feature)
         if clicked and clicked != selected:
             st.session_state["selected_lsoa"] = clicked
             st.rerun()

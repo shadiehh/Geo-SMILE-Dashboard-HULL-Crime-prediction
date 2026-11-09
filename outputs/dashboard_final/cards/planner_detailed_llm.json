@@ -1,0 +1,684 @@
+{
+  "stakeholder": "planner",
+  "evidence": {
+    "application": {
+      "domain": "crime prediction",
+      "study_area": "Hull",
+      "spatial_unit": "LSOA",
+      "target": "next-month crime count"
+    },
+    "stakeholder": {
+      "id": "planner",
+      "label": "City Planner / Local Authority"
+    },
+    "current_map_view": "geo_sensitivity",
+    "output_mode": "comprehensive_mode",
+    "current_map_view_label": "GeoSensitivity",
+    "prompt_version": "geosmile-hull-v9",
+    "semantic_separation": {
+      "geo_sensitivity": "Geo branch random-donor location masking SMILE (an LSOA's rows moved to random other Hull LSOA centroids)",
+      "latitude_effect": "latitude as a Feature SMILE player",
+      "longitude_effect": "longitude as a Feature SMILE player",
+      "spatial_pattern": "LISA/Moran on signed GeoSensitivity",
+      "not_equivalent": [
+        "GeoSensitivity != latitude feature effect",
+        "GeoSensitivity != longitude feature effect",
+        "cluster != high magnitude",
+        "rank != strength",
+        "attribution != causation",
+        "RGB overlay != a fourth GeoSMILE object"
+      ]
+    },
+    "global_geo": {
+      "n_lsoas": 168,
+      "geo_sensitivity_median": -0.03788592509494055,
+      "geo_sensitivity_p90": 0.0672244009413169,
+      "n_negative": 128,
+      "geo_sensitivity_mean_abs": 0.05619905519447007,
+      "geo_sensitivity_median_abs": 0.0434990836630174,
+      "geo_sensitivity_p90_abs": 0.07099320837449713,
+      "geo_sensitivity_max_abs": 1.068874023123998,
+      "geo_sensitivity_min_abs": 0.0001520988561432,
+      "highest_geo_sensitivity_lsoas": [
+        {
+          "id": "E01033104",
+          "name": "Kingston upon Hull 029E",
+          "geo_sensitivity": 1.068874023123998,
+          "geo_rank": 1,
+          "lisa_class": "HH",
+          "place_context": {
+            "lsoa_code": "E01033104",
+            "locality_label": "Old Town",
+            "recognisable_places": [
+              "Old Town"
+            ],
+            "major_streets": [
+              "Ferensway",
+              "Castle Street",
+              "Queens Dock Avenue"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012889",
+          "name": "Kingston upon Hull 030B",
+          "geo_sensitivity": 0.4181766068278902,
+          "geo_rank": 2,
+          "lisa_class": "NS",
+          "place_context": {
+            "lsoa_code": "E01012889",
+            "locality_label": "Dairycoates",
+            "recognisable_places": [
+              "Dairycoates"
+            ],
+            "major_streets": [
+              "Clive Sullivan Way",
+              "Hessle Road",
+              "Freightliner Road"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012871",
+          "name": "Kingston upon Hull 015D",
+          "geo_sensitivity": 0.3289788653232843,
+          "geo_rank": 3,
+          "lisa_class": "NS",
+          "place_context": {
+            "lsoa_code": "E01012871",
+            "locality_label": "Sculcoates",
+            "recognisable_places": [
+              "Sculcoates",
+              "Stoneferry"
+            ],
+            "major_streets": [
+              "Clough Road",
+              "Bank Side",
+              "Innovation Drive"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012852",
+          "name": "Kingston upon Hull 024B",
+          "geo_sensitivity": 0.2424935782234082,
+          "geo_rank": 4,
+          "lisa_class": "HH",
+          "place_context": {
+            "lsoa_code": "E01012852",
+            "locality_label": "Stepney",
+            "recognisable_places": [],
+            "major_streets": [
+              "Londesborough Street",
+              "Argyle Street",
+              "Stanley Street"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012854",
+          "name": "Kingston upon Hull 029C",
+          "geo_sensitivity": 0.2245589842945031,
+          "geo_rank": 5,
+          "lisa_class": "HH",
+          "place_context": {
+            "lsoa_code": "E01012854",
+            "locality_label": "Old Town",
+            "recognisable_places": [
+              "Old Town"
+            ],
+            "major_streets": [
+              "Hessle Road",
+              "English Street",
+              "Porter Street"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        }
+      ],
+      "lowest_geo_sensitivity_lsoas": [
+        {
+          "id": "E01012910",
+          "name": "Kingston upon Hull 006D",
+          "geo_sensitivity": -0.0723810353882766,
+          "geo_rank": 168,
+          "lisa_class": "NS",
+          "place_context": {
+            "lsoa_code": "E01012910",
+            "locality_label": "Bransholme",
+            "recognisable_places": [],
+            "major_streets": [
+              "Newtondale",
+              "Marsdale",
+              "Littondale"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012911",
+          "name": "Kingston upon Hull 007E",
+          "geo_sensitivity": -0.0689985628925646,
+          "geo_rank": 167,
+          "lisa_class": "NS",
+          "place_context": {
+            "lsoa_code": "E01012911",
+            "locality_label": "Bransholme",
+            "recognisable_places": [],
+            "major_streets": [
+              "Robson Way",
+              "Howdale Road",
+              "Langsett Road"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012901",
+          "name": "Kingston upon Hull 020E",
+          "geo_sensitivity": -0.0681778764716347,
+          "geo_rank": 166,
+          "lisa_class": "NS",
+          "place_context": {
+            "lsoa_code": "E01012901",
+            "locality_label": "Garden Village",
+            "recognisable_places": [
+              "Mile House"
+            ],
+            "major_streets": [
+              "Lodge Street",
+              "Southcoates Lane",
+              "Kelvin Street"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012760",
+          "name": "Kingston upon Hull 025D",
+          "geo_sensitivity": -0.0670408966825999,
+          "geo_rank": 165,
+          "lisa_class": "NS",
+          "place_context": {
+            "lsoa_code": "E01012760",
+            "locality_label": "Avenues",
+            "recognisable_places": [
+              "Avenues"
+            ],
+            "major_streets": [
+              "Hardwick Street",
+              "Blenheim Street",
+              "Thoresby Street"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        },
+        {
+          "id": "E01012820",
+          "name": "Kingston upon Hull 022A",
+          "geo_sensitivity": -0.0641898382102716,
+          "geo_rank": 164,
+          "lisa_class": "LL",
+          "place_context": {
+            "lsoa_code": "E01012820",
+            "locality_label": "Garden Village",
+            "recognisable_places": [
+              "Mile House"
+            ],
+            "major_streets": [
+              "Summergangs Road",
+              "Lee Street",
+              "Westcott Street"
+            ],
+            "source": "OpenStreetMap (nearest named locality; longest named streets inside the LSOA)",
+            "use": "orientation only"
+          }
+        }
+      ],
+      "ranking": "signed coefficient (rank 1 = highest GeoSensitivity)",
+      "note": "GeoSensitivity is the Geo-branch random-donor SMILE coefficient: masking an LSOA moves its rows to the centroids of random other Hull LSOAs (50 draws, all other inputs kept), and the coefficient attributes the resulting prediction shift to that LSOA. Absolute shifts are larger where predicted crime is higher. It is not latitude or longitude feature attribution."
+    },
+    "global_spatial_pattern": {
+      "global_pattern": {
+        "moran_i": 0.24175215347144025,
+        "p_value": 0.001,
+        "interpretation": "positive spatial clustering of geosensitivity",
+        "n_permutations": 999,
+        "weights": "queen_contiguity_row_standardised",
+        "value_field": "geo_coefficient"
+      },
+      "lisa_counts": {
+        "HH": 12,
+        "LL": 10,
+        "HL": 0,
+        "LH": 3,
+        "NS": 143,
+        "ISLAND": 0
+      },
+      "pattern_scale": "not established",
+      "note": "LISA classes describe clustering of signed GeoSensitivity (random-donor design). They are not crime hotspots and not latitude/longitude effects.",
+      "lisa_counts_unit": "number of LSOAs in each LISA class, not number of clusters"
+    },
+    "top_global_features": [
+      {
+        "feature": "crime_rolling_mean_6",
+        "feature_label": "Crime roll mean 6",
+        "value": -5.320379275165058,
+        "abs_value": 5.320379275165058,
+        "rank": 1,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "crime_rolling_mean_3",
+        "feature_label": "Crime roll mean 3",
+        "value": -1.3298130975282778,
+        "abs_value": 1.3298130975282778,
+        "rank": 2,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "unemployed_pct_age16plus",
+        "feature_label": "Unemployment %",
+        "value": -0.3960661259511518,
+        "abs_value": 0.3960661259511518,
+        "rank": 3,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "long_term_sick_disabled_pct",
+        "feature_label": "Long-term sick %",
+        "value": -0.3405136132439109,
+        "abs_value": 0.3405136132439109,
+        "rank": 4,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "crime_lag_1",
+        "feature_label": "Crime lag 1",
+        "value": -0.2248514611558473,
+        "abs_value": 0.2248514611558473,
+        "rank": 5,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "owner_occupied_pct",
+        "feature_label": "Owner occupied %",
+        "value": -0.2003888016507109,
+        "abs_value": 0.2003888016507109,
+        "rank": 6,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "crime_lag_2",
+        "feature_label": "Crime lag 2",
+        "value": -0.1795466920630756,
+        "abs_value": 0.1795466920630756,
+        "rank": 7,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "social_rented_pct",
+        "feature_label": "Social rented %",
+        "value": -0.1062019671164097,
+        "abs_value": 0.1062019671164097,
+        "rank": 8,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "road_length_km",
+        "feature_label": "Road length",
+        "value": -0.1001836118704616,
+        "abs_value": 0.1001836118704616,
+        "rank": 9,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "private_rented_pct",
+        "feature_label": "Private rented %",
+        "value": -0.0864774374497475,
+        "abs_value": 0.0864774374497475,
+        "rank": 10,
+        "source": "published Feature branch (location excluded)"
+      }
+    ],
+    "lowest_global_features": [
+      {
+        "feature": "population_density_per_km2",
+        "feature_label": "Population density",
+        "value": 0.0027201553886483,
+        "abs_value": 0.0027201553886483,
+        "rank": 30,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "month_cos",
+        "feature_label": "Month cos",
+        "value": -0.0053717639170914,
+        "abs_value": 0.0053717639170914,
+        "rank": 29,
+        "source": "published Feature branch (location excluded)"
+      },
+      {
+        "feature": "intersection_count",
+        "feature_label": "Intersections",
+        "value": 0.0060318875812217,
+        "abs_value": 0.0060318875812217,
+        "rank": 28,
+        "source": "published Feature branch (location excluded)"
+      }
+    ],
+    "evaluation": {
+      "not_causal": true,
+      "feature_holdout_r2": 0.8951828603615944,
+      "feature_surrogate_test_r2": 0.9850448733172615,
+      "att_stability_feature_jaccard": 1.0,
+      "att_stability_geo_jaccard": 1.0,
+      "att_stability_status": "Evaluated",
+      "att_stability_note": "Controlled-input ATT stability. Distinct from multi-run Consistency.",
+      "consistency": {
+        "definition": "Multi-run explanation consistency across seeds (consistency_seed_base=100). Pairwise Rank Spearman, Score Pearson, and Top-20% Jaccard of |coefficients|. Not controlled-input ATT stability.",
+        "feature": {
+          "rank_spearman_mean": 0.9150611790878754,
+          "score_pearson_mean": 0.9998317231528663,
+          "top20pct_jaccard_mean": 1.0,
+          "mean_sd": 0.013045327739765526,
+          "seeds": [
+            100,
+            101,
+            102,
+            103,
+            104
+          ]
+        },
+        "geo": {
+          "rank_spearman_mean": 0.904457610560789,
+          "score_pearson_mean": 0.9963791501210253,
+          "top20pct_jaccard_mean": 0.8590873580347264,
+          "seeds": [
+            100,
+            101,
+            102,
+            103,
+            104
+          ]
+        }
+      },
+      "geo_design": {
+        "name": "random_donor",
+        "definition": "Random-donor design: masking an LSOA moves the coordinates of its rows to the centroid of a random other Hull LSOA (K = 50 draws), all other inputs kept; response is Wasserstein-1 on the affected LSOA-month predictions of the XGBoost model on 30 predictors + easting/northing; LSOAs ranked by the signed Geo-SMILE coefficient.",
+        "n_perturbations": 4000
+      },
+      "geo_fidelity_r2": 0.9295843061280951,
+      "geo_att_stability_jaccard_mean": 1.0,
+      "geo_att_stability_spearman_mean": 0.9785287835149652,
+      "feature_intervention_top_minus_random": 4.498649280145054,
+      "feature_intervention_empirical_p": 0.00999000999000999,
+      "geo_intervention_top_minus_random": 1.2728430531426076,
+      "geo_intervention_empirical_p": 0.000999000999000999,
+      "feature_neighbour_addition_spearman_mean": 0.9991101223581758,
+      "feature_expert_accuracy": {
+        "intersection": 7,
+        "k": 10,
+        "auroc": 0.8450000000000001
+      }
+    },
+    "sign_conventions": {
+      "local_feature_coefficient": "Directional. Masks code a retained player as one and the response is the perturbed minus the original prediction, so a positive value means the area's own value of the feature raises its prediction relative to the masking reference and a negative value lowers it.",
+      "global_feature_coefficient": "Not directional: fitted to a non-negative distance; rank by magnitude.",
+      "geo_coefficient": "Relative contribution to the coalition response; the sign is not a direction of crime.",
+      "feature_branch_model": "One XGBoost model on the substantive predictors plus the centroid coordinates; coordinates are kept at their true values and are not Feature players."
+    },
+    "limitations": [
+      "Not causal.",
+      "No RAG / no invented local context.",
+      "pattern_scale is not established in the computed outputs.",
+      "local_p_adjusted is not available in the published LISA table."
+    ],
+    "user_question": "Which areas matter most to the model, and where does it rely on built-environment features, and which ones?",
+    "built_environment_share": {
+      "definition": "Share of each LSOA's total local Feature importance (|local coefficient| summed over all 30 Feature players) that comes from the 12 built-environment players: area, nightlife, retail, transit stops, roads, intersections, green space (count and density variants pooled). It is a share of model attribution, not an effect on crime.",
+      "hull_feature_category_shares": {
+        "crime history (lags and rolling means)": 0.635,
+        "census population characteristics (employment, health, tenure, age, qualifications, density)": 0.176,
+        "built environment (12 players)": 0.137,
+        "seasonality (month of year)": 0.053
+      },
+      "hull_built_feature_shares": {
+        "roads": 0.027,
+        "green space": 0.025,
+        "retail": 0.022,
+        "transit stops": 0.02,
+        "nightlife": 0.018,
+        "intersections": 0.015,
+        "area": 0.011
+      },
+      "hull_share_note": "Hull-wide shares pool |local coefficient| over all 168 LSOAs; categories sum to 1.",
+      "hull_share": 0.137,
+      "median_lsoa_share": 0.157,
+      "highest_built_share_lsoas": [
+        {
+          "id": "E01012821",
+          "name": "Kingston upon Hull 011A",
+          "locality_label": "Longhill",
+          "built_share": 0.504,
+          "built_share_rank": 1,
+          "dominant_built_feature": "green space"
+        },
+        {
+          "id": "E01012849",
+          "name": "Kingston upon Hull 017C",
+          "locality_label": "Bilton Grange",
+          "built_share": 0.497,
+          "built_share_rank": 2,
+          "dominant_built_feature": "transit stops"
+        },
+        {
+          "id": "E01012838",
+          "name": "Kingston upon Hull 010E",
+          "locality_label": "Longhill",
+          "built_share": 0.493,
+          "built_share_rank": 3,
+          "dominant_built_feature": "green space"
+        },
+        {
+          "id": "E01012856",
+          "name": "Kingston upon Hull 024C",
+          "locality_label": "Sculcoates",
+          "built_share": 0.435,
+          "built_share_rank": 4,
+          "dominant_built_feature": "green space"
+        },
+        {
+          "id": "E01012795",
+          "name": "Kingston upon Hull 019B",
+          "locality_label": "Avenues",
+          "built_share": 0.424,
+          "built_share_rank": 5,
+          "dominant_built_feature": "green space"
+        }
+      ],
+      "dominant_feature_counts_top20": {
+        "green space": 10,
+        "transit stops": 7,
+        "roads": 1,
+        "intersections": 1,
+        "retail": 1
+      },
+      "rank1_geo_sensitivity_lsoa": {
+        "id": "E01033104",
+        "name": "Kingston upon Hull 029E",
+        "locality_label": "Old Town",
+        "built_share": 0.089,
+        "built_share_rank": 146,
+        "dominant_built_feature": "nightlife",
+        "geo_rank": 1,
+        "geo_rank_of": 168,
+        "crime_history_share": 0.822,
+        "crime_history_features": [
+          "crime_lag_1",
+          "crime_lag_2",
+          "crime_lag_3",
+          "crime_rolling_mean_3",
+          "crime_rolling_mean_6"
+        ],
+        "top_local_features": [
+          {
+            "feature": "crime_rolling_mean_6",
+            "share_of_local_importance": 0.325
+          },
+          {
+            "feature": "crime_rolling_mean_3",
+            "share_of_local_importance": 0.226
+          },
+          {
+            "feature": "crime_lag_1",
+            "share_of_local_importance": 0.112
+          },
+          {
+            "feature": "crime_lag_2",
+            "share_of_local_importance": 0.1
+          },
+          {
+            "feature": "crime_lag_3",
+            "share_of_local_importance": 0.06
+          }
+        ]
+      },
+      "limitation": "Attribution shares describe model behaviour; they are not planning targets."
+    },
+    "card_technical": false,
+    "local_attribution_patterns": {
+      "note": "Dashboard-derived analyses over per-LSOA local Feature-branch coefficients (Local Attribution Patterns section). Not published GeoSMILE artefacts. Independent of GeoSensitivity.",
+      "dominant_local_feature": {
+        "definition": "Per LSOA, the non-location Feature-branch local feature with the largest |local SMILE coefficient|.",
+        "hull_wide_top_features": [
+          {
+            "feature_label": "Crime roll mean 6",
+            "n_lsoas": 145
+          },
+          {
+            "feature_label": "Green space %",
+            "n_lsoas": 10
+          },
+          {
+            "feature_label": "Unemployment %",
+            "n_lsoas": 7
+          },
+          {
+            "feature_label": "Month cos",
+            "n_lsoas": 2
+          },
+          {
+            "feature_label": "Month sin",
+            "n_lsoas": 1
+          }
+        ]
+      },
+      "explanation_concentration": {
+        "definition": "Normalized entropy (0-1) of |local coefficient| shares across the non-location features per LSOA. Near 1 = many features contribute about equally (diffuse); near 0 = one or two features dominate (concentrated).",
+        "hull_wide_mean": 0.67,
+        "hull_wide_min": 0.458,
+        "hull_wide_max": 0.898
+      },
+      "explanation_archetypes": {
+        "definition": "K-means clusters on each LSOA's standardized local Feature-branch coefficient vector; groups areas with a similar explanation profile, independent of geographic adjacency.",
+        "k": 4,
+        "clusters": [
+          {
+            "cluster": 0,
+            "n_lsoas": 64,
+            "label": "Crime roll mean 6 / Long-term sick % / Unemployment %"
+          },
+          {
+            "cluster": 1,
+            "n_lsoas": 1,
+            "label": "Crime roll mean 6 / Crime roll mean 3 / Crime lag 1"
+          },
+          {
+            "cluster": 2,
+            "n_lsoas": 23,
+            "label": "Crime roll mean 6 / Crime roll mean 3 / Month sin"
+          },
+          {
+            "cluster": 3,
+            "n_lsoas": 80,
+            "label": "Crime roll mean 6 / Month sin / Crime roll mean 3"
+          }
+        ]
+      },
+      "dominant_global_feature_clustering": {
+        "definition": "Local Moran's I / LISA of the single globally most important Feature-branch driver's LOCAL coefficient across Hull LSOAs. This is spatial clustering of a NAMED FEATURE's attribution, not of GeoSensitivity — keep it distinct from global_spatial_pattern.",
+        "feature_label": "Crime roll mean 6",
+        "morans_i": 0.46,
+        "p_value": 0.004,
+        "significant_clustering_p05": true,
+        "lisa_counts": {
+          "HH": 17,
+          "LL": 24,
+          "HL": 0,
+          "LH": 3,
+          "NS": 124
+        }
+      }
+    },
+    "dashboard_figures": {
+      "lsoa": "E01033104",
+      "contrast_lsoa": "E01012907",
+      "figures": [
+        {
+          "title": "Spatial contrast",
+          "caption": "029E is 1.07 (rank 1/168); 007C is -0.05 (rank 141/168)."
+        },
+        {
+          "title": "Spatial structure",
+          "caption": "029E is High-High (local I = 10.95, unadjusted p = 0.007), in a contiguous HH cluster of 11."
+        },
+        {
+          "title": "Feature categories",
+          "caption": "Across Hull, crime history carries 63% of local importance, census characteristics 18% and the built environment 14%; in 029E crime history is 82% and the built environment 9%."
+        },
+        {
+          "title": "Built-environment features",
+          "caption": "Across Hull roads (2.7%) and green space (2.5%) lead the built-environment share; in 029E nightlife leads (3.3%)."
+        },
+        {
+          "title": "Built-environment share",
+          "caption": "029E gets 9% of its local importance from built-environment features (rank 146 of 168, led by nightlife); the highest is Longhill at 50% (green space)."
+        },
+        {
+          "title": "Local feature view",
+          "caption": "Crime, 6-month average (50.4) and crime, 3-month average (35.1) lead; crime history is 82% of the local explanation."
+        },
+        {
+          "title": "Local feature view",
+          "caption": "Crime, 6-month average (1.70) and crime, 3 months ago (0.60) lead; crime history is 55% of the local explanation."
+        }
+      ]
+    }
+  },
+  "addendum": "\n---\n\n## 17. COMPREHENSIVE MODE ADDENDUM\n\noutput_mode is comprehensive_mode: a City Planner / Local Authority reader asked for the\nfull briefing, shown next to feature charts and clustering maps. This section replaces\nsection 14 \"Length and form\" and its bolding rule. Every other section, including prohibited\nclaims and the self-check, still applies.\n\nWrite THREE short paragraphs separated by a blank line, with no headers or bullet lists.\nHard limit: at most 260 words in total. Count the words before answering and cut detail\n(street names first) until the count is within the limit.\n\n1. Where the model is most and least sensitive to an area's location (the highest and lowest\n   GeoSensitivity LSOAs by locality name, at most three of each, no street names) and how that\n   pattern clusters: cite Moran's I and its p-value and the LISA class counts from\n   global_spatial_pattern. Each LISA count is a number of LSOAs in that class, never a number\n   of clusters: write \"9 LSOAs are classed High-High\", not \"9 high clusters\". Do not describe\n   a cluster's shape, centre or membership unless a supplied field states it. Clustering is\n   not magnitude and not a crime hotspot. GeoSensitivity values are signed, not absolute.\n2. What the model relies on across Hull by feature category\n   (built_environment_share.hull_feature_category_shares), which built-environment features\n   carry that share (hull_built_feature_shares), and where the built-environment share is\n   highest (highest_built_share_lsoas, each with exactly its dominant_built_feature).\n3. The focus and contrast LSOAs in dashboard_figures: their GeoSensitivity ranks and what\n   leads their local explanation, from the figure captions supplied. End with one limitation.\n\nKey terms: 4-10 [[t:...]] spans in the whole text, not more. Mark only the findings and the\ntwo or three most important places or features; leave other place names unmarked. Every\nfigure, including percentages in parentheses, is wrapped in [[n:...]].\n\nHighlighting markup (you choose what to mark):\n\n- wrap every figure you cite as [[n:...]], e.g. [[n:14%]];\n- wrap the key terms a planner should catch when scanning as [[t:...]]. This is required,\n  not optional: keep to the counts given above, each at most 4 words (the finding phrase\n  itself, the leading feature names, or the key place names). Before answering, count the\n  [[t:...]] spans and fix any count outside the range;\n- no other markup and no markdown bold.\n\nEvery figure must be copied or rounded from EVIDENCE_JSON (shares as percentages:\n0.139 -> 14%). Do not compute new figures and do not cite a figure that is not supplied.\n\nFINAL LENGTH RULE, overriding every word limit stated above: at most 180 words in total, as three\nparagraphs of about 60 words each. Keep only the strongest finding of each numbered point and drop\nthe rest. Use 4-8 [[t:...]] spans in the whole text. Wrap every figure in [[n:...]]; write small\ncounts outside a citation as words (\"one of the ten\"), and do not cite years or dates.\n",
+  "run": {
+    "ok": true,
+    "model": "gpt-4.1",
+    "timestamp": "2026-11-09T16:28:19.615556+00:00",
+    "prompt_version": "geosmile-hull-v9+comprehensive-v2+extended-200",
+    "text": "GeoSensitivity is highest in [[t:Old Town]] ([[n:1.07]], Kingston upon Hull 029E), with other sensitive areas in Dairycoates ([[n:0.42]]) and Sculcoates ([[n:0.33]]); the lowest values are in Bransholme and Garden Village (both around [[n:-0.07]]). [[t:Spatial clustering]] is present: Moran's I is [[n:0.24]] (p = [[n:0.001]]), with [[n:12]] LSOAs classed High-High and [[n:10]] Low-Low for GeoSensitivity, but pattern scale is not established. These are not crime hotspots or latitude/longitude effects.\n\nAcross Hull, the model relies most on [[t:crime history features]] ([[n:63%]] of attribution), followed by census characteristics ([[n:18%]]) and the [[t:built environment]] ([[n:14%]]). Within the built environment, roads ([[n:2.7%]]) and green space ([[n:2.5%]]) contribute most citywide. The highest built-environment shares are in [[t:Longhill]] ([[n:50%]], green space) and Bilton Grange ([[n:50%]], transit stops).\n\nThe area with the highest GeoSensitivity, Old Town (029E), is in a contiguous High-High cluster of [[n:11]] and is led locally by crime history features ([[n:82%]] of its explanation), with nightlife as its main built-environment contributor ([[n:3.3%]]). The model's attribution shares describe its behaviour, not planning targets or causal effects.",
+    "checks": {
+      "ok": true,
+      "problems": []
+    }
+  }
+}
