@@ -1293,11 +1293,14 @@ position among other areas ("just behind", "after") unless a supplied rank state
 
 def area_card_problems(stakeholder: str, text: str, evidence: dict) -> list[str]:
     """Wording faults that the figure checks cannot see."""
-    if stakeholder != "police":
+    if stakeholder not in AREA_ROLES:
         return []
+    area = {"police": lambda e: e["police_signals"]["focus_lsoa"]["geo_rank"],
+            "planner": lambda e: (e["built_environment_share"].get("selected_area") or {}).get("geo_rank"),
+            "public": lambda e: e["public_overview"]["example_area"]["own_data_rank"]}[stakeholder]
     bare = _bare(text).lower()
     problems = []
-    if evidence["police_signals"]["focus_lsoa"]["geo_rank"] != 1 and "most sensitive" in bare:
+    if area(evidence) != 1 and "most sensitive" in bare:
         problems.append('"most sensitive" is true only of the top-ranked area: give the rank with no describing word')
     if re.search(r"just behind|close behind|\bmodest|\bhighly sensitive", bare):
         problems.append('remove "just behind", "modest" and "highly sensitive": no supplied field states them')

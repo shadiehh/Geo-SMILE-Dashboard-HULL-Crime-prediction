@@ -31,7 +31,7 @@ from dashboard.views.attribution_patterns import render_attribution_patterns_sec
 from dashboard.views.area_panel import render_area_panel
 from dashboard.views.role_banner import render_role_banner
 from dashboard.views.decision_support import decision_table, export_buttons, render_compare, render_filters, render_shortlist
-from dashboard.views.card_view import render_area_card, render_card, render_comparison, render_detailed
+from dashboard.views.card_view import render_area_card, render_area_detailed, render_card, render_comparison, render_detailed
 from dashboard.views.diagnostics import render_diagnostics_section
 from dashboard.views.explanation_panel import render_explanation_panel
 from dashboard.views.maps import prediction_months
@@ -138,7 +138,8 @@ def _header(bundle) -> None:
         "<div><span class='gs-pill'>Web GIS (Leaflet)</span><span class='gs-pill'>Hull, UK</span></div></div>",
         unsafe_allow_html=True)
     kpis = [("Hull LSOAs", f"{len(bundle.lsoa)}"), ("Prediction horizon", "Next month"),
-            ("Model", f"XGBoost · R² {ev['feature_holdout_r2']:.3f}"), ("Explanation", "Geo-SMILE · 4,000 perturbations")]
+            ("Model", f"XGBoost · R² {ev['feature_holdout_r2']:.3f}"),
+            ("Explanation", f"Geo-SMILE · {(ev.get('geo_design') or {}).get('n_perturbations', 0):,} perturbations")]
     cells = "".join(f"<div class='gs-kpi'><span>{k}</span><b>{v}</b></div>" for k, v in kpis)
     st.markdown(f"<div class='gs-kpis'>{cells}</div>", unsafe_allow_html=True)
 
@@ -147,19 +148,27 @@ def _page_card(bundle, role: str) -> None:
     render_role_banner(role)
     length = st.segmented_control("Length", ["Short card", "Detailed narrative"], default="Short card",
                                   key="narrative_length", label_visibility="collapsed")
-    area_card = role in cm.AREA_ROLES and length != "Detailed narrative"
+    area_card = role in cm.AREA_ROLES
     picker, chooser = st.columns([1, 2.4], gap="medium")
     with picker:
         selected = _lsoa_picker(bundle)
         st.caption("Choose an area here or click it on the map. Map: GeoSensitivity; the chosen area is outlined.")
         if not area_card:
-            st.caption("This card is Hull-wide. Area cards are written for the Resident, Planner and Police short cards.")
+            st.caption("This role's evidence is city-level, so its card is Hull-wide. Area cards are written for the "
+                       "Resident, Planner and Police roles.")
     with chooser:
         clicked = render_map(bundle, "geo_sensitivity", selected, show_labels=False, key="card_area_map", height=430)
     if clicked and clicked != selected:
         st.session_state["selected_lsoa"] = clicked
         st.rerun()
     if length == "Detailed narrative":
+        if area_card and selected and _openai_secret("OPENAI_API_KEY"):
+            render_area_detailed(bundle, role, selected)
+            return
+        if area_card and selected:
+            st.info("Area narratives are unavailable here because no API key is configured. Showing the Hull-wide narrative.")
+        elif area_card:
+            st.caption("Choose an area to generate its detailed narrative. Showing the archived Hull-wide narrative.")
         render_detailed(role)
         return
     if role not in cm.AREA_ROLES:

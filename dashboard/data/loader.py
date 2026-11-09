@@ -330,6 +330,11 @@ def _consistency_from_csv(path: Path) -> dict:
     return out
 
 
+def _neighbour_mean(att: dict, key: str) -> float | None:
+    values = [float(n[key]) for n in (att.get("neighbors") or {}).values() if n.get(key) is not None]
+    return _json_safe(sum(values) / len(values)) if values and att.get("status") == "Evaluated" else None
+
+
 def compact_evaluation(evaluation: dict) -> dict:
     v3 = evaluation.get("v3") or {}
     att = evaluation.get("att_stability") or {}
@@ -342,8 +347,9 @@ def compact_evaluation(evaluation: dict) -> dict:
             (two.get("feature_surrogate") or {}).get("test_r2")
         ),
         "geo_surrogate_test_r2": _json_safe((two.get("geo_surrogate") or {}).get("test_r2")),
-        "att_stability_feature_jaccard": 1.0 if att.get("status") == "Evaluated" else None,
-        "att_stability_geo_jaccard": 1.0 if att.get("status") == "Evaluated" else None,
+        # Means over the neighbour-addition runs in the result file; the final runs below replace them.
+        "att_stability_feature_jaccard": _neighbour_mean(att, "feature_jaccard"),
+        "att_stability_geo_jaccard": _neighbour_mean(att, "geo_jaccard"),
         "att_stability_status": att.get("status"),
         "att_stability_note": (
             "Controlled-input ATT stability. Distinct from multi-run Consistency."

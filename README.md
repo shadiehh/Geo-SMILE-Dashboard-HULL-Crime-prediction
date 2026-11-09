@@ -21,26 +21,35 @@ generate stakeholder explanations. The maps and LSOA evidence work without keys.
 
 The dashboard reads published artefacts only. It does not recompute GeoSMILE.
 
-## Branch definitions
+## Published design (what the dashboard shows)
 
-This folder turns Police.uk street-crime files into an LSOA-month next-month
-crime prediction experiment and fits the corrected three-branch GeoSMILE design.
+One XGBoost model predicts next-month crime per LSOA from 30 predictors plus the LSOA
+centroid easting and northing (hold-out R² 0.895, seed 42). Geo-SMILE explains that one
+model through two branches, each with N = 4,000 perturbations:
 
-## Branch definitions
-
-| Branch | Predictive inputs | Attributed variables |
+| Branch | What is masked | What it attributes |
 |---|---|---|
-| Geo | LSOA easting and northing | Location only |
-| Feature-A | Non-spatial variables | Non-spatial variables |
-| Feature-B | Non-spatial variables plus easting and northing | Non-spatial variables only |
+| Feature | The 30 predictors (coordinates kept at their true values, not players) | Global and local importance of each predictor |
+| Geo (random donor) | An LSOA's coordinates, moved to the centroid of a random other Hull LSOA (K = 50 draws), all other inputs kept | GeoSensitivity: how far predictions depend on knowing the area's location |
 
-Coordinates are deliberately **not** Feature-B attribution players. They condition
-the prediction and therefore may change the attribution of the substantive
-variables, while location remains isolated in the Geo branch.
+Local Feature coefficients are signed: masks code a retained player as 1 and the response is
+the perturbed minus the original prediction, so a positive value means the area's own value
+raises its prediction relative to the masking reference. GeoSensitivity's sign is a relative
+contribution, not a direction of crime. Neither is a causal effect.
 
-Mapped local values are **signed baseline-ablation effects** (prediction with the
-original feature minus prediction after median replacement). They are not local
-SMILE Ridge coefficients and are not causal effects.
+Results come from `hull_aligned_design_eval.py` (outputs/geo_aligned_design/xgboost/) and are
+copied into `outputs/dashboard_final/` by `build_final_dashboard_results.py`. Area predictions
+come from `build_dashboard_predictions.py`, which refits the model and stops unless it
+reproduces the published R². Stakeholder cards and narratives come from
+`generate_card_narrative.py` and `generate_detailed_narrative.py`.
+
+## Earlier experiment: three-branch design (not shown in the dashboard)
+
+`geosmile_hull.py` and `run_pipeline.py` fit an earlier three-branch design (Geo on coordinates
+only; Feature-A on non-spatial variables; Feature-B on non-spatial variables plus coordinates).
+Its maps used signed baseline-ablation effects rather than SMILE coefficients. The sections
+below describe that pipeline; its outputs are kept for comparison and are not read by the
+dashboard.
 
 ## Get the input
 

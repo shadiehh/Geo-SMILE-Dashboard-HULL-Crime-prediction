@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import html
 import os
 import re
@@ -52,8 +53,8 @@ def _generate(
 ) -> LLMResponse:
     spec = cm.SPECS.get(stakeholder["id"]) if mode else None
     version = f"{SYSTEM_PROMPT_VERSION}+{spec['version'][mode]}" if spec else SYSTEM_PROMPT_VERSION
-    if area_rule:
-        version += "+area-v6"
+    if area_rule:  # the rule's own hash, so a changed rule never reuses a cached answer
+        version += "+area-" + hashlib.sha1(area_rule.encode("utf-8")).hexdigest()[:8]
     key = evidence_hash(
         provider=provider.name,
         model=provider.model,
@@ -130,6 +131,50 @@ def generate_area_card(bundle: HullBundle, stakeholder_id: str, lsoa: str) -> LL
         if checks["ok"]:
             return response
         note = AREA_RETRY_NOTE.format(problems="; ".join(response.usage["checks"]["problems"]), previous=response.text)
+    return response
+
+
+DETAILED_AREA_RULE = """
+
+AREA NARRATIVE: the reader selected {name} ({place}). The paragraph about the selected area describes this area
+from its own fields and the dashboard_figures captions. Do not call it typical, exceptional or high unless a supplied
+field says so, and never describe another area as the selected one. Quote a category share (such as crime history)
+only as that category's total, never as the sum of the features you name; do not call any value modest or large.
+"""
+
+
+def generate_area_detailed(bundle: HullBundle, stakeholder_id: str, lsoa: str) -> LLMResponse:
+    """A detailed narrative for one area, retried with the checker's feedback. Check usage['checks'] before showing it."""
+    from generate_detailed_narrative import EXTENDED_RULE, ROLE_RULES
+
+    spec = cm.SPECS[stakeholder_id]
+    data = stakeholder_data()
+    evidence = build_evidence(bundle, stakeholder_id=stakeholder_id, current_map_view="geo_sensitivity", scope="lsoa",
+                              selected_lsoa=lsoa, user_question=spec["question"])
+    cm.add_evidence(evidence, data, stakeholder_id, "comprehensive", focus=lsoa)
+    evidence["local_attribution_patterns"] = build_local_attribution_evidence(
+        bundle.local_features, bundle.global_features, bundle.geometry, tuple(bundle.feature_names), lsoa)
+    contrast = data.default_contrast(lsoa)
+    evidence["dashboard_figures"] = {"lsoa": lsoa, "contrast_lsoa": contrast if stakeholder_id == "planner" else None,
+                                     "figures": figure_evidence(stakeholder_panels(stakeholder_id, lsoa, contrast))}
+    rule = (EXTENDED_RULE + ROLE_RULES.get(stakeholder_id, "")
+            + DETAILED_AREA_RULE.format(name=data.short(lsoa), place=data.place(lsoa) or "Hull"))
+    provider = _providers_for("openai", "comprehensive")[0]
+    stakeholder = {"id": stakeholder_id, "label": STAKEHOLDERS[stakeholder_id]}
+    note = ""
+    for attempt in range(AREA_ATTEMPTS):
+        response = _generate(provider, evidence, stakeholder, spec["question"], force=attempt > 0, mode="comprehensive",
+                             area_rule=rule, retry_note=note)
+        if not response.ok:
+            return response
+        checks = response.usage["checks"]
+        wording = cm.area_card_problems(stakeholder_id, response.text, evidence)
+        if wording:
+            checks = response.usage["checks"] = {"ok": False, "problems": [*checks["problems"], *wording]}
+        if checks["ok"]:
+            return response
+        note = AREA_RETRY_NOTE.replace("JSON object", "text").format(
+            problems="; ".join(checks["problems"]), previous=response.text)
     return response
 
 
