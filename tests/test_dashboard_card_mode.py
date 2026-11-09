@@ -14,7 +14,7 @@ from dashboard.llm.openai_provider import OpenAIProvider
 from dashboard.llm.prompt import GEOSMILE_SYSTEM_PROMPT
 
 ROOT = Path(__file__).resolve().parents[1]
-CARD_JSON = ROOT / "outputs" / "stakeholder_narratives" / "planner_card_llm.json"
+CARD_JSON = ROOT / "outputs" / "dashboard_final" / "cards" / "planner_card_llm.json"
 
 
 @pytest.fixture(scope="module")

@@ -367,7 +367,11 @@ def local_feature_coefficients(
     kernel: str,
     seed: int,
 ) -> pd.DataFrame:
-    """Per-observation local Ridge coefficients, then mean by LSOA."""
+    """Per-observation local Ridge coefficients, then mean by LSOA.
+
+    Masks are 1 = kept and the response is perturbed minus original: a positive coefficient means
+    the observed value raises the prediction relative to the masking reference.
+    """
     distances = 1.0 - masks.mean(axis=1)
     rng = np.random.default_rng(seed)
     order = rng.permutation(len(masks))
@@ -377,7 +381,7 @@ def local_feature_coefficients(
     weights = np.clip(apply_kernel(distances[tr], kernel, sigma), 1e-8, None)
     local = np.zeros((len(original), len(players)), dtype=np.float32)
     for i in range(len(original)):
-        y_i = original[i] - all_pert[tr, i]
+        y_i = all_pert[tr, i] - original[i]
         ridge = Ridge(alpha=1.0)
         ridge.fit(masks[tr], y_i, sample_weight=weights)
         local[i] = ridge.coef_

@@ -1,0 +1,310 @@
+{
+  "n": 4000,
+  "model": "xgboost",
+  "predictive": {
+    "r2": 0.8951828603615944,
+    "mae": 4.831365756690502,
+    "rmse": 6.906991039191308
+  },
+  "feature": {
+    "fidelity": {
+      "R2": 0.9850448733172615,
+      "Weighted R2": 0.9850349096621187,
+      "MAE": 0.29547916767698423,
+      "WMAE": 0.29635454187062327,
+      "RMSE": 0.33947820486297153,
+      "WRMSE": 0.340655193894575,
+      "best_kernel": "inverse",
+      "validation_r2_by_kernel": {
+        "rbf": 0.983863768186592,
+        "laplace": 0.9840893274535829,
+        "inverse": 0.9841664279557926
+      },
+      "n_masks": 4000,
+      "n_test": 800
+    },
+    "smile_diagnostics": {
+      "best_kernel": "inverse",
+      "validation_r2_by_kernel": {
+        "rbf": 0.984173668846527,
+        "laplace": 0.9843696872635116,
+        "inverse": 0.9844343299434206
+      },
+      "test_r2": 0.9843436314594234,
+      "n_unique_masks": 4000,
+      "response": "wasserstein_1_prediction_distribution",
+      "kernel_distance": "hamming_fraction_features_masked"
+    },
+    "accuracy": {
+      "accuracy": 0.8,
+      "balanced_accuracy": 0.7749999999999999,
+      "precision": 0.7,
+      "recall": 0.7,
+      "f1": 0.7,
+      "auroc": 0.8450000000000001,
+      "auprc": 0.7896092132505175,
+      "intersection": 7,
+      "overlap_ratio": 0.7,
+      "jaccard_at_k": 0.5384615384615384,
+      "k": 10,
+      "n": 30,
+      "model_ids": [
+        "crime_lag_1",
+        "crime_lag_2",
+        "crime_rolling_mean_3",
+        "crime_rolling_mean_6",
+        "long_term_sick_disabled_pct",
+        "owner_occupied_pct",
+        "private_rented_pct",
+        "road_length_km",
+        "social_rented_pct",
+        "unemployed_pct_age16plus"
+      ]
+    },
+    "intervention": {
+      "k": 10,
+      "top_response": 8.46854861328999,
+      "bottom_response": 0.7787478807426623,
+      "random_mean": 3.9698993331449355,
+      "random_ci95_low": 0.7473816069463887,
+      "random_ci95_high": 8.252581417667011,
+      "top_minus_random": 4.498649280145054,
+      "top_minus_bottom": 7.689800732547328,
+      "empirical_p_top_vs_random": 0.00999000999000999,
+      "n_random": 1000
+    },
+    "stability": {
+      "directions": {
+        "north": {
+          "lsoa21cd": "E01012953",
+          "jaccard": 1.0,
+          "spearman_abs": 0.9986651835372636,
+          "top10_retained": 10,
+          "prediction_spearman": 1.0
+        },
+        "east": {
+          "lsoa21cd": "E01013094",
+          "jaccard": 1.0,
+          "spearman_abs": 0.9991101223581758,
+          "top10_retained": 10,
+          "prediction_spearman": 1.0
+        },
+        "south": {
+          "lsoa21cd": "E01013009",
+          "jaccard": 1.0,
+          "spearman_abs": 0.9991101223581758,
+          "top10_retained": 10,
+          "prediction_spearman": 1.0
+        },
+        "west": {
+          "lsoa21cd": "E01013112",
+          "jaccard": 1.0,
+          "spearman_abs": 0.9995550611790878,
+          "top10_retained": 10,
+          "prediction_spearman": 1.0
+        }
+      },
+      "jaccard_mean": 1.0,
+      "spearman_mean": 0.9991101223581758
+    },
+    "consistency": {
+      "seeds": [
+        100,
+        101,
+        102,
+        103,
+        104
+      ],
+      "mean_variance": 0.0001969740056662761,
+      "median_variance": 0.00014928581012270517,
+      "mean_sd": 0.013045327739765526,
+      "median_sd": 0.012203502009799895,
+      "max_sd": 0.02436860737751984,
+      "max_sd_feature": "road_length_km_per_km2",
+      "rank_spearman_mean": 0.9150611790878754,
+      "score_pearson_mean": 0.9998317231528663,
+      "top20pct_jaccard_mean": 1.0,
+      "leading_features_mean_sd": {
+        "crime_rolling_mean_6": {
+          "mean_coefficient": -5.331038616047897,
+          "sd": 0.011379874812110953
+        },
+        "crime_rolling_mean_3": {
+          "mean_coefficient": -1.3371488305036714,
+          "sd": 0.016509350815751698
+        },
+        "unemployed_pct_age16plus": {
+          "mean_coefficient": -0.3896567520820901,
+          "sd": 0.014057130817126503
+        }
+      }
+    },
+    "importance": [
+      {
+        "feature": "crime_rolling_mean_6",
+        "coefficient": -5.320379275165058,
+        "abs_coefficient": 5.320379275165058
+      },
+      {
+        "feature": "crime_rolling_mean_3",
+        "coefficient": -1.3298130975282778,
+        "abs_coefficient": 1.3298130975282778
+      },
+      {
+        "feature": "unemployed_pct_age16plus",
+        "coefficient": -0.3960661259511518,
+        "abs_coefficient": 0.3960661259511518
+      },
+      {
+        "feature": "long_term_sick_disabled_pct",
+        "coefficient": -0.34051361324391094,
+        "abs_coefficient": 0.34051361324391094
+      },
+      {
+        "feature": "crime_lag_1",
+        "coefficient": -0.2248514611558473,
+        "abs_coefficient": 0.2248514611558473
+      },
+      {
+        "feature": "owner_occupied_pct",
+        "coefficient": -0.2003888016507109,
+        "abs_coefficient": 0.2003888016507109
+      },
+      {
+        "feature": "crime_lag_2",
+        "coefficient": -0.1795466920630756,
+        "abs_coefficient": 0.1795466920630756
+      },
+      {
+        "feature": "social_rented_pct",
+        "coefficient": -0.1062019671164097,
+        "abs_coefficient": 0.1062019671164097
+      },
+      {
+        "feature": "road_length_km",
+        "coefficient": -0.10018361187046168,
+        "abs_coefficient": 0.10018361187046168
+      },
+      {
+        "feature": "private_rented_pct",
+        "coefficient": -0.08647743744974755,
+        "abs_coefficient": 0.08647743744974755
+      },
+      {
+        "feature": "no_qualifications_pct",
+        "coefficient": -0.07196096797014233,
+        "abs_coefficient": 0.07196096797014233
+      },
+      {
+        "feature": "young_adult_15_34_pct",
+        "coefficient": -0.06636023302162306,
+        "abs_coefficient": 0.06636023302162306
+      },
+      {
+        "feature": "green_space_pct",
+        "coefficient": -0.0627745210600209,
+        "abs_coefficient": 0.0627745210600209
+      },
+      {
+        "feature": "nightlife_count",
+        "coefficient": -0.056495141247448914,
+        "abs_coefficient": 0.056495141247448914
+      },
+      {
+        "feature": "nightlife_per_km2",
+        "coefficient": -0.05523364196367827,
+        "abs_coefficient": 0.05523364196367827
+      },
+      {
+        "feature": "retail_per_km2",
+        "coefficient": -0.05301147259130656,
+        "abs_coefficient": 0.05301147259130656
+      },
+      {
+        "feature": "transit_stop_count",
+        "coefficient": -0.048623205389866225,
+        "abs_coefficient": 0.048623205389866225
+      },
+      {
+        "feature": "retail_count",
+        "coefficient": -0.04754880643255452,
+        "abs_coefficient": 0.04754880643255452
+      },
+      {
+        "feature": "older_adult_65_plus_pct",
+        "coefficient": -0.047230635130455556,
+        "abs_coefficient": 0.047230635130455556
+      },
+      {
+        "feature": "transit_stop_per_km2",
+        "coefficient": -0.04254440634165204,
+        "abs_coefficient": 0.04254440634165204
+      },
+      {
+        "feature": "level4_plus_qualification_pct",
+        "coefficient": -0.03678166642087243,
+        "abs_coefficient": 0.03678166642087243
+      },
+      {
+        "feature": "month_sin",
+        "coefficient": -0.032033691608277744,
+        "abs_coefficient": 0.032033691608277744
+      },
+      {
+        "feature": "economically_inactive_pct",
+        "coefficient": -0.031178160966980853,
+        "abs_coefficient": 0.031178160966980853
+      },
+      {
+        "feature": "intersection_per_km2",
+        "coefficient": -0.026369984640728792,
+        "abs_coefficient": 0.026369984640728792
+      },
+      {
+        "feature": "lsoa_area_km2",
+        "coefficient": -0.021287844183495244,
+        "abs_coefficient": 0.021287844183495244
+      },
+      {
+        "feature": "crime_lag_3",
+        "coefficient": -0.01868039627494385,
+        "abs_coefficient": 0.01868039627494385
+      },
+      {
+        "feature": "road_length_km_per_km2",
+        "coefficient": -0.01685014001309713,
+        "abs_coefficient": 0.01685014001309713
+      },
+      {
+        "feature": "intersection_count",
+        "coefficient": 0.00603188758122174,
+        "abs_coefficient": 0.00603188758122174
+      },
+      {
+        "feature": "month_cos",
+        "coefficient": -0.005371763917091475,
+        "abs_coefficient": 0.005371763917091475
+      },
+      {
+        "feature": "population_density_per_km2",
+        "coefficient": 0.002720155388648311,
+        "abs_coefficient": 0.002720155388648311
+      }
+    ],
+    "concentration": {
+      "hoyer": 0.8582267381503084,
+      "gini": 0.8138668268438474,
+      "entropy": 1.6956033925673795,
+      "nonzero": 30,
+      "n": 30
+    },
+    "mapped_top6": [
+      "crime_rolling_mean_6",
+      "crime_rolling_mean_3",
+      "unemployed_pct_age16plus",
+      "long_term_sick_disabled_pct",
+      "crime_lag_1",
+      "owner_occupied_pct"
+    ]
+  }
+}

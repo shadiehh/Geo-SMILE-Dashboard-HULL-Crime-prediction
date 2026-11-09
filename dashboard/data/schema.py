@@ -18,6 +18,14 @@ LSOA_NAME = "lsoa21nm"
 # LSOAs are ranked by the SIGNED coefficient. Files written in the dashboard layout by
 # build_random_donor_dashboard_files.py. The earlier area-data design
 # (outputs/geo_area_data_eval) and coordinates-only design are no longer shown.
+# Chapter 4 results written by build_final_dashboard_results.py.
+FINAL_DIR = "outputs/dashboard_final"
+CARDS_DIR = f"{FINAL_DIR}/cards"
+FEATURE_METRICS_JSON = f"{FINAL_DIR}/feature_metrics_N4000.json"
+ATT_FAITHFULNESS_CSV = f"{FINAL_DIR}/att_faithfulness.csv"
+FEATURE_SWEEP_DIR = "outputs/geo_aligned_design/xgboost"
+REGIONS_CSV = "outputs/geo_area_data_models/top50_maps/highlighted_regions_lsoas.csv"
+
 GEO_DESIGN = "random_donor"
 GEO_DESIGN_DIR = "outputs/geo_random_donor_eval"
 GEO_DESIGN_N = 4000
@@ -28,7 +36,7 @@ GEO_ABS = "geo_abs_coefficient"
 GEO_RANK_FIELD = GEO_SIGNED
 
 # Feature SMILE with lon/lat as attribution players (distinct from Geo branch).
-LOCATION_LOCAL_CSV = "outputs/feature_with_location/location_local_coefficients.csv"
+LOCATION_LOCAL_CSV = f"{FINAL_DIR}/location_local_coefficients.csv"
 FEATURE_LOCAL_WITH_LOCATION_CSV = (
     "outputs/feature_with_location/feature_with_location_local_coefficients.csv"
 )
@@ -40,8 +48,8 @@ LATITUDE_EFFECT = "centroid_latitude"
 LOCATION_FEATURE_NAMES = (LONGITUDE_EFFECT, LATITUDE_EFFECT)
 
 # Published Feature branch (coordinates excluded from attribution).
-FEATURE_LOCAL_PUBLISHED_CSV = "outputs/feature_local_coefficients.csv"
-FEATURE_GLOBAL_PUBLISHED_CSV = "outputs/feature_global_importance.csv"
+FEATURE_LOCAL_PUBLISHED_CSV = f"{FINAL_DIR}/feature_local_coefficients_N4000.csv"
+FEATURE_GLOBAL_PUBLISHED_CSV = f"{FINAL_DIR}/feature_global_importance_N4000.csv"
 
 # LISA on the signed random-donor Geo coefficient (compute_geo_spatial_patterns.py
 # --signed). The source column named geo_sensitivity is a HIGH/MID/LOW
@@ -68,7 +76,7 @@ GEO_CONSISTENCY_CSV = "outputs/geosmile_hull_geo_consistency.csv"
 # Robustness sweep (Model Diagnostics tab): eval_by_n_perturb.py output.
 EVAL_SWEEP_DIR = "outputs/eval_by_n_perturb"
 EVAL_SWEEP_N_GRID = (1000, 2000, 3000, 4000, 5000, 7500, 10000)
-PUBLISHED_N = {"feature": 1024, "geo": GEO_DESIGN_N}
+PUBLISHED_N = {"feature": 4000, "geo": GEO_DESIGN_N}
 EXPERT_ALIGNMENT_FEATURE_CSV = "outputs/geosmile_hull_expert_alignment_merged_feature.csv"
 EXPERT_ALIGNMENT_GEO_CSV = "outputs/geosmile_hull_expert_alignment_merged_geo.csv"
 PUBLISHED_FEATURE_FIDELITY_CSV = "outputs/geosmile_hull_feat_fidelity.csv"

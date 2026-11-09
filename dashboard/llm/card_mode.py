@@ -44,7 +44,7 @@ PLANNER_QUESTION = ("Which areas matter most to the model, and where does it rel
 CENTRE = "E01033104"  # Kingston upon Hull 029E, rank 1 GeoSensitivity
 N_TOP = 5
 MODES = {"short": "Short card", "comprehensive": "Comprehensive"}
-MODE_VERSION = {"short": "card-v1", "comprehensive": "comprehensive-v2"}
+MODE_VERSION = {"short": "card-v2", "comprehensive": "comprehensive-v2"}
 
 # The 12 built-environment Feature players, count and density variants pooled.
 BUILT = {
@@ -128,6 +128,8 @@ ILLUSTRATIVE_NARRATIVE in the user message shows the expected structure, order, 
 markup density. It is an example of wording, not evidence: take every figure from
 EVIDENCE_JSON.
 """
+CARD_MODE_ADDENDUM += ("\nNo more than four key terms in any one section. Wrap every figure as [[n:...]], "
+                       "including a percentage in parentheses.\n")
 CARD_MODE_ADDENDUM = CARD_MODE_ADDENDUM.rstrip()
 
 COMPREHENSIVE_MODE_ADDENDUM = """
@@ -189,6 +191,16 @@ ILLUSTRATIVE_NARRATIVE = {
 
 
 # ---------------------------------------------------------------- evidence
+def _feature_final() -> dict:
+    """Feature-branch metrics of the Chapter 4 run."""
+    from pathlib import Path
+
+    from dashboard.data.schema import FEATURE_METRICS_JSON
+
+    path = Path(__file__).resolve().parents[2] / FEATURE_METRICS_JSON
+    return json.loads(path.read_text(encoding="utf-8"))["feature"]
+
+
 def category(feature: str) -> str:
     """Category key of one of the 30 Feature players."""
     if feature.startswith("crime_"):
@@ -332,6 +344,7 @@ ILLUSTRATIVE_NARRATIVE in the user message shows the expected structure, order, 
 markup density. It is an example of wording, not evidence: take every figure from
 EVIDENCE_JSON.
 """
+POLICE_CARD_ADDENDUM += "\nMark each key term once only, and no more than four in any one section.\n"
 POLICE_CARD_ADDENDUM = POLICE_CARD_ADDENDUM.rstrip()
 
 POLICE_COMPREHENSIVE_ADDENDUM = """
@@ -480,9 +493,9 @@ def police_block(d: StakeholderData) -> dict:
 MANAGER_QUESTION = ("What drives the model's predictions across Hull, what is exceptional, what can be set aside, "
                     "and how far can the results be trusted?")
 TOP_K = 20
-MANAGER_CONTRAST = "E01012825"  # Bilton Grange 010B: most sensitive (random-donor GeoSensitivity, rank 28) of the areas not led by crime history
+MANAGER_CONTRAST = "E01012775"  # East Ella 028D: most sensitive (random-donor GeoSensitivity, rank 30) of the areas not led by crime history
 SET_ASIDE_SHARE = 0.01          # a feature is a set-aside candidate below 1% of pooled local importance
-ATT_FAITHFULNESS_CSV = "outputs/faithfulness_accuracy_r2/att_faithfulness_random_donor.csv"
+ATT_FAITHFULNESS_CSV = "outputs/dashboard_final/att_faithfulness.csv"
 
 MANAGER_CARD_ADDENDUM = """
 ---
@@ -543,6 +556,7 @@ ILLUSTRATIVE_NARRATIVE in the user message shows the expected structure, order, 
 markup density. It is an example of wording, not evidence: take every figure from
 EVIDENCE_JSON, and write your own sentences.
 """
+MANAGER_CARD_ADDENDUM += "\nNo more than four key terms in any one section. Wrap every figure as [[n:...]].\n"
 MANAGER_CARD_ADDENDUM = MANAGER_CARD_ADDENDUM.rstrip()
 
 MANAGER_COMPREHENSIVE_ADDENDUM = """
@@ -573,16 +587,15 @@ MANAGER_ILLUSTRATIVE_NARRATIVE = {
     "headline": "[[t:Recent crime history]] drives the model almost everywhere; a handful of features "
                 "can be [[t:set aside]].",
     "tiles": [
-        {"value": "144/168", "label": "areas where the six-month crime average leads"},
+        {"value": "145/168", "label": "areas where the six-month crime average leads"},
         {"value": "2.6x", "label": "Old Town's sensitivity against the next area"},
         {"value": "10/30", "label": "features the model barely uses"},
         {"value": "20/20", "label": "top areas kept when neighbouring areas are added"},
     ],
     "section_01": "As panel 02 shows, the model reads Hull mainly through [[t:crime history]], then "
-                  "census characteristics. [[t:Bilton Grange]] is the reverse: census and built-environment "
-                  "features lead, with green space alone [[n:15%]] of its reasoning. It is one of [[n:24]] "
+                  "census characteristics. [[t:East Ella]] is the reverse: other features lead. It is one of [[n:22]] "
                   "areas not led by crime history, and these are [[t:rarely where the model is most "
-                  "sensitive]]: the highest of them ranks [[n:28]]. Old Town remains the sensitivity exception.",
+                  "sensitive]]: the highest of them ranks [[n:30]]. Old Town remains the sensitivity exception.",
     "section_02": "Road density, intersection density and nightlife count are among the "
                   "[[t:candidates to set aside]]: each carries under [[n:1%]], all of them together "
                   "[[n:7%]] of local importance. Related count and "
@@ -743,6 +756,13 @@ ILLUSTRATIVE_NARRATIVE in the user message shows the expected structure, order, 
 markup density. It is an example of wording, not evidence: take every figure from
 EVIDENCE_JSON, and write your own sentences.
 """
+RESEARCHER_CARD_ADDENDUM += (
+    "\nSeed reproducibility means feature_seed_rank_spearman and geo_seed_rank_spearman only; never describe a "
+    "neighbour-addition value as reproducibility across seeds. Give feature_seed_rank_spearman in section_02 and "
+    "put geo_seed_rank_spearman and the neighbour-addition Jaccard on tiles only: no figure on a tile may appear "
+    "again in the text. Wrap every figure as [[n:...]], including a total such as [[n:32]]. When citing the "
+    "largest local effect, name only the place that has that value.\n"
+)
 RESEARCHER_CARD_ADDENDUM = RESEARCHER_CARD_ADDENDUM.rstrip()
 
 RESEARCHER_COMPREHENSIVE_ADDENDUM = """
@@ -855,7 +875,9 @@ def researcher_block(d: StakeholderData) -> dict:
             "intervention_note": "supplementary intervention impact, not ATT Faithfulness",
             "neighbour_addition_jaccard_mean": round(float(m["stability"]["jaccard_mean"]), 2),
             "geo_seed_rank_spearman": round(float(m["consistency"]["rank_spearman_mean"]), 3),
-            "feature_fidelity_and_seed_consistency": "see evaluation (feature_surrogate_test_r2, consistency.feature)",
+            "feature_surrogate_r2": round(float(_feature_final()["fidelity"]["R2"]), 3),
+            "feature_seed_rank_spearman": round(float(_feature_final()["consistency"]["rank_spearman_mean"]), 3),
+            "reproducibility_note": "seed values compare independently seeded runs; neighbour-addition values are a separate stability test",
         },
         "shown_on_panels": {
             "note": "figures the two panels already print; tiles and text must not repeat them",
@@ -1027,9 +1049,8 @@ form" and its bolding rule. Every other section, including prohibited claims and
 self-check, still applies.
 
 Assurance language: exact metric names and values are allowed; keep each metric's definition
-exact. ATT Faithfulness (across-model r between predictive R2 and ATT accuracy) and
-intervention impact (top 20 against random masking) are different measures: never conclude one
-from the other.
+exact. Do not mention ATT Faithfulness on this card. Do not describe the expert reference as
+provisional, single, or one person's view.
 
 No repetition: every figure appears ONCE on the card. The panels already print the figures in
 governance_assurance.shown_on_panels (perturbation count, seed, "20/20 retained"), so neither
@@ -1041,14 +1062,13 @@ Return ONLY one JSON object with exactly these keys:
 - "tiles": exactly 4 objects {"value": ..., "label": ...}. value is one figure from the
   evidence (at most 8 characters); label is at most 8 words naming the measure exactly. Use
   exactly these four, in this order: Geo rank Spearman across seeds, Geo top-fifth Jaccard
-  across seeds, rank-1 to rank-2 ratio, Geo ATT Faithfulness r.
+  across seeds, rank-1 to rank-2 ratio, Geo surrogate fidelity R2.
 - "section_01": at most 75 words, provenance and reproducibility (panels 01-02): which model and
   design produced the explanation (point to panel 02 for count and seed), how many areas each
-  perturbation masks, the expert reference's status, and seed reproducibility of the most
+  perturbation masks, that the expert reference was drawn blind to the outputs, and seed reproducibility of the most
   variable area and of the Feature branch. Do not cite any tile value.
 - "section_02": at most 75 words, limitations requiring review: the sign is not a direction of
-  crime; the single provisional expert; unadjusted local LISA p-values; ATT Faithfulness not
-  demonstrated (describe in words, its value is on a tile); the most sensitive area's dominance
+  crime; unadjusted local LISA p-values; the most sensitive area's dominance
   (name it by locality only, never by its rank) as a case for separate model review; that
   GeoSensitivity partly reflects predicted crime level. Do not cite any tile value.
 - "footer": one limitation, at most 15 words.
@@ -1070,8 +1090,8 @@ GOVERNANCE_COMPREHENSIVE_ADDENDUM = """
 output_mode is comprehensive_mode: a Governance / Assurance reader asked for the full
 assurance briefing, shown next to the seed-consistency chart and the stability figure. This
 section replaces section 14 "Length and form" and its bolding rule. Every other section still
-applies. Exact metric names and values are expected; ATT Faithfulness and intervention impact
-are different measures.
+applies. Exact metric names and values are expected. Do not mention ATT Faithfulness, and do
+not describe the expert reference as provisional, single, or one person's view.
 
 Write THREE short paragraphs separated by a blank line, with no headers or bullet lists.
 Hard limit: at most 260 words in total.
@@ -1079,7 +1099,7 @@ Hard limit: at most 260 words in total.
 1. Provenance: what each branch explains, model, design, perturbations, seeds, the expert
    reference's status and the prompt version.
 2. Robustness: fidelity, neighbour stability, seed consistency for both branches, intervention
-   impact (supplementary) and ATT Faithfulness across models. If an LSOA is selected, whether
+   impact (supplementary). If an LSOA is selected, whether
    its explanation is unusual or unstable relative to Hull.
 3. Unusual cases, missing evidence and risks of unsupported inference, ending with the
    boundary of appropriate use.
@@ -1095,17 +1115,17 @@ GOVERNANCE_ILLUSTRATIVE_NARRATIVE = {
         {"value": "0.904", "label": "Geo rank Spearman across seeds"},
         {"value": "0.86", "label": "Geo top-fifth Jaccard across seeds"},
         {"value": "2.6x", "label": "Rank-1 to rank-2 GeoSensitivity ratio"},
-        {"value": "0.32", "label": "Geo ATT Faithfulness r, ten models"},
+        {"value": "0.93", "label": "Geo surrogate fidelity R2"},
     ],
     "section_01": "GeoSensitivity comes from one XGBoost model under [[t:random-donor location masking]] (panel 02 gives "
                   "the count and seed); each perturbation masks [[n:5]] to [[n:10]] areas. The expert "
-                  "reference is a [[t:provisional single expert]], intended to be blind to the outputs. Old "
+                  "reference was [[t:drawn blind]] to the outputs. Old "
                   "Town varies most across seeds ([[n:3.4%]] of its mean); Feature ranks are [[t:less "
                   "reproducible]] ([[n:0.69]]).",
     "section_02": "The coefficient [[t:sign is not a direction]] of crime. The expert view comes from one "
-                  "person, and local LISA p-values are unadjusted. Across models, accuracy does not track "
-                  "expert agreement, so [[t:ATT Faithfulness]] is not demonstrated. Old Town dominates the "
-                  "geographic picture and needs [[t:separate model review]].",
+                  "Local LISA p-values are [[t:unadjusted]] for multiple testing. Old Town dominates the "
+                  "geographic picture and needs [[t:separate model review]], and GeoSensitivity partly "
+                  "reflects predicted crime level.",
     "footer": "Associational explanation; not a basis for decisions about individuals or communities.",
 }
 
@@ -1115,9 +1135,6 @@ def governance_block(d: StakeholderData) -> dict:
 
     m = d.metrics
     s = m["smile_diagnostics"]
-    att = pd.read_csv(Path(__file__).resolve().parents[2] / ATT_FAITHFULNESS_CSV)
-    att_r = {b: round(float(att[(att["branch"] == b) & (att["measure"] == "att_accuracy")]["pearson_r"].iloc[0]), 2)
-             for b in ("Feature", "Geo")}
     c = m["consistency"]
     g = d.geo.sort_values("geo_rank")
     return {
@@ -1126,20 +1143,17 @@ def governance_block(d: StakeholderData) -> dict:
             "geo_perturbations": int(m["n"]), "base_seed": 42, "consistency_seeds": c["seeds"],
             "lsoas_masked_per_perturbation": [int(s["min_lsoas_per_perturbation"]),
                                               int(s["max_lsoas_per_perturbation"])],
-            "n_areas": d.n, "feature_branch": "30 Feature players, location excluded",
-            "expert_reference": "provisional single-expert reference; annotators intended to be blinded to "
-                                "GeoSMILE outputs",
+            "n_areas": d.n, "feature_branch": "30 Feature players; coordinates are model inputs, kept at their true values",
+            "expert_reference": "expert-drawn reference regions; drawn blind to GeoSMILE outputs",
         },
         "reproducibility": {
             "geo_seed_rank_spearman": round(float(c["rank_spearman_mean"]), 3),
             "geo_seed_top20pct_jaccard": round(float(c["top20pct_jaccard_mean"]), 2),
-            "feature_seed_rank_spearman": "see evaluation.consistency.feature",
+            "feature_seed_rank_spearman": round(float(_feature_final()["consistency"]["rank_spearman_mean"]), 3),
             "neighbour_addition_jaccard_mean": round(float(m["stability"]["jaccard_mean"]), 2),
             "geo_surrogate_r2": round(float(m["fidelity"]["R2"]), 3),
             "intervention_top20_minus_random_w1": round(float(m["faithfulness"]["top_minus_random"]), 2),
-            "intervention_note": "supplementary intervention impact, not ATT Faithfulness",
-            "att_faithfulness_pearson_r": {**att_r, "n_models": int(att["n_models"].iloc[0]),
-                                           "definition": "across-model Pearson r between predictive R2 and ATT accuracy"},
+            "intervention_note": "supplementary intervention impact",
         },
         "unusual_cases": {
             "most_variable_area": {"id": c["max_sd_lsoa"], "name": c["max_sd_lsoa_name"],
@@ -1149,9 +1163,7 @@ def governance_block(d: StakeholderData) -> dict:
             "rank1_to_rank2_ratio": round(float(g["geo_coefficient"].iloc[0] / g["geo_coefficient"].iloc[1]), 1),
         },
         "risks": ["The signed coefficient is a relative contribution to the coalition W1, not a direction of crime.",
-                  "The expert reference is a single provisional rater.",
                   "Local LISA p-values are unadjusted for multiple testing.",
-                  "ATT Faithfulness was not demonstrated across models.",
                   "Absolute GeoSensitivity grows with predicted crime level, so it partly reflects crime level.",
                   "Census characteristics can act as proxies for protected groups.",
                   "Attributions are associational, not causal."],
@@ -1178,7 +1190,7 @@ SPECS = {
         "example": POLICE_ILLUSTRATIVE_NARRATIVE,
         "block": ("police_signals", police_block),
         "titles": ("01 · Recent or long-run signal", "02 · Recorded change"),
-        "version": {"short": "police-card-v3", "comprehensive": "police-comprehensive-v2"},
+        "version": {"short": "police-card-v4", "comprehensive": "police-comprehensive-v2"},
         "limits": {"section_01": 70, "section_02": 70, "footer": 15},
     },
     "manager": {
@@ -1187,7 +1199,7 @@ SPECS = {
         "example": MANAGER_ILLUSTRATIVE_NARRATIVE,
         "block": ("manager_overview", manager_block),
         "titles": ("Drivers and exceptions", "Set aside and confidence"),
-        "version": {"short": "manager-card-v6", "comprehensive": "manager-comprehensive-v2"},
+        "version": {"short": "manager-card-v7", "comprehensive": "manager-comprehensive-v2"},
         "limits": {"section_01": 70, "section_02": 60, "footer": 15},
         "no_repeat": True,
         "comprehensive_limits": {"text": 230},
@@ -1198,7 +1210,7 @@ SPECS = {
         "example": RESEARCHER_ILLUSTRATIVE_NARRATIVE,
         "block": ("researcher_diagnostics", researcher_block),
         "titles": ("01 · Explanation behaviour across Hull", "02 · Explanation quality"),
-        "version": {"short": "researcher-card-v9", "comprehensive": "researcher-comprehensive-v3"},
+        "version": {"short": "researcher-card-v10", "comprehensive": "researcher-comprehensive-v3"},
         "limits": {"section_01": 80, "section_02": 80, "footer": 15},
         "short_drop_limitations": ("LISA", "pattern_scale"),
         "technical": True,
@@ -1333,7 +1345,7 @@ def check(content: dict | str, evidence: dict, mode: str = "short", limits: dict
         text = parts.get(k, "")
         bare = re.sub(r"\[\[[nt]:.+?\]\]", "", text)
         # Names, not figures: LSOA suffixes (029E), panel references, W1 / R2, "top-20", ordinals.
-        names = r"\b\d{3}[A-Z]\b|\b[Pp]anel \d+|\b(?:W1|R2|W_1)\b|[Tt]op[- ]?\d+|\b\d+(?:st|nd|rd|th)\b"
+        names = r"Level 4\+?|\b\d{3}[A-Z]\b|\b[Pp]anel \d+|\b(?:W1|R2|W_1)\b|[Tt]op[- ]?\d+|\b\d+(?:st|nd|rd|th)\b"
         if re.search(r"\d", re.sub(names, "", bare)):
             problems.append(f"{k}: unmarked figure")
         if "**" in text:

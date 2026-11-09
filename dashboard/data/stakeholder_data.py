@@ -15,17 +15,26 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 
-from dashboard.data.schema import BOUNDARIES_GEOJSON, GEO_DESIGN_DIR, GEO_DESIGN_N, LISA_CSV, LISA_JSON, PLACE_NAMES_CSV
+from dashboard.data.schema import (
+    BOUNDARIES_GEOJSON,
+    FEATURE_GLOBAL_PUBLISHED_CSV,
+    FEATURE_LOCAL_PUBLISHED_CSV,
+    GEO_DESIGN_DIR,
+    GEO_DESIGN_N,
+    LISA_CSV,
+    LISA_JSON,
+    PLACE_NAMES_CSV,
+    REGIONS_CSV,
+)
 
 HULL_ROOT = Path(__file__).resolve().parents[2]
 GEO_RANKED_CSV = f"{GEO_DESIGN_DIR}/geo_coefficients_N{GEO_DESIGN_N}.csv"  # signed beta + exact single-LSOA W1
 GEO_CONSISTENCY_CSV = f"{GEO_DESIGN_DIR}/n_{GEO_DESIGN_N}/consistency_per_lsoa.csv"
 GEO_METRICS_JSON = f"{GEO_DESIGN_DIR}/n_{GEO_DESIGN_N}/metrics.json"
 STABILITY_FIGURE = f"{GEO_DESIGN_DIR}/stability_four_directions_random_donor.png"
-FEATURE_LOCAL_CSV = "outputs/feature_local_coefficients.csv"  # published Feature branch (no coordinates)
-FEATURE_GLOBAL_CSV = "outputs/feature_global_importance.csv"
+FEATURE_LOCAL_CSV = FEATURE_LOCAL_PUBLISHED_CSV  # Chapter 4 Feature branch, perturbed minus original
+FEATURE_GLOBAL_CSV = FEATURE_GLOBAL_PUBLISHED_CSV
 PANEL_CSV = "outputs/hull_lsoa_month_panel_with_covariates.csv"
-REGIONS_CSV = "outputs/geo_area_data_models/top50_maps/highlighted_regions_lsoas.csv"
 TEST_START = pd.Timestamp("2026-01-01")
 TOP_K = 20
 

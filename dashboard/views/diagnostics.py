@@ -29,7 +29,7 @@ METRIC_VIEWS: dict[str, dict] = {
         "fmt": ".4f",
     },
     "faithfulness_top_minus_random": {
-        "label": "Faithfulness (top − random)",
+        "label": "Intervention impact (top − random)",
         "y_title": "Top-minus-random response (Wasserstein distance)",
         "value_col": "faithfulness_top_minus_random",
         "error_col": None,
@@ -83,8 +83,6 @@ def _x_categories(n_grid: list[int], *, branch: str) -> list[str]:
     cats = []
     for n in n_grid:
         cats.append(str(n))
-        if branch == "Feature" and n == 1000:
-            cats.append("1024")
     return cats
 
 

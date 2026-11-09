@@ -53,6 +53,14 @@ RANK_SCALE = [
 ]
 
 
+# Esri light-grey raster layer: needs no API key, and the choropleth traces draw above it.
+BASEMAP_LAYERS = [{
+    "below": "traces", "sourcetype": "raster", "opacity": 1,
+    "sourceattribution": "Esri, HERE, Garmin, (c) OpenStreetMap contributors",
+    "source": ["https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"],
+}]
+
+
 def _geojson(gdf) -> dict:
     return json.loads(gdf.to_json())
 
@@ -185,7 +193,7 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
             if sub.empty:
                 continue
             fig.add_trace(
-                go.Choroplethmapbox(
+                go.Choroplethmap(
                     geojson=_geojson(sub[[LSOA_ID, "geometry"]]),
                     locations=sub[LSOA_ID],
                     z=[1] * len(sub),
@@ -208,7 +216,7 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
         )
         colorscale, z = _overlay_colorscale(channels["rgb"])
         fig.add_trace(
-            go.Choroplethmapbox(
+            go.Choroplethmap(
                 geojson=geojson,
                 locations=gdf[LSOA_ID],
                 z=z,
@@ -225,7 +233,7 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
         )
     elif view == "top50_rank":
         fig.add_trace(
-            go.Choroplethmapbox(
+            go.Choroplethmap(
                 geojson=geojson,
                 locations=gdf[LSOA_ID],
                 z=[0] * len(gdf),
@@ -241,7 +249,7 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
         ranked = gdf[gdf["in_top50_geo"]]
         if not ranked.empty:
             fig.add_trace(
-                go.Choroplethmapbox(
+                go.Choroplethmap(
                     geojson=_geojson(ranked[[LSOA_ID, "geometry"]]),
                     locations=ranked[LSOA_ID],
                     z=ranked["geo_rank_shade"].to_numpy(dtype=float),
@@ -250,7 +258,7 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
                     zmax=50,
                     colorscale=RANK_SCALE,
                     colorbar=dict(
-                        title="GeoSensitivity rank (1 = highest)",
+                        title=dict(text="GeoSensitivity rank (1 = highest)", side="right"),
                         thickness=12,
                         len=0.72,
                     ),
@@ -265,7 +273,7 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
         one_coord = gdf[gdf["in_top50_geo"] & (gdf["n_coord_overlays"] == 1)]
         if not one_coord.empty:
             fig.add_trace(
-                go.Choroplethmapbox(
+                go.Choroplethmap(
                     geojson=_geojson(one_coord[[LSOA_ID, "geometry"]]),
                     locations=one_coord[LSOA_ID],
                     z=[1] * len(one_coord),
@@ -282,7 +290,7 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
         both_coord = gdf[gdf["in_top50_geo"] & (gdf["n_coord_overlays"] == 2)]
         if not both_coord.empty:
             fig.add_trace(
-                go.Choroplethmapbox(
+                go.Choroplethmap(
                     geojson=_geojson(both_coord[[LSOA_ID, "geometry"]]),
                     locations=both_coord[LSOA_ID],
                     z=[1] * len(both_coord),
@@ -304,13 +312,13 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
         else:
             scale = dict(zmid=0.0, zmin=-vmax, zmax=vmax, colorscale=DIVERGING)
         fig.add_trace(
-            go.Choroplethmapbox(
+            go.Choroplethmap(
                 geojson=geojson,
                 locations=gdf[LSOA_ID],
                 z=z,
                 featureidkey="properties.lsoa21cd",
                 **scale,
-                colorbar=dict(title=legend, thickness=12, len=0.72),
+                colorbar=dict(title=dict(text=legend, side="right"), thickness=12, len=0.72),
                 hovertext=hover,
                 hoverinfo="text",
                 marker_line_width=0.35,
@@ -324,7 +332,7 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
         sel = gdf[gdf[LSOA_ID] == selected_lsoa]
         if not sel.empty:
             fig.add_trace(
-                go.Choroplethmapbox(
+                go.Choroplethmap(
                     geojson=_geojson(sel[[LSOA_ID, "geometry"]]),
                     locations=sel[LSOA_ID],
                     z=[1],
@@ -339,9 +347,10 @@ def build_map_figure(bundle: HullBundle, view: str, selected_lsoa: str | None):
             )
 
     fig.update_layout(
-        mapbox_style="carto-positron",
-        mapbox_zoom=10.6,
-        mapbox_center={"lat": 53.767, "lon": -0.327},
+        map_style="white-bg",
+        map_layers=BASEMAP_LAYERS,
+        map_zoom=10.6,
+        map_center={"lat": 53.767, "lon": -0.327},
         margin=dict(l=0, r=0, t=8, b=0),
         height=620,
         legend=dict(orientation="h", y=0.01, x=0.01, bgcolor="rgba(255,255,255,0.75)"),

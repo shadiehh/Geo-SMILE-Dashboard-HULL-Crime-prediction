@@ -1,6 +1,6 @@
 """Load the robustness sweep for the dashboard diagnostics tab.
 
-Feature branch: eval_by_n_perturb. Geo branch: the random-donor design sweep
+Feature branch: the Chapter 4 run (outputs/geo_aligned_design/xgboost/n_*.json). Geo branch: the random-donor design sweep
 (geo_random_donor_eval.py via build_random_donor_dashboard_files.py, outputs/geo_random_donor_eval/n_*/metrics.json),
 ranked by the signed coefficient; its published N is GEO_DESIGN_N.
 
@@ -27,6 +27,7 @@ from dashboard.data.schema import (
     EXPERT_ALIGNMENT_GEO_CSV,
     FEATURE_CONSISTENCY_CSV,
     FEATURE_GLOBAL_PUBLISHED_CSV,
+    FEATURE_SWEEP_DIR,
     GEO_CONSISTENCY_CSV,
     GEO_CSV,
     GEO_DESIGN_DIR,
@@ -34,6 +35,7 @@ from dashboard.data.schema import (
     PUBLISHED_FEATURE_FIDELITY_CSV,
     PUBLISHED_GEO_FIDELITY_CSV,
     PUBLISHED_N,
+    REGIONS_CSV,
     TWOBRANCH_SUMMARY_JSON,
 )
 
@@ -103,7 +105,7 @@ class SweepBundle:
 
 def _load_expert_ids(root: Path) -> dict[str, set[str]]:
     feat_path = root / EXPERT_ALIGNMENT_FEATURE_CSV
-    geo_path = root / EXPERT_ALIGNMENT_GEO_CSV
+    geo_path = root / REGIONS_CSV  # the 58 LSOAs in the expert-highlighted regions (Chapter 4)
     if not feat_path.exists() or not geo_path.exists():
         raise FileNotFoundError(
             f"Missing expert-reference alignment tables: {feat_path} / {geo_path}"
@@ -112,7 +114,7 @@ def _load_expert_ids(root: Path) -> dict[str, set[str]]:
     geo = pd.read_csv(geo_path)
     return {
         "feature": set(feat.loc[feat["expert_top10_reference"] == 1, "feature"].astype(str)),
-        "geo": set(geo.loc[geo["expert_top10_reference"] == 1, "lsoa21cd"].astype(str)),
+        "geo": set(geo["lsoa21cd"].astype(str)),
     }
 
 
@@ -136,6 +138,43 @@ def _ranking_for(path: Path, branch: str, expert_ids: set[str]) -> pd.DataFrame 
     frame[id_col] = frame[id_col].astype(str)
     ranked = rank_by_abs_magnitude(frame, id_col=id_col, mag_col=mag_col)
     return flag_expert_reference(ranked, id_col=id_col, expert_ids=expert_ids)
+
+
+def _feature_run(root: Path, n: int) -> dict:
+    return _read_json(root / FEATURE_SWEEP_DIR / f"n_{n}.json").get("feature") or {}
+
+
+def _feature_ranking(run: dict, expert_ids: set[str]) -> pd.DataFrame | None:
+    frame = pd.DataFrame(run.get("importance") or [])
+    if frame.empty:
+        return None
+    ranked = rank_by_abs_magnitude(frame, id_col="feature", mag_col="abs_coefficient")
+    return flag_expert_reference(ranked, id_col="feature", expert_ids=expert_ids)
+
+
+def _feature_row(n: int, run: dict, ranking: pd.DataFrame | None, *, published: bool) -> dict:
+    fid = run.get("fidelity") or {}
+    inter = run.get("intervention") or {}
+    stab = run.get("stability") or {}
+    cons = run.get("consistency") or {}
+    overlap = expert_overlap_count(ranking, k=FEATURE_TOP_K) if ranking is not None else None
+    return {
+        "n_perturb": n,
+        "branch": _branch_label("feature"),
+        "is_published": published,
+        "surrogate_fidelity_r2": fid.get("R2"),
+        "kernel_diagnostic_r2": (run.get("smile_diagnostics") or {}).get("test_r2"),
+        "consistency_fidelity_r2_mean": None,
+        "consistency_fidelity_r2_std": None,
+        "faithfulness_top_minus_random": inter.get("top_minus_random"),
+        "faithfulness_empirical_p": inter.get("empirical_p_top_vs_random"),
+        "att_stability_jaccard": stab.get("jaccard_mean"),
+        "att_consistency_rank_spearman_mean": cons.get("rank_spearman_mean"),
+        "att_consistency_rank_spearman_std": None,
+        "expert_overlap_count": overlap,
+        "expert_overlap_k": FEATURE_TOP_K,
+        "expert_overlap_fraction": (overlap / FEATURE_TOP_K) if overlap is not None else None,
+    }
 
 
 def _area_data_geo_row(n: int, metrics_path: Path, ranking: pd.DataFrame | None, *, published: bool) -> dict:
@@ -198,6 +237,8 @@ def _published_metric_row(root: Path, branch: str, ranking: pd.DataFrame | None)
         return _area_data_geo_row(
             n, root / GEO_DESIGN_DIR / f"n_{GEO_DESIGN_N}" / "metrics.json", ranking, published=True
         )
+    if branch == "feature":
+        return _feature_row(n, _feature_run(root, n), ranking, published=True)
     fid_rel = PUBLISHED_FEATURE_FIDELITY_CSV if branch == "feature" else PUBLISHED_GEO_FIDELITY_CSV
     fid = _read_one_row_csv(root / fid_rel)
 
@@ -247,6 +288,13 @@ def load_sweep_bundle(root: Path | None = None) -> SweepBundle:
     n_grid = sorted(EVAL_SWEEP_N_GRID)
     for n in n_grid:
         for branch in BRANCHES:
+            if branch == "feature":
+                run = _feature_run(root, n)
+                ranking = _feature_ranking(run, expert_ids[branch])
+                if ranking is not None:
+                    rankings[(n, branch)] = ranking
+                rows.append(_feature_row(n, run, ranking, published=False))
+                continue
             n_dir = (sweep_dir if branch == "feature" else root / GEO_DESIGN_DIR) / f"n_{n}"
             fname = "feature_importance.csv" if branch == "feature" else "geo_coefficients.csv"
             ranking = _ranking_for(n_dir / fname, branch, expert_ids[branch])

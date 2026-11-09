@@ -20,7 +20,7 @@ from dashboard.data.schema import (
     FEATURE_GLOBAL_PUBLISHED_CSV,
     FEATURE_GLOBAL_WITH_LOCATION_CSV,
     FEATURE_LOCAL_PUBLISHED_CSV,
-    FEATURE_LOCAL_WITH_LOCATION_CSV,
+    FEATURE_METRICS_JSON,
     GEO_ABS,
     GEO_CONSISTENCY_CSV,
     GEO_CSV,
@@ -173,8 +173,7 @@ def load_hull_bundle(root: Path | None = None) -> HullBundle:
     geo = _read_csv(GEO_CSV) if root == HULL_ROOT else pd.read_csv(root / GEO_CSV)
     loc = pd.read_csv(root / LOCATION_LOCAL_CSV)
     lisa = pd.read_csv(root / LISA_CSV)
-    local_feat = pd.read_csv(root / FEATURE_LOCAL_WITH_LOCATION_CSV)
-    published_local = pd.read_csv(root / FEATURE_LOCAL_PUBLISHED_CSV)
+    local_feat = pd.read_csv(root / FEATURE_LOCAL_PUBLISHED_CSV)
     global_feat = pd.read_csv(root / FEATURE_GLOBAL_PUBLISHED_CSV)
     global_loc = pd.read_csv(root / FEATURE_GLOBAL_WITH_LOCATION_CSV)
     pattern = json.loads((root / LISA_JSON).read_text(encoding="utf-8"))
@@ -182,7 +181,7 @@ def load_hull_bundle(root: Path | None = None) -> HullBundle:
     places = pd.read_csv(root / PLACE_NAMES_CSV).fillna("")
     boundaries = gpd.read_file(root / BOUNDARIES_GEOJSON)
 
-    for frame in (geo, loc, lisa, local_feat, published_local, area, places):
+    for frame in (geo, loc, lisa, local_feat, area, places):
         frame[LSOA_ID] = frame[LSOA_ID].astype(str)
     boundaries[LSOA_ID] = boundaries[LSOA_ID].astype(str)
 
@@ -259,7 +258,7 @@ def load_hull_bundle(root: Path | None = None) -> HullBundle:
         "geo_sensitivity": str(GEO_CSV),
         "latitude_effect": str(LOCATION_LOCAL_CSV),
         "longitude_effect": str(LOCATION_LOCAL_CSV),
-        "local_top_features": str(FEATURE_LOCAL_WITH_LOCATION_CSV),
+        "local_top_features": str(FEATURE_LOCAL_PUBLISHED_CSV),
         "spatial_clustering": str(LISA_CSV),
         "boundaries": str(BOUNDARIES_GEOJSON),
         "feature_consistency": str(FEATURE_CONSISTENCY_CSV),
@@ -282,6 +281,7 @@ def load_hull_bundle(root: Path | None = None) -> HullBundle:
             "feature": _consistency_from_csv(root / FEATURE_CONSISTENCY_CSV),
             "geo": _consistency_from_csv(root / GEO_CONSISTENCY_CSV),
         },
+        "feature_final": json.loads((root / FEATURE_METRICS_JSON).read_text(encoding="utf-8")),
         "geo_area_data": json.loads((root / GEO_METRICS_JSON).read_text(encoding="utf-8"))
         if (root / GEO_METRICS_JSON).exists()
         else {},
@@ -292,8 +292,6 @@ def load_hull_bundle(root: Path | None = None) -> HullBundle:
         for c in local_feat.columns
         if c not in {LSOA_ID, LSOA_NAME} and not is_location_feature(c)
     ]
-    # published local is unused in the UI but kept for diagnostics / tests
-    _ = published_local
 
     return HullBundle(
         lsoa=lsoa,
@@ -412,6 +410,25 @@ def compact_evaluation(evaluation: dict) -> dict:
         out["geo_faithfulness_empirical_p"] = _json_safe(
             faith["geo"].get("empirical_p_top_vs_random")
         )
+    final = evaluation.get("feature_final") or {}
+    if final:
+        feat = final["feature"]
+        cons, stab, inter, acc = feat["consistency"], feat["stability"], feat["intervention"], feat["accuracy"]
+        out["feature_holdout_r2"] = _json_safe(final["predictive"]["r2"])
+        out["feature_surrogate_test_r2"] = _json_safe(feat["fidelity"]["R2"])
+        out["att_stability_feature_jaccard"] = _json_safe(stab["jaccard_mean"])
+        out["feature_neighbour_addition_spearman_mean"] = _json_safe(stab["spearman_mean"])
+        out.setdefault("consistency", {})["feature"] = {
+            "rank_spearman_mean": _json_safe(cons["rank_spearman_mean"]),
+            "score_pearson_mean": _json_safe(cons["score_pearson_mean"]),
+            "top20pct_jaccard_mean": _json_safe(cons["top20pct_jaccard_mean"]),
+            "mean_sd": _json_safe(cons["mean_sd"]),
+            "seeds": cons.get("seeds"),
+        }
+        out["feature_faithfulness_top_minus_random"] = _json_safe(inter["top_minus_random"])
+        out["feature_faithfulness_empirical_p"] = _json_safe(inter["empirical_p_top_vs_random"])
+        out["feature_expert_accuracy"] = {"intersection": acc["intersection"], "k": acc["k"],
+                                          "auroc": _json_safe(acc["auroc"])}
     return {k: v for k, v in out.items() if v is not None}
 
 

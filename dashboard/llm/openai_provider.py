@@ -65,7 +65,8 @@ class OpenAIProvider:
             from openai import OpenAI
 
             client = OpenAI(api_key=key, timeout=60.0)
-            text, usage = self._call(client, system_prompt, user_content)
+            # Stakeholder cards and briefings are generated at temperature 0 (Chapter 6).
+            text, usage = self._call(client, system_prompt, user_content, temperature=0 if addendum else None)
             if not text.strip():
                 return LLMResponse(
                     ok=False,
@@ -97,12 +98,16 @@ class OpenAIProvider:
                 prompt_version=SYSTEM_PROMPT_VERSION,
             )
 
-    def _call(self, client, system_prompt: str, user_content: str) -> tuple[str, dict | None]:
+    def _call(
+        self, client, system_prompt: str, user_content: str, temperature: float | None = None
+    ) -> tuple[str, dict | None]:
+        extra = {} if temperature is None else {"temperature": temperature}
         try:
             response = client.responses.create(
                 model=self.model,
                 instructions=system_prompt,
                 input=user_content,
+                **extra,
             )
             text = getattr(response, "output_text", None) or ""
             usage = _usage(getattr(response, "usage", None))
@@ -114,6 +119,7 @@ class OpenAIProvider:
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_content},
                 ],
+                **extra,
             )
             text = (response.choices[0].message.content or "") if response.choices else ""
             usage = _usage(getattr(response, "usage", None))

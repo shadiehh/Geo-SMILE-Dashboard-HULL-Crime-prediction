@@ -32,7 +32,7 @@ from dashboard.data.loader import HullBundle
 from dashboard.data.schema import LSOA_ID, LSOA_NAME, human_label
 from dashboard.data.spatial_stats import build_queen_weights, local_moran
 from dashboard.views.gating import persona_gated
-from dashboard.views.maps import DIVERGING, LISA_COLOURS
+from dashboard.views.maps import BASEMAP_LAYERS, DIVERGING, LISA_COLOURS
 
 GLOBAL_TOP_N = 10
 
@@ -113,7 +113,7 @@ def _categorical_color_map(categories: list[str]) -> dict[str, str]:
 
 
 def _swatch_legend_html(colors: dict[str, str]) -> str:
-    """Explicit HTML colour-guide, since a Plotly legend on a mapbox figure is
+    """Explicit HTML colour-guide, since a Plotly legend on a map figure is
     easy to miss (small, low-contrast, can sit under the map body)."""
     items = "".join(
         f'<span style="display:inline-flex;align-items:center;margin:2px 14px 2px 0;'
@@ -139,7 +139,7 @@ def build_categorical_choropleth(
         if sub.empty:
             continue
         fig.add_trace(
-            go.Choroplethmapbox(
+            go.Choroplethmap(
                 geojson=_geojson(sub[[LSOA_ID, "geometry"]]),
                 locations=sub[LSOA_ID],
                 z=[1] * len(sub),
@@ -154,9 +154,10 @@ def build_categorical_choropleth(
             )
         )
     fig.update_layout(
-        mapbox_style="carto-positron",
-        mapbox_zoom=10.6,
-        mapbox_center=MAP_CENTER,
+        map_style="white-bg",
+        map_layers=BASEMAP_LAYERS,
+        map_zoom=10.6,
+        map_center=MAP_CENTER,
         margin=dict(l=0, r=0, t=8, b=0),
         height=560,
         showlegend=False,
@@ -169,7 +170,7 @@ def build_sequential_choropleth(
     gdf: pd.DataFrame, *, value_col: str, hover_col: str, legend_title: str
 ) -> go.Figure:
     fig = go.Figure(
-        go.Choroplethmapbox(
+        go.Choroplethmap(
             geojson=_geojson(gdf[[LSOA_ID, "geometry"]]),
             locations=gdf[LSOA_ID],
             z=gdf[value_col].to_numpy(dtype=float),
@@ -185,9 +186,10 @@ def build_sequential_choropleth(
         )
     )
     fig.update_layout(
-        mapbox_style="carto-positron",
-        mapbox_zoom=10.6,
-        mapbox_center=MAP_CENTER,
+        map_style="white-bg",
+        map_layers=BASEMAP_LAYERS,
+        map_zoom=10.6,
+        map_center=MAP_CENTER,
         margin=dict(l=0, r=0, t=8, b=0),
         height=560,
         paper_bgcolor="white",
@@ -207,7 +209,7 @@ def build_diverging_choropleth(gdf: pd.DataFrame, *, value_col: str, hover_col: 
     z = gdf[value_col].to_numpy(dtype=float)
     vmax = _limit(z)
     fig = go.Figure(
-        go.Choroplethmapbox(
+        go.Choroplethmap(
             geojson=_geojson(gdf[[LSOA_ID, "geometry"]]),
             locations=gdf[LSOA_ID],
             z=z,
@@ -224,9 +226,10 @@ def build_diverging_choropleth(gdf: pd.DataFrame, *, value_col: str, hover_col: 
         )
     )
     fig.update_layout(
-        mapbox_style="carto-positron",
-        mapbox_zoom=10.6,
-        mapbox_center=MAP_CENTER,
+        map_style="white-bg",
+        map_layers=BASEMAP_LAYERS,
+        map_zoom=10.6,
+        map_center=MAP_CENTER,
         margin=dict(l=0, r=0, t=8, b=0),
         height=480,
         paper_bgcolor="white",
@@ -243,7 +246,7 @@ def build_lisa_choropleth(gdf: pd.DataFrame, *, hover_col: str) -> tuple[go.Figu
         if sub.empty:
             continue
         fig.add_trace(
-            go.Choroplethmapbox(
+            go.Choroplethmap(
                 geojson=_geojson(sub[[LSOA_ID, "geometry"]]),
                 locations=sub[LSOA_ID],
                 z=[1] * len(sub),
@@ -258,9 +261,10 @@ def build_lisa_choropleth(gdf: pd.DataFrame, *, hover_col: str) -> tuple[go.Figu
             )
         )
     fig.update_layout(
-        mapbox_style="carto-positron",
-        mapbox_zoom=10.6,
-        mapbox_center=MAP_CENTER,
+        map_style="white-bg",
+        map_layers=BASEMAP_LAYERS,
+        map_zoom=10.6,
+        map_center=MAP_CENTER,
         margin=dict(l=0, r=0, t=8, b=0),
         height=480,
         showlegend=False,

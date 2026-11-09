@@ -221,6 +221,19 @@ def build_evidence(
         "top_global_features": _top_global_features(bundle),
         "lowest_global_features": _top_global_features(bundle, k=3, lowest=True),
         "evaluation": compact_evaluation(bundle.evaluation),
+        "sign_conventions": {
+            "local_feature_coefficient": (
+                "Directional. Masks code a retained player as one and the response is the perturbed minus "
+                "the original prediction, so a positive value means the area's own value of the feature "
+                "raises its prediction relative to the masking reference and a negative value lowers it."
+            ),
+            "global_feature_coefficient": "Not directional: fitted to a non-negative distance; rank by magnitude.",
+            "geo_coefficient": "Relative contribution to the coalition response; the sign is not a direction of crime.",
+            "feature_branch_model": (
+                "One XGBoost model on the substantive predictors plus the centroid coordinates; coordinates are "
+                "kept at their true values and are not Feature players."
+            ),
+        },
         "limitations": [
             "Not causal.",
             "No RAG / no invented local context.",

@@ -54,9 +54,8 @@ def render_feature_panel(bundle: HullBundle, selected_lsoa: str | None) -> None:
 
     st.markdown("**Top 10 features for this LSOA**")
     st.caption(
-        "Non-location Feature SMILE local coefficients from the run that also "
-        "attributes longitude and latitude. Location variables are excluded here. "
-        "Not causal."
+        "Local Feature-SMILE coefficients, perturbed minus original: pink raises and blue lowers "
+        "this area's prediction relative to the masking reference. Model attribution, not causes of crime."
     )
     features = top_features_for_lsoa(bundle.local_features, selected_lsoa, k=10)
     if not features:
@@ -91,7 +90,7 @@ def render_feature_panel(bundle: HullBundle, selected_lsoa: str | None) -> None:
     fig.update_layout(
         height=max(280, 28 * len(features) + 80),
         margin=dict(l=10, r=10, t=8, b=24),
-        xaxis_title="Signed local SMILE coefficient",
+        xaxis_title="Signed local coefficient (crimes per month)",
         yaxis=dict(automargin=True),
         paper_bgcolor="white",
     )
@@ -104,9 +103,10 @@ def render_feature_panel(bundle: HullBundle, selected_lsoa: str | None) -> None:
 
 
 def render_global_features(bundle: HullBundle) -> None:
-    with st.expander("Overall model feature importance (Feature branch, location excluded)"):
+    with st.expander("Overall feature importance (Feature branch)"):
         st.caption(
-            "Global SMILE ranking of the published 30-player Feature branch. "
+            "Global ranking of the 30 Feature players (Chapter 4, N = 4,000), by coefficient magnitude; "
+            "the sign is not a direction of prediction change. "
             "This is not the top-feature list for the selected LSOA, and it does "
             "not include latitude or longitude."
         )
@@ -137,13 +137,13 @@ def render_evaluation(bundle: HullBundle) -> None:
         )
         feat = consist.get("feature") or {}
         geo = consist.get("geo") or {}
-        st.markdown("**Consistency** (multi-run, seed base 100)")
+        st.markdown("**Consistency** (five independently seeded runs)")
         st.markdown(
             f"""
-| Branch | Rank Spearman | Score Pearson | Top-20% Jaccard | Fidelity R² |
-|---|---:|---:|---:|---:|
-| Feature | {_fmt(feat.get('rank_spearman_mean'))} ± {_fmt(feat.get('rank_spearman_std'))} | {_fmt(feat.get('score_pearson_mean'))} | {_fmt(feat.get('top20pct_jaccard_mean'))} | {_fmt(feat.get('fidelity_r2_mean'))} |
-| Geo | {_fmt(geo.get('rank_spearman_mean'))} ± {_fmt(geo.get('rank_spearman_std'))} | {_fmt(geo.get('score_pearson_mean'))} | {_fmt(geo.get('top20pct_jaccard_mean'))} | {_fmt(geo.get('fidelity_r2_mean'))} |
+| Branch | Rank Spearman | Score Pearson | Top-20% Jaccard |
+|---|---:|---:|---:|
+| Feature | {_fmt(feat.get('rank_spearman_mean'), 3)} | {_fmt(feat.get('score_pearson_mean'), 3)} | {_fmt(feat.get('top20pct_jaccard_mean'), 3)} |
+| Geo | {_fmt(geo.get('rank_spearman_mean'), 3)} | {_fmt(geo.get('score_pearson_mean'), 3)} | {_fmt(geo.get('top20pct_jaccard_mean'), 3)} |
 """
         )
         st.markdown("**ATT stability** (controlled input; not Consistency)")
@@ -151,7 +151,7 @@ def render_evaluation(bundle: HullBundle) -> None:
             f"Feature Jaccard `{_fmt(ev.get('att_stability_feature_jaccard'), 3)}` · "
             f"Geo Jaccard `{_fmt(ev.get('att_stability_geo_jaccard'), 3)}`"
         )
-        st.markdown("**Faithfulness** (top minus random)")
+        st.markdown("**Intervention impact** (top minus random; not ATT Faithfulness)")
         st.markdown(
             f"Feature `{_fmt(ev.get('feature_faithfulness_top_minus_random'))}` "
             f"(p `{_fmt(ev.get('feature_faithfulness_empirical_p'), 3)}`) · "

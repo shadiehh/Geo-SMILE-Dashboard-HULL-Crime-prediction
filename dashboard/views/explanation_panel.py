@@ -140,8 +140,9 @@ def render_explanation_panel(
     scope: str,
     current_map_view: str,
     selected_lsoa: str | None,
+    force_mode: str | None = None,
 ) -> None:
-    st.subheader(f"Stakeholder explanation: {STAKEHOLDERS[stakeholder_id]}")
+    st.subheader(f"Area briefing: {STAKEHOLDERS[stakeholder_id]}")
     st.caption(
         "Left: evidence figures chosen for this stakeholder and drawn for the selected LSOA. "
         "Right: the LLM narrative, which explains the same structured evidence package. "
@@ -152,7 +153,9 @@ def render_explanation_panel(
         st.info("Select an LSOA on the map before generating a local explanation.")
 
     mode = None
-    if stakeholder_id in cm.SPECS:
+    if force_mode:
+        mode = force_mode
+    elif stakeholder_id in cm.SPECS:
         mode = st.radio("Narrative", list(cm.MODES), format_func=cm.MODES.get, horizontal=True,
                         key=f"{stakeholder_id}_mode",
                         help="Short: the stakeholder card (Hull-wide, plain language). Comprehensive: a "

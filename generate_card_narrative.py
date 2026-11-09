@@ -11,7 +11,7 @@ that stakeholder use one definition. Pipeline:
   user      the card question, the evidence JSON and the illustrative narrative;
   models    the providers and models configured in .env, temperature 0.
 
-Writes outputs/stakeholder_narratives/<stakeholder>_card_llm.json (prompts, evidence, raw
+Writes outputs/dashboard_final/cards/<stakeholder>_card_llm.json (prompts, evidence, raw
 output, checks per provider) and <stakeholder>_card_llm_content_<provider>.tex (macros used by
 <stakeholder>_card.tex). An existing JSON is reused so the published text does not change on
 rerun; --force regenerates it after archiving the previous run as
@@ -33,7 +33,7 @@ from dotenv import load_dotenv
 from dashboard.llm import card_mode as cm
 
 ROOT = Path(__file__).resolve().parent
-DEST = ROOT / "outputs" / "stakeholder_narratives"
+DEST = ROOT / "outputs" / "dashboard_final" / "cards"
 
 
 def out_json(stakeholder: str) -> Path:
@@ -104,7 +104,7 @@ def generate(stakeholder: str) -> dict:
               "stakeholder": stakeholder, "question": spec["question"], "prompt_version": SYSTEM_PROMPT_VERSION,
               "card_mode_addendum": spec["addenda"]["short"], "illustrative_narrative": spec["example"],
               "evidence": evidence, "runs": {}}
-    for name, call in (("openai", call_openai), ("anthropic", call_anthropic)):
+    for name, call in (("openai", call_openai),):  # Chapter 6: GPT-4.1
         stamp = datetime.now(timezone.utc).isoformat()
         try:
             model, raw = call(system, user)
@@ -132,8 +132,10 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--stakeholder", required=True, choices=sorted(cm.SPECS))
     parser.add_argument("--force", action="store_true", help="regenerate even if the JSON exists")
     parser.add_argument("--openai-model", help="override OPENAI_MODEL from .env for this card")
+    parser.add_argument("--env-file", default=str(ROOT / ".env"), help="file holding OPENAI_API_KEY")
     args = parser.parse_args(argv)
-    load_dotenv(ROOT / ".env", override=True)
+    DEST.mkdir(parents=True, exist_ok=True)
+    load_dotenv(args.env_file, override=True)
     if args.openai_model:
         os.environ["OPENAI_MODEL"] = args.openai_model
     path = out_json(args.stakeholder)
