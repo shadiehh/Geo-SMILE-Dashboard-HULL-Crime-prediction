@@ -1300,9 +1300,17 @@ def area_card_problems(stakeholder: str, text: str, evidence: dict) -> list[str]
             "public": lambda e: e["public_overview"]["example_area"]["own_data_rank"]}[stakeholder]
     bare = _bare(text).lower()
     problems = []
-    if area(evidence) != 1 and "most sensitive" in bare:
+    place = {"police": lambda e: e["police_signals"]["focus_lsoa"],
+             "planner": lambda e: e["built_environment_share"].get("selected_area") or {},
+             "public": lambda e: e["public_overview"]["example_area"]}[stakeholder](evidence)
+    names = {str(place.get("locality_label") or "").lower(), str(place.get("name") or "").lower().replace("kingston upon hull ", "")} - {""}
+    top = str((((evidence.get("global_geo") or {}).get("highest_geo_sensitivity_lsoas") or [{}])[0].get("place_context") or {}).get("locality_label") or "").lower()
+    claims = [s for s in re.split(r"(?<=[.!?])\s+", bare)
+              if "most sensitive" in s and any(n in s for n in names) and not (top and top in s)]
+    if area(evidence) != 1 and claims:
         problems.append('"most sensitive" is true only of the top-ranked area: give the rank with no describing word')
-    if re.search(r"just behind|close behind|\bmodest|\bhighly sensitive", bare):
+    modest_supported = (evidence.get("selected_lsoa") or {}).get("geo_magnitude_class") == "modest"
+    if re.search(r"just behind|close behind|\bhighly sensitive", bare) or (re.search(r"\bmodest", bare) and not modest_supported):
         problems.append('remove "just behind", "modest" and "highly sensitive": no supplied field states them')
     return problems
 
@@ -1418,7 +1426,7 @@ def check(content: dict | str, evidence: dict, mode: str = "short", limits: dict
         text = parts.get(k, "")
         bare = re.sub(r"\[\[[nt]:.+?\]\]", "", text)
         # Names, not figures: LSOA suffixes (029E), panel references, W1 / R2, "top-20", ordinals.
-        names = r"Level 4\+?|\b\d{3}[A-Z]\b|\b[Pp]anel \d+|\b(?:W1|R2|W_1)\b|[Tt]op[- ]?\d+|\b\d+(?:st|nd|rd|th)\b"
+        names = r"Level 4\+?|\b\d{3}[A-Z]\b|\b[Pp]anel \d+|\b(?:W1|R2|W_1)\b|[Tt]op[- ]?\d+|\b\d+(?:st|nd|rd|th)\b|\b\d+-[a-z]+"
         if re.search(r"\d", re.sub(names, "", bare)):
             problems.append(f"{k}: unmarked figure")
         if "**" in text:

@@ -73,6 +73,12 @@ def _generate(
     extra = ({"addendum": spec["addenda"][mode] + area_rule,
               "user_suffix": ((cm.user_suffix(mode, stakeholder["id"]) or "") + retry_note) or None}
              if spec else {})
+    from dashboard.llm import usage
+
+    refused = usage.refusal()
+    if refused:
+        return LLMResponse(ok=False, text="", provider=provider.name, model=provider.model, timestamp="",
+                           error=refused, prompt_version=version)
     response = provider.generate(
         GEOSMILE_SYSTEM_PROMPT,
         evidence,
@@ -81,6 +87,7 @@ def _generate(
         **extra,
     )
     response.prompt_version = version
+    usage.record(response.usage, provider.model, stakeholder["id"], mode)
     if mode and response.ok:
         response.usage = {**(response.usage or {}), "checks": _checks(response.text, evidence, mode, spec)}
     if response.ok:

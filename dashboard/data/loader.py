@@ -439,9 +439,12 @@ def compact_evaluation(evaluation: dict) -> dict:
 
 
 def magnitude_class(abs_value: float, median: float, p90: float) -> str:
-    if abs_value >= max(p90, 5.0):
+    """Size relative to Hull's own distribution: the upper tail is at or above the 90th percentile, moderate at or
+    above the median. Callers pass the signed coefficient and signed quantiles. Fixed floors misclassified the
+    random-donor scale."""
+    if abs_value >= p90:
         return "large"
-    if abs_value >= max(median, 1.0):
+    if abs_value >= median:
         return "moderate"
     return "modest"
 

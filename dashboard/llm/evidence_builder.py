@@ -184,8 +184,10 @@ def build_evidence(
     lsoa = bundle.lsoa
     geo_stats = _global_geo(lsoa)
     spatial = _spatial_global(bundle.spatial_pattern)
-    median = float(geo_stats["geo_sensitivity_median_abs"])
-    p90 = float(geo_stats["geo_sensitivity_p90_abs"])
+    # Areas are ranked by the signed coefficient, and |coefficient| does not track the exact shift, so the
+    # magnitude class is read on the signed scale.
+    median = float(geo_stats["geo_sensitivity_median"])
+    p90 = float(geo_stats["geo_sensitivity_p90"])
 
     evidence: dict[str, Any] = {
         "application": {
@@ -253,7 +255,8 @@ def build_evidence(
         row = match.iloc[0]
         abs_geo = float(row["geo_sensitivity_abs"])
         rank = int(row["geo_rank"])
-        modest = magnitude_class(abs_geo, median, p90) == "modest"
+        signed_geo = float(row["geo_sensitivity"])
+        modest = magnitude_class(signed_geo, median, p90) == "modest"
         high_rank = rank <= 20
         lisa = str(row["lisa_class"])
         selected = {
@@ -263,7 +266,9 @@ def build_evidence(
             "geo_sensitivity_abs": _num(abs_geo),
             "geo_rank": rank,
             "geo_rank_of": int(len(lsoa)),
-            "geo_magnitude_class": magnitude_class(abs_geo, median, p90),
+            "geo_magnitude_class": magnitude_class(signed_geo, median, p90),
+            "geo_magnitude_reference": "class against Hull's signed GeoSensitivity: large = at or above the 90th "
+                                       "percentile, moderate = at or above the median, modest = below the median",
             "rank_high_magnitude_modest": bool(high_rank and modest),
             "latitude_effect": _num(row["latitude_effect"]),
             "longitude_effect": _num(row["longitude_effect"]),
@@ -306,9 +311,9 @@ def build_evidence(
                 "absolute GeoSensitivity remains modest. Say that explicitly. "
                 "Do not say geography strongly drives predictions there."
             )
-        elif abs_geo >= p90:
+        elif signed_geo >= p90:
             evidence["magnitude_instruction"] = (
-                "Absolute GeoSensitivity is in the upper tail for Hull. "
+                "GeoSensitivity is in Hull's upper tail (at or above the 90th percentile). "
                 "Still do not claim causation, and still distinguish latitude/longitude."
             )
         else:

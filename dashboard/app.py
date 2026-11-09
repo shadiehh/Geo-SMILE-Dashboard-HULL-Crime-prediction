@@ -257,7 +257,16 @@ def _page_map(bundle, role: str) -> None:
                                  selected_lsoa=code, force_mode="comprehensive")
 
 
+def _usage_note() -> None:
+    from dashboard.llm.usage import summary
+
+    u = summary()
+    st.caption(f"Live AI explanations today: {u['calls']} calls, {u['tokens']:,} tokens (daily limit {u['daily_limit']} calls, "
+               f"{u['session_limit']} per session). Cached answers are free and not counted.")
+
+
 def _page_about() -> None:
+    _usage_note()
     left, right = st.columns(2, gap="large")
     with left:
         st.markdown(

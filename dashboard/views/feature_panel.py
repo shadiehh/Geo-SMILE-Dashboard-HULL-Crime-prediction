@@ -53,9 +53,9 @@ def render_feature_panel(bundle: HullBundle, selected_lsoa: str | None) -> None:
         st.warning("That LSOA is not in the published results.")
         return
     row = match.iloc[0]
-    median = float(bundle.lsoa["geo_sensitivity_abs"].median())
-    p90 = float(bundle.lsoa["geo_sensitivity_abs"].quantile(0.9))
-    mag = magnitude_class(float(row["geo_sensitivity_abs"]), median, p90)
+    median = float(bundle.lsoa["geo_sensitivity"].median())
+    p90 = float(bundle.lsoa["geo_sensitivity"].quantile(0.9))
+    mag = magnitude_class(float(row["geo_sensitivity"]), median, p90)
 
     st.markdown(f"**{row[LSOA_NAME]}**")
     st.caption(str(row[LSOA_ID]))

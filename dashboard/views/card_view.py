@@ -15,7 +15,7 @@ import streamlit as st
 
 from dashboard.data.schema import CARDS_DIR, STAKEHOLDERS
 from dashboard.llm import card_mode as cm
-from dashboard.views.explanation_panel import generate_area_card, generate_area_detailed
+from dashboard.llm import live
 from dashboard.views.stakeholder_evidence import stakeholder_data, stakeholder_panels
 
 HULL_ROOT = Path(__file__).resolve().parents[2]
@@ -113,28 +113,72 @@ AREA_PANEL_TITLES = {
 }
 
 
-def render_area_card(bundle, stakeholder: str, lsoa: str) -> None:
-    """Generate on request, so that moving between areas spends nothing."""
+def _area_name(lsoa: str) -> str:
     d = stakeholder_data()
-    name = f"{d.short(lsoa)} · {d.place(lsoa)}" if d.place(lsoa) else d.short(lsoa)
-    cards = st.session_state.setdefault("area_cards", {})
-    if st.button(f"Generate card for {name}", type="primary", key="generate_area_card"):
-        with st.spinner("Writing and checking the card. This can take up to a minute…"):
-            cards[(stakeholder, lsoa)] = generate_area_card(bundle, stakeholder, lsoa)
-    response = cards.get((stakeholder, lsoa))
-    if response is None:
+    return f"{d.short(lsoa)} · {d.place(lsoa)}" if d.place(lsoa) else d.short(lsoa)
+
+
+def _run_live(bundle, stakeholder: str, lsoa: str, mode: str, label: str):
+    """Generate and Regenerate buttons; the latest result for this area, role and length, or None."""
+    store = st.session_state.setdefault("live_results", {})
+    key = (stakeholder, lsoa, mode)
+    generate, again, _ = st.columns([1.2, 0.8, 2], vertical_alignment="center")
+    first = generate.button(f"Generate {label} for {_area_name(lsoa)}", type="primary", key=f"live_go_{mode}")
+    redo = again.button("Regenerate", key=f"live_redo_{mode}", disabled=key not in store,
+                        help="Ignore the cached answer and write a new one.")
+    if first or redo:
+        with st.spinner("Writing the explanation, then checking every figure, rank and length…"):
+            store[key] = live.explain(bundle, stakeholder, lsoa, mode, regenerate=redo)
+    result = store.get(key)
+    if result is None:
+        return None
+    if result.status == "limit":
+        st.info(result.problems[0])
+        return None
+    if result.status == "error":
+        st.warning("The AI service could not be reached just now. Please try again.")
+        return None
+    if result.status == "evidence_only":
+        _evidence_only(bundle, stakeholder, lsoa, result)
+        return None
+    return result
+
+
+def _meta(result) -> str:
+    tries = "first attempt" if result.attempts == 1 else f"repaired after {result.attempts} attempts"
+    return (f"Generated live by {html.escape(result.response.model)} at temperature 0 · {tries} · validated: every figure "
+            f"and rank traced to the evidence, wording and length checked · not individually reviewed · "
+            f"{html.escape(result.response.timestamp[:10])}")
+
+
+def _evidence_only(bundle, stakeholder: str, lsoa: str, result) -> None:
+    from dashboard.views.area_panel import _insights
+    from dashboard.views.decision_support import decision_table
+    from dashboard.views.maps import predictions_for
+
+    table, predictions = decision_table(bundle), predictions_for(None)
+    lines = _insights(table, lsoa, stakeholder, float(predictions.loc[lsoa, "predicted"]),
+                      float(predictions["predicted"].mean()))
+    bullets = "".join(f"<li>{html.escape(line)}</li>" for line in lines)
+    with st.container(border=True):
+        st.markdown(f"<div class='gs-kicker'>{html.escape(STAKEHOLDERS[stakeholder])} · Evidence-only summary, "
+                    f"{html.escape(_area_name(lsoa))}</div><ul>{bullets}</ul>"
+                    f"<div class='gs-foot'><span class='gs-meta'>The AI explanation did not pass validation after "
+                    f"{result.attempts} attempts, so these lines are written directly from the evidence instead.</span></div>",
+                    unsafe_allow_html=True)
+        with st.expander("What failed validation"):
+            for problem in result.problems:
+                st.markdown(f"- {problem}")
+
+
+def render_area_card(bundle, stakeholder: str, lsoa: str) -> None:
+    result = _run_live(bundle, stakeholder, lsoa, "short", "card")
+    if result is None:
         return
-    if not response.ok:
-        st.warning("The card could not be generated just now. Please try again.")
-        return
-    if not response.usage["checks"]["ok"]:
-        st.warning("No card for this area passed the figure checks, so none is shown. Please try again.")
-        return
+    d = stakeholder_data()
     panels = stakeholder_panels(f"{stakeholder}_area", lsoa, d.default_contrast(lsoa))
-    meta = (f"Generated live by {html.escape(response.model)} at temperature 0 · prompt "
-            f"{html.escape(response.prompt_version)} · {html.escape(response.timestamp[:10])} · Figure checks passed")
-    _card(stakeholder, name, AREA_PANEL_TITLES[stakeholder], ("", ""), panels, cm.parse_card(response.text), 4,
-          "Model attribution for this area, written live and not individually reviewed.", meta)
+    _card(stakeholder, _area_name(lsoa), AREA_PANEL_TITLES[stakeholder], ("", ""), panels, result.content, 4,
+          "Model attribution for this area.", _meta(result))
 
 
 @st.cache_data(show_spinner=False)
@@ -163,7 +207,7 @@ def render_detailed(stakeholder: str) -> None:
 LOCATION_MAP_TITLES = {"Where it matters.", "Spatial view."}
 
 
-def _detailed(stakeholder: str, kicker: str, panels, text: str, meta: str) -> None:
+def _detailed(stakeholder: str, kicker: str, panels, text: str, meta: str, body_html: str | None = None) -> None:
     panels = [p for p in panels if p[1] not in LOCATION_MAP_TITLES]
     with st.container(border=True):
         st.markdown(f"<div class='gs-kicker'>{html.escape(STAKEHOLDERS[stakeholder])} · {html.escape(kicker)}</div>",
@@ -175,31 +219,24 @@ def _detailed(stakeholder: str, kicker: str, panels, text: str, meta: str) -> No
                 st.markdown(f"<div class='gs-caption'><b>{html.escape(title)}</b> {html.escape(caption)}</div>",
                             unsafe_allow_html=True)
         with right:
-            st.markdown(f"<div class='gs-body'>{cm.marked_html(text)}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='gs-body'>{body_html or cm.marked_html(text)}</div>", unsafe_allow_html=True)
             st.markdown(f"<div class='gs-foot'><span class='gs-meta'>{meta}</span></div>", unsafe_allow_html=True)
 
 
 def render_area_detailed(bundle, stakeholder: str, lsoa: str) -> None:
-    """Generate on request, so that moving between areas spends nothing."""
-    d = stakeholder_data()
-    name = f"{d.short(lsoa)} · {d.place(lsoa)}" if d.place(lsoa) else d.short(lsoa)
-    store = st.session_state.setdefault("area_detailed", {})
-    if st.button(f"Generate detailed narrative for {name}", type="primary", key="generate_area_detailed"):
-        with st.spinner("Writing and checking the narrative. This can take up to a minute…"):
-            store[(stakeholder, lsoa)] = generate_area_detailed(bundle, stakeholder, lsoa)
-    response = store.get((stakeholder, lsoa))
-    if response is None:
+    result = _run_live(bundle, stakeholder, lsoa, "comprehensive", "detailed narrative")
+    if result is None:
         return
-    if not response.ok:
-        st.warning("The narrative could not be generated just now. Please try again.")
-        return
-    if not response.usage["checks"]["ok"]:
-        st.warning("No narrative for this area passed the figure checks, so none is shown. Please try again.")
-        return
-    meta = (f"Generated live by {html.escape(response.model)} at temperature 0 · prompt {html.escape(response.prompt_version)} "
-            f"· {html.escape(response.timestamp[:10])} · Figure checks passed · Not individually reviewed")
-    _detailed(stakeholder, f"Detailed narrative, {name}", stakeholder_panels(stakeholder, lsoa, d.default_contrast(lsoa)),
-              response.text, meta)
+    d, content = stakeholder_data(), result.content
+    sections = "".join(
+        f"<div class='gs-kicker' style='margin-top:.6rem;'>{html.escape(heading)}</div>{cm.marked_html(content[key])}"
+        for heading, key in zip(live.HEADINGS[stakeholder], live.DETAILED_PARTS))
+    fields = ", ".join(str(f) for f in content.get("evidence_fields") or [])
+    body = (sections + f"<div class='gs-caption' style='margin-top:.6rem;'><b>Limitation.</b> "
+            f"{html.escape(cm._bare(content['limitation']))}</div>"
+            + (f"<div class='gs-caption'><b>Evidence used:</b> {html.escape(fields)}</div>" if fields else ""))
+    _detailed(stakeholder, f"Detailed narrative, {_area_name(lsoa)}",
+              stakeholder_panels(stakeholder, lsoa, d.default_contrast(lsoa)), "", _meta(result), body_html=body)
 
 
 def render_comparison() -> None:
