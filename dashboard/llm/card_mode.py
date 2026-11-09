@@ -538,7 +538,7 @@ Return ONLY one JSON object with exactly these keys:
   the set-aside candidates in plain words (manager_overview.set_aside.features) and their
   combined share, without restating how many there are (the tile gives it); add the caveat in
   plain words; then end with one
-  clause saying the most sensitive areas agree with the expert's regions, pointing to panel 01
+  clause naming ATT Accuracy for the most sensitive areas, pointing to panel 01
   for the count. No chance comparison, no stability or across-model remarks and no next-step
   sentence: this replaces the section 9 next-step item for this card.
 - "footer": one limitation, at most 15 words, ruling out causal or resourcing readings.
@@ -600,7 +600,7 @@ MANAGER_ILLUSTRATIVE_NARRATIVE = {
                   "[[t:candidates to set aside]]: each carries under [[n:1%]], all of them together "
                   "[[n:7%]] of local importance. Related count and "
                   "density measures can share weight, so judge them as groups. The areas where the "
-                  "model is most sensitive agree with [[t:local expertise]] (panel 01).",
+                  "model is most sensitive score well on [[t:ATT Accuracy]] (panel 01).",
     "footer": "Describes what the model uses, not causes of crime or where to put resources.",
 }
 
@@ -618,7 +618,6 @@ def manager_block(d: StakeholderData) -> dict:
     not_crime = lead[~lead.str.startswith("crime_")].index
     stab = d.metrics["stability"]
     att = pd.read_csv(Path(__file__).resolve().parents[2] / ATT_FAITHFULNESS_CSV)
-    feat_acc = att[(att["branch"] == "Feature") & (att["measure"] == "att_accuracy")].iloc[0]
     geo_acc = att[(att["branch"] == "Geo") & (att["measure"] == "att_accuracy")].iloc[0]
     c = MANAGER_CONTRAST
     local = mag.loc[c] / mag.loc[c].sum()
@@ -670,7 +669,7 @@ def manager_block(d: StakeholderData) -> dict:
                        "same measure can split weight, so judge them as groups (related_group_share)"),
         },
         "confidence": {
-            "expert_agreement": {"top20_in_expert_regions": int(top["expert_region"].sum()), "k": TOP_K,
+            "att_accuracy": {"top20_in_expert_regions": int(top["expert_region"].sum()), "k": TOP_K,
                                  "share": round(float(top["expert_region"].mean()), 2),
                                  "chance_share": round(len(d.regions) / d.n, 3)},
             "neighbour_stability": {"directions_tested": len(stab["directions"]),
@@ -679,9 +678,9 @@ def manager_block(d: StakeholderData) -> dict:
                                        "the top few is less stable (evaluation.consistency)"},
             "across_models": {"n_models": int(geo_acc["n_models"]),
                               "plain_reading": ("across the candidate models, higher accuracy did not reliably give "
-                                                "closer agreement with expert judgement, for areas or for features"
-                                                if max(geo_acc["pearson_r"], feat_acc["pearson_r"]) < 0.3 else
-                                                "more accurate models gave closer agreement with expert judgement")},
+                                                "higher ATT Accuracy for areas"
+                                                if geo_acc["pearson_p"] >= 0.05 else
+                                                "more accurate models gave higher ATT Accuracy for areas")},
         },
         "shown_on_panels": {
             "note": "figures the two panels already print; tiles and text must not repeat them",
@@ -734,7 +733,7 @@ Return ONLY one JSON object with exactly these keys:
 - "tiles": exactly 4 objects {"value": ..., "label": ...}. value is one figure from the
   evidence (at most 8 characters); label is at most 8 words naming the quantity exactly
   (e.g. "Geo surrogate held-out R2"). Use exactly these four, in this order: Geo surrogate R2,
-  Geo top-20 expert-region accuracy, neighbour-addition Jaccard, Geo seed rank Spearman.
+  Geo ATT Accuracy (top 20), neighbour-addition Jaccard, Geo seed rank Spearman.
 - "section_01": at most 80 words, how the explanation behaves across Hull: Geo branch (panel 01)
   that the signed ranking tracks the exact shift (value is in panel 01; do not cite it) while
   the absolute ranking does not, what the sign means, and how skewed the single-LSOA shift
@@ -761,7 +760,7 @@ RESEARCHER_CARD_ADDENDUM += (
     "neighbour-addition value as reproducibility across seeds. Give feature_seed_rank_spearman in section_02 and "
     "put geo_seed_rank_spearman and the neighbour-addition Jaccard on tiles only: no figure on a tile may appear "
     "again in the text. Wrap every figure as [[n:...]], including a total such as [[n:32]]. When citing the "
-    "largest local effect, name only the place that has that value.\n"
+    "largest local effect, name only the place that has that value. Keep section_01 to at most 70 words, and do not cite the neighbour-addition Jaccard or the Geo ATT Accuracy in either section.\n"
 )
 RESEARCHER_CARD_ADDENDUM = RESEARCHER_CARD_ADDENDUM.rstrip()
 
@@ -799,7 +798,7 @@ RESEARCHER_ILLUSTRATIVE_NARRATIVE = {
                 "dominates almost everywhere.",
     "tiles": [
         {"value": "0.93", "label": "Geo surrogate held-out R2"},
-        {"value": "16/20", "label": "Geo top-20 in expert regions"},
+        {"value": "16/20", "label": "Geo ATT Accuracy, top 20"},
         {"value": "1.0", "label": "Top-20 Jaccard, neighbour additions"},
         {"value": "0.904", "label": "Geo rank Spearman across seeds"},
     ],
@@ -869,10 +868,10 @@ def researcher_block(d: StakeholderData) -> dict:
         },
         "quality": {
             "geo_surrogate_r2": round(float(m["fidelity"]["R2"]), 3),
-            "expert_region_accuracy_top20": f"{int(top['expert_region'].sum())}/{TOP_K}",
+            "geo_att_accuracy_top20": f"{int(top['expert_region'].sum())}/{TOP_K}",
             "intervention_top20_minus_random_w1": round(float(m["faithfulness"]["top_minus_random"]), 2),
             "intervention_p": round(float(m["faithfulness"]["empirical_p_top_vs_random"]), 3),
-            "intervention_note": "supplementary intervention impact, not ATT Faithfulness",
+            "intervention_note": "supplementary intervention impact",
             "neighbour_addition_jaccard_mean": round(float(m["stability"]["jaccard_mean"]), 2),
             "geo_seed_rank_spearman": round(float(m["consistency"]["rank_spearman_mean"]), 3),
             "feature_surrogate_r2": round(float(_feature_final()["fidelity"]["R2"]), 3),
@@ -1199,7 +1198,7 @@ SPECS = {
         "example": MANAGER_ILLUSTRATIVE_NARRATIVE,
         "block": ("manager_overview", manager_block),
         "titles": ("Drivers and exceptions", "Set aside and confidence"),
-        "version": {"short": "manager-card-v7", "comprehensive": "manager-comprehensive-v2"},
+        "version": {"short": "manager-card-v8", "comprehensive": "manager-comprehensive-v2"},
         "limits": {"section_01": 70, "section_02": 60, "footer": 15},
         "no_repeat": True,
         "comprehensive_limits": {"text": 230},
@@ -1210,7 +1209,7 @@ SPECS = {
         "example": RESEARCHER_ILLUSTRATIVE_NARRATIVE,
         "block": ("researcher_diagnostics", researcher_block),
         "titles": ("01 · Explanation behaviour across Hull", "02 · Explanation quality"),
-        "version": {"short": "researcher-card-v10", "comprehensive": "researcher-comprehensive-v3"},
+        "version": {"short": "researcher-card-v12", "comprehensive": "researcher-comprehensive-v3"},
         "limits": {"section_01": 80, "section_02": 80, "footer": 15},
         "short_drop_limitations": ("LISA", "pattern_scale"),
         "technical": True,

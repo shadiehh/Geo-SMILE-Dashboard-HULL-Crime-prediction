@@ -53,8 +53,8 @@ METRIC_VIEWS: dict[str, dict] = {
         "fmt": ".3f",
     },
     "expert_overlap_fraction": {
-        "label": "Expert-reference overlap",
-        "y_title": "Fraction of top-k matching the expert reference set",
+        "label": "ATT Accuracy",
+        "y_title": "ATT Accuracy (share of top-k in the expert reference)",
         "value_col": "expert_overlap_fraction",
         "error_col": None,
         "hover_extra": "expert_overlap_count",
@@ -325,8 +325,8 @@ def render_diagnostics_section(stakeholder_id: str) -> None:
         toggle_label="Show diagnostics (Model Diagnostics / Robustness)",
         toggle_key="show_diagnostics_toggle",
         help_text=(
-            "Robustness diagnostics — fidelity, faithfulness, ATT stability, ATT "
-            "consistency, and expert-reference overlap — across the swept "
+            "Robustness diagnostics — fidelity, intervention impact, ATT stability, ATT "
+            "consistency, and ATT Accuracy — across the swept "
             "perturbation counts. Shown by default for GeoAI Researcher/Model Analyst and "
             "Governance/Assurance."
         ),

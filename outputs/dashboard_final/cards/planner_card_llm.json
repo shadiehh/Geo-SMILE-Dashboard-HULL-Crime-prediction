@@ -1,6 +1,7 @@
 {
   "previous_attempts": [
-    "planner_card_llm_attempt1.json"
+    "planner_card_llm_attempt1.json",
+    "planner_card_llm_attempt2.json"
   ],
   "stakeholder": "planner",
   "question": "Which areas matter most to the model, and where does it rely on built-environment features, and which ones?",
@@ -454,10 +455,10 @@
       "geo_fidelity_r2": 0.9295843061280951,
       "geo_att_stability_jaccard_mean": 1.0,
       "geo_att_stability_spearman_mean": 0.9785287835149652,
-      "feature_faithfulness_top_minus_random": 4.498649280145054,
-      "feature_faithfulness_empirical_p": 0.00999000999000999,
-      "geo_faithfulness_top_minus_random": 1.2728430531426076,
-      "geo_faithfulness_empirical_p": 0.000999000999000999,
+      "feature_intervention_top_minus_random": 4.498649280145054,
+      "feature_intervention_empirical_p": 0.00999000999000999,
+      "geo_intervention_top_minus_random": 1.2728430531426076,
+      "geo_intervention_empirical_p": 0.000999000999000999,
       "feature_neighbour_addition_spearman_mean": 0.9991101223581758,
       "feature_expert_accuracy": {
         "intersection": 7,
@@ -596,9 +597,9 @@
       "ok": true,
       "provider": "openai",
       "model": "gpt-4.1",
-      "timestamp": "2026-11-09T13:06:04.178200+00:00",
+      "timestamp": "2026-11-09T13:50:34.032935+00:00",
       "prompt_version": "geosmile-hull-v9",
-      "raw": "{\n  \"headline\": \"The model relies most on [[t:Old Town]], but built-environment features matter most in [[t:Longhill]] and [[t:Bilton Grange]].\",\n  \"tiles\": [\n    {\n      \"value\": \"1/168\",\n      \"label\": \"GeoSensitivity rank, Old Town\"\n    },\n    {\n      \"value\": \"82%\",\n      \"label\": \"Crime history, Old Town\"\n    },\n    {\n      \"value\": \"14%\",\n      \"label\": \"Built environment, Hull-wide\"\n    },\n    {\n      \"value\": \"50%\",\n      \"label\": \"Highest built share, Longhill\"\n    }\n  ],\n  \"section_01\": \"The model is most sensitive to [[t:Old Town]] (029E, rank [[n:1/168]]), ahead of Dairycoates and Sculcoates. In Old Town, [[t:recent crime history]] dominates ([[n:82%]] of local importance); built-environment features contribute only [[n:9%]], mainly [[t:nightlife]].\",\n  \"section_02\": \"Across Hull, the model relies mainly on [[t:crime history]] ([[n:64%]]), then census characteristics; built-environment features account for [[n:14%]], led by [[t:green space]] and roads. Built features matter most in [[t:Longhill]] ([[n:50%]], green space) and [[t:Bilton Grange]] ([[n:50%]], transit stops).\",\n  \"footer\": \"Attribution shares reflect model behaviour, not planning targets.\"\n}",
+      "raw": "{\n  \"headline\": \"The model relies most on [[t:Old Town]], but built-environment features matter most in [[t:Longhill]] and [[t:Bilton Grange]].\",\n  \"tiles\": [\n    {\n      \"value\": \"1/168\",\n      \"label\": \"GeoSensitivity rank, Old Town\"\n    },\n    {\n      \"value\": \"82%\",\n      \"label\": \"Crime history, Old Town\"\n    },\n    {\n      \"value\": \"14%\",\n      \"label\": \"Built environment, Hull-wide\"\n    },\n    {\n      \"value\": \"50%\",\n      \"label\": \"Highest built share, Longhill\"\n    }\n  ],\n  \"section_01\": \"The model is most sensitive to [[t:Old Town]] (029E, rank [[n:1/168]]), ahead of Dairycoates and Sculcoates. In Old Town, it relies overwhelmingly on [[t:recent crime history]] ([[n:82%]] of local importance); built-environment features contribute only [[n:9%]], mainly [[t:nightlife]].\",\n  \"section_02\": \"Across Hull, [[t:crime history]] dominates model attribution ([[n:64%]]), followed by census characteristics ([[n:18%]]); built-environment features account for [[n:14%]], led by [[t:green space]] and roads. Built-environment influence peaks in [[t:Longhill]] ([[n:50%]], green space) and [[t:Bilton Grange]] ([[n:50%]], transit stops).\",\n  \"footer\": \"Attribution shares reflect model behaviour, not planning targets.\"\n}",
       "content": {
         "headline": "The model relies most on [[t:Old Town]], but built-environment features matter most in [[t:Longhill]] and [[t:Bilton Grange]].",
         "tiles": [
@@ -619,8 +620,8 @@
             "label": "Highest built share, Longhill"
           }
         ],
-        "section_01": "The model is most sensitive to [[t:Old Town]] (029E, rank [[n:1/168]]), ahead of Dairycoates and Sculcoates. In Old Town, [[t:recent crime history]] dominates ([[n:82%]] of local importance); built-environment features contribute only [[n:9%]], mainly [[t:nightlife]].",
-        "section_02": "Across Hull, the model relies mainly on [[t:crime history]] ([[n:64%]]), then census characteristics; built-environment features account for [[n:14%]], led by [[t:green space]] and roads. Built features matter most in [[t:Longhill]] ([[n:50%]], green space) and [[t:Bilton Grange]] ([[n:50%]], transit stops).",
+        "section_01": "The model is most sensitive to [[t:Old Town]] (029E, rank [[n:1/168]]), ahead of Dairycoates and Sculcoates. In Old Town, it relies overwhelmingly on [[t:recent crime history]] ([[n:82%]] of local importance); built-environment features contribute only [[n:9%]], mainly [[t:nightlife]].",
+        "section_02": "Across Hull, [[t:crime history]] dominates model attribution ([[n:64%]]), followed by census characteristics ([[n:18%]]); built-environment features account for [[n:14%]], led by [[t:green space]] and roads. Built-environment influence peaks in [[t:Longhill]] ([[n:50%]], green space) and [[t:Bilton Grange]] ([[n:50%]], transit stops).",
         "footer": "Attribution shares reflect model behaviour, not planning targets."
       },
       "checks": {

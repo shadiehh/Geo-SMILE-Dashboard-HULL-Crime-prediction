@@ -1,11 +1,14 @@
 {
   "previous_attempts": [
-    "researcher_card_llm_attempt1.json"
+    "researcher_card_llm_attempt1.json",
+    "researcher_card_llm_attempt2.json",
+    "researcher_card_llm_attempt3.json",
+    "researcher_card_llm_attempt4.json"
   ],
   "stakeholder": "researcher",
   "question": "How is Geo-SMILE behaving technically across Hull, and how faithful, spatially coherent and reproducible are its explanations?",
   "prompt_version": "geosmile-hull-v9",
-  "card_mode_addendum": "\n---\n\n## 17. CARD MODE ADDENDUM\n\noutput_mode is card_mode: the text fills a short card for a GeoAI Researcher / Model Analyst,\nshown with four stat tiles and two Hull-wide dashboard panels (01, Geo branch: signed\nGeo-SMILE coefficient against the exact single-LSOA W1 shift for all 168 LSOAs; 02, Feature\nbranch: map of the local effect magnitude, |local coefficient|, of the most important feature).\nThe card is CITY-WIDE: report the main Hull-wide results of both branches and the\nexplanation-quality evaluation. Do not build the narrative around a single\nLSOA; an extreme value may appear only as a property of the distribution. This section replaces\nsection 14 \"Length and form\" and its bolding rule. Every other section, including prohibited\nclaims and the self-check, still applies.\n\nTechnical language is expected: exact values, test statistics, correlation values, sign\nconventions are allowed. Keep the sign convention exact: the signed Geo coefficient is a\nrelative contribution to the coalition W1, not a direction of crime change. Do not discuss\nspatial clustering (Moran's I, LISA) or ATT Faithfulness on this card; the intervention result\n(top 20 against random masking) is intervention impact, not faithfulness.\n\nNo repetition: every figure appears ONCE on the card. The panels already print the figures in\nresearcher_diagnostics.shown_on_panels, so neither tiles nor sections cite them; refer to the\npanel instead (\"panel 01\"). A tile figure is not cited again in the sections, not even its\nfirst number.\n\nReturn ONLY one JSON object with exactly these keys:\n\n- \"headline\": one sentence, at most 20 words.\n- \"tiles\": exactly 4 objects {\"value\": ..., \"label\": ...}. value is one figure from the\n  evidence (at most 8 characters); label is at most 8 words naming the quantity exactly\n  (e.g. \"Geo surrogate held-out R2\"). Use exactly these four, in this order: Geo surrogate R2,\n  Geo top-20 expert-region accuracy, neighbour-addition Jaccard, Geo seed rank Spearman.\n- \"section_01\": at most 80 words, how the explanation behaves across Hull: Geo branch (panel 01)\n  that the signed ranking tracks the exact shift (value is in panel 01; do not cite it) while\n  the absolute ranking does not, what the sign means, and how skewed the single-LSOA shift\n  distribution is; Feature branch (panel 02) which feature matters most, in how many LSOAs it\n  leads, how its local effect varies across Hull (median against the highest, and where by\n  locality), and the location players' global ranks.\n- \"section_02\": at most 80 words, explanation quality NOT on the tiles: Feature surrogate\n  fidelity, intervention impact (top 20 against random masking, with its p-value), and Feature\n  seed rank Spearman against the Geo branch's; then the limitation that matters most. Do not\n  cite any tile value. Mark at least two key terms here (e.g. the intervention result and the\n  reproducibility contrast).\n- \"footer\": one limitation, at most 15 words, from researcher_diagnostics.limitations; not about\n  spatial clustering or LISA.\n\nKey-term counts: 1-2 in the headline and 2-4 in EACH section. Tiles and footer carry no\nmarkup.\n\nHighlighting markup (you choose what to mark):\n\n- wrap every figure you cite as [[n:...]], e.g. [[n:14%]];\n- wrap the key terms a planner should catch when scanning as [[t:...]]. This is required,\n  not optional: keep to the counts given above, each at most 4 words (the finding phrase\n  itself, the leading feature names, or the key place names). Before answering, count the\n  [[t:...]] spans and fix any count outside the range;\n- no other markup and no markdown bold.\n\nEvery figure must be copied or rounded from EVIDENCE_JSON (shares as percentages:\n0.139 -> 14%). Do not compute new figures and do not cite a figure that is not supplied.\n\nILLUSTRATIVE_NARRATIVE in the user message shows the expected structure, order, tone and\nmarkup density. It is an example of wording, not evidence: take every figure from\nEVIDENCE_JSON, and write your own sentences.\n\nSeed reproducibility means feature_seed_rank_spearman and geo_seed_rank_spearman only; never describe a neighbour-addition value as reproducibility across seeds. Give feature_seed_rank_spearman in section_02 and put geo_seed_rank_spearman and the neighbour-addition Jaccard on tiles only: no figure on a tile may appear again in the text. Wrap every figure as [[n:...]], including a total such as [[n:32]]. When citing the largest local effect, name only the place that has that value.",
+  "card_mode_addendum": "\n---\n\n## 17. CARD MODE ADDENDUM\n\noutput_mode is card_mode: the text fills a short card for a GeoAI Researcher / Model Analyst,\nshown with four stat tiles and two Hull-wide dashboard panels (01, Geo branch: signed\nGeo-SMILE coefficient against the exact single-LSOA W1 shift for all 168 LSOAs; 02, Feature\nbranch: map of the local effect magnitude, |local coefficient|, of the most important feature).\nThe card is CITY-WIDE: report the main Hull-wide results of both branches and the\nexplanation-quality evaluation. Do not build the narrative around a single\nLSOA; an extreme value may appear only as a property of the distribution. This section replaces\nsection 14 \"Length and form\" and its bolding rule. Every other section, including prohibited\nclaims and the self-check, still applies.\n\nTechnical language is expected: exact values, test statistics, correlation values, sign\nconventions are allowed. Keep the sign convention exact: the signed Geo coefficient is a\nrelative contribution to the coalition W1, not a direction of crime change. Do not discuss\nspatial clustering (Moran's I, LISA) or ATT Faithfulness on this card; the intervention result\n(top 20 against random masking) is intervention impact, not faithfulness.\n\nNo repetition: every figure appears ONCE on the card. The panels already print the figures in\nresearcher_diagnostics.shown_on_panels, so neither tiles nor sections cite them; refer to the\npanel instead (\"panel 01\"). A tile figure is not cited again in the sections, not even its\nfirst number.\n\nReturn ONLY one JSON object with exactly these keys:\n\n- \"headline\": one sentence, at most 20 words.\n- \"tiles\": exactly 4 objects {\"value\": ..., \"label\": ...}. value is one figure from the\n  evidence (at most 8 characters); label is at most 8 words naming the quantity exactly\n  (e.g. \"Geo surrogate held-out R2\"). Use exactly these four, in this order: Geo surrogate R2,\n  Geo ATT Accuracy (top 20), neighbour-addition Jaccard, Geo seed rank Spearman.\n- \"section_01\": at most 80 words, how the explanation behaves across Hull: Geo branch (panel 01)\n  that the signed ranking tracks the exact shift (value is in panel 01; do not cite it) while\n  the absolute ranking does not, what the sign means, and how skewed the single-LSOA shift\n  distribution is; Feature branch (panel 02) which feature matters most, in how many LSOAs it\n  leads, how its local effect varies across Hull (median against the highest, and where by\n  locality), and the location players' global ranks.\n- \"section_02\": at most 80 words, explanation quality NOT on the tiles: Feature surrogate\n  fidelity, intervention impact (top 20 against random masking, with its p-value), and Feature\n  seed rank Spearman against the Geo branch's; then the limitation that matters most. Do not\n  cite any tile value. Mark at least two key terms here (e.g. the intervention result and the\n  reproducibility contrast).\n- \"footer\": one limitation, at most 15 words, from researcher_diagnostics.limitations; not about\n  spatial clustering or LISA.\n\nKey-term counts: 1-2 in the headline and 2-4 in EACH section. Tiles and footer carry no\nmarkup.\n\nHighlighting markup (you choose what to mark):\n\n- wrap every figure you cite as [[n:...]], e.g. [[n:14%]];\n- wrap the key terms a planner should catch when scanning as [[t:...]]. This is required,\n  not optional: keep to the counts given above, each at most 4 words (the finding phrase\n  itself, the leading feature names, or the key place names). Before answering, count the\n  [[t:...]] spans and fix any count outside the range;\n- no other markup and no markdown bold.\n\nEvery figure must be copied or rounded from EVIDENCE_JSON (shares as percentages:\n0.139 -> 14%). Do not compute new figures and do not cite a figure that is not supplied.\n\nILLUSTRATIVE_NARRATIVE in the user message shows the expected structure, order, tone and\nmarkup density. It is an example of wording, not evidence: take every figure from\nEVIDENCE_JSON, and write your own sentences.\n\nSeed reproducibility means feature_seed_rank_spearman and geo_seed_rank_spearman only; never describe a neighbour-addition value as reproducibility across seeds. Give feature_seed_rank_spearman in section_02 and put geo_seed_rank_spearman and the neighbour-addition Jaccard on tiles only: no figure on a tile may appear again in the text. Wrap every figure as [[n:...]], including a total such as [[n:32]]. When citing the largest local effect, name only the place that has that value. Keep section_01 to at most 70 words, and do not cite the neighbour-addition Jaccard or the Geo ATT Accuracy in either section.",
   "illustrative_narrative": {
     "headline": "Geo-SMILE's [[t:signed ranking]] tracks exact masking; locally, [[t:six-month crime]] dominates almost everywhere.",
     "tiles": [
@@ -15,7 +18,7 @@
       },
       {
         "value": "16/20",
-        "label": "Geo top-20 in expert regions"
+        "label": "Geo ATT Accuracy, top 20"
       },
       {
         "value": "1.0",
@@ -454,10 +457,10 @@
       "geo_fidelity_r2": 0.9295843061280951,
       "geo_att_stability_jaccard_mean": 1.0,
       "geo_att_stability_spearman_mean": 0.9785287835149652,
-      "feature_faithfulness_top_minus_random": 4.498649280145054,
-      "feature_faithfulness_empirical_p": 0.00999000999000999,
-      "geo_faithfulness_top_minus_random": 1.2728430531426076,
-      "geo_faithfulness_empirical_p": 0.000999000999000999,
+      "feature_intervention_top_minus_random": 4.498649280145054,
+      "feature_intervention_empirical_p": 0.00999000999000999,
+      "geo_intervention_top_minus_random": 1.2728430531426076,
+      "geo_intervention_empirical_p": 0.000999000999000999,
       "feature_neighbour_addition_spearman_mean": 0.9991101223581758,
       "feature_expert_accuracy": {
         "intersection": 7,
@@ -534,10 +537,10 @@
       },
       "quality": {
         "geo_surrogate_r2": 0.93,
-        "expert_region_accuracy_top20": "16/20",
+        "geo_att_accuracy_top20": "16/20",
         "intervention_top20_minus_random_w1": 1.27,
         "intervention_p": 0.001,
-        "intervention_note": "supplementary intervention impact, not ATT Faithfulness",
+        "intervention_note": "supplementary intervention impact",
         "neighbour_addition_jaccard_mean": 1.0,
         "geo_seed_rank_spearman": 0.904,
         "feature_surrogate_r2": 0.985,
@@ -567,9 +570,9 @@
       "ok": true,
       "provider": "openai",
       "model": "gpt-4.1",
-      "timestamp": "2026-11-09T13:06:42.865990+00:00",
+      "timestamp": "2026-11-09T13:54:08.180982+00:00",
       "prompt_version": "geosmile-hull-v9",
-      "raw": "{\n  \"headline\": \"Geo-SMILE's [[t:signed ranking]] closely tracks exact masking; [[t:crime, 6-month average]] dominates local attribution.\",\n  \"tiles\": [\n    {\n      \"value\": \"0.93\",\n      \"label\": \"Geo surrogate held-out R2\"\n    },\n    {\n      \"value\": \"16/20\",\n      \"label\": \"Geo top-20 expert-region accuracy\"\n    },\n    {\n      \"value\": \"1.0\",\n      \"label\": \"Top-20 Jaccard, neighbour additions\"\n    },\n    {\n      \"value\": \"0.904\",\n      \"label\": \"Geo rank Spearman across seeds\"\n    }\n  ],\n  \"section_01\": \"The [[t:signed Geo coefficient]] ranking tracks the exact single-LSOA shift (panel 01), but the absolute ranking does not ([[n:-0.27]]), so the sign marks relative contribution to the coalition W1. The shift distribution is highly skewed: median [[n:0.3]], maximum [[n:8.6]]. In the Feature branch (panel 02), [[t:crime, 6-month average]] leads in [[n:145]] LSOAs; its local effect has a median of [[n:4.1]] but reaches [[n:50.4]] in Old Town. Location players rank only [[n:20]] (longitude) and [[n:23]] (latitude) of [[n:32]].\",\n  \"section_02\": \"Feature surrogate fidelity is [[n:0.985]]. Masking the Geo top 20 shifts predictions [[n:1.27]] more than random sets ([[n:0.001]]), an [[t:intervention impact]]. Feature ranks are [[t:more reproducible]] across seeds ([[n:0.915]]) than Geo ranks. [[t:Attributions are associational]], not causal.\",\n  \"footer\": \"Attributions are associational, not causal; local coefficient magnitudes are not effects.\"\n}",
+      "raw": "{\n  \"headline\": \"Geo-SMILE's [[t:signed ranking]] closely tracks exact masking; [[t:crime, 6-month average]] dominates local attribution.\",\n  \"tiles\": [\n    {\n      \"value\": \"0.93\",\n      \"label\": \"Geo surrogate held-out R2\"\n    },\n    {\n      \"value\": \"16/20\",\n      \"label\": \"Geo ATT Accuracy, top 20\"\n    },\n    {\n      \"value\": \"1.0\",\n      \"label\": \"Top-20 Jaccard, neighbour additions\"\n    },\n    {\n      \"value\": \"0.904\",\n      \"label\": \"Geo rank Spearman across seeds\"\n    }\n  ],\n  \"section_01\": \"The [[t:signed Geo coefficient]] ranking tracks the exact single-LSOA shift (panel 01), but the absolute ranking does not ([[n:-0.27]]), so sign marks relative coalition W1 contribution. Shifts are highly skewed: median [[n:0.3]], maximum [[n:8.6]]. In the Feature branch, [[t:crime, 6-month average]] leads in [[n:145]] LSOAs; its local effect (panel 02) has a median of [[n:4.1]] but reaches [[n:50.4]] in Old Town. Location players rank only [[n:20]] (longitude) and [[n:23]] (latitude) of [[n:32]].\",\n  \"section_02\": \"Feature surrogate fidelity is [[n:0.985]]. Masking the Geo top 20 shifts predictions [[n:1.27]] more than random sets ([[n:0.001]]), an [[t:intervention impact]]. Feature ranks are [[t:more reproducible]] across seeds ([[n:0.915]]) than Geo ranks. [[t:Attributions are associational]].\",\n  \"footer\": \"Local coefficient magnitudes describe attribution, not effects on crime.\"\n}",
       "content": {
         "headline": "Geo-SMILE's [[t:signed ranking]] closely tracks exact masking; [[t:crime, 6-month average]] dominates local attribution.",
         "tiles": [
@@ -579,7 +582,7 @@
           },
           {
             "value": "16/20",
-            "label": "Geo top-20 expert-region accuracy"
+            "label": "Geo ATT Accuracy, top 20"
           },
           {
             "value": "1.0",
@@ -590,9 +593,9 @@
             "label": "Geo rank Spearman across seeds"
           }
         ],
-        "section_01": "The [[t:signed Geo coefficient]] ranking tracks the exact single-LSOA shift (panel 01), but the absolute ranking does not ([[n:-0.27]]), so the sign marks relative contribution to the coalition W1. The shift distribution is highly skewed: median [[n:0.3]], maximum [[n:8.6]]. In the Feature branch (panel 02), [[t:crime, 6-month average]] leads in [[n:145]] LSOAs; its local effect has a median of [[n:4.1]] but reaches [[n:50.4]] in Old Town. Location players rank only [[n:20]] (longitude) and [[n:23]] (latitude) of [[n:32]].",
-        "section_02": "Feature surrogate fidelity is [[n:0.985]]. Masking the Geo top 20 shifts predictions [[n:1.27]] more than random sets ([[n:0.001]]), an [[t:intervention impact]]. Feature ranks are [[t:more reproducible]] across seeds ([[n:0.915]]) than Geo ranks. [[t:Attributions are associational]], not causal.",
-        "footer": "Attributions are associational, not causal; local coefficient magnitudes are not effects."
+        "section_01": "The [[t:signed Geo coefficient]] ranking tracks the exact single-LSOA shift (panel 01), but the absolute ranking does not ([[n:-0.27]]), so sign marks relative coalition W1 contribution. Shifts are highly skewed: median [[n:0.3]], maximum [[n:8.6]]. In the Feature branch, [[t:crime, 6-month average]] leads in [[n:145]] LSOAs; its local effect (panel 02) has a median of [[n:4.1]] but reaches [[n:50.4]] in Old Town. Location players rank only [[n:20]] (longitude) and [[n:23]] (latitude) of [[n:32]].",
+        "section_02": "Feature surrogate fidelity is [[n:0.985]]. Masking the Geo top 20 shifts predictions [[n:1.27]] more than random sets ([[n:0.001]]), an [[t:intervention impact]]. Feature ranks are [[t:more reproducible]] across seeds ([[n:0.915]]) than Geo ranks. [[t:Attributions are associational]].",
+        "footer": "Local coefficient magnitudes describe attribution, not effects on crime."
       },
       "checks": {
         "ok": true,

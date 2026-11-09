@@ -314,10 +314,10 @@ def top20_map(d: StakeholderData, lsoa: str) -> Panel:
         _outline(ax, d, lsoa, f"{d.short(lsoa)}: rank {int(d.row(lsoa)['geo_rank'])}", offset=_offset_away(d, lsoa))
     ax.set_axis_off()
     n_in = int(top["expert_region"].sum())
-    ax.set_title(f"Top {TOP_K} LSOAs by geographic sensitivity\n({n_in} of {TOP_K} in expert regions)",
+    ax.set_title(f"Top {TOP_K} LSOAs by geographic sensitivity\n(ATT Accuracy: {n_in}/{TOP_K})",
                  loc="left", color=TEXT, fontsize=10)
     chance = len(d.regions) / d.n
-    return fig, "Expert agreement.", (
+    return fig, "ATT Accuracy.", (
         f"{n_in} of the {TOP_K} most sensitive areas lie in the regions the expert highlighted "
         f"({100 * n_in / TOP_K:.0f}% against {100 * chance:.0f}% by chance).")
 

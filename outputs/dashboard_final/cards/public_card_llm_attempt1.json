@@ -458,7 +458,7 @@
       "feature_faithfulness_empirical_p": 0.00999000999000999,
       "geo_faithfulness_top_minus_random": 1.2728430531426076,
       "geo_faithfulness_empirical_p": 0.000999000999000999,
-      "feature_att_stability_spearman_mean": 0.9991101223581758,
+      "feature_neighbour_addition_spearman_mean": 0.9991101223581758,
       "feature_expert_accuracy": {
         "intersection": 7,
         "k": 10,
@@ -605,11 +605,11 @@
       "ok": true,
       "provider": "openai",
       "model": "gpt-4.1",
-      "timestamp": "2026-11-09T13:03:04.741943+00:00",
+      "timestamp": "2026-11-09T13:05:54.615546+00:00",
       "prompt_version": "geosmile-hull-v9",
-      "raw": "{\n \"headline\": \"The model mainly focuses on [[t:recent crime history]] and less on local features.\",\n \"tiles\": [\n  {\n   \"value\": \"63%\",\n   \"label\": \"of what it weighs is past crime\"\n  },\n  {\n   \"value\": \"14%\",\n   \"label\": \"of what it weighs is built environment\"\n  },\n  {\n   \"value\": \"145/168\",\n   \"label\": \"areas led by six-month crime average\"\n  },\n  {\n   \"value\": \"0.4%\",\n   \"label\": \"of what it weighs is Inactive %\"\n  }\n ],\n \"section_01\": \"Across Hull, the model pays most attention to [[t:recent crime history]]. Built environment and census details matter less. Features like [[t:Inactive %]] and road density have very little influence. Predictions depend most on knowing where an area is in [[t:Old Town]], Dairycoates, Sculcoates, and Stepney.\",\n \"section_02\": \"In [[t:Stoneferry]], around Foster Street and Stoneferry Road, panel 02 shows the six-month and three-month crime averages and private renting matter most. This pattern is [[t:similar to Hull overall]], and its location matters about as much as a [[t:typical area]].\",\n \"footer\": \"Shows what the model pays attention to, not why crime happens.\"\n}",
+      "raw": "{\n \"headline\": \"The model mainly focuses on [[t:recent crime history]] when predicting next month's crime.\",\n \"tiles\": [\n  {\n   \"value\": \"63%\",\n   \"label\": \"of what it weighs is past crime\"\n  },\n  {\n   \"value\": \"14%\",\n   \"label\": \"of what it weighs is streets, shops, green space\"\n  },\n  {\n   \"value\": \"145/168\",\n   \"label\": \"areas led by six-month crime average\"\n  },\n  {\n   \"value\": \"0.4%\",\n   \"label\": \"of what it weighs is Inactive %\"\n  }\n ],\n \"section_01\": \"Across Hull, the model pays most attention to [[t:recent crime levels]]. Census details like unemployment and age matter next, while [[t:road density]] and similar features matter very little. Predictions depend most on knowing where an area is in [[t:Old Town]], Dairycoates, Sculcoates, and Stepney.\",\n \"section_02\": \"In [[t:Stoneferry]], around Foster Street and Stoneferry Road, panel 02 shows the six-month and three-month crime averages and private renting are most influential. This pattern is [[t:similar to Hull overall]], with the area's location mattering about as much as in a [[t:typical place]].\",\n \"footer\": \"Shows what the model pays attention to, not why crime happens.\"\n}",
       "content": {
-        "headline": "The model mainly focuses on [[t:recent crime history]] and less on local features.",
+        "headline": "The model mainly focuses on [[t:recent crime history]] when predicting next month's crime.",
         "tiles": [
           {
             "value": "63%",
@@ -617,7 +617,7 @@
           },
           {
             "value": "14%",
-            "label": "of what it weighs is built environment"
+            "label": "of what it weighs is streets, shops, green space"
           },
           {
             "value": "145/168",
@@ -628,8 +628,8 @@
             "label": "of what it weighs is Inactive %"
           }
         ],
-        "section_01": "Across Hull, the model pays most attention to [[t:recent crime history]]. Built environment and census details matter less. Features like [[t:Inactive %]] and road density have very little influence. Predictions depend most on knowing where an area is in [[t:Old Town]], Dairycoates, Sculcoates, and Stepney.",
-        "section_02": "In [[t:Stoneferry]], around Foster Street and Stoneferry Road, panel 02 shows the six-month and three-month crime averages and private renting matter most. This pattern is [[t:similar to Hull overall]], and its location matters about as much as a [[t:typical area]].",
+        "section_01": "Across Hull, the model pays most attention to [[t:recent crime levels]]. Census details like unemployment and age matter next, while [[t:road density]] and similar features matter very little. Predictions depend most on knowing where an area is in [[t:Old Town]], Dairycoates, Sculcoates, and Stepney.",
+        "section_02": "In [[t:Stoneferry]], around Foster Street and Stoneferry Road, panel 02 shows the six-month and three-month crime averages and private renting are most influential. This pattern is [[t:similar to Hull overall]], with the area's location mattering about as much as in a [[t:typical place]].",
         "footer": "Shows what the model pays attention to, not why crime happens."
       },
       "checks": {

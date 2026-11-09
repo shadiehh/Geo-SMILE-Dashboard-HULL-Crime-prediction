@@ -151,10 +151,10 @@ def render_evaluation(bundle: HullBundle) -> None:
             f"Feature Jaccard `{_fmt(ev.get('att_stability_feature_jaccard'), 3)}` · "
             f"Geo Jaccard `{_fmt(ev.get('att_stability_geo_jaccard'), 3)}`"
         )
-        st.markdown("**Intervention impact** (top minus random; not ATT Faithfulness)")
+        st.markdown("**Intervention impact** (top minus random)")
         st.markdown(
-            f"Feature `{_fmt(ev.get('feature_faithfulness_top_minus_random'))}` "
-            f"(p `{_fmt(ev.get('feature_faithfulness_empirical_p'), 3)}`) · "
-            f"Geo `{_fmt(ev.get('geo_faithfulness_top_minus_random'))}` "
-            f"(p `{_fmt(ev.get('geo_faithfulness_empirical_p'), 3)}`)"
+            f"Feature `{_fmt(ev.get('feature_intervention_top_minus_random'))}` "
+            f"(p `{_fmt(ev.get('feature_intervention_empirical_p'), 3)}`) · "
+            f"Geo `{_fmt(ev.get('geo_intervention_top_minus_random'))}` "
+            f"(p `{_fmt(ev.get('geo_intervention_empirical_p'), 3)}`)"
         )

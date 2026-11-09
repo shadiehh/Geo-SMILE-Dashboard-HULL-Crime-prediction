@@ -31,6 +31,8 @@ from dashboard.views.card_view import render_card, render_comparison
 from dashboard.views.diagnostics import render_diagnostics_section
 from dashboard.views.explanation_panel import render_explanation_panel
 from dashboard.views.feature_panel import render_evaluation, render_feature_panel, render_global_features
+from dashboard.llm.anthropic_provider import _secret as _anthropic_secret
+from dashboard.llm.openai_provider import _secret as _openai_secret
 from dashboard.views.maps import render_map
 
 ROLE_LABELS = {"public": "Resident", "planner": "Planner", "police": "Police", "manager": "Manager",
@@ -68,6 +70,11 @@ STYLE = """
 .gs-lede {font-size: 1rem; color: #57646D; margin-bottom: 0.8rem;}
 </style>
 """
+
+
+def _live_briefings() -> bool:
+    """Live LLM briefings need an API key; the public deployment has none, so viewers cannot spend credit."""
+    return bool(_openai_secret("OPENAI_API_KEY") or _anthropic_secret("ANTHROPIC_API_KEY"))
 
 
 @st.cache_resource(show_spinner="Loading Hull Geo-SMILE results…")
@@ -126,7 +133,9 @@ def _page_map(bundle, role: str) -> None:
     with controls:
         map_view = st.radio("Map layer", list(MAP_VIEWS), format_func=MAP_VIEWS.get, key="map_view")
         selected = _lsoa_picker(bundle)
-        provider = st.radio("Briefing model", list(PROVIDERS), format_func=PROVIDERS.get, key="provider_choice")
+        provider = None
+        if _live_briefings():
+            provider = st.radio("Briefing model", list(PROVIDERS), format_func=PROVIDERS.get, key="provider_choice")
     with mapper:
         if map_view in ("latitude_effect", "longitude_effect", "overlay", "top50_rank"):
             st.caption("Coordinate-inclusive diagnostic run. Latitude and longitude effects are not GeoSensitivity.")
@@ -138,6 +147,8 @@ def _page_map(bundle, role: str) -> None:
         render_feature_panel(bundle, selected)
         render_global_features(bundle)
         render_evaluation(bundle)
+    if provider is None:
+        return
     st.divider()
     render_explanation_panel(
         bundle, stakeholder_id=role, provider_choice=provider, scope="lsoa" if selected else "overall",
@@ -177,7 +188,7 @@ crime hotspot.
 - Because the model predicts counts, GeoSensitivity is larger where predicted crime is higher.
 - Local LISA p-values are not adjusted for multiple testing.
 - Census characteristics can act as proxies for protected groups.
-- Expert agreement reflects one expert's judgement and is not validation of causes.
+- ATT Accuracy compares the highest-ranked players with one expert's reference. It does not validate causes.
 
 #### Where the text comes from
 The language model only communicates structured results. It does not see maps, compute statistics or find
@@ -198,7 +209,7 @@ def main() -> None:
     _header(bundle)
     page = _selector("page", list(PAGES), {p: p for p in PAGES}, PAGES[0])
     role = "public"
-    if page in ("Stakeholder card", "Explore the map"):
+    if page == "Stakeholder card" or (page == "Explore the map" and _live_briefings()):
         st.markdown("<div class='gs-kicker'>Explain for</div>", unsafe_allow_html=True)
         role = _selector("role", list(STAKEHOLDERS), ROLE_LABELS, "public")
 

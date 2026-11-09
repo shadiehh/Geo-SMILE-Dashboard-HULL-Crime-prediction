@@ -394,20 +394,20 @@ def compact_evaluation(evaluation: dict) -> dict:
             }
     faith = v3.get("model_based_attribution_faithfulness") or {}
     if faith.get("feature"):
-        out["feature_faithfulness_top_minus_random"] = _json_safe(
+        out["feature_intervention_top_minus_random"] = _json_safe(
             faith["feature"].get("top_minus_random")
         )
-        out["feature_faithfulness_empirical_p"] = _json_safe(
+        out["feature_intervention_empirical_p"] = _json_safe(
             faith["feature"].get("empirical_p_top_vs_random")
         )
     if geo_ad.get("faithfulness"):
-        out["geo_faithfulness_top_minus_random"] = _json_safe(faith_ad.get("top_minus_random"))
-        out["geo_faithfulness_empirical_p"] = _json_safe(faith_ad.get("empirical_p_top_vs_random"))
+        out["geo_intervention_top_minus_random"] = _json_safe(faith_ad.get("top_minus_random"))
+        out["geo_intervention_empirical_p"] = _json_safe(faith_ad.get("empirical_p_top_vs_random"))
     elif faith.get("geo"):
-        out["geo_faithfulness_top_minus_random"] = _json_safe(
+        out["geo_intervention_top_minus_random"] = _json_safe(
             faith["geo"].get("top_minus_random")
         )
-        out["geo_faithfulness_empirical_p"] = _json_safe(
+        out["geo_intervention_empirical_p"] = _json_safe(
             faith["geo"].get("empirical_p_top_vs_random")
         )
     final = evaluation.get("feature_final") or {}
@@ -425,8 +425,8 @@ def compact_evaluation(evaluation: dict) -> dict:
             "mean_sd": _json_safe(cons["mean_sd"]),
             "seeds": cons.get("seeds"),
         }
-        out["feature_faithfulness_top_minus_random"] = _json_safe(inter["top_minus_random"])
-        out["feature_faithfulness_empirical_p"] = _json_safe(inter["empirical_p_top_vs_random"])
+        out["feature_intervention_top_minus_random"] = _json_safe(inter["top_minus_random"])
+        out["feature_intervention_empirical_p"] = _json_safe(inter["empirical_p_top_vs_random"])
         out["feature_expert_accuracy"] = {"intersection": acc["intersection"], "k": acc["k"],
                                           "auroc": _json_safe(acc["auroc"])}
     return {k: v for k, v in out.items() if v is not None}

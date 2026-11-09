@@ -458,7 +458,7 @@
       "feature_faithfulness_empirical_p": 0.00999000999000999,
       "geo_faithfulness_top_minus_random": 1.2728430531426076,
       "geo_faithfulness_empirical_p": 0.000999000999000999,
-      "feature_att_stability_spearman_mean": 0.9991101223581758,
+      "feature_neighbour_addition_spearman_mean": 0.9991101223581758,
       "feature_expert_accuracy": {
         "intersection": 7,
         "k": 10,
@@ -503,7 +503,7 @@
       "reproducibility": {
         "geo_seed_rank_spearman": 0.904,
         "geo_seed_top20pct_jaccard": 0.86,
-        "feature_seed_rank_spearman": "see evaluation.consistency.feature",
+        "feature_seed_rank_spearman": 0.915,
         "neighbour_addition_jaccard_mean": 1.0,
         "geo_surrogate_r2": 0.93,
         "intervention_top20_minus_random_w1": 1.27,
@@ -549,9 +549,9 @@
       "ok": true,
       "provider": "openai",
       "model": "gpt-4.1",
-      "timestamp": "2026-11-09T13:05:08.925834+00:00",
+      "timestamp": "2026-11-09T13:06:52.945728+00:00",
       "prompt_version": "geosmile-hull-v9",
-      "raw": "{\n \"headline\": \"The explanation is [[t:traceable and reproducible]]; four explicit [[t:limitations]] require review.\",\n \"tiles\": [\n  {\n   \"value\": \"0.904\",\n   \"label\": \"Geo rank Spearman across seeds\"\n  },\n  {\n   \"value\": \"0.86\",\n   \"label\": \"Geo top-fifth Jaccard across seeds\"\n  },\n  {\n   \"value\": \"2.6x\",\n   \"label\": \"Rank-1 to rank-2 GeoSensitivity ratio\"\n  },\n  {\n   \"value\": \"0.93\",\n   \"label\": \"Geo surrogate fidelity R2\"\n  }\n ],\n \"section_01\": \"GeoSensitivity is derived from a single [[t:XGBoost]] model using [[t:random-donor location masking]] (panel 02 for count and seed); each perturbation masks [[n:5]]–[[n:10]] areas. The expert reference was [[t:drawn blind]] to outputs. The most variable area is [[t:Old Town]] ([[n:3.4%]] of its mean); Feature branch reproducibility is higher.\",\n \"section_02\": \"The [[t:sign is not a direction]] of crime. Local LISA p-values are [[t:unadjusted]] for multiple testing. [[t:Old Town]] dominates GeoSensitivity and needs [[t:separate model review]]. GeoSensitivity partly reflects predicted crime level.\",\n \"footer\": \"Associational only; not a basis for individual or community decisions.\"\n}",
+      "raw": "{\n \"headline\": \"The explanation is [[t:traceable and reproducible]]; four explicit [[t:limitations]] require review.\",\n \"tiles\": [\n  {\n   \"value\": \"0.904\",\n   \"label\": \"Geo rank Spearman across seeds\"\n  },\n  {\n   \"value\": \"0.86\",\n   \"label\": \"Geo top-fifth Jaccard across seeds\"\n  },\n  {\n   \"value\": \"2.6x\",\n   \"label\": \"Rank-1 to rank-2 GeoSensitivity ratio\"\n  },\n  {\n   \"value\": \"0.93\",\n   \"label\": \"Geo surrogate fidelity R2\"\n  }\n ],\n \"section_01\": \"GeoSensitivity is from [[t:random-donor location masking]] in one XGBoost model (panel 02: count and seed); each perturbation masks [[n:5]]–[[n:10]] areas. The expert reference was [[t:drawn blind]] to outputs. Old Town is the most variable area across seeds ([[n:3.4%]] of its mean); Feature branch ranks are more reproducible.\",\n \"section_02\": \"The coefficient [[t:sign is not a direction]] of crime. Local LISA p-values are [[t:unadjusted]] for multiple testing. Old Town’s dominance needs [[t:separate model review]]. GeoSensitivity partly reflects predicted crime level, not only geographic influence.\",\n \"footer\": \"Associational attribution; not a basis for individual or community decisions.\"\n}",
       "content": {
         "headline": "The explanation is [[t:traceable and reproducible]]; four explicit [[t:limitations]] require review.",
         "tiles": [
@@ -572,9 +572,9 @@
             "label": "Geo surrogate fidelity R2"
           }
         ],
-        "section_01": "GeoSensitivity is derived from a single [[t:XGBoost]] model using [[t:random-donor location masking]] (panel 02 for count and seed); each perturbation masks [[n:5]]–[[n:10]] areas. The expert reference was [[t:drawn blind]] to outputs. The most variable area is [[t:Old Town]] ([[n:3.4%]] of its mean); Feature branch reproducibility is higher.",
-        "section_02": "The [[t:sign is not a direction]] of crime. Local LISA p-values are [[t:unadjusted]] for multiple testing. [[t:Old Town]] dominates GeoSensitivity and needs [[t:separate model review]]. GeoSensitivity partly reflects predicted crime level.",
-        "footer": "Associational only; not a basis for individual or community decisions."
+        "section_01": "GeoSensitivity is from [[t:random-donor location masking]] in one XGBoost model (panel 02: count and seed); each perturbation masks [[n:5]]–[[n:10]] areas. The expert reference was [[t:drawn blind]] to outputs. Old Town is the most variable area across seeds ([[n:3.4%]] of its mean); Feature branch ranks are more reproducible.",
+        "section_02": "The coefficient [[t:sign is not a direction]] of crime. Local LISA p-values are [[t:unadjusted]] for multiple testing. Old Town’s dominance needs [[t:separate model review]]. GeoSensitivity partly reflects predicted crime level, not only geographic influence.",
+        "footer": "Associational attribution; not a basis for individual or community decisions."
       },
       "checks": {
         "ok": true,

@@ -454,10 +454,10 @@
       "geo_fidelity_r2": 0.9295843061280951,
       "geo_att_stability_jaccard_mean": 1.0,
       "geo_att_stability_spearman_mean": 0.9785287835149652,
-      "feature_faithfulness_top_minus_random": 4.498649280145054,
-      "feature_faithfulness_empirical_p": 0.00999000999000999,
-      "geo_faithfulness_top_minus_random": 1.2728430531426076,
-      "geo_faithfulness_empirical_p": 0.000999000999000999,
+      "feature_intervention_top_minus_random": 4.498649280145054,
+      "feature_intervention_empirical_p": 0.00999000999000999,
+      "geo_intervention_top_minus_random": 1.2728430531426076,
+      "geo_intervention_empirical_p": 0.000999000999000999,
       "feature_neighbour_addition_spearman_mean": 0.9991101223581758,
       "feature_expert_accuracy": {
         "intersection": 7,
@@ -666,11 +666,11 @@
       "ok": true,
       "provider": "openai",
       "model": "gpt-4.1",
-      "timestamp": "2026-11-09T13:06:14.409074+00:00",
+      "timestamp": "2026-11-09T13:50:43.916859+00:00",
       "prompt_version": "geosmile-hull-v9",
-      "raw": "{\n \"headline\": \"The model is [[t:most sensitive]] to [[t:Old Town]]'s location and recent crime signals.\",\n \"tiles\": [\n  {\n   \"value\": \"1/168\",\n   \"label\": \"Old Town, GeoSensitivity rank\"\n  },\n  {\n   \"value\": \"50%\",\n   \"label\": \"Old Town, recent-month reliance\"\n  },\n  {\n   \"value\": \"25\",\n   \"label\": \"Areas up >25% crime\"\n  },\n  {\n   \"value\": \"+38%\",\n   \"label\": \"Dairycoates, recorded change\"\n  }\n ],\n \"section_01\": \"The model is [[t:most sensitive]] to [[t:Old Town]]'s location (rank [[n:1/168]]). Across Hull, the six-month crime average is a median [[n:43%]] of local explanations, with recent months at [[n:14%]]. Old Town stands out: [[n:50%]] of its explanation comes from [[t:recent months]], ahead of Dairycoates ([[n:30%]]) and Sculcoates ([[n:31%]]).\",\n \"section_02\": \"Hull's recorded crime rose [[n:3.6%]] in the last three months versus the six before. Of [[n:148]] areas, [[n:25]] [[t:rose by over a quarter]] and [[n:25]] fell as much. [[t:Dairycoates]] rose [[n:38%]] where the model also leans on recent months; [[t:Old Town]] stayed [[t:stable]] at about [[n:217]] crimes a month ([[n:2%]] up).\",\n \"footer\": \"Model reliance and recorded counts are not a basis for deployment.\"\n}",
+      "raw": "{\n \"headline\": \"The model is [[t:most sensitive]] to [[t:Old Town]] and leans heavily on [[t:recent months]] there.\",\n \"tiles\": [\n  {\n   \"value\": \"1/168\",\n   \"label\": \"Old Town, GeoSensitivity rank\"\n  },\n  {\n   \"value\": \"50%\",\n   \"label\": \"Old Town, recent-month reliance\"\n  },\n  {\n   \"value\": \"25\",\n   \"label\": \"Areas up >25% in crime\"\n  },\n  {\n   \"value\": \"+38%\",\n   \"label\": \"Dairycoates, recorded change\"\n  }\n ],\n \"section_01\": \"The model is [[t:most sensitive]] to [[t:Old Town]]'s location (rank [[n:1/168]]). Across Hull, the six-month average is a median [[n:43%]] of local explanations, while recent months are [[n:14%]]. Old Town stands out, with [[n:50%]] from [[t:recent months]], ahead of Dairycoates ([[n:30%]]) and Sculcoates ([[n:31%]]).\",\n \"section_02\": \"Hull-wide, recorded crime rose [[n:4%]] in the last three months versus the six before. Of [[n:148]] areas, [[n:25]] [[t:rose by over a quarter]] and [[n:25]] fell as much. [[t:Dairycoates]] rose [[n:38%]] where the model also leans on recent months; Old Town stayed [[t:stable]] at about [[n:217]] crimes a month ([[n:2%]] up).\",\n \"footer\": \"Model reliance and recorded counts are not a basis for deployment.\"\n}",
       "content": {
-        "headline": "The model is [[t:most sensitive]] to [[t:Old Town]]'s location and recent crime signals.",
+        "headline": "The model is [[t:most sensitive]] to [[t:Old Town]] and leans heavily on [[t:recent months]] there.",
         "tiles": [
           {
             "value": "1/168",
@@ -682,15 +682,15 @@
           },
           {
             "value": "25",
-            "label": "Areas up >25% crime"
+            "label": "Areas up >25% in crime"
           },
           {
             "value": "+38%",
             "label": "Dairycoates, recorded change"
           }
         ],
-        "section_01": "The model is [[t:most sensitive]] to [[t:Old Town]]'s location (rank [[n:1/168]]). Across Hull, the six-month crime average is a median [[n:43%]] of local explanations, with recent months at [[n:14%]]. Old Town stands out: [[n:50%]] of its explanation comes from [[t:recent months]], ahead of Dairycoates ([[n:30%]]) and Sculcoates ([[n:31%]]).",
-        "section_02": "Hull's recorded crime rose [[n:3.6%]] in the last three months versus the six before. Of [[n:148]] areas, [[n:25]] [[t:rose by over a quarter]] and [[n:25]] fell as much. [[t:Dairycoates]] rose [[n:38%]] where the model also leans on recent months; [[t:Old Town]] stayed [[t:stable]] at about [[n:217]] crimes a month ([[n:2%]] up).",
+        "section_01": "The model is [[t:most sensitive]] to [[t:Old Town]]'s location (rank [[n:1/168]]). Across Hull, the six-month average is a median [[n:43%]] of local explanations, while recent months are [[n:14%]]. Old Town stands out, with [[n:50%]] from [[t:recent months]], ahead of Dairycoates ([[n:30%]]) and Sculcoates ([[n:31%]]).",
+        "section_02": "Hull-wide, recorded crime rose [[n:4%]] in the last three months versus the six before. Of [[n:148]] areas, [[n:25]] [[t:rose by over a quarter]] and [[n:25]] fell as much. [[t:Dairycoates]] rose [[n:38%]] where the model also leans on recent months; Old Town stayed [[t:stable]] at about [[n:217]] crimes a month ([[n:2%]] up).",
         "footer": "Model reliance and recorded counts are not a basis for deployment."
       },
       "checks": {

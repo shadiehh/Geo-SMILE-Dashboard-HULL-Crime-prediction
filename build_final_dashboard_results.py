@@ -11,8 +11,7 @@ the area's own value raises its prediction relative to the masking reference. Ru
 that convention was fixed carry the opposite sign. The sign of each stored file is measured here,
 against the data, and flipped only if needed, so rerunning this script is safe.
 
-ATT Faithfulness joins the Feature rows of the aligned run with the Geo rows of the random-donor
-run, the two sources Chapter 4 reports.
+ATT Faithfulness is carried for the Geo branch only (the random-donor run).
 """
 
 from __future__ import annotations
@@ -89,14 +88,7 @@ def write_metrics() -> None:
 
 def write_faithfulness() -> None:
     donor = pd.read_csv(OUT / "faithfulness_accuracy_r2" / "att_faithfulness_random_donor.csv")
-    aligned = pd.read_csv(OUT / "geo_aligned_design" / "models" / "att_faithfulness.csv")
-    aligned = aligned[(aligned["subset"] == "all") & (aligned["branch"] == "Feature")]
-    rows = donor[donor["branch"] == "Geo"].to_dict("records")
-    for _, row in aligned.iterrows():
-        measure = "att_accuracy" if "accuracy" in row["measure"].lower() else "att_auc"
-        rows.append({"branch": "Feature", "measure": measure, "n": 4000, "n_models": int(row["M"]),
-                     "pearson_r": row["pearson_r"], "pearson_p": row["p_two_sided"], "spearman_rho": row["spearman_rho"]})
-    pd.DataFrame(rows).to_csv(DEST / "att_faithfulness.csv", index=False)
+    donor[donor["branch"] == "Geo"].to_csv(DEST / "att_faithfulness.csv", index=False)
 
 
 def main() -> None:

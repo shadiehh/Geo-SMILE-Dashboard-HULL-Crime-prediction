@@ -51,14 +51,13 @@ def test_evaluation_matches_chapter_4(bundle):
     assert ev["geo_fidelity_r2"] == pytest.approx(0.9296, abs=1e-4)
     assert ev["consistency"]["feature"]["rank_spearman_mean"] == pytest.approx(0.915, abs=1e-3)
     assert ev["consistency"]["geo"]["rank_spearman_mean"] == pytest.approx(0.904, abs=1e-3)
-    assert ev["feature_faithfulness_top_minus_random"] == pytest.approx(4.4986, abs=1e-4)
-    assert ev["geo_faithfulness_top_minus_random"] == pytest.approx(1.2728, abs=1e-4)
+    assert ev["feature_intervention_top_minus_random"] == pytest.approx(4.4986, abs=1e-4)
+    assert ev["geo_intervention_top_minus_random"] == pytest.approx(1.2728, abs=1e-4)
 
 
 def test_faithfulness_table_matches_chapter_4():
     table = pd.read_csv("outputs/dashboard_final/att_faithfulness.csv").set_index(["branch", "measure"])["pearson_r"]
-    assert table["Feature", "att_accuracy"] == pytest.approx(-0.01, abs=0.005)
-    assert table["Feature", "att_auc"] == pytest.approx(0.17, abs=0.005)
+    assert "Feature" not in table.index.get_level_values("branch")
     assert table["Geo", "att_accuracy"] == pytest.approx(0.32, abs=0.005)
     assert table["Geo", "att_auc"] == pytest.approx(0.28, abs=0.005)
 
