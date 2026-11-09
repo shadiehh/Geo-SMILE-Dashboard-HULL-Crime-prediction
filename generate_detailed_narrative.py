@@ -37,6 +37,9 @@ Crime history is [[n:63%]] of local importance (it is 63.47%, so never write 64%
 "Crime, 6-month average", never "Crime roll mean 6".
 """
 ROLE_RULES = {
+    "police": """
+The largest rise is 90%, computed from 10.5 to 20.0 crimes a month: never write 91%.
+""",
     "manager": LABEL_AND_SHARE_RULE + """
 The top area is about [[n:2.6]] times the next: write "about", never "over" or "more than".
 The [[n:8%]] combined share belongs to all twelve low-weight features together. Say that twelve features

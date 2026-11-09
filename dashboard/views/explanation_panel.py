@@ -47,9 +47,13 @@ def _generate(
     *,
     force: bool,
     mode: str | None = None,
+    area_rule: str = "",
+    retry_note: str = "",
 ) -> LLMResponse:
     spec = cm.SPECS.get(stakeholder["id"]) if mode else None
     version = f"{SYSTEM_PROMPT_VERSION}+{spec['version'][mode]}" if spec else SYSTEM_PROMPT_VERSION
+    if area_rule:
+        version += "+area-v6"
     key = evidence_hash(
         provider=provider.name,
         model=provider.model,
@@ -65,7 +69,8 @@ def _generate(
         cached = cache_get(key)
         if cached is not None:
             return cached
-    extra = ({"addendum": spec["addenda"][mode], "user_suffix": cm.user_suffix(mode, stakeholder["id"])}
+    extra = ({"addendum": spec["addenda"][mode] + area_rule,
+              "user_suffix": ((cm.user_suffix(mode, stakeholder["id"]) or "") + retry_note) or None}
              if spec else {})
     response = provider.generate(
         GEOSMILE_SYSTEM_PROMPT,
@@ -89,6 +94,43 @@ def _checks(text: str, evidence: dict, mode: str, spec: dict | None = None) -> d
         return {"ok": False, "problems": [f"not valid JSON: {exc}"]}
     limits = (spec or {}).get("limits" if mode == "short" else "comprehensive_limits")
     return cm.check(content, evidence, mode, limits)
+
+
+AREA_ATTEMPTS = 3
+AREA_RETRY_NOTE = """
+
+Your previous answer, below, failed these checks: {problems}.
+Return the corrected JSON object and nothing else. Keep the same findings, add no new figure, and fix only what failed.
+
+PREVIOUS ANSWER:
+{previous}
+"""
+
+
+def generate_area_card(bundle: HullBundle, stakeholder_id: str, lsoa: str) -> LLMResponse:
+    """A short card for one area, retried with the checker's feedback. Check usage['checks'] before showing it."""
+    spec = cm.SPECS[stakeholder_id]
+    evidence = build_evidence(bundle, stakeholder_id=stakeholder_id, current_map_view="geo_sensitivity", scope="lsoa",
+                              selected_lsoa=lsoa, user_question=spec["question"], output_mode="dashboard_mode")
+    cm.add_evidence(evidence, stakeholder_data(), stakeholder_id, "short", focus=lsoa)
+    if stakeholder_id == "police":  # the model kept citing this as the six-month share
+        evidence["police_signals"]["crime_signals"].pop("hull_median_crime_history_share", None)
+    provider = _providers_for("openai", "short")[0]
+    stakeholder = {"id": stakeholder_id, "label": STAKEHOLDERS[stakeholder_id]}
+    note = ""
+    for attempt in range(AREA_ATTEMPTS):
+        response = _generate(provider, evidence, stakeholder, spec["question"], force=attempt > 0, mode="short",
+                             area_rule=cm.AREA_RULES[stakeholder_id], retry_note=note)
+        if not response.ok:
+            return response
+        checks = response.usage["checks"]
+        wording = cm.area_card_problems(stakeholder_id, response.text, evidence)
+        if wording:
+            checks = response.usage["checks"] = {"ok": False, "problems": [*checks["problems"], *wording]}
+        if checks["ok"]:
+            return response
+        note = AREA_RETRY_NOTE.format(problems="; ".join(response.usage["checks"]["problems"]), previous=response.text)
+    return response
 
 
 def _show_card(response: LLMResponse, mode: str, stakeholder_id: str) -> None:
@@ -189,7 +231,7 @@ def render_explanation_panel(
         user_question=follow_up.strip() or (cm.SPECS[stakeholder_id]["question"] if mode else None),
     )
     if mode:
-        cm.add_evidence(evidence, data, stakeholder_id, mode)
+        cm.add_evidence(evidence, data, stakeholder_id, mode, focus=selected_lsoa if scope == "lsoa" else None)
     evidence["local_attribution_patterns"] = build_local_attribution_evidence(
         bundle.local_features,
         bundle.global_features,

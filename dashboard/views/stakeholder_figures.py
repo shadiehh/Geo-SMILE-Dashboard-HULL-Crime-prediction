@@ -619,6 +619,10 @@ STAKEHOLDER_PANELS: dict[str, Callable[[StakeholderData, str, str], list[Callabl
     # Short police card: the three card panels, Old Town outlined. GeoSensitivity stays in the
     # text and tiles; its map is the dashboard's main view and the planner card's map 01.
     "police_short": lambda d, a, b: [lambda: recent_share_map(d, cm.CENTRE), lambda: trend_map(d, cm.CENTRE)],
+    # Live cards for the area the reader selects.
+    "public_area": lambda d, a, b: [lambda: geo_map(d, a, plain=True), lambda: feature_bars(d, a, 8, plain=True)],
+    "planner_area": lambda d, a, b: [lambda: geo_map(d, a), lambda: built_share_map(d, a)],
+    "police_area": lambda d, a, b: [lambda: recent_share_map(d, a), lambda: trend_map(d, a)],
     "manager": lambda d, a, b: [lambda: ranked_bars(d, a), lambda: top20_map(d, a), lambda: category_bars(d, a)],
     # Short manager card: where (top-20 map) and what (feature categories, Hull against Bilton Grange,
     # the most sensitive area not led by crime history).

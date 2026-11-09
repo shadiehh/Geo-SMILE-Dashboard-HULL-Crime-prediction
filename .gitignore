@@ -11,3 +11,6 @@ Police.uk.zip
 
 # Archive duplicate of outputs/xgboost_n4000_results/
 outputs/xgboost_n4000_results.rar
+
+# Live card cache
+outputs/dashboard_llm_cache/

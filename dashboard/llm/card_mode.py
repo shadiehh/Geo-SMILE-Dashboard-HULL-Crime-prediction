@@ -245,7 +245,7 @@ def built_feature_shares(d: StakeholderData, lsoa: str | None = None) -> pd.Seri
     return (values[list(BUILT)].groupby(BUILT).sum() / float(values.sum())).sort_values(ascending=False)
 
 
-def built_environment_block(d: StakeholderData) -> dict:
+def built_environment_block(d: StakeholderData, focus: str | None = None) -> dict:
     share = built_share_table(d)
 
     def rec(code: str) -> dict:
@@ -259,11 +259,18 @@ def built_environment_block(d: StakeholderData) -> dict:
             "dominant_built_feature": row["dominant_built_feature"],
         }
 
-    mag = d.local.abs().loc[CENTRE]
-    crime = [c for c in mag.index if c.startswith("crime_")]
-    top_local = [{"feature": f, "share_of_local_importance": round(float(v / mag.sum()), 3)}
-                 for f, v in mag.sort_values(ascending=False).head(5).items()]
-    return {
+    def area(code: str) -> dict:
+        mag = d.local.abs().loc[code]
+        crime = [c for c in mag.index if c.startswith("crime_")]
+        return {
+            **rec(code), "geo_rank": int(d.geo.loc[code, "geo_rank"]), "geo_rank_of": d.n,
+            "crime_history_share": round(float(mag[crime].sum() / mag.sum()), 3),
+            "crime_history_features": crime,
+            "top_local_features": [{"feature": f, "share_of_local_importance": round(float(v / mag.sum()), 3)}
+                                   for f, v in mag.sort_values(ascending=False).head(5).items()],
+        }
+
+    block = {
         "definition": (
             "Share of each LSOA's total local Feature importance (|local coefficient| summed over "
             "all 30 Feature players) that comes from the 12 built-environment players: area, "
@@ -278,14 +285,12 @@ def built_environment_block(d: StakeholderData) -> dict:
         "median_lsoa_share": round(float(share["built_share"].median()), 3),
         "highest_built_share_lsoas": [rec(c) for c in share.index[:N_TOP]],
         "dominant_feature_counts_top20": share.head(20)["dominant_built_feature"].value_counts().to_dict(),
-        "rank1_geo_sensitivity_lsoa": {
-            **rec(CENTRE), "geo_rank": 1, "geo_rank_of": 168,
-            "crime_history_share": round(float(mag[crime].sum() / mag.sum()), 3),
-            "crime_history_features": crime,
-            "top_local_features": top_local,
-        },
+        "rank1_geo_sensitivity_lsoa": area(CENTRE),
         "limitation": "Attribution shares describe model behaviour; they are not planning targets.",
     }
+    if focus:
+        block["selected_area"] = area(focus)
+    return block
 
 
 def add_planner_evidence(evidence: dict, d: StakeholderData, mode: str) -> dict:
@@ -431,7 +436,11 @@ def recorded_trend(d: StakeholderData) -> tuple[pd.DataFrame, list[str], list[st
     return out, months(recent), months(previous)
 
 
-def police_block(d: StakeholderData) -> dict:
+def _versus_median(value: float, median: float) -> str:
+    return "about the same as" if abs(value - median) <= 0.02 else ("above" if value > median else "below")
+
+
+def police_block(d: StakeholderData, focus: str = CENTRE) -> dict:
     sig = crime_signal_shares(d)
     trend, recent_months, previous_months = recorded_trend(d)
     sig = sig.join(trend)
@@ -448,7 +457,7 @@ def police_block(d: StakeholderData) -> dict:
             "leading_feature": plain_label(str(r["leading_feature"])),
             "previous_mean_monthly_crime": round(float(r["previous_mean"]), 1),
             "recent_mean_monthly_crime": round(float(r["recent_mean"]), 1),
-            "recorded_change": None if pd.isna(r["change"]) else round(float(r["change"]), 3),
+            "recorded_change": None if pd.isna(r["change"]) else round(float(r["change"]), 4),
         }
 
     assessed = sig[sig["assessed"]]
@@ -484,7 +493,9 @@ def police_block(d: StakeholderData) -> dict:
             "largest_falls": [rec(c) for c in big["change"].nsmallest(3).index],
             "top10_recent_share_rising_over_quarter": int(rising.reindex(top_recent, fill_value=False).sum()),
         },
-        "focus_lsoa": {**rec(CENTRE), "geo_rank": int(d.geo.loc[CENTRE, "geo_rank"]), "geo_rank_of": d.n},
+        "focus_lsoa": {**rec(focus), "geo_rank": int(d.geo.loc[focus, "geo_rank"]), "geo_rank_of": d.n,
+                       "recent_share_vs_hull_median": _versus_median(sig.loc[focus, "recent_share"],
+                                                                     sig["recent_share"].median())},
         "limitation": "Model reliance and recorded counts are not a basis for deployment, enforcement or targeting.",
     }
 
@@ -979,10 +990,10 @@ PUBLIC_ILLUSTRATIVE_NARRATIVE = {
 }
 
 
-def public_block(d: StakeholderData) -> dict:
+def public_block(d: StakeholderData, focus: str = PUBLIC_FOCUS) -> dict:
     mag = d.local.abs()
     pooled = (mag.sum() / float(mag.values.sum())).sort_values(ascending=False)
-    f = PUBLIC_FOCUS
+    f = focus
     local = (mag.loc[f] / mag.loc[f].sum()).sort_values(ascending=False)
     g = d.geo.sort_values("geo_rank")
 
@@ -1012,7 +1023,8 @@ def public_block(d: StakeholderData) -> dict:
         "example_area": {
             "id": f, "name": str(d.geo.loc[f, "lsoa21nm"]), "locality_label": place(f),
             "major_streets": str(d.places.loc[f, "major_streets"]).split("; ")[:3],
-            "why_chosen": "a typical area: mid-ranked, total importance close to the Hull median",
+            "why_chosen": ("a typical area: mid-ranked, total importance close to the Hull median"
+                           if f == PUBLIC_FOCUS else "the area the reader selected; it may or may not be typical"),
             "own_data_rank": int(d.geo.loc[f, "geo_rank"]), "own_data_rank_of": d.n,
             "most_influential_features": [{"feature": plain_label(k), "share": round(float(v), 3)}
                                           for k, v in local.head(3).items()],
@@ -1242,11 +1254,61 @@ SPECS = {
 }
 
 
-def add_evidence(evidence: dict, d: StakeholderData, stakeholder: str, mode: str) -> dict:
+# Roles whose evidence changes with the area; the others have city-level evidence and keep archived cards.
+AREA_ROLES = ("public", "planner", "police")
+_AREA_INTRO = """
+
+AREA CARD OVERRIDE, taking precedence over the card addendum above: this card is about the single area the
+reader selected, and the headline and at least two tiles must be about that area. Do not call it typical,
+exceptional or high unless a supplied field says so, and do not call a GeoSensitivity value modest, strong or
+large. Hull-wide crime history is 63%: never write 64%. In headline and sections every digit sits inside [[n:...]],
+apart from LSOA codes: write "the most sensitive area", never "rank 1". Tile values and labels carry no markup.
+"""
+AREA_RULES = {
+    "public": _AREA_INTRO + """The selected area is public_overview.example_area and panel 02 shows it; it is not
+"a typical area". In section_02 compare its category_shares with Hull's to say whether its pattern is like
+Hull's. Tiles 1 and 2 are this area's own crime-history and built-environment shares from example_area.category_shares,
+each labelled as a share of what the model weighs in this area. Tiles 3 and 4 stay areas_led_by_six_month_average and least_influential_feature.
+Do not use crime_history_share or built_environment_share from tile_figures, and do not put the area's rank or
+leading feature share in a tile or section: panels 01 and 02 already print them.
+""",
+    "planner": _AREA_INTRO + """The selected area is built_environment_share.selected_area, outlined on both maps.
+section_01 gives its GeoSensitivity rank (geo_rank of geo_rank_of), crime-history share, built_share and
+dominant_built_feature, with the rank-1 area only as context. Use selected_area for these, never rank1_geo_sensitivity_lsoa.
+GeoSensitivity means the model is sensitive to an area's location: never write that the model relies on or depends
+on an area. The headline states what the model relies on in the selected area.
+""",
+    "police": _AREA_INTRO + """The selected area is police_signals.focus_lsoa, outlined on both panels; ignore any
+mention of Old Town being outlined. Say how its recent_share compares with the Hull median. If its recorded_change
+is null it was not assessed, because it has under five crimes a month: say so and do not call it stable, rising or falling.
+State no link or tendency between recent-month reliance and recorded change, beyond quoting
+top10_recent_share_rising_over_quarter as a count.
+Write "most sensitive" only if geo_rank is the top rank. Otherwise give the rank with no describing word: never
+"highly", "modestly" or "less" sensitive. Compare the area's recent_share only with hull_median_recent_share, using
+exactly the relation in focus_lsoa.recent_share_vs_hull_median, and never with a long-run figure. Do not describe the area's
+position among other areas ("just behind", "after") unless a supplied rank states it.
+""",
+}
+
+
+def area_card_problems(stakeholder: str, text: str, evidence: dict) -> list[str]:
+    """Wording faults that the figure checks cannot see."""
+    if stakeholder != "police":
+        return []
+    bare = _bare(text).lower()
+    problems = []
+    if evidence["police_signals"]["focus_lsoa"]["geo_rank"] != 1 and "most sensitive" in bare:
+        problems.append('"most sensitive" is true only of the top-ranked area: give the rank with no describing word')
+    if re.search(r"just behind|close behind|\bmodest|\bhighly sensitive", bare):
+        problems.append('remove "just behind", "modest" and "highly sensitive": no supplied field states them')
+    return problems
+
+
+def add_evidence(evidence: dict, d: StakeholderData, stakeholder: str, mode: str, focus: str | None = None) -> dict:
     """Attach the stakeholder's card block and the output mode to a build_evidence package (in place)."""
     key, block = SPECS[stakeholder]["block"]
     evidence["output_mode"] = {"short": "card_mode", "comprehensive": "comprehensive_mode"}[mode]
-    evidence[key] = block(d)
+    evidence[key] = block(d, focus) if focus and stakeholder in AREA_ROLES else block(d)
     evidence["card_technical"] = bool(SPECS[stakeholder].get("technical"))
     drop = SPECS[stakeholder].get("short_drop_limitations", ()) if mode == "short" else ()
     if drop:  # limitations about evidence the short card does not show

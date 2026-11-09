@@ -478,7 +478,7 @@
             "leading_feature": "Crime, 6-month average",
             "previous_mean_monthly_crime": 212.5,
             "recent_mean_monthly_crime": 217.0,
-            "recorded_change": 0.021
+            "recorded_change": 0.0212
           },
           {
             "id": "E01012871",
@@ -490,7 +490,7 @@
             "leading_feature": "Crime, 6-month average",
             "previous_mean_monthly_crime": 62.3,
             "recent_mean_monthly_crime": 62.0,
-            "recorded_change": -0.005
+            "recorded_change": -0.0053
           },
           {
             "id": "E01012889",
@@ -514,7 +514,7 @@
             "leading_feature": "Crime, 6-month average",
             "previous_mean_monthly_crime": 54.8,
             "recent_mean_monthly_crime": 47.3,
-            "recorded_change": -0.137
+            "recorded_change": -0.1368
           },
           {
             "id": "E01012884",
@@ -526,7 +526,7 @@
             "leading_feature": "Crime, 6-month average",
             "previous_mean_monthly_crime": 22.5,
             "recent_mean_monthly_crime": 24.3,
-            "recorded_change": 0.081
+            "recorded_change": 0.0815
           }
         ]
       },
@@ -546,7 +546,7 @@
             "leading_feature": "Crime, 6-month average",
             "previous_mean_monthly_crime": 10.5,
             "recent_mean_monthly_crime": 20.0,
-            "recorded_change": 0.905
+            "recorded_change": 0.9048
           },
           {
             "id": "E01012856",
@@ -558,7 +558,7 @@
             "leading_feature": "Green space %",
             "previous_mean_monthly_crime": 13.8,
             "recent_mean_monthly_crime": 23.0,
-            "recorded_change": 0.663
+            "recorded_change": 0.6627
           },
           {
             "id": "E01012800",
@@ -584,7 +584,7 @@
             "leading_feature": "Crime, 6-month average",
             "previous_mean_monthly_crime": 10.7,
             "recent_mean_monthly_crime": 3.3,
-            "recorded_change": -0.688
+            "recorded_change": -0.6875
           },
           {
             "id": "E01012833",
@@ -596,7 +596,7 @@
             "leading_feature": "Crime, 6-month average",
             "previous_mean_monthly_crime": 11.3,
             "recent_mean_monthly_crime": 6.3,
-            "recorded_change": -0.441
+            "recorded_change": -0.4412
           },
           {
             "id": "E01012862",
@@ -608,7 +608,7 @@
             "leading_feature": "Crime, 6-month average",
             "previous_mean_monthly_crime": 19.5,
             "recent_mean_monthly_crime": 11.3,
-            "recorded_change": -0.419
+            "recorded_change": -0.4188
           }
         ],
         "top10_recent_share_rising_over_quarter": 1
@@ -623,7 +623,7 @@
         "leading_feature": "Crime, 6-month average",
         "previous_mean_monthly_crime": 212.5,
         "recent_mean_monthly_crime": 217.0,
-        "recorded_change": 0.021,
+        "recorded_change": 0.0212,
         "geo_rank": 1,
         "geo_rank_of": 168
       },
@@ -739,13 +739,13 @@
       ]
     }
   },
-  "addendum": "\n---\n\n## 17. COMPREHENSIVE MODE ADDENDUM\n\noutput_mode is comprehensive_mode: a Police / Community Safety reader asked for the full\nbriefing, shown next to feature charts, maps and a crime timeline. This section replaces\nsection 14 \"Length and form\" and its bolding rule. Every other section, including prohibited\nclaims, the no-deployment rule and the self-check, still applies.\n\nWrite THREE short paragraphs separated by a blank line, with no headers or bullet lists.\nHard limit: at most 260 words in total, about 85 per paragraph. Count the words before\nanswering and cut detail (street names and LSOA codes first) until the count is within the\nlimit. Refer to the windows as \"the last three months\" and \"the six months before\", without\ndates. Name areas by locality; LSOA codes such as 029E are names, never [[n:...]] figures.\n\n1. Which signals lead local explanations across Hull (crime_signals.leading_feature_counts,\n   hull medians of crime-history, recent-month and long-run shares) and where recent months\n   carry the most (highest_recent_share_lsoas). A spatial statistic from\n   local_attribution_patterns describes only the quantity it names (for example reliance on\n   the leading feature); never attach it to the recent-month share. No GeoSensitivity or LISA\n   class in this briefing.\n2. Recorded change (recorded_trend): Hull-wide change, how many assessed areas rose or fell by\n   more than a quarter, the largest rises and falls by locality name, and the supplied overlap\n   between recent-month reliance and recorded rises. Do not infer a link the fields do not state.\n3. The focus LSOA in dashboard_figures, from the figure captions supplied: what leads its local\n   explanation and whether its recorded crime is persistent or changing. End by saying the area\n   is worth closer contextual review only if the evidence supports it, and that this is not a\n   basis for deployment.\n\nKey terms: 4-10 [[t:...]] spans in the whole text, not more. Mark only the findings and the\ntwo or three most important places or signals; leave other place names unmarked. Every\nfigure, including percentages in parentheses, is wrapped in [[n:...]].\n\nHighlighting markup (you choose what to mark):\n\n- wrap every figure you cite as [[n:...]], e.g. [[n:14%]];\n- wrap the key terms a planner should catch when scanning as [[t:...]]. This is required,\n  not optional: keep to the counts given above, each at most 4 words (the finding phrase\n  itself, the leading feature names, or the key place names). Before answering, count the\n  [[t:...]] spans and fix any count outside the range;\n- no other markup and no markdown bold.\n\nEvery figure must be copied or rounded from EVIDENCE_JSON (shares as percentages:\n0.139 -> 14%). Do not compute new figures and do not cite a figure that is not supplied.\n\nFINAL LENGTH RULE, overriding every word limit stated above: at most 180 words in total, as three\nparagraphs of about 60 words each. Keep only the strongest finding of each numbered point and drop\nthe rest. Use 4-8 [[t:...]] spans in the whole text. Wrap every figure in [[n:...]]; write small\ncounts outside a citation as words (\"one of the ten\"), and do not cite years or dates.\n",
+  "addendum": "\n---\n\n## 17. COMPREHENSIVE MODE ADDENDUM\n\noutput_mode is comprehensive_mode: a Police / Community Safety reader asked for the full\nbriefing, shown next to feature charts, maps and a crime timeline. This section replaces\nsection 14 \"Length and form\" and its bolding rule. Every other section, including prohibited\nclaims, the no-deployment rule and the self-check, still applies.\n\nWrite THREE short paragraphs separated by a blank line, with no headers or bullet lists.\nHard limit: at most 260 words in total, about 85 per paragraph. Count the words before\nanswering and cut detail (street names and LSOA codes first) until the count is within the\nlimit. Refer to the windows as \"the last three months\" and \"the six months before\", without\ndates. Name areas by locality; LSOA codes such as 029E are names, never [[n:...]] figures.\n\n1. Which signals lead local explanations across Hull (crime_signals.leading_feature_counts,\n   hull medians of crime-history, recent-month and long-run shares) and where recent months\n   carry the most (highest_recent_share_lsoas). A spatial statistic from\n   local_attribution_patterns describes only the quantity it names (for example reliance on\n   the leading feature); never attach it to the recent-month share. No GeoSensitivity or LISA\n   class in this briefing.\n2. Recorded change (recorded_trend): Hull-wide change, how many assessed areas rose or fell by\n   more than a quarter, the largest rises and falls by locality name, and the supplied overlap\n   between recent-month reliance and recorded rises. Do not infer a link the fields do not state.\n3. The focus LSOA in dashboard_figures, from the figure captions supplied: what leads its local\n   explanation and whether its recorded crime is persistent or changing. End by saying the area\n   is worth closer contextual review only if the evidence supports it, and that this is not a\n   basis for deployment.\n\nKey terms: 4-10 [[t:...]] spans in the whole text, not more. Mark only the findings and the\ntwo or three most important places or signals; leave other place names unmarked. Every\nfigure, including percentages in parentheses, is wrapped in [[n:...]].\n\nHighlighting markup (you choose what to mark):\n\n- wrap every figure you cite as [[n:...]], e.g. [[n:14%]];\n- wrap the key terms a planner should catch when scanning as [[t:...]]. This is required,\n  not optional: keep to the counts given above, each at most 4 words (the finding phrase\n  itself, the leading feature names, or the key place names). Before answering, count the\n  [[t:...]] spans and fix any count outside the range;\n- no other markup and no markdown bold.\n\nEvery figure must be copied or rounded from EVIDENCE_JSON (shares as percentages:\n0.139 -> 14%). Do not compute new figures and do not cite a figure that is not supplied.\n\nFINAL LENGTH RULE, overriding every word limit stated above: at most 180 words in total, as three\nparagraphs of about 60 words each. Keep only the strongest finding of each numbered point and drop\nthe rest. Use 4-8 [[t:...]] spans in the whole text. Wrap every figure in [[n:...]]; write small\ncounts outside a citation as words (\"one of the ten\"), and do not cite years or dates.\n\nThe largest rise is 90%, computed from 10.5 to 20.0 crimes a month: never write 91%.\n",
   "run": {
     "ok": true,
     "model": "gpt-4.1",
-    "timestamp": "2026-11-09T16:12:40.350092+00:00",
-    "prompt_version": "geosmile-hull-v9+police-comprehensive-v2+extended-200",
-    "text": "Across Hull, the [[t:leading signal]] in local explanations is [[t:Crime, 6-month average]], dominating in [[n:145]] areas; the median share of recent months is [[n:14%]]. The model leans most on recent months in [[t:Old Town]] (029E, [[n:50%]]), with lower but above-median shares in Dairycoates and Sculcoates. These are the main areas where recent crime carries much more weight than the Hull median.\n\nRecorded crime across Hull rose by [[n:4%]] in the last three months compared to the six months before, with [[n:25]] areas rising and [[n:25]] falling by more than a quarter. The largest rise was in [[t:Bransholme]] (006A, [[n:+91%]]), and the largest fall in [[t:East Ella]] (019C, [[n:-69%]]). Only one of the ten areas with highest recent-month reliance also saw a large recorded rise.\n\nIn [[t:Old Town]] (029E), the model explanation is led by [[t:Crime, 6-month average]], with recent months contributing [[n:50%]] and the long-run average [[n:32%]]. Recorded crime here is [[t:stable]], with a small rise from [[n:212.5]] to [[n:217.0]] crimes per month. This is not a basis for deployment or targeting.",
+    "timestamp": "2026-11-09T19:42:21.014709+00:00",
+    "prompt_version": "geosmile-hull-v9+police-comprehensive-v2+extended-200-corrected",
+    "text": "Across Hull, [[t:crime history]] is the leading explanation signal, with [[n:145]] of [[n:168]] LSOAs dominated by [[t:Crime, 6-month average]]. The Hull median share for recent months is [[n:14%]], but in [[t:Old Town]] and a few others, the model relies much more on recent crime, reaching [[n:50%]] in Old Town and over [[n:30%]] in Sculcoates and Dairycoates. The leading feature is [[t:Crime, 6-month average]] in all these areas.\n\nRecorded crime across Hull rose slightly overall by [[n:4%]] in the last three months compared to the six before. Of [[n:148]] assessed areas, [[n:25]] rose and [[n:25]] fell by more than a quarter. The largest rise was in [[t:Bransholme]] (up [[n:90%]]), while the largest fall was in East Ella (down [[n:69%]]). Only one of the ten areas where the model relies most on recent months also saw a recorded rise over a quarter.\n\nIn [[t:Old Town]], the model’s explanation is led by [[t:Crime, 6-month average]] and recent months, with crime history making up [[n:82%]] of the local explanation and recent months alone accounting for [[n:50%]]. Recorded crime here was broadly stable, rising just [[n:2%]] (from [[n:212.5]] to [[n:217.0]] per month). This is not a basis for deployment.",
     "checks": {
       "ok": true,
       "problems": []

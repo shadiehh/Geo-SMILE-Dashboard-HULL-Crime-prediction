@@ -26,8 +26,9 @@ import streamlit as st
 
 from dashboard.data.loader import compact_evaluation, load_hull_bundle
 from dashboard.data.schema import LSOA_ID, LSOA_NAME, MAP_VIEWS, PROVIDERS, STAKEHOLDERS, human_label
+from dashboard.llm import card_mode as cm
 from dashboard.views.attribution_patterns import render_attribution_patterns_section
-from dashboard.views.card_view import render_card, render_comparison, render_detailed
+from dashboard.views.card_view import render_area_card, render_card, render_comparison, render_detailed
 from dashboard.views.diagnostics import render_diagnostics_section
 from dashboard.views.explanation_panel import render_explanation_panel
 from dashboard.views.feature_panel import render_evaluation, render_feature_panel, render_global_features
@@ -113,14 +114,28 @@ def _selector(key: str, options, labels: dict, default: str):
     return choice
 
 
-def _page_card(role: str) -> None:
+def _page_card(bundle, role: str) -> None:
     st.markdown(f"<div class='gs-question'>{ROLE_QUESTIONS[role]}</div>", unsafe_allow_html=True)
     length = st.segmented_control("Length", ["Short card", "Detailed narrative"], default="Short card",
                                   key="narrative_length", label_visibility="collapsed")
     if length == "Detailed narrative":
         render_detailed(role)
-    else:
+        return
+    if role not in cm.AREA_ROLES:
+        st.caption("This role's evidence is city-level, so its card is the archived Hull-wide one.")
         render_card(role)
+        return
+    picker, _ = st.columns([1, 2])
+    with picker:
+        selected = _lsoa_picker(bundle)
+    if selected and _openai_secret("OPENAI_API_KEY"):
+        render_area_card(bundle, role, selected)
+        return
+    if selected:
+        st.info("Area cards are unavailable here because no API key is configured. Showing the Hull-wide card.")
+    else:
+        st.caption("Choose an area to generate its card. Showing the archived Hull-wide card.")
+    render_card(role)
 
 
 def _lsoa_picker(bundle) -> str | None:
@@ -227,12 +242,15 @@ def main() -> None:
     _header(bundle)
     page = _selector("page", list(PAGES), {p: p for p in PAGES}, PAGES[0])
     role = "public"
-    if page == "Stakeholder card" or (page == "Explore the map" and _live_briefings()):
+    if page == "Stakeholder card":
         st.markdown("<div class='gs-kicker'>Explain for</div>", unsafe_allow_html=True)
         role = _selector("role", list(STAKEHOLDERS), ROLE_LABELS, "public")
+    elif page == "Explore the map" and _live_briefings():
+        st.markdown("<div class='gs-kicker'>Explain for</div>", unsafe_allow_html=True)
+        role = _selector("map_role", list(cm.AREA_ROLES), ROLE_LABELS, "public")
 
     if page == "Stakeholder card":
-        _page_card(role)
+        _page_card(bundle, role)
     elif page == "Explore the map":
         _page_map(bundle, role)
     elif page == "Compare roles":
