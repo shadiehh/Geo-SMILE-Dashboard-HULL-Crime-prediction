@@ -448,9 +448,9 @@ def place_labels(bundle: HullBundle) -> list[tuple[float, float, str]]:
 
 def render_map(bundle: HullBundle, view: str, selected_lsoa: str | None, feature: str | None = None,
                opacity: float = 0.8, highlight: set[str] | None = None, month: str | None = None,
-               show_labels: bool = True) -> str | None:
+               show_labels: bool = True, key: str | None = None, height: int = 620) -> str | None:
     fig = build_map_figure(bundle, view, selected_lsoa, feature, month)
     names = {str(code): f"{str(name).replace('Kingston upon Hull ', '')} {place}".strip()
              for code, name, place in zip(bundle.lsoa[LSOA_ID], bundle.lsoa[LSOA_NAME], bundle.lsoa["locality_label"].fillna(""))}
-    return render_figure(fig, f"hull_map_{view}_{feature or ''}_{month or ''}", opacity=opacity, highlight=highlight, names=names,
+    return render_figure(fig, key or f"hull_map_{view}_{feature or ''}_{month or ''}", height=height, opacity=opacity, highlight=highlight, names=names,
                          tools=True, clickable=True, labels=place_labels(bundle) if show_labels else None)

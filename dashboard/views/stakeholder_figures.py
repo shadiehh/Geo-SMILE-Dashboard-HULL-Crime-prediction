@@ -613,7 +613,8 @@ STAKEHOLDER_PANELS: dict[str, Callable[[StakeholderData, str, str], list[Callabl
     # Short planner card: the two Hull-wide card maps, rank-1 LSOA outlined.
     "planner_short": lambda d, a, b: [lambda: geo_map(d, cm.CENTRE), lambda: built_share_map(d, cm.CENTRE)],
     # Comprehensive police view: leading signal, recent vs long-run, recorded change, timeline, features.
-    "police": lambda d, a, b: [lambda: geo_map(d, a), lambda: leading_feature_map(d, a), lambda: recent_share_map(d, a),
+    # No GeoSensitivity map here: beside the 6-month-average map, in the same colours, the two read as one measure.
+    "police": lambda d, a, b: [lambda: leading_feature_map(d, a), lambda: recent_share_map(d, a),
                                lambda: trend_map(d, a), lambda: crime_timeline(d, a),
                                lambda: category_bars(d, a), lambda: feature_bars(d, a, 8)],
     # Short police card: the three card panels, Old Town outlined. GeoSensitivity stays in the

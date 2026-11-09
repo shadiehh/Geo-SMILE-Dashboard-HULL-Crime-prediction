@@ -153,9 +153,15 @@ def _page_card(bundle, role: str) -> None:
         st.caption("This role's evidence is city-level, so its card is the archived Hull-wide one.")
         render_card(role)
         return
-    picker, _ = st.columns([1, 2])
+    picker, chooser = st.columns([1, 2.4], gap="medium")
     with picker:
         selected = _lsoa_picker(bundle)
+        st.caption("Choose an area here or click it on the map. Map: GeoSensitivity; the chosen area is outlined.")
+    with chooser:
+        clicked = render_map(bundle, "geo_sensitivity", selected, show_labels=False, key="card_area_map", height=430)
+    if clicked and clicked != selected:
+        st.session_state["selected_lsoa"] = clicked
+        st.rerun()
     if selected and _openai_secret("OPENAI_API_KEY"):
         render_area_card(bundle, role, selected)
         return
